@@ -1,0 +1,503 @@
+/**
+ * Custom Bootstrap and Theme Overrides
+ *
+ * Bootstrap designers: Feel free to remove all of the styles in this
+ * file to start a fresh new design. Most of the critical/functional
+ * styles are found within the other CSS files, with this one included last.
+ *
+ * Bootstrap and Hexo markdown style overrides would typically happen here.
+ */
+
+/* Globals */
+
+body {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  color: #555;
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  margin-top: 1em;
+  margin-bottom: 20px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: normal;
+  color: #333;
+}
+
+p, pre {
+  margin: 0 0 20px;
+}
+
+code {
+  background-color: #eeeeee;
+  font-size: 80%;
+}
+
+.fa { margin-right: 0.25em; }
+
+/* Buttons */
+.btn {
+  border-radius: 30px;
+}
+.btn-primary {
+  background-color: #428bca;
+  border-color: #337ab7;
+}
+.nav-pills>li>a {
+  border-radius: 30px;
+}
+
+/* Override Bootstrap's default container width
+    width: 970px;
+*/
+/* @media (min-width: 1100px) {
+  .container {
+    width: 1100px;
+  }
+}
+
+@media (min-width: 1450px) {
+  .container {
+    width: 1450px;
+  }
+} */
+@media (min-width: 1200px) {
+  .container {
+    width: 970px;
+  }
+}
+
+@media (min-width: 1450px) {
+  .container {
+    width: 1250px;
+  }
+}
+
+/*
+ * Masthead for nav
+ */
+
+.navbar {
+  background-color: #428bca;
+  -webkit-box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
+          box-shadow: inset 0 -2px 5px rgba(0,0,0,.1);
+}
+
+.navbar-inverse { border: 0; }
+
+.navbar-inverse .navbar-toggle {
+  border-color: #cdddeb;
+}
+.navbar-inverse .navbar-toggle .icon-bar {
+  background-color: #cdddeb;
+}
+
+.navbar-inverse .navbar-toggle:focus,
+.navbar-inverse .navbar-toggle:hover {
+  background-color: #65A2D6;
+}
+
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-nav>li>a {
+  color: #cdddeb;
+  font-weight: 500;
+}
+
+.navbar-inverse .navbar-collapse,
+.navbar-inverse .navbar-form {
+  border-color: #cdddeb;
+}
+
+.navbar-inverse .navbar-nav>li>a.active {
+  color: #fff;
+}
+
+@media (min-width: 768px) {
+  .navbar {
+    border-radius: 0;
+    min-height: 40px;
+  }
+  .col-sm-3 {
+    width: 20%;
+  }
+
+  /** The following may need modification depending on
+      the size of your `navbar-brand` (if enabled)*/
+  #main-menu-navbar {
+    margin-left: -30px;
+  }
+  .navbar-nav>li>a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  /*^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ */
+
+  .navbar-inverse .navbar-nav>li>a.active:after {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    margin-left: -5px;
+    vertical-align: middle;
+    content: " ";
+    border-right: 5px solid transparent;
+    border-bottom: 5px solid;
+    border-left: 5px solid transparent;
+  }
+
+}
+
+/*
+ * Blog header and description
+ */
+
+.blog-header {
+  padding-bottom: 10px;
+}
+.blog-title {
+  margin-top: 10px;
+  margin-bottom: 0;
+  font-size: 60px;
+  font-weight: normal;
+}
+.blog-description {
+  font-size: 20px;
+  color: #999;
+}
+#blog-logo {
+  display: block;
+  float: left;
+  border: 1px solid #ccc;
+  padding: 1px;
+  margin: 6px 10px 0 0;
+  width: 84px; height: 84px;
+  background-color: #fff;
+}
+
+/*
+ * Main column and sidebar layout
+ * font-size: 修改博客文章的字体大小
+ */
+
+.blog-main {
+  font-size: 19px;
+  line-height: 1.5;
+}
+.blog-main > article:last-of-type {
+  margin-bottom: 30px;
+}
+
+/* Sidebar modules for boxing content */
+.blog-sidebar > .sidebar-module:last-of-type {
+  margin-bottom: 30px;
+}
+
+.sidebar-module {
+  padding: 15px;
+  margin: 0 -15px 15px;
+}
+.sidebar-map h1 {
+  padding: 15px;
+  margin-top: 5px;
+  margin-bottom: 20px;
+  width: 50px;
+}
+.sidebar-module h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+.sidebar-module-inset {
+  padding: 15px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+}
+.sidebar-module-inset p:last-child,
+.sidebar-module-inset ul:last-child,
+.sidebar-module-inset ol:last-child {
+  margin-bottom: 0;
+}
+
+.sidebar-module-list {
+  padding-left: 0;
+  list-style: none;
+}
+.sidebar-module-list-child {
+  padding-left: 25px;
+}
+.sidebar-toc ol {
+  list-style: none;
+}
+.sidebar-toc li,
+.sidebar-recents li {
+  margin-bottom: 5px;
+}
+
+.page-header,
+.page-header h1 {
+  margin: 0 0 10px;
+}
+.page-header {
+  border: 0;
+}
+.page-header.tag-type h1:before {
+  display: inline-block;
+  font-family: FontAwesome;
+  content: "\f02b";
+  margin-right: 0.25em;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+.page-header.category-type h1:before {
+  display: inline-block;
+  font-family: FontAwesome;
+  content: "\f07b";
+  margin-right: 0.25em;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+/*
+ * Blog posts
+ */
+
+.article {
+  margin-bottom: 60px;
+}
+
+.article-header h1 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+.article-header h1 a {
+  color: #333;
+}
+.article-header h1 a:hover {
+  color: #23527c;
+  text-decoration: none;
+}
+
+.article-meta {
+  margin-bottom: 20px;
+  color: #999;
+  font-size: 0.9em;
+}
+.article-meta > * {
+  display: inline-block;
+  margin-right: 15px;
+}
+.article-meta a {
+  color: inherit;
+}
+
+.article-entry > ul,
+.article-entry > ol,
+.article-entry > .bs-callout {
+  margin: 0 0 20px;
+}
+.article-entry > * > li {
+  margin-bottom: 0.50em;
+}
+
+.article-entry .article-more-link {
+  margin: 15px 0;
+}
+.article-entry .thumbnail .caption {
+  padding: 0;
+}
+.article-entry>*:last-child {
+  margin-bottom: 20px;
+}
+
+/* article footer content */
+.article-footer {
+  font-size: 0.85em;
+  border-top: 1px solid #eee;
+  padding-top: 15px;
+}
+.article-footer:after { /* clearfix */
+  content: " ";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both;
+}
+.article-footer a {
+  color: #999;
+  text-decoration: none;
+}
+.article-footer a:hover {
+  color: #666;
+  text-decoration: underline;
+}
+
+/*
+ * Archives
+ */
+
+.archives-wrap {
+  margin-bottom: 30px;
+}
+
+.archive-year-wrap a {
+  color: #333;
+  text-decoration: none;
+}
+.archive-article .article-datetime a {
+  color: #999;
+  text-decoration: none;
+}
+.archive-article .article-tag-list a {
+  color: #999;
+  font-size: 0.9em;
+}
+.archive-article-header h1 { margin: 3px 0; }
+
+
+/*
+ * Pagination
+ */
+#page-nav {
+  text-align: center;
+}
+#page-nav .pagination {
+  margin-top: 0;
+  margin-bottom: 30px;
+}
+#page-nav .pagination .active>* {
+  background-color: #428bca;
+  border-color: #428bca;
+}
+#page-nav .pagination>li:last-child>* {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+}
+#page-nav .pagination>li:first-child>* {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+/*
+ * Footer
+ */
+
+.blog-footer {
+  margin-top: 15px;
+  padding: 20px 0;
+  color: #999;
+  text-align: center;
+  background-color: #f9f9f9;
+  border-top: 1px solid #e5e5e5;
+}
+.blog-footer p:last-child {
+  margin-bottom: 0;
+}
+
+#totop {
+  position: fixed;
+  bottom: 2em;
+  right: 2em;
+  cursor: pointer;
+}
+
+/* 以下都是博客本地搜索相关的CSS样式 */
+/*搜索框*/
+.search {
+  width: 78%;
+  height: 25px;
+  margin-top: 1px;
+  padding: 0;
+  font-family: inherit;
+  border: 2px solid transparent;
+  border-bottom: 2px solid #d3d3d3;
+  border-radius: 2px;
+  opacity: 0.65;
+  background: none;
+  display: inline;
+}
+.search:hover {
+  border: 2px solid #d3d3d3;
+  opacity: 1;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+
+/*搜索重置按钮*/
+#search-form .fa-times {
+  display: none;
+  padding: 1px 0.7em;
+  box-shadow: 0 0 3px rgba(0,0,0,0.15);
+  cursor: pointer;
+  color: #808080;
+}
+#search-form .fa-times:active {
+  background: #d3d3d3;
+}
+#search-form .fa-times:hover {
+  zoom: 1.1;
+  padding: 1px 0.6em;
+  border: 1px solid #d3d3d3;
+  box-shadow: 0 0 6px rgba(0,0,0,0.25);
+}
+
+/*搜索结果区*/
+#local-search-result {
+  margin: auto -8% auto -15%;
+  font-size: 0.9em;
+  text-align: left;
+  word-break: break-all;
+}
+
+#local-search-result ul.search-result-list li:hover {
+  font-weight: normal;
+}
+
+/*单条搜索结果*/
+#local-search-result li {
+  margin: 0.5em auto;
+  border-bottom: 2px solid #d3d3d3;
+}
+#local-search-result .search-result-list li:hover {
+  background: rgba(158,188,226,0.21);
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+/*匹配的标题*/
+#local-search-result a.search-result-title {
+  line-height: 1.2;
+  font-weight: bold;
+  color: #708090;
+}
+
+/*搜索预览段落*/
+#local-search-result p.search-result {
+  margin: 0.4em auto;
+  line-height: 1.2em;
+  max-height: 3.6em;
+  overflow: hidden;
+  font-size: 0.8em;
+  text-align: justify;
+  color: #808080;
+}
+
+/*匹配的关键词*/
+#local-search-result em.search-keyword {
+  color: #f58e90;
+  border-bottom: 1px dashed #f58e90;
+  font-weight: bold;
+  font-size: 0.85em;
+}
+
+/*无匹配搜索结果时显示*/
+p.no-result {
+  display: none;
+  margin: 2em 0 2em 2%;
+  padding-bottom: 0.5em;
+  text-align: left;
+  color: #808080;
+  font-family: font-serif serif;
+  border-bottom: 2px solid #d3d3d3;
+}

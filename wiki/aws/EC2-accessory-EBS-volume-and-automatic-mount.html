@@ -1,0 +1,143 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/wiki/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/wiki/static/css/tango.css">
+    <link rel="shortcut icon" href="/wiki/static/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/wiki/static/images/favicon.png" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>EC2附件EBS卷及自动挂载 - Wiki</title>
+    <meta name="keywords" content="wiki, simple"/>
+    <meta name="description" content=""/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+
+    <div id="container" style="position:relative">
+      <button type="button" style="position:absolute; left:0; margin-top: -18px; margin-left: -1px;" class="blog-button .btn"><a href="https://longshilin.com/blog">Back Blog</a></button>
+      <!-- <div id="google_translate_element" style="position:absolute; right:0; margin-top: -22px; margin-right: -1px;"></div> -->
+      
+<div id="header">
+  <div class="post-nav"><a href="/wiki/">Home</a>&nbsp;&#187;&nbsp;<a href="/wiki/#aws">aws</a>&nbsp;&#187;&nbsp;EC2附件EBS卷及自动挂载
+    <span class="updated">Page Updated&nbsp;
+      2018-09-05 09:54
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">EC2附件EBS卷及自动挂载</div>
+
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#ec2ebs">EC2附件EBS卷</a></li>
+<li><a href="#ebs">EBS卷的自动挂载</a></li>
+</ul>
+</div>
+<h1 id="ec2ebs">EC2附件EBS卷</h1>
+<p>1.使用 lsblk 命令可查看可用磁盘设备及其装载点 (如果适用)，以帮助您确定要使用的正确设备名称。</p>
+<div class="hlcode"><pre><span class="n">lsblk</span>
+</pre></div>
+
+
+<p>2.使用 sudo file -s device 命令可列出特殊信息，例如文件系统类型。</p>
+<div class="hlcode"><pre><span class="n">sudo</span> <span class="n">file</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">xvdf</span>  
+<span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">xvdf</span><span class="o">:</span> <span class="n">Linux</span> <span class="n">rev</span> <span class="mf">1.0</span> <span class="n">ext4</span> <span class="n">filesystem</span> <span class="n">data</span><span class="p">,</span> <span class="n">UUID</span><span class="o">=</span><span class="mf">26f</span><span class="mi">6</span><span class="n">c13d</span><span class="o">-</span><span class="n">d113</span><span class="o">-</span><span class="mi">4731</span><span class="o">-</span><span class="mi">9771</span><span class="o">-</span><span class="mf">7f</span><span class="n">abee9be6f1</span> <span class="p">(</span><span class="n">needs</span> <span class="n">journal</span> <span class="n">recovery</span><span class="p">)</span> <span class="p">(</span><span class="n">extents</span><span class="p">)</span> <span class="p">(</span><span class="mi">64</span><span class="n">bit</span><span class="p">)</span> <span class="p">(</span><span class="n">large</span> <span class="n">files</span><span class="p">)</span> <span class="p">(</span><span class="n">huge</span> <span class="n">files</span><span class="p">)</span>
+</pre></div>
+
+
+<p>3.（可选）使用以下命令在卷上创建 ext4 文件系统。用设备名称 (例如，/dev/xvdf) 替换 device_name。根据应用程序的要求或操作系统的限制，您可以选择其他文件系统类型，如 ext3 或 XFS。此步骤假定您在装载空的卷。如果要装载已包含数据的卷 (如，从快照还原的卷)，请勿在装载卷之前使用 mkfs (而应跳到下一步)。否则，您会格式化卷并删除现有数据。</p>
+<div class="hlcode"><pre><span class="n">sudo</span> <span class="n">mkfs</span> <span class="o">-</span><span class="n">t</span> <span class="n">ext4</span> <span class="n">device_name</span>
+</pre></div>
+
+
+<p>4.使用以下命令创建卷的装载点目录。装载点是卷在文件系统树中的位置，以及您在安装卷之后读写文件的位置。替换 mount_point 的位置，如 /data。</p>
+<div class="hlcode"><pre><span class="n">sudo</span> <span class="n">mkdir</span> <span class="o">/</span><span class="n">data</span>
+</pre></div>
+
+
+<p>5.使用以下命令在您刚才创建的位置装载卷。</p>
+<div class="hlcode"><pre><span class="n">mount</span> <span class="n">device_name</span>  <span class="n">mount_point</span>
+</pre></div>
+
+
+<h1 id="ebs">EBS卷的自动挂载</h1>
+<p>要在每一次系统重启时自动装载此 EBS 卷，可在 /etc/fstab 文件中为该设备添加一个条目。<br />
+a. 创建 /etc/fstab 文件的备份，当您进行编辑时意外损坏或删除了此文件的情况下，可以使用该备份。</p>
+<div class="hlcode"><pre><span class="n">sudo</span> <span class="n">cp</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">fstab</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">fstab</span><span class="p">.</span><span class="n">orig</span>
+</pre></div>
+
+
+<p>b. 打开 /etc/fstab 文件</p>
+<div class="hlcode"><pre><span class="n">sudo</span> <span class="n">vi</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">fstab</span>
+</pre></div>
+
+
+<p>使用以下格式在该文件末尾为您的卷添加一个新行：device_name   mount_point   file_system_type   fs_mntops   fs_freq   fs_passno此行的最后三个字段分别是文件系统装载选项、文件系统转储频率和启动时的文件系统检查顺序。如果您不知道这些值应该是什么值，请使用下面的示例中的值 (defaults,nofail 0 2)。</p>
+<p>c. 检查两个命令中任意一个的输出，以找到 /dev/xvda1 的 UUID：</p>
+<div class="hlcode"><pre><span class="n">sudo</span> <span class="n">file</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">xvda1</span>
+<span class="n">ls</span> <span class="o">-</span><span class="n">al</span> <span class="o">/</span><span class="n">dev</span><span class="o">/</span><span class="n">disk</span><span class="o">/</span><span class="n">by</span><span class="o">-</span><span class="n">uuid</span><span class="o">/</span>
+</pre></div>
+
+
+<p>假设您找到具有 UUID de9a1ccd-a2dd-44f1-8be8-0123456abcdef 的 /dev/xvda1，您可以将以下条目添加到 /etc/fstab 以在装载点 /data装载 ext4 文件系统：</p>
+<div class="hlcode"><pre><span class="n">UUID</span><span class="o">=</span><span class="mf">26f</span><span class="mi">6</span><span class="n">c13d</span><span class="o">-</span><span class="n">d113</span><span class="o">-</span><span class="mi">4731</span><span class="o">-</span><span class="mi">9771</span><span class="o">-</span><span class="mf">7f</span><span class="n">abee9be6f1</span>     <span class="o">/</span><span class="n">data</span>   <span class="n">ext4</span>    <span class="n">defaults</span><span class="p">,</span><span class="n">nofail</span>      <span class="mi">0</span>     <span class="mi">2</span>
+</pre></div>
+
+
+<p>d. 在您将新条目添加到 /etc/fstab 后，必须检查您的条目是否有效。运行 sudo mount -a 命令，以便装载 /etc/fstab 中的所有文件系统。</p>
+<div class="hlcode"><pre><span class="n">sudo</span> <span class="n">mount</span> <span class="o">-</span><span class="n">a</span>
+</pre></div>
+
+
+<p>如果上述命令未产生错误，说明您的 /etc/fstab 文件正常，您的文件系统会在下次启动时自动装载。</p>
+<p><em>修改记录</em></p>
+<blockquote>
+<p>2018-09-05 新增该条目</p>
+</blockquote>
+
+  <br>
+  <!-- Valine comment -->
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments.</a></noscript>
+  </div>
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script>
+    new Valine({
+      av: AV,
+      el: '#disqus_thread',
+      appId: 'pMgClbOyqp0K4AQxpMUJuskE-9Nh9j0Va',
+      appKey: 'CzXcgRguvCJa0EkILaN5F4HX',
+      notify: false,
+      verify: false,
+      avatar: 'mm',
+      placeholder: 'write a comment...',
+      visitor: true
+    });
+  </script>
+      <br><br>
+
+    </div>
+
+    <div id="footer">
+
+      <span>
+          <p>Copyright © 2018 <a href="https://longshilin.com/wiki" target="_blank">Longshilin</a>.</p>
+          <!-- 署名协议 -->
+          <p><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>&nbsp; |&nbsp;
+            Site Generated 2018-11-07 08:33:39 &nbsp; |&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>
+
+<!-- add google translate - ->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
+  }
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+-->

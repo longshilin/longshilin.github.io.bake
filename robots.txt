@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+Disallow: /assets/
+Disallow: /images/
+Disallow: /blog/js/
+Disallow: /blog/css/
+Disallow: /blog/fonts/
+Disallow: /blog/highlight/
+Disallow: /blog/fancybox/
+Disallow: /blog/1233/
+Sitemap: /sitemap.xml
+Sitemap: /baidusitemap.xml
