@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title>2018-11-08</title>
+      <link href="/blog/db6301b3.html"/>
+      <url>/blog/db6301b3.html</url>
+      
+        <content type="html"><![CDATA[<p>2018-11-08 日计划来啦！！！</p><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的，相信我 😔</p><p>💁 快来呀</p></div><blockquote><p>龙龙的计划 🐲</p></blockquote><ul><li>工作上的开发内容</li><li>AWS认证书籍📚 第六章（继续完成）</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 每日计划 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> plan </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>2018-11-07</title>
       <link href="/blog/4bdc1c22.html"/>
       <url>/blog/4bdc1c22.html</url>
@@ -183,17 +206,6 @@
             <tag> plan </tag>
             
         </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>跟着陈皓洞悉技术本质</title>
-      <link href="/blog/b967c0a5.html"/>
-      <url>/blog/b967c0a5.html</url>
-      
-        <content type="html"><![CDATA[]]></content>
-      
-      
       
     </entry>
     
@@ -484,7 +496,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX19gg7U3YmWIfsVaVp1WEXuH1f0v0YrOGw0Gc5L7CvM5CzKLxvQbrq8WnytKZSPcIOQEwEFLPPqGvrEqMK0JR3KkHNfUC98dkzimxslmH5tyTVpvviDt7obuemGzixHuvWZ6e6IBTQMW5JmAecFQcJoR3QfgPQZC9Rjk2pSbPQmum6nEYtdThyUtSsKj7hIDJ28xOW7ZzlO/3JcQ8ugbWWwmSEx0wivBGANxk0aR+dVmujtFqc1zGpUc+ynlEIIcEORK+V5yHYEPbJpIYbpzElx7iiPtwSYJ3AGxaVPVO992tObuOKP6oUm8PRsMw7SWo3S7dtT0lnz2XVJDH96quaLf+SIrG8mgFw4QyBX/JHVK5GwgG9nZkAhaFTeULOcAyfP/hazzmBN+xwi/GUXWNgTegNZh2M1EGxqzxdPjipa0fHTedp1vj+oMDxjcHwXijrkhm7Ku58ianAGXSdu8Kl6aky18VnPKCwVVXJH5MEV3qUyxRikPIYWt679Dv4BoG/y+FtCzeWUFDt5YOD7Q8uiaUY1Zc9Lc4pI3cJ1Jvn4nJO1NDhEG6RJe2fgpt9GmpNsl10z6s691Uro2TpwvBSxspVdEYQy+hoPjUJsP/tZTbSWWXjh4LftMTqGV/RY449l5rQt8sn8XdhP6HARl0/A1i45IgDbLQfngo0Dz5+B/NyKnDkGkwDHg7nXv07yeYyiDPx7C8Mfb/YDh+xvagH5JAab4m+C9cvDSE4J1SgzxyKA9AsMb6S/OpWn8Pur5+pWKMmtbtMy75A==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX19kez1xXZmiTbR2C/1kaGZsENc8m8NxI8GoL6SxVEBtm5NsHzl2XM13zmqQeq8MPT8KaNiK/4KSwTB86on6aULlPVFi1DOc+SxGE9SdT1YX774db7t6lcxV1bLYbIOs/dkVsmWFvRpwBx33jxrRbMuhwtC15q1Lix+oOt4wKa/vB9hlrw9bvbraF8RLCKE4hqAlzgb62ztQg9v45cP9j0FoG/uvyUcsZL8IYFll4ksIPJC6ggSJ9h0HAZYNrTBXllDWt43fgzzwbsTDsdtuH4lnzhltBihgm+5NRFacUNKB/oDTUi2o6XKsbek4ICu9Iz9ymUKYze0mvRwIXEV2jfB2bDDUerv8ZnjzLH4zgT+umRSASZjEVJztpumq3ht7DKTp09o95Khuwu/4kqdODkvJndvgozL9v0B3sNlSiYcY5iaRNperFYQDjckliikp4zXKQt9gSnh1vEJ6yjl5SFf1I86LQ/zXpxeE4yeYDc6NQnqhV00SBoV1666TwGItm0Z8dFtD53dwAADdqLcjZpYVF1gikegE2IvL3AnEcSILKmnn1frH14FcDGquAwhVxeyX1B1oS2AgGCcOnnVvAM9uUd/wMYpUfN2cEq6z4LTBNvtl8pzIHXi09s0FC9JpB+6ERWz+/Yfnz7ekMvCdglRUPIhxqCEkz2q4Y3pD5DDPCh9ULzm4q3NsqdgNg2coeg1DjopyGdxXjmr3Exj3cscOKPUIrFfNRGigyBOkwBMlVpLP5qnSWVOv9jZwCpprSAwixrfpSPFnuw==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -685,31 +697,6 @@
     </entry>
     
     <entry>
-      <title>gitlab绑定域名</title>
-      <link href="/blog/57c188a8.html"/>
-      <url>/blog/57c188a8.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/rQfzXnn.png" alt=""></p><p>通过gitlab部署并发布静态网站，通过绑定自己的域名来实现自定义访问。</p><a id="more"></a><p>在项目的设置中，选择pages项，里面配置你的域名证书，这里可以使用域名的注册商提供给你的证书，或者是通过<a href="https://freessl.org/" target="_blank" rel="noopener">FreeSSL</a>提供免费证书申请，将得到的证书文件依次拷贝到Pages中，创建 <strong>New Pages Domain</strong></p><p><img src="https://i.imgur.com/vO69TtL.png" alt=""></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> website </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> longshilindotcom </tag>
-            
-            <tag> 域名 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>构建hexo和simiki工具的docker镜像</title>
       <link href="/blog/fd401cf5.html"/>
       <url>/blog/fd401cf5.html</url>
@@ -783,6 +770,31 @@
             <tag> website </tag>
             
             <tag> gitlab </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>gitlab绑定域名</title>
+      <link href="/blog/57c188a8.html"/>
+      <url>/blog/57c188a8.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/rQfzXnn.png" alt=""></p><p>通过gitlab部署并发布静态网站，通过绑定自己的域名来实现自定义访问。</p><a id="more"></a><p>在项目的设置中，选择pages项，里面配置你的域名证书，这里可以使用域名的注册商提供给你的证书，或者是通过<a href="https://freessl.org/" target="_blank" rel="noopener">FreeSSL</a>提供免费证书申请，将得到的证书文件依次拷贝到Pages中，创建 <strong>New Pages Domain</strong></p><p><img src="https://i.imgur.com/vO69TtL.png" alt=""></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> website </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> longshilindotcom </tag>
+            
+            <tag> 域名 </tag>
             
         </tags>
       
