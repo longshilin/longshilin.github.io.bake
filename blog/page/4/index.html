@@ -5,18 +5,18 @@
   
   <!-- 新增github的关注样式 - ->
   <a href="https://github.com/longshilin"><img style="position: absolute; top: 35px; right: 0; border: 0;" src="https://longshilin.com/blog/images/forkme_right_green_007200.png" alt="Fork me on GitHab"></a>-->
-  <title>Sequencing | 积之在平日</title>
+  <title>index | 积之在平日</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="学习总结 思考感悟 知识管理">
 <meta name="keywords" content="Linux, Java, AWS, Hadoop, Github">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Sequencing">
-<meta property="og:url" content="https://longshilin.com/blog/Sequencing/index.html">
+<meta property="og:title" content="index">
+<meta property="og:url" content="https://longshilin.com/blog/index/page/4/index.html">
 <meta property="og:site_name" content="积之在平日">
 <meta property="og:description" content="学习总结 思考感悟 知识管理">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Sequencing">
+<meta name="twitter:title" content="index">
 <meta name="twitter:description" content="学习总结 思考感悟 知识管理">
 <meta name="twitter:creator" content="@yilong0722">
 <link rel="publisher" href="106698639613319710000">
@@ -63,7 +63,7 @@
         
           <li><a class="" href="/blog/DevOps/">DevOps</a></li>
         
-          <li><a class="active" href="/blog/Sequencing/">Gene Sequencing Project</a></li>
+          <li><a class="" href="/blog/Sequencing/">Gene Sequencing Project</a></li>
         
           <li><a class="" href="/blog/archives/">Archives</a></li>
         
@@ -129,13 +129,13 @@
 
   
     
-      <article id="post-基因测序/summary" class="article article-type-post" itemscope="" itemprop="blogPost">
+      <article id="post-基因测序/Hadoop-based-platform-construction-and-MapReduce-job-design" class="article article-type-post" itemscope="" itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/205eb716.html">摘要</a>
+      <a class="article-title" href="/blog/3fd0f93f.html">4 基于Hadoop的平台搭建与MapReduce作业设计</a>
     </h1>
   
 
@@ -145,7 +145,7 @@
   <div class="article-meta">
     
     <div class="article-datetime">
-  <a href="/blog/205eb716.html" class="article-date"><time datetime="2018-07-19T00:00:00.000Z" itemprop="datePublished">2018-07-19</time></a>
+  <a href="/blog/3fd0f93f.html" class="article-date"><time datetime="2018-07-23T00:00:00.000Z" itemprop="datePublished">2018-07-23</time></a>
 </div>
 
     
@@ -157,7 +157,7 @@
 
     
       
-        <a href="https://longshilin.com/blog/205eb716.html#disqus_thread" class="article-comment-link">
+        <a href="https://longshilin.com/blog/3fd0f93f.html#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> 评论
         </a>
       
@@ -167,10 +167,11 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>本论文主要研究内容是将传统的全基因组测序与Hadoop框架结合的大数据测序平台研发，通过Hadoop中的HDFS分布式存储系统来提供高可靠的存储服务，结合基因测序的一系列软件工具（如：BWA、Samtools、Picard和GATK等）来进行测序流程设计，并引入第三方FreeMarker模板引擎来制定模板脚本，针对不同的样本数据生成定制化的脚本处理文件。将各个样本的处理脚本与Hadoop框架的MapReduce计算框架结合，以Map任务的方式提交到Hadoop集群的各个计算节点的Container容器中运行，从而实现基因测序的并行化测序处理流程，得到样本组中各个样本对的单体变异检测gVCF文件。再通过一个Reduce任务，将各个Map阶段的变异检测结果中包含基因变异位点的信息汇总到一个VCF文件，得到最终多个样本准确的变异集合。</p>
+        <h2 id="4-1-基于hadoop的伪分布式平台搭建">4.1 基于Hadoop的伪分布式平台搭建</h2>
+<p>在搭建Hadoop分布式系统平台<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>时，我们有两种方式可以选择，分别是伪分布的模式和完全分布式模式。这两种模式的主要区别在于前者是在本地一台机器中运行Hadoop框架中的各种服务，是一种模拟分布式的集群环境。而完全分布式的环境就是在真实的多个主机上配置Hadoop，并搭建整个集群环境。</p>
         
           <p class="article-more-link">
-            <a class="btn btn-primary" href="/blog/205eb716.html#more">Read More</a>
+            <a class="btn btn-primary" href="/blog/3fd0f93f.html#more">Read More</a>
           </p>
         
       
@@ -179,148 +180,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/205eb716.html" data-id="cjocuz7p4001j0lxgprkutxn3" class="article-share-link">
-        <i class="fa fa-share"></i> 分享
-      </a>
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Hadoop/">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/基因测序/">基因测序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/大数据/">大数据</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/毕业设计/">毕业设计</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-    
-  
-    
-      <article id="post-基因测序/introduction" class="article article-type-post" itemscope="" itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/11b914a5.html">1 绪论</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    
-    <div class="article-datetime">
-  <a href="/blog/11b914a5.html" class="article-date"><time datetime="2018-07-20T00:00:00.000Z" itemprop="datePublished">2018-07-20</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/Hadoop基因测序/">Hadoop基因测序</a>
-  </div>
-
-
-    
-      
-        <a href="https://longshilin.com/blog/11b914a5.html#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> 评论
-        </a>
-      
-    
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>声明：<strong>基于Hadoop的基因组测序大数据分析平台研究</strong>是本人2018年的本科毕业设计课题，根据网络资源和自己的专业知识，独立完成整个流程设计、平台搭建和单元测试等工作。<strong>本系列文章是对该项目的一个整理总结和分享记录。该目录提及的系列文章可供转载，并无需通知作者，但需要在明显地方标注文章出处</strong></p>
-</blockquote>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/blog/11b914a5.html#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/11b914a5.html" data-id="cjocuz7oz001e0lxg4opqjlic" class="article-share-link">
-        <i class="fa fa-share"></i> 分享
-      </a>
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Hadoop/">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/基因测序/">基因测序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/大数据/">大数据</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/毕业设计/">毕业设计</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-    
-  
-    
-      <article id="post-基因测序/Related-technologies-and-principles" class="article article-type-post" itemscope="" itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/5290c12.html">2 相关技术及原理</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    
-    <div class="article-datetime">
-  <a href="/blog/5290c12.html" class="article-date"><time datetime="2018-07-21T00:00:00.000Z" itemprop="datePublished">2018-07-21</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/Hadoop基因测序/">Hadoop基因测序</a>
-  </div>
-
-
-    
-      
-        <a href="https://longshilin.com/blog/5290c12.html#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> 评论
-        </a>
-      
-    
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="2-1-hadoop相关技术和原理">2.1 Hadoop相关技术和原理</h2>
-<p>本节主要对基于Hadoop平台的相关技术，如：HDFS、YARN和MapReduce三大模块进行原理介绍	，为后续基因测序在Hadoop平台上的搭建作相应的准备。</p>
-<h3 id="2-1-1-hdfs分布式存储系统">2.1.1 HDFS分布式存储系统</h3>
-<p>Hadoop分布式存储系统，即Hadoop Dirstributed FileSystem，简称HDFS<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>。由于Hadoop集群的基础架构设施，使得HDFS是一个能提供可扩展性和高可靠性的基于Java的文件系统，并且适用于大型商业服务器集群或是廉价服务器上，从而可以提供PB级的存储容量和上千个服务器的计算能力。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/blog/5290c12.html#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/5290c12.html" data-id="cjocuz7oq00120lxgl09bqx08" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/3fd0f93f.html" data-id="cjocuz7oo00100lxg59aqu883" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -409,13 +269,13 @@
     
   
     
-      <article id="post-基因测序/Hadoop-based-platform-construction-and-MapReduce-job-design" class="article article-type-post" itemscope="" itemprop="blogPost">
+      <article id="post-基因测序/Related-technologies-and-principles" class="article article-type-post" itemscope="" itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/3fd0f93f.html">4 基于Hadoop的平台搭建与MapReduce作业设计</a>
+      <a class="article-title" href="/blog/5290c12.html">2 相关技术及原理</a>
     </h1>
   
 
@@ -425,7 +285,7 @@
   <div class="article-meta">
     
     <div class="article-datetime">
-  <a href="/blog/3fd0f93f.html" class="article-date"><time datetime="2018-07-23T00:00:00.000Z" itemprop="datePublished">2018-07-23</time></a>
+  <a href="/blog/5290c12.html" class="article-date"><time datetime="2018-07-21T00:00:00.000Z" itemprop="datePublished">2018-07-21</time></a>
 </div>
 
     
@@ -437,7 +297,7 @@
 
     
       
-        <a href="https://longshilin.com/blog/3fd0f93f.html#disqus_thread" class="article-comment-link">
+        <a href="https://longshilin.com/blog/5290c12.html#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> 评论
         </a>
       
@@ -447,11 +307,13 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="4-1-基于hadoop的伪分布式平台搭建">4.1 基于Hadoop的伪分布式平台搭建</h2>
-<p>在搭建Hadoop分布式系统平台<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>时，我们有两种方式可以选择，分别是伪分布的模式和完全分布式模式。这两种模式的主要区别在于前者是在本地一台机器中运行Hadoop框架中的各种服务，是一种模拟分布式的集群环境。而完全分布式的环境就是在真实的多个主机上配置Hadoop，并搭建整个集群环境。</p>
+        <h2 id="2-1-hadoop相关技术和原理">2.1 Hadoop相关技术和原理</h2>
+<p>本节主要对基于Hadoop平台的相关技术，如：HDFS、YARN和MapReduce三大模块进行原理介绍	，为后续基因测序在Hadoop平台上的搭建作相应的准备。</p>
+<h3 id="2-1-1-hdfs分布式存储系统">2.1.1 HDFS分布式存储系统</h3>
+<p>Hadoop分布式存储系统，即Hadoop Dirstributed FileSystem，简称HDFS<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>。由于Hadoop集群的基础架构设施，使得HDFS是一个能提供可扩展性和高可靠性的基于Java的文件系统，并且适用于大型商业服务器集群或是廉价服务器上，从而可以提供PB级的存储容量和上千个服务器的计算能力。</p>
         
           <p class="article-more-link">
-            <a class="btn btn-primary" href="/blog/3fd0f93f.html#more">Read More</a>
+            <a class="btn btn-primary" href="/blog/5290c12.html#more">Read More</a>
           </p>
         
       
@@ -460,7 +322,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/3fd0f93f.html" data-id="cjocuz7oo00100lxg59aqu883" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/5290c12.html" data-id="cjocuz7oq00120lxgl09bqx08" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -477,10 +339,501 @@
 
     
   
+    
+      <article id="post-基因测序/introduction" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/11b914a5.html">1 绪论</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/11b914a5.html" class="article-date"><time datetime="2018-07-20T00:00:00.000Z" itemprop="datePublished">2018-07-20</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Hadoop基因测序/">Hadoop基因测序</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/11b914a5.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>声明：<strong>基于Hadoop的基因组测序大数据分析平台研究</strong>是本人2018年的本科毕业设计课题，根据网络资源和自己的专业知识，独立完成整个流程设计、平台搭建和单元测试等工作。<strong>本系列文章是对该项目的一个整理总结和分享记录。该目录提及的系列文章可供转载，并无需通知作者，但需要在明显地方标注文章出处</strong></p>
+</blockquote>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/blog/11b914a5.html#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/11b914a5.html" data-id="cjocuz7oz001e0lxg4opqjlic" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Hadoop/">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/基因测序/">基因测序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/大数据/">大数据</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/毕业设计/">毕业设计</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+    
+  
+    
+      <article id="post-基因测序/summary" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/205eb716.html">摘要</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/205eb716.html" class="article-date"><time datetime="2018-07-19T00:00:00.000Z" itemprop="datePublished">2018-07-19</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Hadoop基因测序/">Hadoop基因测序</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/205eb716.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>本论文主要研究内容是将传统的全基因组测序与Hadoop框架结合的大数据测序平台研发，通过Hadoop中的HDFS分布式存储系统来提供高可靠的存储服务，结合基因测序的一系列软件工具（如：BWA、Samtools、Picard和GATK等）来进行测序流程设计，并引入第三方FreeMarker模板引擎来制定模板脚本，针对不同的样本数据生成定制化的脚本处理文件。将各个样本的处理脚本与Hadoop框架的MapReduce计算框架结合，以Map任务的方式提交到Hadoop集群的各个计算节点的Container容器中运行，从而实现基因测序的并行化测序处理流程，得到样本组中各个样本对的单体变异检测gVCF文件。再通过一个Reduce任务，将各个Map阶段的变异检测结果中包含基因变异位点的信息汇总到一个VCF文件，得到最终多个样本准确的变异集合。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/blog/205eb716.html#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/205eb716.html" data-id="cjocuz7p4001j0lxgprkutxn3" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Hadoop/">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/基因测序/">基因测序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/大数据/">大数据</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/毕业设计/">毕业设计</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+    
+  
+    
+      <article id="post-Java基础总结/【Java基础总结】-集合与线程实现" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/f054fe4e.html">集合与线程实现</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/f054fe4e.html" class="article-date"><time datetime="2017-11-30T12:19:32.000Z" itemprop="datePublished">2017-11-30</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Java/">Java</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/f054fe4e.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="集合"><strong>集合</strong></h2>
+<p>迭代器</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Iterator</span>&lt;<span class="title">E</span>&gt;</span>&#123;</span><br><span class="line">	<span class="function">E <span class="title">next</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">boolean</span> <span class="title">hasNext</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/blog/f054fe4e.html#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/f054fe4e.html" data-id="cjocuz7oi000o0lxgdujsez15" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/线程/">线程</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/迭代器/">迭代器</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/集合/">集合</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+    
+  
+    
+      <article id="post-Java基础总结/【Java基础总结】-接口与内部类" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/9ab14111.html">接口与内部类</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/9ab14111.html" class="article-date"><time datetime="2017-11-30T10:40:21.000Z" itemprop="datePublished">2017-11-30</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Java/">Java</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/9ab14111.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="接口"><strong>接口</strong></h3>
+<p>重难点总结：<br>
+1、接口中的所有方法自动地属于public，在接口声明方法时，不必提供关键字public，但是在实现接口 编写具体的接口方法时，需要加上public修饰符。</p>
+<p>2、在接口中可以定义常量(默认就是用public static final修饰)。接口中绝对不能含有实例域或静态方法，也不能在接口中实现方法。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/blog/9ab14111.html#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/9ab14111.html" data-id="cjocuz7od000j0lxgr8ojgx3g" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/接口与内部类/">接口与内部类</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+    
+  
+    
+      <article id="post-Java基础总结/【Java基础总结】-反射机制与代理机制" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/cfff76a5.html">反射机制与代理机制</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/cfff76a5.html" class="article-date"><time datetime="2017-11-30T09:20:37.000Z" itemprop="datePublished">2017-11-30</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Java/">Java</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/cfff76a5.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="反射"><strong>反射</strong></h2>
+<h3 id="获得对应的class对象-以及创建其实例">获得对应的Class对象，以及创建其实例</h3>
+<p>三种获取对应Class对象的方法</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/blog/cfff76a5.html#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/cfff76a5.html" data-id="cjocuz7o9000e0lxg0s0gw105" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Class/">Class</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/代理/">代理</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/反射机制/">反射机制</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/类对象/">类对象</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+    
+  
+    
+      <article id="post-Java基础总结/【Java基础总结】-零碎注意点" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/3bf9b222.html">零碎注意点</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/3bf9b222.html" class="article-date"><time datetime="2017-11-30T01:03:54.000Z" itemprop="datePublished">2017-11-30</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Java/">Java</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/3bf9b222.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在DOS命令行下执行命令运行Java文件：<br>
+1、运行jar包    <code>java -jar test.jar</code><br>
+2、编译Java文件 <code>javac test.java</code><br>
+3、运行Java的字节码文件 <code>java test</code><br>
+4、调试Java文件 <code>jdb test.java</code><br>
+5、生成Java doc文件 <code>javadoc test.java</code></p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/blog/3bf9b222.html#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/3bf9b222.html" data-id="cjocuz7ok000q0lxgezi948rn" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+    
+  
+    
+      <article id="post-Java基础总结/【Java基础总结】-异常与泛型" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/ea45fa53.html">异常与泛型</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/ea45fa53.html" class="article-date"><time datetime="2017-11-29T06:37:06.000Z" itemprop="datePublished">2017-11-29</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Java/">Java</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/ea45fa53.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="捕获异常"><strong>捕获异常</strong></h2>
+<p>异常分为两种类型：未检查异常和已检查异常。</p>
+<p><strong>已检查异常</strong>：系统已检查可能发生异常的地方，程序员编写再精细的程序也无法保证不发生异常的地方。(派生于IOException)<br>
+<strong>未检查异常</strong>：派生于Error类或RuntimeException</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/blog/ea45fa53.html#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/ea45fa53.html" data-id="cjocuz7oa000f0lxgq9z7ekvq" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/异常/">异常</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/泛型/">泛型</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+    
+  
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li class="disabled"><span class="page-prev"><i class="fa fa-chevron-left"></i> Prev</span></li><li class="active"><span class="page-number">1</span></li><li><a class="page-number" href="/blog/Sequencing/page/2/">2</a></li><li><a class="page-next" rel="next" href="/blog/Sequencing/page/2/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/blog/index/page/3/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/blog/">1</a></li><li><a class="page-number" href="/blog/index/page/2/">2</a></li><li><a class="page-number" href="/blog/index/page/3/">3</a></li><li class="active"><span class="page-number">4</span></li><li><a class="page-number" href="/blog/index/page/5/">5</a></li><li><a class="page-next" rel="next" href="/blog/index/page/5/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
