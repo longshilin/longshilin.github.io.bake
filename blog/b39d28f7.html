@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="积之在平日">
 <meta property="og:description" content="在学习Docker的时候，看到关于通过Docker容器的方式快速搭建WordPress站点，这里加以记录，便于日后的查看。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2018-11-12T04:06:32.000Z">
+<meta property="og:updated_time" content="2018-11-12T04:18:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用Docker快速部署wordpress站点">
 <meta name="twitter:description" content="在学习Docker的时候，看到关于通过Docker容器的方式快速搭建WordPress站点，这里加以记录，便于日后的查看。">
@@ -227,6 +227,12 @@ CONTAINER ID        IMAGE               COMMAND                  CREATED        
 $ docker rm -v $(docker ps -aq)
 </code></pre>
 <p>docker rm 命令的 -v 选项用来删除 MySQL 镜像中定义的数据卷。</p>
+<h2 id="docker搭建wordpress的最佳实践">docker搭建WordPress的最佳实践</h2>
+<p>上面两个模块的内容是出自于《docker实战》这本书中，下面我结合自己的实际操作，总结出搭建的实际步骤。</p>
+<h3 id="1-docker-mysql">1.docker mysql</h3>
+<p>实战模块还待完善…敬请期待</p>
+<h2 id="linux搭建wordpress环境">Linux搭建Wordpress环境</h2>
+<p>最后附上不是通过docker方式搭建博客的教程实例<a href="https://docs.ksyun.com/read/latest/129/_book/%E6%90%AD%E5%BB%BAwordpress%E7%8E%AF%E5%A2%83.html" target="_blank" rel="noopener">Linux搭建Wordpress环境</a> <a href="https://github.com/longshilin/files-repo/blob/master/Linux%E6%90%AD%E5%BB%BAWordpress%E7%8E%AF%E5%A2%83%20%C2%B7%20%E9%87%91%E5%B1%B1%E4%BA%91.pdf" target="_blank" rel="noopener">pdf下载</a></p>
 
       
     </div>
@@ -237,7 +243,7 @@ $ docker rm -v $(docker ps -aq)
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/b39d28f7.html" data-id="cjodsder800080m054kry4vvc" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/b39d28f7.html" data-id="cjodsszw500080l1fhuv0w1sz" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -289,7 +295,7 @@ $ docker rm -v $(docker ps -aq)
   <div class="sidebar-module sidebar-toc" id="toc">
     
       <h4>Table of Contents</h4>
-      <ol class="sidebar-module-list"><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#在单一容器中使用supervisor运行wordpress"><span class="sidebar-module-list-number">1.</span> <span class="sidebar-module-list-text">在单一容器中使用Supervisor运行WordPress</span></a><ol class="sidebar-module-list-child"><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#问题"><span class="sidebar-module-list-number">1.1.</span> <span class="sidebar-module-list-text">问题</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#解决方案"><span class="sidebar-module-list-number">1.2.</span> <span class="sidebar-module-list-text">解决方案</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#讨论"><span class="sidebar-module-list-number">1.3.</span> <span class="sidebar-module-list-text">讨论</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#参考"><span class="sidebar-module-list-number">1.4.</span> <span class="sidebar-module-list-text">参考</span></a></li></ol></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#使用两个链接在一起的容器运行wordpress博客程序"><span class="sidebar-module-list-number">2.</span> <span class="sidebar-module-list-text">使用两个链接在一起的容器运行WordPress博客程序</span></a><ol class="sidebar-module-list-child"><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#问题-v2"><span class="sidebar-module-list-number">2.1.</span> <span class="sidebar-module-list-text">问题</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#解决方案-v2"><span class="sidebar-module-list-number">2.2.</span> <span class="sidebar-module-list-text">解决方案</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#讨论-v2"><span class="sidebar-module-list-number">2.3.</span> <span class="sidebar-module-list-text">讨论</span></a></li></ol></li></ol>
+      <ol class="sidebar-module-list"><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#在单一容器中使用supervisor运行wordpress"><span class="sidebar-module-list-number">1.</span> <span class="sidebar-module-list-text">在单一容器中使用Supervisor运行WordPress</span></a><ol class="sidebar-module-list-child"><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#问题"><span class="sidebar-module-list-number">1.1.</span> <span class="sidebar-module-list-text">问题</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#解决方案"><span class="sidebar-module-list-number">1.2.</span> <span class="sidebar-module-list-text">解决方案</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#讨论"><span class="sidebar-module-list-number">1.3.</span> <span class="sidebar-module-list-text">讨论</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#参考"><span class="sidebar-module-list-number">1.4.</span> <span class="sidebar-module-list-text">参考</span></a></li></ol></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#使用两个链接在一起的容器运行wordpress博客程序"><span class="sidebar-module-list-number">2.</span> <span class="sidebar-module-list-text">使用两个链接在一起的容器运行WordPress博客程序</span></a><ol class="sidebar-module-list-child"><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#问题-v2"><span class="sidebar-module-list-number">2.1.</span> <span class="sidebar-module-list-text">问题</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#解决方案-v2"><span class="sidebar-module-list-number">2.2.</span> <span class="sidebar-module-list-text">解决方案</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#讨论-v2"><span class="sidebar-module-list-number">2.3.</span> <span class="sidebar-module-list-text">讨论</span></a></li></ol></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#docker搭建wordpress的最佳实践"><span class="sidebar-module-list-number">3.</span> <span class="sidebar-module-list-text">docker搭建WordPress的最佳实践</span></a><ol class="sidebar-module-list-child"><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#1-docker-mysql"><span class="sidebar-module-list-number">3.1.</span> <span class="sidebar-module-list-text">1.docker mysql</span></a></li></ol></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#linux搭建wordpress环境"><span class="sidebar-module-list-number">4.</span> <span class="sidebar-module-list-text">Linux搭建Wordpress环境</span></a></li></ol>
     
   </div>
 
