@@ -5,20 +5,22 @@
   
   <!-- 新增github的关注样式 - ->
   <a href="https://github.com/longshilin"><img style="position: absolute; top: 35px; right: 0; border: 0;" src="https://longshilin.com/blog/images/forkme_right_green_007200.png" alt="Fork me on GitHab"></a>-->
-  <title>利用Docker快速部署wordpress站点 | 积之在平日</title>
+  <title>2018-12-12 | 积之在平日</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在学习Docker的时候，看到关于通过Docker容器的方式快速搭建WordPress站点，这里加以记录，便于日后的查看。">
-<meta name="keywords" content="docker,wordpress">
+  <meta name="description" content="2018-12-12 日计划来啦！！！">
+<meta name="keywords" content="plan">
 <meta property="og:type" content="article">
-<meta property="og:title" content="利用Docker快速部署wordpress站点">
-<meta property="og:url" content="https://longshilin.com/blog/b39d28f7.html">
+<meta property="og:title" content="2018-12-12">
+<meta property="og:url" content="https://longshilin.com/blog/30187602.html">
 <meta property="og:site_name" content="积之在平日">
-<meta property="og:description" content="在学习Docker的时候，看到关于通过Docker容器的方式快速搭建WordPress站点，这里加以记录，便于日后的查看。">
+<meta property="og:description" content="2018-12-12 日计划来啦！！！">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ws1.sinaimg.cn/large/005EsThygy1fx50kh988aj32c03401ky.jpg">
 <meta property="og:updated_time" content="2018-11-12T01:25:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="利用Docker快速部署wordpress站点">
-<meta name="twitter:description" content="在学习Docker的时候，看到关于通过Docker容器的方式快速搭建WordPress站点，这里加以记录，便于日后的查看。">
+<meta name="twitter:title" content="2018-12-12">
+<meta name="twitter:description" content="2018-12-12 日计划来啦！！！">
+<meta name="twitter:image" content="https://ws1.sinaimg.cn/large/005EsThygy1fx50kh988aj32c03401ky.jpg">
 <meta name="twitter:creator" content="@yilong0722">
 <link rel="publisher" href="106698639613319710000">
   
@@ -124,13 +126,13 @@
 
     <div class="row">
         <div class="col-sm-8 blog-main" id="main-body">
-          <article id="post-DevOps/docker-wordpress" class="article article-type-post" itemscope="" itemprop="blogPost">
+          <article id="post-每日计划/2018-11-12" class="article article-type-post" itemscope="" itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 class="article-title" itemprop="name">
-      利用Docker快速部署wordpress站点
+      2018-12-12
     </h1>
   
 
@@ -140,19 +142,19 @@
   <div class="article-meta">
     
     <div class="article-datetime">
-  <a href="/blog/b39d28f7.html" class="article-date"><time datetime="2018-10-02T00:00:00.000Z" itemprop="datePublished">2018-10-02</time></a>
+  <a href="/blog/30187602.html" class="article-date"><time datetime="2018-12-12T07:10:30.000Z" itemprop="datePublished">2018-12-12</time></a>
 </div>
 
     
     
   <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/docker/">docker</a>
+    <a class="article-category-link" href="/blog/categories/每日计划/">每日计划</a>
   </div>
 
 
     
       
-        <a href="https://longshilin.com/blog/b39d28f7.html#disqus_thread" class="article-comment-link">
+        <a href="https://longshilin.com/blog/30187602.html#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> 评论
         </a>
       
@@ -162,71 +164,23 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在学习Docker的时候，看到关于通过Docker容器的方式快速搭建WordPress站点，这里加以记录，便于日后的查看。</p>
+        <p>2018-12-12 日计划来啦！！！</p>
 <a id="more"></a>
-<h2 id="在单一容器中使用supervisor运行wordpress">在单一容器中使用Supervisor运行WordPress</h2>
-<h3 id="问题">问题</h3>
-<p>你希望在一个容器中运 行应用程序所需的所有服务。以运行 WordPress 为例，你想在一个容器中同时运行 MySQL 和 HTTPD 服务。由于 Docker 运行的是前台进程，所以你需要找到一种同时运行多个“前 台”进程的方式。</p>
-<h3 id="解决方案">解决方案</h3>
-<p>使 用 Supervisor(<a href="http://supervisord.org/index.html" target="_blank" rel="noopener">http://supervisord.org/index.html</a>) 来 监 控 并 运 行 MySQL 和 HTTPD。<br>
-Supervisor 不是一个 init 系统，而是一个用来控制多个进程的普通程序。</p>
-<p>本范例是一个在容器中使用 Supervisor 同时运行多个进程的例子。你可以以 此为基础在一个 Docker 镜像中运行多个服务(比如 SSH、Nginx)。本范例 中，WordPress 的配置是一个最精简的可行配置，并不适用于生产环境。</p>
-<p>示例中的文件可以在 GitHub(<a href="https://github.com/how2dock/docbook/tree/master/ch01/supervisor" target="_blank" rel="noopener">https://github.com/how2dock/docbook/tree/master/ch01/supervisor</a>) 下载。这些文件中包括一个用于启动虚拟机的 Vagrantfile，Docker 运行在该虚拟机 中，还包含一个 Dockerfile 来定义要创建的镜像，此外还有一个 Supervisor 的配置文件(supervisord.conf)和一个 WordPress 的配置文件(wp-config.php)。</p>
-<p>为了运行 WordPress，你需要安装 MySQL、Apache 2(即 httpd)、PHP 以及最新版本 的 WordPress。你将需要创建一个用于 WordPress 的数据库。在该范例的配置文件中， WordPress 数据库用户名为 root，密码也是 root，数据库名为 wordpress。如果你想对数据 库的配置进行修改，需要同时修改 wp-config.php 和 Dockerfile 这两个文件，并让它们的设 置保持一致。</p>
-<p>这里定义了两个被监控和运行的服务:mysqld 和 httpd。每个程序都可以使用诸如 autorestart 和 autostart 等选项。最重要的指令是 command，其定义了如何运行每个程序。 在这个例子中，Docker 容器只需要运行一个前台进程:supervisord。从 Dockerfile 中的 CMD [“/usr/bin/supervisord”] 这一行也能看出来。</p>
-<p>在你的 Docker 主机上，构建该镜像并启动一个后台容器。如果按照例子中的配置文件使 用了基于 Vagrant 的虚拟机，可以执行如下命令。</p>
-<pre><code> $ cd /vagrant
- $ docker build -t wordpress .
- $ docker run -d -p 80:80 wordpress
-</code></pre>
-<p>容器启动后还会在宿主机和 Docker 容器之间为 80 端口进行端口映射。现在只需要在浏览 器中打开 http://&lt;ip_of_docker_host&gt;，就可以进入到 WordPress 的配置页面了。</p>
-<h3 id="讨论">讨论</h3>
-<p>尽管通过 Supervisor 在一个容器内同时运行多个应用服务工作起来非常完美，但是你最好 还是使用多个容器来运行不同的服务。这能充分利用容器的隔离优势，也能帮助你创建基 于微服务设计思想的应用(参见《微服务设计》1)。最终这也将会使你的应用更具弹性和可 扩展性。</p>
-<h3 id="参考">参考</h3>
-<p>• Supervisor 文档(<a href="http://supervisord.org/index.html" target="_blank" rel="noopener">http://supervisord.org/index.html</a>)<br>
-• Docker Supervisor 文档(<a href="https://docs.docker.com/articles/using_supervisord/" target="_blank" rel="noopener">https://docs.docker.com/articles/using_supervisord/</a>)</p>
-<h2 id="使用两个链接在一起的容器运行wordpress博客程序">使用两个链接在一起的容器运行WordPress博客程序</h2>
-<h3 id="问题-v2">问题</h3>
-<p>你希望通过容器来运行一个 WordPress 网站(<a href="http://wordpress.com/" target="_blank" rel="noopener">http://wordpress.com/</a>)，但是你不想让 MySQL 和 WordPress 在同一个容器中运行。你时刻谨记对关注点进行分离的原则，并尽 可能地对应用程序的不同组件进行解耦。</p>
-<h3 id="解决方案-v2">解决方案</h3>
-<p>启动两个容器:一个运行来自 Docker Hub(<a href="http://hub.docker.com/" target="_blank" rel="noopener">http://hub.docker.com/</a>)的官方 WordPress， 另一个运行 MySQL 数据库。这两个容器通过 Docker 命令行工具的 --link 选项链接在 一起。<br>
-开始下载最新的 WordPress(<a href="https://hub.docker.com/" target="_blank" rel="noopener">https://hub.docker.com/</a><em>/wordpress/)和 MySQL(https://.hub. <a href="http://docker.com/" target="_blank" rel="noopener">docker.com/</a></em>/mysql/)镜像，如下所示。	$ docker pull wordpress:latest<br>
-	$ docker pull mysql:latest</p>
-<p>启动一个 MySQL 容器，并通过命令行工具的 --name 选项为这个容器设置一个名称，通过 MYSQL_ROOT_PASSWORD 环境变量来设置 MySQL 的密码，如下所示。</p>
-<pre><code> $ docker run --name mysqlwp -e MYSQL_ROOT_PASSWORD=wordpressdocker -d mysql
-</code></pre>
-<p>如果在使用 mysql 镜像时没有指定标签，Docker 会自动使用 latest 标签， 这也是前面刚刚下载的镜像。容器通过 -d 选项以守护式的方式开始运行。</p>
-<p>现在就可以基于 wordpress:latest 镜像启动 WordPress 容器了。这个容器将会通过 --link 选 项链接到 MySQL 容器，这样 Docker 会自动进行网络配置，让 WordPress 容器能访问到 MySQL 容器中暴露出来的端口，如下所示。</p>
-<pre><code> $ docker run --name wordpress --link mysqlwp:mysql -p 80:80 -d wordpress
-</code></pre>
-<p>两个容器都会以后台方式运行，WordPress 容器的 80 端口会被映射到宿主机的 80 端口上， 如下所示。</p>
-<pre><code>[root@ip-172-31-1-1 supervisor]# docker ps -a
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                 NAMES
-48b9c0cabe31        wordpress           &quot;/usr/bin/supervisord&quot;   5 seconds ago       Up 4 seconds        0.0.0.0:80-&gt;80/tcp    wordpress
-3756d0e220bf        mysql               &quot;docker-entrypoint...&quot;   44 seconds ago      Up 43 seconds       3306/tcp, 33060/tcp   mysqlwp
-</code></pre>
-<p>在浏览器中打开 http://&lt;ip_of_host&gt; 就会看到 WordPress 的安装界面，里面有选择语言的窗 口，如图 1-10 所示。完成了 WordPress 的安装过程，你将会得到一个在两个链接到一起的 容器之上运行的 WordPress 网站。</p>
-<h3 id="讨论-v2">讨论</h3>
-<p>这两个 WordPress 和 MySQL 镜像都是官方镜像，分别由 WordPress 和 MySQL 的社区来维护。Docker Hub 这些镜像的页面都有关于如何进行配置以从这些镜像创建容器的详细文档。</p>
-<p>令人感兴趣的是，你可以通过设置几个环境变量来创建一个数据库，并且只有具有相应权 限的用户才能操作数据库:MYSQL_DATABASE、MYSQL_USER 和 MYSQL_PASSWORD。在前面的例子中，WordPress 使用了 MySQL 的 root 用户，这并不是一个好实践。最好是创建一个名 为 wordpress 的数据库，并为其创建一个用户，像下面这样。</p>
-<pre><code>$ docker run --name mysqlwp -e MYSQL_ROOT_PASSWORD=wordpressdocker \
-                                 -e MYSQL_DATABASE=wordpress \
-                                 -e MYSQL_USER=wordpress \
-                                 -e MYSQL_PASSWORD=wordpresspwd \
-                                 -d mysql
-</code></pre>
-<p>数据库容器启动之后，可以启动 WordPress 容器并指定你设置好的数据库表，如下所示。</p>
-<pre><code>$ docker run --name wordpress --link mysqlwp:mysql -p 80:80 \
-                                   -e WORDPRESS_DB_NAME=wordpress \
-                                   -e WORDPRESS_DB_USER=wordpress \
-                                   -e WORDPRESS_DB_PASSWORD=wordpresspwd \
-                                   -d wordpress
-</code></pre>
-<p>如果你需要删除所有容器，可以使用下面这种嵌套 shell 的快捷方式。</p>
-<pre><code>$ docker stop $(docker ps -q)
-$ docker rm -v $(docker ps -aq)
-</code></pre>
-<p>docker rm 命令的 -v 选项用来删除 MySQL 镜像中定义的数据卷。</p>
+<blockquote>
+<p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i><br>
+今天收到珊珊的每日计划咯，开心到飞起 而且开始用keep的TodoList书写的呢，炒鸡开心 😆 😁 😉 😜 😇<br>
+<img src="https://ws1.sinaimg.cn/large/005EsThygy1fx50kh988aj32c03401ky.jpg" alt=""></p>
+</blockquote>
+<div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4>
+<p>💁 快来呀</p>
+</div>
+<blockquote>
+<p>龙龙的计划 🐲</p>
+</blockquote>
+<ul>
+<li>工作上的开发内容</li>
+<li>AWS认证书籍📚 今天完成第八章学习</li>
+</ul>
 
       
     </div>
@@ -237,12 +191,12 @@ $ docker rm -v $(docker ps -aq)
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/b39d28f7.html" data-id="cjodmmul200080lu1izda0xal" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/30187602.html" data-id="cjodmmunw00460lu1ttcsxgkv" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/docker/">docker</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/wordpress/">wordpress</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/plan/">plan</a></li></ul>
 
 
     </footer>
@@ -252,19 +206,12 @@ $ docker rm -v $(docker ps -aq)
 <ul id="article-nav" class="nav nav-pills nav-justified">
   
   <li role="presentation">
-    <a href="/blog/75faa0d3.html" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/blog/c4db1d93.html" id="article-nav-older" class="article-nav-link-wrap">
       <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">个人建站SEO优化之路</span>
+      <span class="article-nav-link-title">跟着陈皓程序员练级</span>
     </a>
   </li>
   
-  
-  <li role="presentation">
-    <a href="/blog/e8df5bcb.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">Docker学习路径</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
   
 </ul>
 
@@ -287,9 +234,6 @@ $ docker rm -v $(docker ps -aq)
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar" id="sidebar">
           
   <div class="sidebar-module sidebar-toc" id="toc">
-    
-      <h4>Table of Contents</h4>
-      <ol class="sidebar-module-list"><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#在单一容器中使用supervisor运行wordpress"><span class="sidebar-module-list-number">1.</span> <span class="sidebar-module-list-text">在单一容器中使用Supervisor运行WordPress</span></a><ol class="sidebar-module-list-child"><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#问题"><span class="sidebar-module-list-number">1.1.</span> <span class="sidebar-module-list-text">问题</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#解决方案"><span class="sidebar-module-list-number">1.2.</span> <span class="sidebar-module-list-text">解决方案</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#讨论"><span class="sidebar-module-list-number">1.3.</span> <span class="sidebar-module-list-text">讨论</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#参考"><span class="sidebar-module-list-number">1.4.</span> <span class="sidebar-module-list-text">参考</span></a></li></ol></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#使用两个链接在一起的容器运行wordpress博客程序"><span class="sidebar-module-list-number">2.</span> <span class="sidebar-module-list-text">使用两个链接在一起的容器运行WordPress博客程序</span></a><ol class="sidebar-module-list-child"><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#问题-v2"><span class="sidebar-module-list-number">2.1.</span> <span class="sidebar-module-list-text">问题</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#解决方案-v2"><span class="sidebar-module-list-number">2.2.</span> <span class="sidebar-module-list-text">解决方案</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#讨论-v2"><span class="sidebar-module-list-number">2.3.</span> <span class="sidebar-module-list-text">讨论</span></a></li></ol></li></ol>
     
   </div>
 
