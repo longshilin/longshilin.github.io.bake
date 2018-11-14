@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/wiki/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/wiki/static/css/tango.css">
+    <link rel="shortcut icon" href="/wiki/static/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/wiki/static/images/favicon.png" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>centos更新jdk版本 - Wiki</title>
+    <meta name="keywords" content="wiki, simple"/>
+    <meta name="description" content=""/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+
+    <div id="container" style="position:relative">
+      <button type="button" style="position:absolute; left:0; margin-top: -22px; margin-left: -1px;" class="blog-button .btn"><a href="https://longshilin.com/blog">Back Blog</a></button>
+      <!-- <div id="google_translate_element" style="position:absolute; right:0; margin-top: -22px; margin-right: -1px;"></div> -->
+      
+<div id="header">
+  <div class="post-nav"><a href="/wiki/">Home</a>&nbsp;&#187;&nbsp;<a href="/wiki/#linux">linux</a>&nbsp;&#187;&nbsp;centos更新jdk版本
+    <span class="updated">Page Updated&nbsp;
+      2018-09-04 18:11
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">centos更新jdk版本</div>
+
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul></ul>
+</div>
+<p>对于通过yum安装jdk的centos系统，我们可以采用下面的方式升级jdk版本：</p>
+<div class="hlcode"><pre><span class="cp">## 查看当前的jdk版本</span>
+<span class="n">sudo</span> <span class="n">yum</span> <span class="n">list</span> <span class="n">java</span><span class="o">-</span><span class="mf">1.7.0</span><span class="o">-</span><span class="n">openjdk</span>
+
+<span class="cp">## 卸载原来jdk1.7</span>
+<span class="n">sudo</span> <span class="n">yum</span> <span class="n">remove</span> <span class="n">java</span><span class="o">-</span><span class="mf">1.7.0</span><span class="o">-</span><span class="n">openjdk</span><span class="p">.</span><span class="n">x86_64</span>
+
+<span class="cp">## 安装jdk1.8</span>
+<span class="n">sudo</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">java</span><span class="o">-</span><span class="mf">1.8.0</span><span class="o">-</span><span class="n">openjdk</span><span class="p">.</span><span class="n">x86_64</span>
+</pre></div>
+
+
+<p>这种方式是通过yum直接安装jdk，比较简洁方便。</p>
+<p>对于不是通过这种方式安装jdk的主机，我们只能将之前的安装文件找出来并删除，再下载新的jdk软件包进行解压，最后修改全局JAVA变量值，这样才能完成JDK的升级，具体的操作流程有待更新。</p>
+
+  <br>
+  <!-- comments model -->
+      <br><br>
+
+    </div>
+
+    <div id="footer">
+
+      <span>
+          <p>Copyright © 2018 <a href="https://longshilin.com/wiki" target="_blank">Longshilin</a>.</p>
+          <!-- 署名协议 -->
+          <p><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>&nbsp; |&nbsp;
+            Site Generated 2018-11-14 04:21:31 &nbsp; |&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>
+
+<!-- add google translate - ->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
+  }
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+-->

@@ -1,0 +1,126 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/wiki/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/wiki/static/css/tango.css">
+    <link rel="shortcut icon" href="/wiki/static/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/wiki/static/images/favicon.png" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>更新jdk到dev开发版本（以安装带jstat命令的jdk为例） - Wiki</title>
+    <meta name="keywords" content="wiki, simple"/>
+    <meta name="description" content=""/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+
+    <div id="container" style="position:relative">
+      <button type="button" style="position:absolute; left:0; margin-top: -22px; margin-left: -1px;" class="blog-button .btn"><a href="https://longshilin.com/blog">Back Blog</a></button>
+      <!-- <div id="google_translate_element" style="position:absolute; right:0; margin-top: -22px; margin-right: -1px;"></div> -->
+      
+<div id="header">
+  <div class="post-nav"><a href="/wiki/">Home</a>&nbsp;&#187;&nbsp;<a href="/wiki/#java">java</a>&nbsp;&#187;&nbsp;更新jdk到dev开发版本（以安装带jstat命令的jdk为例）
+    <span class="updated">Page Updated&nbsp;
+      2018-11-14 10:16:34
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">更新jdk到dev开发版本（以安装带jstat命令的jdk为例）</div>
+
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#_1">准备工作</a><ul>
+<li><a href="#jdk">搜索原来的jdk版本</a></li>
+<li><a href="#jdk_1">卸载旧的jdk版本</a></li>
+<li><a href="#dev">搜索需要安装的dev版本</a></li>
+<li><a href="#jdk_2">替换jdk版本</a></li>
+<li><a href="#java">检查java版本</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h1 id="_1">准备工作</h1>
+<h2 id="jdk">搜索原来的jdk版本</h2>
+<p>sudo rpm -qa | grep java</p>
+<h2 id="jdk_1">卸载旧的jdk版本</h2>
+<p>这里以搜索到的<code>java-1.7.0-openjdk-headless-1.7.0.95-2.6.4.0.el7_2.x86_64</code>版本为例，删除和旧版本有关的所有软件包。</p>
+<p>sudo rpm -e --nodeps java-1.7.0-openjdk-headless-1.7.0.95-2.6.4.0.el7_2.x86_64</p>
+<h2 id="dev">搜索需要安装的dev版本</h2>
+<p>下面以需要安装带有jstat版本的jdk为例，得到我们需要的开发包版本号<code>java-1.8.0-openjdk-devel-1.8.0.181-3.b13.el7_5.x86_64</code></p>
+<p>sudo yum provides "*jstat"</p>
+<h2 id="jdk_2">替换jdk版本</h2>
+<p>卸载原先的jdk版本后并安装新版本的jdk核心包及其开发包，在安装devel版本时，会自动将<code>java-1.8.0-openjdk-headless-1.8.0.181-3.b13.el7_5.x86_64</code>版本也安装上。</p>
+<p>sudo yum install java-1.8.0-openjdk-1.8.0.191.b12-0.el7_5.x86_64<br />
+  sudo yum install java-1.8.0-openjdk-devel-1.8.0.181-3.b13.el7_5.x86_64</p>
+<p>现在系统中的jdk包，应该如下：</p>
+<p>[centos@ip-172-32-48-10 bin]$ sudo rpm -qa | grep java<br />
+<strong>java-1.8.0-openjdk-devel-1.8.0.181-3.b13.el7_5.x86_64</strong><br />
+<strong>java-1.8.0-openjdk-1.8.0.181-3.b13.el7_5.x86_64</strong><br />
+<strong>java-1.8.0-openjdk-headless-1.8.0.181-3.b13.el7_5.x86_64</strong></p>
+<h2 id="java">检查java版本</h2>
+<p>原先的版本：</p>
+<p>[centos@ip-172-32-48-10 bin]$ java -version<br />
+  openjdk version "1.8.0_181"<br />
+  OpenJDK Runtime Environment (build 1.8.0_181-b13)<br />
+  OpenJDK 64-Bit Server VM (build 25.181-b13, mixed mode)</p>
+<p>[centos@ip-172-32-48-10 bin]$ jstat<br />
+  -bash: jstat: command not found</p>
+<p>现在的dev版本：</p>
+<p>[centos@ip-172-32-48-10 bin]$ java -version<br />
+  openjdk version "1.8.0_191"<br />
+  OpenJDK Runtime Environment (build 1.8.0_191-b12)<br />
+  OpenJDK 64-Bit Server VM (build 25.191-b12, mixed mode)</p>
+<p>[centos@ip-172-32-48-10 bin]$ jstat<br />
+  invalid argument count<br />
+  Usage: jstat -help|-options<br />
+         jstat -<option> [-t] [-h<lines>] <vmid> [<interval> [<count>]]</p>
+<p>通过jdk版本替换，现在已经有了jstat命令，具体jstat的命令介绍可以参考<a href="https://docs.oracle.com/javase/7/docs/technotes/tools/share/jstat.html">jstat - Java Virtual Machine Statistics Monitoring Tool</a></p>
+<p>到此为止，你的jdk包也就非常清爽啦~</p>
+
+  <br>
+  <!-- comments model --><hr style="border:1px dashed #eee">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments.</a></noscript>
+    </div>
+
+    <!-- Valine comment --><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <script>
+      new Valine({
+        av: AV,
+        el: '#disqus_thread',
+        appId: 'pMgClbOyqp0K4AQxpMUJuskE-9Nh9j0Va',
+        appKey: 'CzXcgRguvCJa0EkILaN5F4HX',
+        notify: false,
+        verify: false,
+        avatar: 'mm',
+        placeholder: 'write a comment...',
+        visitor: true
+      });
+    </script><!-- Disqus comment -->
+      <br><br>
+
+    </div>
+
+    <div id="footer">
+
+      <span>
+          <p>Copyright © 2018 <a href="https://longshilin.com/wiki" target="_blank">Longshilin</a>.</p>
+          <!-- 署名协议 -->
+          <p><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>&nbsp; |&nbsp;
+            Site Generated 2018-11-14 04:21:31 &nbsp; |&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>
+
+<!-- add google translate - ->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
+  }
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+-->
