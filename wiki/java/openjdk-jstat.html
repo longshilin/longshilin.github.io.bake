@@ -31,11 +31,8 @@
   <div class="toc"><span class="toctitle">Table of Contents</span><ul>
 <li><a href="#_1">准备工作</a><ul>
 <li><a href="#jdk">搜索原来的jdk版本</a></li>
-<li><a href="#jdk_1">卸载jdk版本</a></li>
-<li><a href="#dev">搜索需要安装的dev版本</a><ul>
-<li><a href="#jstatyum">搜索带有jstat命令的yum安装包</a></li>
-</ul>
-</li>
+<li><a href="#jdk_1">卸载旧的jdk版本</a></li>
+<li><a href="#dev">搜索需要安装的dev版本</a></li>
 <li><a href="#jdk_2">替换jdk版本</a></li>
 <li><a href="#java">检查java版本</a></li>
 </ul>
@@ -45,16 +42,22 @@
 <h1 id="_1">准备工作</h1>
 <h2 id="jdk">搜索原来的jdk版本</h2>
 <p>sudo rpm -qa | grep java</p>
-<h2 id="jdk_1">卸载jdk版本</h2>
-<p>这里以搜索到的<code>java-1.8.0-openjdk-headless-1.8.0.181-3.b13.el7_5.x86_64</code>版本为例。</p>
-<p>sudo rpm -e --nodeps java-1.8.0-openjdk-headless-1.8.0.181-3.b13.el7_5.x86_64</p>
+<h2 id="jdk_1">卸载旧的jdk版本</h2>
+<p>这里以搜索到的<code>java-1.7.0-openjdk-headless-1.7.0.95-2.6.4.0.el7_2.x86_64</code>版本为例，删除和旧版本有关的所有软件包</p>
+<p>sudo rpm -e --nodeps java-1.7.0-openjdk-headless-1.7.0.95-2.6.4.0.el7_2.x86_64</p>
+<p>sudo rpm -e --nodeps java-1.8.0-openjdk*</p>
 <h2 id="dev">搜索需要安装的dev版本</h2>
-<p>下面以需要安装带有jstat版本的jdk为例</p>
-<h3 id="jstatyum">搜索带有jstat命令的yum安装包</h3>
-<p>sudo  yum provides "*jstat"</p>
+<p>下面以需要安装带有jstat版本的jdk为例，得到我们需要的开发包版本号<code>java-1.8.0-openjdk-devel-1.8.0.181-3.b13.el7_5.x86_64</code></p>
+<p>sudo yum provides "*jstat"</p>
 <h2 id="jdk_2">替换jdk版本</h2>
-<p>卸载原先的jdk版本后并安装新版本的jdk</p>
-<p>sudo yum install java-1.8.0-openjdk-devel-1.8.0.181-3.b13.el7_5.x86_64</p>
+<p>卸载原先的jdk版本后并安装新版本的jdk核心包及其开发包，在安装devel版本时，会自动将<code>java-1.8.0-openjdk-headless-1.8.0.181-3.b13.el7_5.x86_64</code>版本也安装上。</p>
+<p>sudo yum install java-1.8.0-openjdk-1.8.0.191.b12-0.el7_5.x86_64<br />
+  sudo yum install java-1.8.0-openjdk-devel-1.8.0.181-3.b13.el7_5.x86_64</p>
+<p>现在系统中的jdk包，应该如下：</p>
+<p>[centos@ip-172-32-48-10 bin]$ sudo rpm -qa | grep java<br />
+<strong>java-1.8.0-openjdk-devel-1.8.0.181-3.b13.el7_5.x86_64</strong><br />
+<strong>java-1.8.0-openjdk-1.8.0.181-3.b13.el7_5.x86_64</strong><br />
+<strong>java-1.8.0-openjdk-headless-1.8.0.181-3.b13.el7_5.x86_64</strong></p>
 <h2 id="java">检查java版本</h2>
 <p>原先的版本：</p>
 <p>[centos@ip-172-32-48-10 bin]$ java -version<br />
@@ -73,6 +76,7 @@
   Usage: jstat -help|-options<br />
          jstat -<option> [-t] [-h<lines>] <vmid> [<interval> [<count>]]</p>
 <p>通过jdk版本替换，现在已经有了jstat命令，具体jstat的命令介绍可以参考<a href="https://docs.oracle.com/javase/7/docs/technotes/tools/share/jstat.html">jstat - Java Virtual Machine Statistics Monitoring Tool</a></p>
+<p>到此为止，你的jdk包也就非常清爽啦~</p>
 
   <br>
   <hr>
@@ -110,7 +114,7 @@
           <p>Copyright © 2018 <a href="https://longshilin.com/wiki" target="_blank">Longshilin</a>.</p>
           <!-- 署名协议 -->
           <p><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>&nbsp; |&nbsp;
-            Site Generated 2018-11-14 03:33:10 &nbsp; |&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
+            Site Generated 2018-11-14 03:55:33 &nbsp; |&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
       </span>
     </div>
 
