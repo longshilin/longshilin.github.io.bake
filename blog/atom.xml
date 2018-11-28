@@ -6,7 +6,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="https://longshilin.com/blog/"/>
-  <updated>2018-11-28T12:15:49.000Z</updated>
+  <updated>2018-11-28T12:19:12.000Z</updated>
   <id>https://longshilin.com/blog/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://longshilin.com/blog/9880d52a.html"/>
     <id>https://longshilin.com/blog/9880d52a.html</id>
     <published>2018-11-28T13:57:30.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>在mapper中编写带有sql in语法的sql时，需要注意不能直接以字符串&quot;in(…)&quot;的形式将语句贴在sql中，需要以list集合的形式遍历出来，具体的表达方式如下：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;select id=&quot;selectAllServiceByServiceType&quot; resultMap=&quot;BaseResultMap2&quot; parameterType=&quot;java.util.List&quot;&gt;</span><br><span class="line"> SELECT DISTINCT SERVICE_TYPE, IMAGE_TAG</span><br><span class="line"> FROM `SERVICE_CONFIG`</span><br><span class="line"> WHERE STATUS = 1</span><br><span class="line"> AND SERVICE_TYPE IN</span><br><span class="line"> &lt;foreach collection=&quot;list&quot; item=&quot;item&quot; index=&quot;index&quot; open=&quot;(&quot; separator=&quot;,&quot; close=&quot;)&quot;&gt;</span><br><span class="line">  #&#123;item&#125;</span><br><span class="line"> &lt;/foreach&gt;</span><br><span class="line"> ORDER BY SERVICE_TYPE;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure><a id="more"></a><p>上面得到的sql也就是：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT DISTINCT SERVICE_TYPE, IMAGE_TAG</span><br><span class="line">FROM `SERVICE_CONFIG`</span><br><span class="line">WHERE STATUS = 1</span><br><span class="line">AND SERVICE_TYPE IN (1, 2, 3, 4, 5);</span><br></pre></td></tr></table></figure><p>这里需要注意的是，foreach中的collection字段的list值是固定表达方式，在对应的mapper方法中，传入参数名也应为list，具体表示如下：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">List&lt;ServiceConfig&gt; selectAllServiceByServiceType(List&lt;Integer&gt; list);</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -44,7 +44,7 @@
     <link href="https://longshilin.com/blog/f1cb4bde.html"/>
     <id>https://longshilin.com/blog/f1cb4bde.html</id>
     <published>2018-11-15T14:03:48.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>今晚的线上Keep跑~ 慢慢的跑而又满满的幸福</p><a id="more"></a><p><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx8h12ek7fj30yi1pctpb.jpg" alt=""></p><p><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx8h1a6fdmj30u01hcq5e.jpg" alt=""></p>]]></content>
     
@@ -62,7 +62,7 @@
     <link href="https://longshilin.com/blog/bcc94c4f.html"/>
     <id>https://longshilin.com/blog/bcc94c4f.html</id>
     <published>2018-11-15T07:10:30.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-15 日计划来啦！！！<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx8h3thokfj30zk0np40z.jpg" alt=""></p><a id="more"></a><div class="bs-callout bs-callout-info"><blockquote><h4 id="👸">👸</h4></blockquote><p>今天收到3️⃣3️⃣每日计划咯 💁<br>每一天都要加油鸭！</p></div><div class="bs-callout bs-callout-success"><blockquote><h4 id="🐲">🐲</h4></blockquote><ul><li>工作上的线上业务维护</li><li>AWS认证书籍📚 今天完成第九章学习</li></ul></div>]]></content>
     
@@ -85,7 +85,7 @@
     <link href="https://longshilin.com/blog/cbce7cd9.html"/>
     <id>https://longshilin.com/blog/cbce7cd9.html</id>
     <published>2018-11-14T07:10:30.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-14 日计划来啦！！！<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx7cob6zbkj30zk0nrn3g.jpg" alt=""></p><a id="more"></a><div class="bs-callout bs-callout-info"><blockquote><h4 id="👸">👸</h4></blockquote><p>今天收到3️⃣3️⃣每日计划咯 💁<br>每一天都要加油鸭！<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx7cm8w7p2j32c0340x6q.jpg" alt=""></p></div><div class="bs-callout bs-callout-success"><blockquote><h4 id="🐲">🐲</h4></blockquote><ul><li>工作上的线上业务维护</li><li>AWS认证书籍📚 今天完成第九章学习</li></ul></div>]]></content>
     
@@ -108,7 +108,7 @@
     <link href="https://longshilin.com/blog/55aae97a.html"/>
     <id>https://longshilin.com/blog/55aae97a.html</id>
     <published>2018-11-13T07:10:30.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-13 日计划来啦！！！<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx68v5cvczj30zk0nnag4.jpg" alt=""></p><a id="more"></a><div class="bs-callout bs-callout-info"><blockquote><h4 id="👸">👸</h4></blockquote><p>今天收到3️⃣3️⃣每日计划咯 💁<br>每一天都要加油鸭！<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx68r0bc4nj31w02ioqv7.jpg" alt=""></p></div><div class="bs-callout bs-callout-success"><blockquote><h4 id="🐲">🐲</h4></blockquote><ul><li>工作上的线上业务维护</li><li>AWS认证书籍📚 今天第九章学习</li></ul></div>]]></content>
     
@@ -131,7 +131,7 @@
     <link href="https://longshilin.com/blog/22add9ec.html"/>
     <id>https://longshilin.com/blog/22add9ec.html</id>
     <published>2018-11-12T07:10:30.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-12 日计划来啦！！！<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx51dvzrvsj30zk0nhgnc.jpg" alt=""></p><a id="more"></a><div class="bs-callout bs-callout-info"><blockquote><h4 id="👸">👸</h4></blockquote><p>今天收到3️⃣3️⃣每日计划咯，开心到飞起而且开始用keep的TodoList书写的呢，炒鸡开心 😆 😁 😉 😜 😇<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx50kh988aj32c03401ky.jpg" alt=""></p></div><div class="bs-callout bs-callout-success"><blockquote><h4 id="🐲">🐲</h4></blockquote><ul><li>工作上的开发内容</li><li>AWS认证书籍📚 今天完成第八章学习</li></ul></div>]]></content>
     
@@ -154,7 +154,7 @@
     <link href="https://longshilin.com/blog/c4db1d93.html"/>
     <id>https://longshilin.com/blog/c4db1d93.html</id>
     <published>2018-11-11T14:43:12.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>极客时间的左耳朵耗子专栏关注了蛮长时间的，这里推出了陈皓推荐的必读书籍，内容确实详实且非常值。 <a href="https://ws1.sinaimg.cn/large/005EsThygy1fx464garyvj32uk3i8u10.jpg" target="_blank" rel="noopener">点击查看高清图</a></p><a id="more"></a><p><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx464garyvj32uk3i8u10.jpg" alt=""></p>]]></content>
     
@@ -176,7 +176,7 @@
     <link href="https://longshilin.com/blog/bba48856.html"/>
     <id>https://longshilin.com/blog/bba48856.html</id>
     <published>2018-11-11T07:10:30.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-11 日计划来啦！！！</p><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的，相信我 😔</p><p>💁 快来呀</p></div><blockquote><p>龙龙的计划 🐲</p></blockquote><ul><li>工作上的开发内容</li><li>AWS认证书籍📚 第八章</li></ul>]]></content>
     
@@ -198,7 +198,7 @@
     <link href="https://longshilin.com/blog/cca3b8c0.html"/>
     <id>https://longshilin.com/blog/cca3b8c0.html</id>
     <published>2018-11-10T07:10:30.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-10 日计划来啦！！！</p><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的，相信我 😔</p><p>💁 快来呀</p></div><blockquote><p>龙龙的计划 🐲</p></blockquote><ul><li>工作上的开发内容</li><li>AWS认证书籍📚 第七章</li></ul>]]></content>
     
@@ -220,7 +220,7 @@
     <link href="https://longshilin.com/blog/ac643125.html"/>
     <id>https://longshilin.com/blog/ac643125.html</id>
     <published>2018-11-09T07:10:30.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-09 日计划来啦！！！</p><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的，相信我 😔</p><p>💁 快来呀</p></div><blockquote><p>龙龙的计划 🐲</p></blockquote><ul><li>工作上的开发内容</li><li>AWS认证书籍📚 第七章</li></ul>]]></content>
     
@@ -242,7 +242,7 @@
     <link href="https://longshilin.com/blog/db6301b3.html"/>
     <id>https://longshilin.com/blog/db6301b3.html</id>
     <published>2018-11-08T08:10:30.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-08 日计划来啦！！！</p><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的，相信我 😔</p><p>💁 快来呀</p></div><blockquote><p>龙龙的计划 🐲</p></blockquote><ul><li>工作上的开发内容</li><li>AWS认证书籍📚 第六章（继续完成）</li></ul>]]></content>
     
@@ -264,7 +264,7 @@
     <link href="https://longshilin.com/blog/4bdc1c22.html"/>
     <id>https://longshilin.com/blog/4bdc1c22.html</id>
     <published>2018-11-07T08:10:30.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-07 日计划来啦！！！</p><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的，相信我 😔</p><p>💁 快来呀</p></div><blockquote><p>龙龙的计划 🐲</p></blockquote><ul><li>工作上的开发内容</li><li>AWS认证书籍📚 第六章</li></ul>]]></content>
     
@@ -286,7 +286,7 @@
     <link href="https://longshilin.com/blog/3cdb2cb4.html"/>
     <id>https://longshilin.com/blog/3cdb2cb4.html</id>
     <published>2018-11-06T08:10:30.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-06 日计划来啦！！！</p><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的，相信我 😔</p></div><blockquote><p>龙龙的计划 🐲</p></blockquote><ul><li>工作上的开发内容</li><li>AWS认证书籍📚</li></ul>]]></content>
     
@@ -308,7 +308,7 @@
     <link href="https://longshilin.com/blog/a5d27d0e.html"/>
     <id>https://longshilin.com/blog/a5d27d0e.html</id>
     <published>2018-11-05T08:10:30.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-05 日计划来啦！！！</p><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的，相信我 😔</p></div><blockquote><p>龙龙的计划 🐲</p></blockquote><ul><li>工作上的开发内容</li><li>AWS认证书籍📚</li></ul>]]></content>
     
@@ -330,7 +330,7 @@
     <link href="https://longshilin.com/blog/3bb6e8ad.html"/>
     <id>https://longshilin.com/blog/3bb6e8ad.html</id>
     <published>2018-11-02T11:10:30.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-02 日计划来啦！！！</p><p>⏩ 📁 🐼</p><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的，相信我 😔</p></div><blockquote><p>龙龙的计划 🐲</p></blockquote><ul><li>工作上的开发内容</li><li>今天将尖峰学堂的视频内容学习完 ✋</li></ul>]]></content>
     
@@ -353,7 +353,7 @@
     <link href="https://longshilin.com/blog/a2bfb917.html"/>
     <id>https://longshilin.com/blog/a2bfb917.html</id>
     <published>2018-11-01T11:10:30.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-01 日计划来啦！！！</p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=4054513&auto=1&height=66"></iframe><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的 😔</p></div><blockquote><p>龙龙的计划 <i class="fa fa-fa-battery-full"></i></p></blockquote><ul><li>工作上的开发内容</li><li>还是继续学习学堂在线AWS微学位的视频，今天会结束这一个系列的学习 ✋</li></ul>]]></content>
     
@@ -376,7 +376,7 @@
     <link href="https://longshilin.com/blog/312e8db1.html"/>
     <id>https://longshilin.com/blog/312e8db1.html</id>
     <published>2018-10-31T11:10:30.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-10-31 日计划来啦！！！</p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=446627373&auto=1&height=66"></iframe><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="i-class-fa-fa-fa-cat-i-3-3"><i class="fa fa-fa-cat"></i> 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的 <i class="fa fa-fa-bolt"></i></p></div><blockquote><p>龙龙的计划<i class="fa fa-fa-battery-full"></i></p></blockquote><ul><li>工作上继续按照开发任务进行</li><li>还是继续学习学堂在线AWS微学位的视频</li></ul>]]></content>
     
@@ -399,7 +399,7 @@
     <link href="https://longshilin.com/blog/4629bd27.html"/>
     <id>https://longshilin.com/blog/4629bd27.html</id>
     <published>2018-10-30T11:10:30.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-10-30 日计划来啦！！！</p><p><img src="https://i.imgur.com/OqxSbhE.jpg" alt=""></p><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="i-class-fa-fa-fa-cat-i-3-3"><i class="fa fa-fa-cat"></i> 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的 😃 <i class="fa fa-fa-bolt"></i></p></div><blockquote><p>龙龙的计划<i class="fa fa-fa-battery-full"></i></p></blockquote><ul><li>开发</li><li>学堂在线AWS微学位的视频</li></ul>]]></content>
     
@@ -422,7 +422,7 @@
     <link href="https://longshilin.com/blog/26ee34c2.html"/>
     <id>https://longshilin.com/blog/26ee34c2.html</id>
     <published>2018-10-29T11:10:29.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-10-29 日计划来啦！！！</p><p><img src="https://i.imgur.com/bva9r5c.png" alt="冲鸭"></p><a id="more"></a><blockquote><p>珊珊的计划</p></blockquote><p><img src="https://i.imgur.com/LrjT3oK.jpg" alt="2018-10-29"></p><blockquote><p>龙龙的计划</p></blockquote><p>周一开启狂暴学习计划：</p><ul><li><code>AWS精讲云课堂</code> 视频学习 05~10</li><li>学堂在线视频 [全部内容]</li></ul><blockquote><p><strong><em>实时更新进展</em></strong></p></blockquote>]]></content>
     
@@ -445,7 +445,7 @@
     <link href="https://longshilin.com/blog/6d1adbfd.html"/>
     <id>https://longshilin.com/blog/6d1adbfd.html</id>
     <published>2018-10-28T18:43:12.000Z</published>
-    <updated>2018-11-28T12:15:49.000Z</updated>
+    <updated>2018-11-28T12:19:12.000Z</updated>
     
     <content type="html"><![CDATA[<p>今天我在极客时间上买了张磊的 <kbd><a href="https://time.geekbang.org/column/116" target="_blank" rel="noopener">深入剖析Kubernetes</a></kbd>  你可以通过下面的海报进行购买，这样我可以获得一些回报。</p><a id="more"></a><p><img src="https://i.imgur.com/xm2yYJB.jpg" alt="微信图片_20181028184640"></p><p>下面给出这个专栏的技能树，这里涉及了非常多的方面，相信在专栏中多少都会有涉及到。<br><img src="https://i.imgur.com/333CsRu.jpg" alt="a37bd402bba80807bcc0eeaf78320243"></p><p>在接下来的一段时间，我会跟随张磊的k8s专栏来了解kubernetes，并将自己的所学所感整理出来。</p>]]></content>
     
