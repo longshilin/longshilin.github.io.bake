@@ -506,9 +506,9 @@
  */
 
 /* Globals */
-
+/* Georgia, "Times New Roman", Times, serif; */
 body {
-  font-family: Georgia, "Times New Roman", Times, serif;
+  font-family: "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYiMicro Hei",sans-serif;
   color: #555;
 }
 
