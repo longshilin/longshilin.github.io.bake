@@ -506,7 +506,7 @@
  */
 
 /* Globals */
-/* Georgia, "Times New Roman", Times, serif; */
+
 body {
   font-family: Georgia, "Times New Roman", Times, serif;
   color: #555;
@@ -519,14 +519,14 @@ h4, .h4,
 h5, .h5,
 h6, .h6 {
   margin-top: 1em;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: normal;
   color: #333;
 }
 
-p, pre {
-  margin: 0 0 20px;
+p {
+  margin: 0 0 15px;
 }
 
 code {
@@ -548,29 +548,10 @@ code {
   border-radius: 30px;
 }
 
-/* Override Bootstrap's default container width
-    width: 970px;
-*/
-/* @media (min-width: 1100px) {
-  .container {
-    width: 1100px;
-  }
-}
-
-@media (min-width: 1450px) {
-  .container {
-    width: 1450px;
-  }
-} */
+/* Override Bootstrap's default container width */
 @media (min-width: 1200px) {
   .container {
     width: 970px;
-  }
-}
-
-@media (min-width: 1450px) {
-  .container {
-    width: 1250px;
   }
 }
 
@@ -618,10 +599,7 @@ code {
     border-radius: 0;
     min-height: 40px;
   }
-  .col-sm-3 {
-    width: 20%;
-  }
-
+  
   /** The following may need modification depending on
       the size of your `navbar-brand` (if enabled)*/
   #main-menu-navbar {
