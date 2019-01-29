@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title>搭建Jenkins</title>
+      <link href="/blog/ce1daaf.html"/>
+      <url>/blog/ce1daaf.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/O6t00dy.jpg" alt=""></p><h1>配置全局设置</h1><p>如果想通过curl命令，远程发送请求的方式触发Jenkins进行调度，需要关闭<code>全局安全设置</code>中的<code>防止跨站点请求伪造</code></p><a id="more"></a><h1>全局工具配置</h1><p>查看机器上的命令：</p><ul><li>JDK 安装<br><code>whereis java</code><ul><li>别名 <code>jdk1.8.0_162</code></li><li>JAVA_HOME<code>/usr/java/jdk1.8.0_162</code></li></ul></li><li>Git installations<br><code>sudo yum install -y git</code><ul><li>Name <code>git 1.8.3.1</code></li><li>Path to Git executable <code>/usr/bin/git</code></li></ul></li><li>Maven 安装<br><code>wget http://mirrors.ocf.berkeley.edu/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz</code><ul><li>Name <code>Apache Maven 3.5.4</code></li><li>MAVEN_HOME <code>/usr/maven</code></li></ul></li></ul><h1>安装Jenkins Plugin</h1><ul><li>Publish Over SSH (远程Shell)</li><li>Maven Integration (Maven集成，否则新建任务的时候没有<strong>Maven Project</strong>)</li><li>Email Extension Template (邮件通知)</li></ul><h1>配置Jenkins任务 - deploy web project</h1><h2 id="源码管理">源码管理</h2><p>通过git来管理源码，这里填入<strong>Repositories</strong>中的<strong>URL</strong>和<strong>Credentials</strong></p><h2 id="构建触发器">构建触发器</h2><p>触发器选项，按照需求来选择。默认不用构建</p><h2 id="构建环境">构建环境</h2><p>构建环境，默认无需勾选</p><h2 id="maven构建">Maven构建</h2><h3 id="pre-steps">Pre Steps</h3><h3 id="build">Build</h3><p>Root POM：<code>deploy/pom.xml</code><br>Goals and options：<code>clean package -Pdev</code></p><h3 id="post-steps">Post Steps</h3><h4 id="run-only-if-build-succeeds">Run only if build succeeds</h4><pre><code>sudo rm -rf /usr/app/tomcat/webapps/deploy &amp;&amp; sudo cp -f ${WORKSPACE}/deploy/target/deploy.war /usr/app/tomcat/webapps &amp;&amp; sudo systemctl restart tomcat</code></pre><h2 id="构建设置">构建设置</h2><h3 id="e-mail-notification">E-mail Notification</h3><p>Recipients <code>Email-Address</code></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> jenkins </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> jenkins </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>常用写作格式</title>
       <link href="/blog/7eae6d59.html"/>
       <url>/blog/7eae6d59.html</url>
@@ -793,7 +816,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+eAygAoCTzrebDPQluE4mXM83O2sUnwhHFuxEZf4kgS0qhaISgnU8MumSKWMFsvLUsVbDiA3BXpxLvNIJ5eT9wwF55+hrHdy0GyXM3pJEgLu/VLc4Oz0ivT+PplUIHCkGjzxKnHDZGYMDaOTwVIKzHrILXg6ra9S2veCq9Mt8O3Akso4CF3ecs+INAKW1mvO8sy4QYk9x69Wg9HmqBlMa2QY1aNQcI/RSmQo2asiW6NcJiWg0xN/WIBfNM8STwMRvunCC8/iUp2+N/Am/mIRiItiTLDUlzXGUi+UOdDxyLNvbyH+aQRgp8ghXAL1cghFHbFiKgRcDeW0vPMXOKVkw9RnPkS6cfdcRUbd+8DDYw++Rk9ZTjkcodE7b/2hkIjvVJiMDUE9+my5OAQZmEwxaKSFNWdvTRTrfOIOb9fbQHbX031998K5SJdoecBjNRDYA4IAwI/M111AoYNsjCkOSXJy/MRNi3GH4jVe1QWJogUe6zv911s0z6xr5XPreFOlmKbR0E7lsqwxREBeAJDS6b9VjEu8m9zSnyeyLl0PJbWRO9aECD1tbqqMWCDOltHTmeMDFDRdaTbFlh1J/3LQ+j/VZJtw/Shu5czdXtVUl2i0Kt1d6esVtuWuxPqCNdD4ctkAM7+m50OcK+EP5BIx9udrx5pClRUaxKdU257RBlLSO7eQMZ5Gi0ycHRav3nKNgUfmzb4J6j6YzfdWFHE2cK3kGXfxmLKH3ZLbtbbswk4i7+pBUhOQGt/6yTBk7o5f/EbfJPknxFEQ==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+rDp8Zt+JT75QV+JFNLg5vB9kift7Q0Qpt0o9sSdXT45PmUmrj63oDLs/JY9z2zr3nLqCLiCWwZ4qCavZzB1s4Hj6P0FWK7f7kAztW/U5uwomBE5I8h+kkfYUINzSd/UsMtR3XSbnSyHw6R1gJzwJqywmIaTbkxBNXsbVFarv8q20jrmxA3k4AzhBNwFBViu71zqsFVvLH1RFT7tta2kp9OARwepA53erhzhuGkWNt1B/bnUsOqXl8CVhJO6tE3BrTTR9eOJL1Sr3NKMYENIhtlm+if6Xm/V+cEBF3Hkh4khVGJcEjS7zMPLQzf/M0c27v+NIZq1XfjYCt0fPmpIInKf65zOhhYQdIevApQT/jYh/5HWEMQRXsZZtOpBA2qRI/WwQPpaLcrREjdePaA4oeED7QhH2t0VXoISKig4hwcd061W3iNpjtOAEF3Mpnexs91S1IJOIkqxGlDOfaTsWYz8BjLUpTl2+Z/zIe0I7Z3jA5+69KL6tloSHo3ALDOgKSxR8IWXto0MigPQEbdlPxGMSt+ZCA1j/7LzF1sPCfJJuj86oi1VLq3m6FUg8R4nLlik32ifCpe8A0i6pZVNP29pRaSrqusX7l5PLOeqIQkZoCoLX+07mtuOJRUF1cMrf5z/okdmqq4UW8kBbnryt3MCj0rCBI8Y0mMCHElXF3lztDMeWxpG2WYZ/crDMGAHUmPBM3Q8eQtnLyNovDbMkaCAZdlZyqhZ1pag/pI34NLHTs5ivMjS+c8zHsN2jGJ6FKs6eLbW6yxg==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -1005,31 +1028,6 @@
     </entry>
     
     <entry>
-      <title>gitlab绑定域名</title>
-      <link href="/blog/57c188a8.html"/>
-      <url>/blog/57c188a8.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/rQfzXnn.png" alt=""></p><p>通过gitlab部署并发布静态网站，通过绑定自己的域名来实现自定义访问。</p><a id="more"></a><p>在项目的设置中，选择pages项，里面配置你的域名证书，这里可以使用域名的注册商提供给你的证书，或者是通过<a href="https://freessl.org/" target="_blank" rel="noopener">FreeSSL</a>提供免费证书申请，将得到的证书文件依次拷贝到Pages中，创建 <strong>New Pages Domain</strong></p><p><img src="https://i.imgur.com/vO69TtL.png" alt=""></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> website </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> longshilindotcom </tag>
-            
-            <tag> 域名 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>构建hexo和simiki工具的docker镜像</title>
       <link href="/blog/fd401cf5.html"/>
       <url>/blog/fd401cf5.html</url>
@@ -1103,6 +1101,31 @@
             <tag> website </tag>
             
             <tag> gitlab </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>gitlab绑定域名</title>
+      <link href="/blog/57c188a8.html"/>
+      <url>/blog/57c188a8.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/rQfzXnn.png" alt=""></p><p>通过gitlab部署并发布静态网站，通过绑定自己的域名来实现自定义访问。</p><a id="more"></a><p>在项目的设置中，选择pages项，里面配置你的域名证书，这里可以使用域名的注册商提供给你的证书，或者是通过<a href="https://freessl.org/" target="_blank" rel="noopener">FreeSSL</a>提供免费证书申请，将得到的证书文件依次拷贝到Pages中，创建 <strong>New Pages Domain</strong></p><p><img src="https://i.imgur.com/vO69TtL.png" alt=""></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> website </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> longshilindotcom </tag>
+            
+            <tag> 域名 </tag>
             
         </tags>
       
@@ -1195,29 +1218,6 @@
         <tags>
             
             <tag> docker </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>搭建Jenkins</title>
-      <link href="/blog/ce1daaf.html"/>
-      <url>/blog/ce1daaf.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/O6t00dy.jpg" alt=""></p><h1>配置全局设置</h1><p>如果想通过curl命令，远程发送请求的方式触发Jenkins进行调度，需要关闭<code>全局安全设置</code>中的<code>防止跨站点请求伪造</code></p><a id="more"></a><h1>全局工具配置</h1><p>查看机器上的命令：</p><ul><li>JDK 安装<br><code>whereis java</code><ul><li>别名 <code>jdk1.8.0_162</code></li><li>JAVA_HOME<code>/usr/java/jdk1.8.0_162</code></li></ul></li><li>Git installations<br><code>sudo yum install -y git</code><ul><li>Name <code>git 1.8.3.1</code></li><li>Path to Git executable <code>/usr/bin/git</code></li></ul></li><li>Maven 安装<br><code>wget http://mirrors.ocf.berkeley.edu/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz</code><ul><li>Name <code>Apache Maven 3.5.4</code></li><li>MAVEN_HOME <code>/usr/maven</code></li></ul></li></ul><h1>安装Jenkins Plugin</h1><ul><li>Publish Over SSH (远程Shell)</li><li>Maven Integration (Maven集成，否则新建任务的时候没有<strong>Maven Project</strong>)</li><li>Email Extension Template (邮件通知)</li></ul><h1>配置Jenkins任务 - deploy web project</h1><h2 id="源码管理">源码管理</h2><p>通过git来管理源码，这里填入<strong>Repositories</strong>中的<strong>URL</strong>和<strong>Credentials</strong></p><h2 id="构建触发器">构建触发器</h2><p>触发器选项，按照需求来选择。默认不用构建</p><h2 id="构建环境">构建环境</h2><p>构建环境，默认无需勾选</p><h2 id="maven构建">Maven构建</h2><h3 id="pre-steps">Pre Steps</h3><h3 id="build">Build</h3><p>Root POM：<code>deploy/pom.xml</code><br>Goals and options：<code>clean package -Pdev</code></p><h3 id="post-steps">Post Steps</h3><h4 id="run-only-if-build-succeeds">Run only if build succeeds</h4><pre><code>sudo rm -rf /usr/app/tomcat/webapps/deploy &amp;&amp; sudo cp -f ${WORKSPACE}/deploy/target/deploy.war /usr/app/tomcat/webapps &amp;&amp; sudo systemctl restart tomcat</code></pre><h2 id="构建设置">构建设置</h2><h3 id="e-mail-notification">E-mail Notification</h3><p>Recipients <code>Email-Address</code></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> jenkins </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> jenkins </tag>
             
         </tags>
       
