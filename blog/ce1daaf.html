@@ -16,7 +16,7 @@
 <meta property="og:description" content="配置全局设置 如果想通过curl命令，远程发送请求的方式触发Jenkins进行调度，需要关闭全局安全设置中的防止跨站点请求伪造">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://i.imgur.com/O6t00dy.jpg">
-<meta property="og:updated_time" content="2019-01-29T06:42:26.000Z">
+<meta property="og:updated_time" content="2019-01-29T07:01:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="搭建Jenkins">
 <meta name="twitter:description" content="配置全局设置 如果想通过curl命令，远程发送请求的方式触发Jenkins进行调度，需要关闭全局安全设置中的防止跨站点请求伪造">
@@ -143,7 +143,7 @@
   <div class="article-meta">
     
     <div class="article-datetime">
-  <a href="/blog/ce1daaf.html" class="article-date"><time datetime="2019-01-29T06:42:26.000Z" itemprop="datePublished">2019-01-29</time></a>
+  <a href="/blog/ce1daaf.html" class="article-date"><time datetime="2019-01-29T07:01:04.000Z" itemprop="datePublished">2019-01-29</time></a>
 </div>
 
     
@@ -215,8 +215,8 @@
 Goals and options：<code>clean package -Pdev</code></p>
 <h3 id="post-steps">Post Steps</h3>
 <h4 id="run-only-if-build-succeeds">Run only if build succeeds</h4>
-<pre><code>sudo rm -rf /usr/app/tomcat/webapps/deploy &amp;&amp; sudo cp -f ${WORKSPACE}/deploy/target/deploy.war /usr/app/tomcat/webapps &amp;&amp; sudo systemctl restart tomcat
-</code></pre>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> sudo rm -rf /usr/app/tomcat/webapps/deploy &amp;&amp; sudo cp -f $&#123;WORKSPACE&#125;/deploy/target/deploy.war /usr/app/tomcat/webapps &amp;&amp; sudo systemctl restart tomcat</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum provides "*jstat" --enablerepo=epel</span><br><span class="line">yum provides "*jps" --enablerepo=epel</span><br><span class="line">yum provides "*ps" --enablerepo=epel</span><br></pre></td></tr></table></figure>
 <h2 id="构建设置">构建设置</h2>
 <h3 id="e-mail-notification">E-mail Notification</h3>
 <p>Recipients <code>Email-Address</code></p>
@@ -230,7 +230,7 @@ Goals and options：<code>clean package -Pdev</code></p>
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/ce1daaf.html" data-id="cjrheacdc00070l05vidhc752" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/ce1daaf.html" data-id="cjrhey7xx00070lxgqkfsncih" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 

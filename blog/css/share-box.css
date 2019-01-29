@@ -40,7 +40,6 @@
 .article-share-links:before,
 .article-share-links:after {
   content: "";
-  display: table;
 }
 .article-share-links:after {
   clear: both;

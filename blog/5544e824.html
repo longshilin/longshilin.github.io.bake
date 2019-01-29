@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="积之在平日">
 <meta property="og:description" content="在生产环境中，经常有docker容器的CPU消耗太高而导致宿主机的CPU占用率攀升，引起AWS CloudWatch的警报邮件等，另外在批量重启容器的时候，也会经常遇到短暂对宿主机的CPU消耗过高的情况，现阶段准备再原来的容器中新增java的监控命令。具体是在镜像中包含如：jps、jstat和ps等命令的容器。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-29T06:42:26.000Z">
+<meta property="og:updated_time" content="2019-01-29T07:01:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="制作带有java监控命令的镜像">
 <meta name="twitter:description" content="在生产环境中，经常有docker容器的CPU消耗太高而导致宿主机的CPU占用率攀升，引起AWS CloudWatch的警报邮件等，另外在批量重启容器的时候，也会经常遇到短暂对宿主机的CPU消耗过高的情况，现阶段准备再原来的容器中新增java的监控命令。具体是在镜像中包含如：jps、jstat和ps等命令的容器。">
@@ -168,7 +168,7 @@
 <a id="more"></a>
 <h2 id="寻找包含jstat的openjdk">寻找包含jstat的openjdk</h2>
 <p>可以通过以下命令查找哪些openjdk版本包中含需要的命令。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum provides "*jstat" --enablerepo=epel</span><br><span class="line">yum provides "*jps" --enablerepo=epel</span><br><span class="line">yum provides "*ps" --enablerepo=epel</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">yum provides &quot;*jstat&quot; --enablerepo=epel</span><br><span class="line">yum provides &quot;*jps&quot; --enablerepo=epel</span><br><span class="line">yum provides &quot;*ps&quot; --enablerepo=epel</span><br></pre></td></tr></table></figure>
 <p>最终选择你需要的版本，这里我选择的是<code>java-1.8.0-openjdk-devel-1.8.0.181-3.b13.el7_5.x86_64</code>,在这个版本包中包含所需的java监控命令。</p>
 <blockquote>
 <p><strong>(一步到位, 一个Dockerfile搞定所有)</strong></p>
@@ -188,7 +188,7 @@
 <h2 id="制作openjdk-tomcat8-image-第一步">制作openjdk+tomcat8 Image（第一步）</h2>
 <p>上面那种是一次构建完成所有步骤，在我们的集群环境中，可能存在项目包的版本更新，所有需要制作一个基础的jdk+tomcat的基础版本，然后在这个镜像之上进行项目的版本迭代。</p>
 <h3 id="dockerfile">Dockerfile</h3>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">FROM docker.io/centos:7.4.1708</span><br><span class="line"># author</span><br><span class="line">MAINTAINER longsl &lt;583297550@qq.com&gt;</span><br><span class="line"># install jdk including jps,jstat,ps command.</span><br><span class="line">yum -y install java-1.8.0-openjdk-devel-1.8.0.181-3.b13.el7_5.x86_64</span><br><span class="line"># add group and user in OS</span><br><span class="line">RUN groupadd -g 2003 kpgame &amp;&amp; useradd -u 2003 -g 2003 -s /sbin/nologin -d /dev/null -M kpgame</span><br><span class="line"># add tomcat gzfile</span><br><span class="line">ADD tomcat8.tar.gz /usr/local/tomcat/</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">FROM docker.io/centos:7.4.1708</span><br><span class="line"><span class="meta">#</span> author</span><br><span class="line">MAINTAINER longsl &lt;583297550@qq.com&gt;</span><br><span class="line"><span class="meta">#</span> install jdk including jps,jstat,ps command.</span><br><span class="line">yum -y install java-1.8.0-openjdk-devel-1.8.0.181-3.b13.el7_5.x86_64</span><br><span class="line"><span class="meta">#</span> add group and user in OS</span><br><span class="line">RUN groupadd -g 2003 kpgame &amp;&amp; useradd -u 2003 -g 2003 -s /sbin/nologin -d /dev/null -M kpgame</span><br><span class="line"><span class="meta">#</span> add tomcat gzfile</span><br><span class="line">ADD tomcat8.tar.gz /usr/local/tomcat/</span><br></pre></td></tr></table></figure>
 <h3 id="build-image-v2">build image</h3>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo docker build -t longsl/tomcat:8.0 .</span><br></pre></td></tr></table></figure>
 <h2 id="制作镜像-第二步">制作镜像（第二步）</h2>
@@ -226,7 +226,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/5544e824.html" data-id="cjrheacdp000c0l05ja5evkcp" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/5544e824.html" data-id="cjrhey7ya000c0lxg0bep830i" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
