@@ -6,7 +6,7 @@
   <link href="/blog/atom.xml" rel="self"/>
   
   <link href="https://longshilin.com/blog/"/>
-  <updated>2019-01-29T07:17:53.000Z</updated>
+  <updated>2019-01-29T07:22:13.000Z</updated>
   <id>https://longshilin.com/blog/</id>
   
   <author>
@@ -17,59 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>搭建Jenkins</title>
-    <link href="https://longshilin.com/blog/ce1daaf.html"/>
-    <id>https://longshilin.com/blog/ce1daaf.html</id>
-    <published>2019-01-29T07:17:53.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><img src="https://i.imgur.com/O6t00dy.jpg" alt=""></p><h1>配置全局设置</h1><p>如果想通过curl命令，远程发送请求的方式触发Jenkins进行调度，需要关闭<code>全局安全设置</code>中的<code>防止跨站点请求伪造</code></p><a id="more"></a><h1>全局工具配置</h1><p>查看机器上的命令：</p><ul><li>JDK 安装<br><code>whereis java</code><ul><li>别名 <code>jdk1.8.0_162</code></li><li>JAVA_HOME<code>/usr/java/jdk1.8.0_162</code></li></ul></li><li>Git installations<br><code>sudo yum install -y git</code><ul><li>Name <code>git 1.8.3.1</code></li><li>Path to Git executable <code>/usr/bin/git</code></li></ul></li><li>Maven 安装<br><code>wget http://mirrors.ocf.berkeley.edu/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz</code><ul><li>Name <code>Apache Maven 3.5.4</code></li><li>MAVEN_HOME <code>/usr/maven</code></li></ul></li></ul><h1>安装Jenkins Plugin</h1><ul><li>Publish Over SSH (远程Shell)</li><li>Maven Integration (Maven集成，否则新建任务的时候没有<strong>Maven Project</strong>)</li><li>Email Extension Template (邮件通知)</li></ul><h1>配置Jenkins任务 - deploy web project</h1><h2 id="源码管理">源码管理</h2><p>通过git来管理源码，这里填入<strong>Repositories</strong>中的<strong>URL</strong>和<strong>Credentials</strong></p><h2 id="构建触发器">构建触发器</h2><p>触发器选项，按照需求来选择。默认不用构建</p><h2 id="构建环境">构建环境</h2><p>构建环境，默认无需勾选</p><h2 id="maven构建">Maven构建</h2><h3 id="pre-steps">Pre Steps</h3><h3 id="build">Build</h3><p>Root POM：<code>deploy/pom.xml</code><br>Goals and options：<code>clean package -Pdev</code></p><h3 id="post-steps">Post Steps</h3><h4 id="run-only-if-build-succeeds">Run only if build succeeds</h4><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span> sudo rm -rf /usr/app/tomcat/webapps/deploy &amp;&amp; sudo cp -f $&#123;WORKSPACE&#125;/deploy/target/deploy.war /usr/app/tomcat/webapps &amp;&amp; sudo systemctl restart tomcat</span><br></pre></td></tr></table></figure><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">yum provides "*jstat" --enablerepo=epel</span><br><span class="line">yum provides "*jps" --enablerepo=epel</span><br><span class="line">yum provides "*ps" --enablerepo=epel</span><br></pre></td></tr></table></figure><h2 id="构建设置">构建设置</h2><h3 id="e-mail-notification">E-mail Notification</h3><p>Recipients <code>Email-Address</code></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;&lt;img src=&quot;https://i.imgur.com/O6t00dy.jpg&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
-&lt;h1&gt;配置全局设置&lt;/h1&gt;
-&lt;p&gt;如果想通过curl命令，远程发送请求的方式触发Jenkins进行调度，需要关闭&lt;code&gt;全局安全设置&lt;/code&gt;中的&lt;code&gt;防止跨站点请求伪造&lt;/code&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="jenkins" scheme="https://longshilin.com/blog/categories/jenkins/"/>
-    
-    
-      <category term="jenkins" scheme="https://longshilin.com/blog/tags/jenkins/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>常用写作格式</title>
-    <link href="https://longshilin.com/blog/7eae6d59.html"/>
-    <id>https://longshilin.com/blog/7eae6d59.html</id>
-    <published>2019-01-09T21:55:32.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
-    
-    <content type="html"><![CDATA[<div class="bs-callout bs-callout-primary"><p>c如何写的漂亮… 这是一个好问题</p></div><p>下面会以这样的格式展示每一个模块<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ABC</span><br></pre></td></tr></table></figure><p>…outputs:<br>ABC</p><a id="more"></a><h3 id="表格">表格</h3><p>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">| Table Header 1 | Table Header 2 | Table Header 3 |</span><br><span class="line">| - | - | - |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br></pre></td></tr></table></figure><p>…outputs:</p><table><thead><tr><th>Table Header 1</th><th>Table Header 2</th><th>Table Header 3</th></tr></thead><tbody><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr></tbody></table><h3 id="bootstrap重点标注">Bootstrap重点标注</h3><p>这个Bootstrap标注可以给你的文章增添更多的醒目标记信息。可选项：default | primary | success | info | warning | danger<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% callout info %&#125;</span><br><span class="line">#### &#123;% fa info-circle %&#125; Info</span><br><span class="line">This is some info content</span><br><span class="line">&#123;% endcallout %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% callout warning %&#125;</span><br><span class="line">#### &#123;% fa exclamation-triangle %&#125; Warning</span><br><span class="line">This is some warning content</span><br><span class="line">&#123;% endcallout %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% callout danger %&#125;</span><br><span class="line">#### &#123;% fa exclamation-triangle %&#125; Danger</span><br><span class="line">This is some danger content</span><br><span class="line">&#123;% endcallout %&#125;</span><br></pre></td></tr></table></figure><p>…outputs:</p><div class="bs-callout bs-callout-info"><h4 id="i-class-fa-fa-info-circle-i-info"><i class="fa fa-info-circle"></i> Info</h4><p>This is some info content</p></div><div class="bs-callout bs-callout-warning"><h4 id="i-class-fa-fa-exclamation-triangle-i-warning"><i class="fa fa-exclamation-triangle"></i> Warning</h4><p>This is some warning content</p></div><div class="bs-callout bs-callout-danger"><h4 id="i-class-fa-fa-exclamation-triangle-i-danger"><i class="fa fa-exclamation-triangle"></i> Danger</h4><p>This is some danger content</p></div><h3 id="fa图标">fa图标</h3><p>在 <a href="https://fontawesome.com/icons" target="_blank" rel="noopener">Font Awesome 资源</a>  可以选择你需要的任意图标。<br>Markdown：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% fa github %&#125;</span><br></pre></td></tr></table></figure><p>…outputs:</p><i class="fa fa-github"></i>]]></content>
-    
-    <summary type="html">
-    
-      &lt;div class=&quot;bs-callout bs-callout-primary&quot;&gt;&lt;p&gt;c如何写的漂亮… 这是一个好问题&lt;/p&gt;
-&lt;/div&gt;
-&lt;p&gt;下面会以这样的格式展示每一个模块&lt;br&gt;
-Markdown:&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ABC&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;…outputs:&lt;br&gt;
-ABC&lt;/p&gt;
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
     <title>功能性格式参考</title>
     <link href="https://longshilin.com/blog/2c9fcc04.html"/>
     <id>https://longshilin.com/blog/2c9fcc04.html</id>
     <published>2019-01-09T21:55:32.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
+    <updated>2019-01-29T07:22:13.000Z</updated>
     
     <content type="html"><![CDATA[<div class="bs-callout bs-callout-primary"><p>下面会在文章中引入的几个功能点，做一些记录 方便日后直接引用。</p></div><p>下面会以这样的格式展示每一个模块<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ABC</span><br></pre></td></tr></table></figure><p>…outputs:<br>ABC</p><a id="more"></a><h3 id="hexo-github-card">hexo-github-card</h3><p>在文章中引入某个github项目卡片，<a href="https://github.com/Gisonrg/hexo-github-card" target="_blank" rel="noopener">参考地址</a><br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% githubCard user:your_user [repo:your_repo] [width:400] [theme:Default] [client_id:your_client_id] [client_secret:your_client_secret] [align:text-align_position] %&#125;</span><br><span class="line"></span><br><span class="line">如：</span><br></pre></td></tr></table></figure><p>…outputs:</p><div style="text-align:center">  <div class="github-card" data-user="longshilin" data-repo="" data-width="400" data-theme="default" data-target="" data-client-id="" data-client-secret=""></div></div><script src="/github-card-lib/githubcard.js"></script><div style="text-align:center">  <div class="github-card" data-user="longshilin" data-repo="" data-width="400" data-theme="default" data-target="" data-client-id="" data-client-secret=""></div></div><script src="/github-card-lib/githubcard.js"></script>]]></content>
     
@@ -89,11 +41,35 @@ ABC&lt;/p&gt;
   </entry>
   
   <entry>
+    <title>常用写作格式</title>
+    <link href="https://longshilin.com/blog/7eae6d59.html"/>
+    <id>https://longshilin.com/blog/7eae6d59.html</id>
+    <published>2019-01-09T21:55:32.000Z</published>
+    <updated>2019-01-29T07:22:13.000Z</updated>
+    
+    <content type="html"><![CDATA[<div class="bs-callout bs-callout-primary"><p>c如何写的漂亮… 这是一个好问题</p></div><p>下面会以这样的格式展示每一个模块<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ABC</span><br></pre></td></tr></table></figure><p>…outputs:<br>ABC</p><a id="more"></a><h3 id="表格">表格</h3><p>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">| Table Header 1 | Table Header 2 | Table Header 3 |</span><br><span class="line">| - | - | - |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br></pre></td></tr></table></figure><p>…outputs:</p><table><thead><tr><th>Table Header 1</th><th>Table Header 2</th><th>Table Header 3</th></tr></thead><tbody><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr></tbody></table><h3 id="bootstrap重点标注">Bootstrap重点标注</h3><p>这个Bootstrap标注可以给你的文章增添更多的醒目标记信息。可选项：default | primary | success | info | warning | danger<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% callout info %&#125;</span><br><span class="line">#### &#123;% fa info-circle %&#125; Info</span><br><span class="line">This is some info content</span><br><span class="line">&#123;% endcallout %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% callout warning %&#125;</span><br><span class="line">#### &#123;% fa exclamation-triangle %&#125; Warning</span><br><span class="line">This is some warning content</span><br><span class="line">&#123;% endcallout %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% callout danger %&#125;</span><br><span class="line">#### &#123;% fa exclamation-triangle %&#125; Danger</span><br><span class="line">This is some danger content</span><br><span class="line">&#123;% endcallout %&#125;</span><br></pre></td></tr></table></figure><p>…outputs:</p><div class="bs-callout bs-callout-info"><h4 id="i-class-fa-fa-info-circle-i-info"><i class="fa fa-info-circle"></i> Info</h4><p>This is some info content</p></div><div class="bs-callout bs-callout-warning"><h4 id="i-class-fa-fa-exclamation-triangle-i-warning"><i class="fa fa-exclamation-triangle"></i> Warning</h4><p>This is some warning content</p></div><div class="bs-callout bs-callout-danger"><h4 id="i-class-fa-fa-exclamation-triangle-i-danger"><i class="fa fa-exclamation-triangle"></i> Danger</h4><p>This is some danger content</p></div><h3 id="fa图标">fa图标</h3><p>在 <a href="https://fontawesome.com/icons" target="_blank" rel="noopener">Font Awesome 资源</a>  可以选择你需要的任意图标。<br>Markdown：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% fa github %&#125;</span><br></pre></td></tr></table></figure><p>…outputs:</p><i class="fa fa-github"></i>]]></content>
+    
+    <summary type="html">
+    
+      &lt;div class=&quot;bs-callout bs-callout-primary&quot;&gt;&lt;p&gt;c如何写的漂亮… 这是一个好问题&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;下面会以这样的格式展示每一个模块&lt;br&gt;
+Markdown:&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;ABC&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;…outputs:&lt;br&gt;
+ABC&lt;/p&gt;
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
     <title>【收藏】写博客必备的工具合集</title>
     <link href="https://longshilin.com/blog/4b315c79.html"/>
     <id>https://longshilin.com/blog/4b315c79.html</id>
     <published>2019-01-06T10:30:40.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
+    <updated>2019-01-29T07:22:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>这里的工具合集主要是我写博客时需要涉及到的工具，这些工具的使用能够提高我的创作效率，并且给我带来实质上的便利。下面基本上是一句话概括每一个工具，并且配上官方使用的网页介绍，以及对于功能介绍的<i class="fa fa-file-pdf"></i>离线PDF版本以及<i class="fa fa-box"></i>安装包等资源的<i class="fa fa-archive"></i>归档文件目录分享。</p><a id="more"></a><h2 id="电脑优化性能集合">电脑优化性能集合</h2><h3 id="1-与多个平台进行整合的图床工具">[1] 与多个平台进行整合的图床工具</h3><ul><li>名称：PicGo</li><li>官方地址：<a href="https://molunerfinn.com/PicGo/" target="_blank" rel="noopener">https://molunerfinn.com/PicGo/</a></li><li>介绍：很不错的图床工具，适配多个平台，如：GitHub、微博、七牛、腾讯云等等。</li><li>推荐指数：⭐️⭐️⭐️⭐️⭐️</li></ul><h3 id="2-资源归档工具">[2] 资源归档工具</h3><ul><li>介绍：百度云网盘</li><li>官方地址：<a href="https://pan.baidu.com" target="_blank" rel="noopener">https://pan.baidu.com</a></li><li>介绍：网盘资源存放</li><li>推荐指数：⭐️⭐️⭐️⭐️⭐️</li></ul>]]></content>
     
@@ -115,7 +91,7 @@ ABC&lt;/p&gt;
     <link href="https://longshilin.com/blog/3e68368d.html"/>
     <id>https://longshilin.com/blog/3e68368d.html</id>
     <published>2019-01-01T14:03:48.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
+    <updated>2019-01-29T07:22:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>这一次是我们第一次一起跨年，下面是我宝精心制作的视频剪辑哦，看的出来是花费了很多的精力的啦，嘻嘻 💘 希望宝贝以后的Vlog越来越多我也会更加配合的，哈哈哈😈 最后祝我宝猪年大吉呀🐷</p><a id="more"></a><p><video src="http://repo.longshilin.com/video/double365.mov" poster="https://ws1.sinaimg.cn/large/005EsThygy1fyx9bjpedvj30940fymx6.jpg" preload="" controls style="max-width: 50%; display: block; margin-left: auto; margin-right: auto;"><br>your browser does not support the video tag<br></video></p>]]></content>
     
@@ -133,7 +109,7 @@ ABC&lt;/p&gt;
     <link href="https://longshilin.com/blog/725d13af.html"/>
     <id>https://longshilin.com/blog/725d13af.html</id>
     <published>2018-12-03T10:30:40.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
+    <updated>2019-01-29T07:22:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>这里的工具合集，基本上是一句话概括每一个工具，并且配上官方使用的网页介绍，以及对于功能介绍的<i class="fas fa-file-pdf"></i>离线PDF版本以及安装包等资源 <i class="fas fa-archive"></i>。</p><a id="more"></a><h2 id="电脑优化性能集合">电脑优化性能集合</h2><h3 id="1-轻量化去广告的内存清理工具">[1] 轻量化去广告的内存清理工具</h3><ul><li>名称：Mem Reduct</li><li>官方地址：<a href="https://www.henrypp.org/product/memreduct" target="_blank" rel="noopener">https://www.henrypp.org/product/memreduct</a></li><li>介绍：轻量化清理机器内存的利器，具体的看我的另外一篇文章介绍 <a href="https://longshilin.com/blog/70c155f1.html">轻量化去广告的内存清理工具</a> <i class="fas fa-archive"></i> <a href="https://pan.baidu.com/s/1FyGqexfCUFrEp-ZKxqcPuw" target="_blank" rel="noopener">详细地址</a></li><li>推荐指数：⭐️⭐️⭐️⭐️</li></ul>]]></content>
     
@@ -155,7 +131,7 @@ ABC&lt;/p&gt;
     <link href="https://longshilin.com/blog/9880d52a.html"/>
     <id>https://longshilin.com/blog/9880d52a.html</id>
     <published>2018-11-28T13:57:30.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
+    <updated>2019-01-29T07:22:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>在mapper中编写带有sql in语法的sql时，需要注意不能直接以字符串&quot;in(…)&quot;的形式将语句贴在sql中，需要以list集合的形式遍历出来，具体的表达方式如下：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;select id=&quot;selectAllServiceByServiceType&quot; resultMap=&quot;BaseResultMap2&quot; parameterType=&quot;java.util.List&quot;&gt;</span><br><span class="line"> SELECT DISTINCT SERVICE_TYPE, IMAGE_TAG</span><br><span class="line"> FROM `SERVICE_CONFIG`</span><br><span class="line"> WHERE STATUS = 1</span><br><span class="line"> AND SERVICE_TYPE IN</span><br><span class="line"> &lt;foreach collection=&quot;list&quot; item=&quot;item&quot; index=&quot;index&quot; open=&quot;(&quot; separator=&quot;,&quot; close=&quot;)&quot;&gt;</span><br><span class="line">  #&#123;item&#125;</span><br><span class="line"> &lt;/foreach&gt;</span><br><span class="line"> ORDER BY SERVICE_TYPE;</span><br><span class="line">&lt;/select&gt;</span><br></pre></td></tr></table></figure><a id="more"></a><p>上面得到的sql也就是：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">SELECT DISTINCT SERVICE_TYPE, IMAGE_TAG</span><br><span class="line">FROM `SERVICE_CONFIG`</span><br><span class="line">WHERE STATUS = 1</span><br><span class="line">AND SERVICE_TYPE IN (1, 2, 3, 4, 5);</span><br></pre></td></tr></table></figure><p>这里需要注意的是，foreach中的collection字段的list值是固定表达方式，在对应的mapper方法中，传入参数名也应为list，具体表示如下：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">List&lt;ServiceConfig&gt; selectAllServiceByServiceType(List&lt;Integer&gt; list);</span><br></pre></td></tr></table></figure>]]></content>
     
@@ -178,7 +154,7 @@ ABC&lt;/p&gt;
     <link href="https://longshilin.com/blog/f1cb4bde.html"/>
     <id>https://longshilin.com/blog/f1cb4bde.html</id>
     <published>2018-11-15T14:03:48.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
+    <updated>2019-01-29T07:22:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>今晚的线上Keep跑~ 慢慢的跑而又满满的幸福</p><a id="more"></a><p><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx8h12ek7fj30yi1pctpb.jpg" alt=""></p><p><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx8h1a6fdmj30u01hcq5e.jpg" alt=""></p>]]></content>
     
@@ -196,7 +172,7 @@ ABC&lt;/p&gt;
     <link href="https://longshilin.com/blog/bcc94c4f.html"/>
     <id>https://longshilin.com/blog/bcc94c4f.html</id>
     <published>2018-11-15T07:10:30.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
+    <updated>2019-01-29T07:22:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-15 日计划来啦！！！<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx8h3thokfj30zk0np40z.jpg" alt=""></p><a id="more"></a><div class="bs-callout bs-callout-info"><blockquote><h4 id="👸">👸</h4></blockquote><p>今天收到3️⃣3️⃣每日计划咯 💁<br>每一天都要加油鸭！</p></div><div class="bs-callout bs-callout-success"><blockquote><h4 id="🐲">🐲</h4></blockquote><ul><li>工作上的线上业务维护</li><li>AWS认证书籍📚 今天完成第九章学习</li></ul></div>]]></content>
     
@@ -219,7 +195,7 @@ ABC&lt;/p&gt;
     <link href="https://longshilin.com/blog/cbce7cd9.html"/>
     <id>https://longshilin.com/blog/cbce7cd9.html</id>
     <published>2018-11-14T07:10:30.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
+    <updated>2019-01-29T07:22:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-14 日计划来啦！！！<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx7cob6zbkj30zk0nrn3g.jpg" alt=""></p><a id="more"></a><div class="bs-callout bs-callout-info"><blockquote><h4 id="👸">👸</h4></blockquote><p>今天收到3️⃣3️⃣每日计划咯 💁<br>每一天都要加油鸭！<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx7cm8w7p2j32c0340x6q.jpg" alt=""></p></div><div class="bs-callout bs-callout-success"><blockquote><h4 id="🐲">🐲</h4></blockquote><ul><li>工作上的线上业务维护</li><li>AWS认证书籍📚 今天完成第九章学习</li></ul></div>]]></content>
     
@@ -242,7 +218,7 @@ ABC&lt;/p&gt;
     <link href="https://longshilin.com/blog/55aae97a.html"/>
     <id>https://longshilin.com/blog/55aae97a.html</id>
     <published>2018-11-13T07:10:30.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
+    <updated>2019-01-29T07:22:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-13 日计划来啦！！！<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx68v5cvczj30zk0nnag4.jpg" alt=""></p><a id="more"></a><div class="bs-callout bs-callout-info"><blockquote><h4 id="👸">👸</h4></blockquote><p>今天收到3️⃣3️⃣每日计划咯 💁<br>每一天都要加油鸭！<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx68r0bc4nj31w02ioqv7.jpg" alt=""></p></div><div class="bs-callout bs-callout-success"><blockquote><h4 id="🐲">🐲</h4></blockquote><ul><li>工作上的线上业务维护</li><li>AWS认证书籍📚 今天第九章学习</li></ul></div>]]></content>
     
@@ -265,7 +241,7 @@ ABC&lt;/p&gt;
     <link href="https://longshilin.com/blog/22add9ec.html"/>
     <id>https://longshilin.com/blog/22add9ec.html</id>
     <published>2018-11-12T07:10:30.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
+    <updated>2019-01-29T07:22:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-12 日计划来啦！！！<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx51dvzrvsj30zk0nhgnc.jpg" alt=""></p><a id="more"></a><div class="bs-callout bs-callout-info"><blockquote><h4 id="👸">👸</h4></blockquote><p>今天收到3️⃣3️⃣每日计划咯，开心到飞起而且开始用keep的TodoList书写的呢，炒鸡开心 😆 😁 😉 😜 😇<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx50kh988aj32c03401ky.jpg" alt=""></p></div><div class="bs-callout bs-callout-success"><blockquote><h4 id="🐲">🐲</h4></blockquote><ul><li>工作上的开发内容</li><li>AWS认证书籍📚 今天完成第八章学习</li></ul></div>]]></content>
     
@@ -288,7 +264,7 @@ ABC&lt;/p&gt;
     <link href="https://longshilin.com/blog/c4db1d93.html"/>
     <id>https://longshilin.com/blog/c4db1d93.html</id>
     <published>2018-11-11T14:43:12.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
+    <updated>2019-01-29T07:22:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>极客时间的左耳朵耗子专栏关注了蛮长时间的，这里推出了陈皓推荐的必读书籍，内容确实详实且非常值。 <a href="https://ws1.sinaimg.cn/large/005EsThygy1fx464garyvj32uk3i8u10.jpg" target="_blank" rel="noopener">点击查看高清图</a></p><a id="more"></a><p><img src="https://ws1.sinaimg.cn/large/005EsThygy1fx464garyvj32uk3i8u10.jpg" alt=""></p>]]></content>
     
@@ -310,7 +286,7 @@ ABC&lt;/p&gt;
     <link href="https://longshilin.com/blog/bba48856.html"/>
     <id>https://longshilin.com/blog/bba48856.html</id>
     <published>2018-11-11T07:10:30.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
+    <updated>2019-01-29T07:22:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-11 日计划来啦！！！</p><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的，相信我 😔</p><p>💁 快来呀</p></div><blockquote><p>龙龙的计划 🐲</p></blockquote><ul><li>工作上的开发内容</li><li>AWS认证书籍📚 第八章</li></ul>]]></content>
     
@@ -332,7 +308,7 @@ ABC&lt;/p&gt;
     <link href="https://longshilin.com/blog/cca3b8c0.html"/>
     <id>https://longshilin.com/blog/cca3b8c0.html</id>
     <published>2018-11-10T07:10:30.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
+    <updated>2019-01-29T07:22:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-10 日计划来啦！！！</p><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的，相信我 😔</p><p>💁 快来呀</p></div><blockquote><p>龙龙的计划 🐲</p></blockquote><ul><li>工作上的开发内容</li><li>AWS认证书籍📚 第七章</li></ul>]]></content>
     
@@ -354,7 +330,7 @@ ABC&lt;/p&gt;
     <link href="https://longshilin.com/blog/ac643125.html"/>
     <id>https://longshilin.com/blog/ac643125.html</id>
     <published>2018-11-09T07:10:30.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
+    <updated>2019-01-29T07:22:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-09 日计划来啦！！！</p><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的，相信我 😔</p><p>💁 快来呀</p></div><blockquote><p>龙龙的计划 🐲</p></blockquote><ul><li>工作上的开发内容</li><li>AWS认证书籍📚 第七章</li></ul>]]></content>
     
@@ -376,7 +352,7 @@ ABC&lt;/p&gt;
     <link href="https://longshilin.com/blog/db6301b3.html"/>
     <id>https://longshilin.com/blog/db6301b3.html</id>
     <published>2018-11-08T08:10:30.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
+    <updated>2019-01-29T07:22:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-08 日计划来啦！！！</p><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的，相信我 😔</p><p>💁 快来呀</p></div><blockquote><p>龙龙的计划 🐲</p></blockquote><ul><li>工作上的开发内容</li><li>AWS认证书籍📚 第六章（继续完成）</li></ul>]]></content>
     
@@ -398,7 +374,7 @@ ABC&lt;/p&gt;
     <link href="https://longshilin.com/blog/4bdc1c22.html"/>
     <id>https://longshilin.com/blog/4bdc1c22.html</id>
     <published>2018-11-07T08:10:30.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
+    <updated>2019-01-29T07:22:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-07 日计划来啦！！！</p><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的，相信我 😔</p><p>💁 快来呀</p></div><blockquote><p>龙龙的计划 🐲</p></blockquote><ul><li>工作上的开发内容</li><li>AWS认证书籍📚 第六章</li></ul>]]></content>
     
@@ -420,7 +396,7 @@ ABC&lt;/p&gt;
     <link href="https://longshilin.com/blog/3cdb2cb4.html"/>
     <id>https://longshilin.com/blog/3cdb2cb4.html</id>
     <published>2018-11-06T08:10:30.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
+    <updated>2019-01-29T07:22:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-06 日计划来啦！！！</p><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的，相信我 😔</p></div><blockquote><p>龙龙的计划 🐲</p></blockquote><ul><li>工作上的开发内容</li><li>AWS认证书籍📚</li></ul>]]></content>
     
@@ -442,13 +418,36 @@ ABC&lt;/p&gt;
     <link href="https://longshilin.com/blog/a5d27d0e.html"/>
     <id>https://longshilin.com/blog/a5d27d0e.html</id>
     <published>2018-11-05T08:10:30.000Z</published>
-    <updated>2019-01-29T07:17:53.000Z</updated>
+    <updated>2019-01-29T07:22:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>2018-11-05 日计划来啦！！！</p><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的，相信我 😔</p></div><blockquote><p>龙龙的计划 🐲</p></blockquote><ul><li>工作上的开发内容</li><li>AWS认证书籍📚</li></ul>]]></content>
     
     <summary type="html">
     
       &lt;p&gt;2018-11-05 日计划来啦！！！&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="每日计划" scheme="https://longshilin.com/blog/categories/%E6%AF%8F%E6%97%A5%E8%AE%A1%E5%88%92/"/>
+    
+    
+      <category term="plan" scheme="https://longshilin.com/blog/tags/plan/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>2018-11-02</title>
+    <link href="https://longshilin.com/blog/3bb6e8ad.html"/>
+    <id>https://longshilin.com/blog/3bb6e8ad.html</id>
+    <published>2018-11-02T11:10:30.000Z</published>
+    <updated>2019-01-29T07:22:13.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>2018-11-02 日计划来啦！！！</p><p>⏩ 📁 🐼</p><a id="more"></a><blockquote><p>珊珊的计划 <i class="fa fa-fa-chess-queen"></i></p></blockquote><div class="bs-callout bs-callout-info"><h4 id="👸-3-3">👸 3️⃣3️⃣</h4><p>很抱歉的告诉各位读者，珊珊的计划在一个我不知道的地方，可能在她的笔记本，可能在她的iPhone里，又或者在她的iPad中，又或者藏在脑中，亦或是散落在认真的复习里… 我会竭尽全力去寻找的，相信我 😔</p></div><blockquote><p>龙龙的计划 🐲</p></blockquote><ul><li>工作上的开发内容</li><li>今天将尖峰学堂的视频内容学习完 ✋</li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;2018-11-02 日计划来啦！！！&lt;/p&gt;
+&lt;p&gt;⏩ 📁 🐼&lt;/p&gt;
     
     </summary>
     
