@@ -12,9 +12,9 @@
       
       <categories>
           
-          <category> maven </category>
+          <category> 工具 </category>
           
-          <category> java </category>
+          <category> maven </category>
           
       </categories>
       
@@ -61,6 +61,8 @@
           
           <category> 工具 </category>
           
+          <category> 写博工具 </category>
+          
       </categories>
       
       
@@ -94,6 +96,8 @@
       <categories>
           
           <category> 工具 </category>
+          
+          <category> 电脑使用工具 </category>
           
       </categories>
       
@@ -818,7 +822,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1/RPrKyxTRSvCy6wLPVwiqxLuTSfa6+e2KHsb0eRYt5t2JQNx6DPh0iMnuxxMqmNaT6OinBRFF3rV6RoP3gUGa74MPIn6aYjZAlPib+bIUCkTBKgNmmfWhuL9VbjERu43ak87ISUXO0lJqiGLEeOjMQ4GlTcntRHJeChMgXt51FOn2+yxXUQYaIBabIcYuH3xageQAwDCD3CM4HGOPHPEIS3keIlAj4aicYRJW7WGMYvQ5Q9eCr0kWSKI3N5QqdsAoUFO8JD4XNbDPDEqFG0wPep14PRLa3xxxa4SiDFV28/pgOFqMBjdrhye4k2Ip044EEHTepQ1uxmBnM2YYyoHZDQoE4ksguAX8b6jW4JaB5opFCTeK0QUCOMO8ubSGevNAcvpxRJ62Jt6tHrU6vblFzEesH1Zm0ce2H1kqgwwnaBZnfBr+m147ea44/NcK5S8mm9+j2tF1ZD3EK/8aRMMjHw2VV2CBgj3PV552NIeeljfq0evpEPtKbro8wMd+aVzfW9MaL9+Y2Mq6v6mS4udS7E0mGGKiaM21ALtVLFEEVbtP6yrr6PiCAPsnpMIvIvLukL7DEJD0EdfqFSJ6HWgPGpvdJOMwr/PAcxSLG2a3dP35VnPBNuWlAnGdqo+I5hXphDVVF+wgODgGi9hqYU7v+yTHerwRKf+/RPInO/XYIGdjhaK/yTg/fhn7vMw/dLIZ0PvaHbgh/jA+G5Z1eiC8NK5QE200lz8GQxUK++qkrZnG4DZFJNgcKDvmUsUsbkdrijkftnlDaQw==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+uXnvOxDJPAilYX7ezm337JqO2hz7ASEwvG7yBEo2a9pv40QewbS+k4EDUuVmD6Hjw5NeMZCVFHUb5zK0lV7iDcsBpEb+Df/+R6pD3Q0Zo3LfSWRB5xrCgnB0xjzmDUgwtAsK74OR90EnEnbCR82HrzdwO0xu5elJTlNVlg2+S9k+ZLGbdl1TIYeAuUJXZ/h12t4lK93L1jc+cxPGePHyuskMv75ArhlSnZxEwfjJBEK/rXfoYQLOsd7TwiJYPhIqBGi9oUITBbIIpp6qk2r6mQP9JVnHkwXwET9gWTNGrmgKU909Ev+qGd3oWZaNWlNMEi4zUWUTl5omV7tJFCdOuViQYJruMEFrOERU1CXsfM573P3rtmLpjbsB/wfbYQpK/V8CtinNcEcp9spar3qq0ZtcSHL5g37d4qmbE8+go2m/g853PvyvdyqDuvq/osBuED7/3jgF48wI29SBedA3f/CDQjUtq7PYDWfIxiPlXGkP/32N9TdE+qTDaxHakbKe8GqgMsV1zRhm4CCvj/DI7abJGke4kFMz+Vfc+nnl642fmOLyxQfgw2HZ+DB/cuiK1E2t16NakO6e8/hUgy/ocI25KAX85wP4R4/9BBFmGSpXvp7r954XXaM6k/91r8G1ubnndVMXvSqCzG+uQaNnCTrSuUC/uom4DRULo/KfRn+xjj+Kcn5PibNwMXDuDVPY826xyh25S01GIdQNdj1xaqpbu6qFJsipvQEce7RsTig/njUtg9EDvlcywaCPj5Qub1GfDGAefCg==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -835,6 +839,8 @@
       <categories>
           
           <category> 工具 </category>
+          
+          <category> 电脑使用工具 </category>
           
       </categories>
       
@@ -1030,6 +1036,33 @@
     </entry>
     
     <entry>
+      <title>构建hexo和simiki工具的docker镜像</title>
+      <link href="/blog/fd401cf5.html"/>
+      <url>/blog/fd401cf5.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/flxHs0r.png" alt=""><br>基于<a href="https://hexo.io" target="_blank" rel="noopener">hexo</a>和<a href="http://simiki.org/" target="_blank" rel="noopener">simiki</a>工具构建基础镜像环境，用作我website项目中<a href="https://longshilin.com/blog/2018/09/22/website-on-gitlab/">website-on-gitlab CI/CD</a>的基础镜像。并将其发布到Docker Hub的<br><a href="https://hub.docker.com/r/longsl/hexo2simiki/" target="_blank" rel="noopener">PUBLIC REPOSITORY</a></p><a id="more"></a><h1>DockerFile</h1><p>通过官方centos7镜像为基础来构建包含构建website的构建环境。具体的环境包括：hexo, python3.6, nodejs, simiki, pip3.6</p><pre><code>FROM centos#安装EPEL依赖 Python3.6 pip3 nodejs npm hexo simikiRUN yum install -y epel-release; yum install -y https://centos7.iuscommunity.org/ius-release.rpm; yum install -y python36u; yum install -y python36u-pip; pip3.6 install --upgrade pip; curl -sL https://rpm.nodesource.com/setup_8.x | bash -; yum install -y nodejs; npm install hexo-cli -g; pip3.6 install simiki</code></pre><h1>Docker Build</h1><pre><code>docker build -t longsl/hexo2simiki .</code></pre><h1>Docker Container</h1><pre><code>docker run -it --rm longsl/hexo2simki /bin/sh</code></pre><h1>Supply</h1><p>关于下载最新版本的nodejs费了笔者一些功夫，因为通过<code>yum install -y nodejs</code>直接下载的包不是最新的版本，在hexo构建时，会提示npm版本过低的报错，因此我通过参考 <a href="https://linuxize.com/post/how-to-install-node-js-on-centos-7/" target="_blank" rel="noopener">How to install Node.js on CentOS 7</a>，更新yum源来下载node 8.x的版本。</p><pre><code>curl -sL https://rpm.nodesource.com/setup_8.x | sudo bash -sudo yum install nodejs</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> website </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> longshilindotcom </tag>
+            
+            <tag> hexo </tag>
+            
+            <tag> simiki </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>给自定义博客增加totop按钮</title>
       <link href="/blog/5b764c97.html"/>
       <url>/blog/5b764c97.html</url>
@@ -1101,33 +1134,6 @@
             <tag> longshilindotcom </tag>
             
             <tag> 域名 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>构建hexo和simiki工具的docker镜像</title>
-      <link href="/blog/fd401cf5.html"/>
-      <url>/blog/fd401cf5.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/flxHs0r.png" alt=""><br>基于<a href="https://hexo.io" target="_blank" rel="noopener">hexo</a>和<a href="http://simiki.org/" target="_blank" rel="noopener">simiki</a>工具构建基础镜像环境，用作我website项目中<a href="https://longshilin.com/blog/2018/09/22/website-on-gitlab/">website-on-gitlab CI/CD</a>的基础镜像。并将其发布到Docker Hub的<br><a href="https://hub.docker.com/r/longsl/hexo2simiki/" target="_blank" rel="noopener">PUBLIC REPOSITORY</a></p><a id="more"></a><h1>DockerFile</h1><p>通过官方centos7镜像为基础来构建包含构建website的构建环境。具体的环境包括：hexo, python3.6, nodejs, simiki, pip3.6</p><pre><code>FROM centos#安装EPEL依赖 Python3.6 pip3 nodejs npm hexo simikiRUN yum install -y epel-release; yum install -y https://centos7.iuscommunity.org/ius-release.rpm; yum install -y python36u; yum install -y python36u-pip; pip3.6 install --upgrade pip; curl -sL https://rpm.nodesource.com/setup_8.x | bash -; yum install -y nodejs; npm install hexo-cli -g; pip3.6 install simiki</code></pre><h1>Docker Build</h1><pre><code>docker build -t longsl/hexo2simiki .</code></pre><h1>Docker Container</h1><pre><code>docker run -it --rm longsl/hexo2simki /bin/sh</code></pre><h1>Supply</h1><p>关于下载最新版本的nodejs费了笔者一些功夫，因为通过<code>yum install -y nodejs</code>直接下载的包不是最新的版本，在hexo构建时，会提示npm版本过低的报错，因此我通过参考 <a href="https://linuxize.com/post/how-to-install-node-js-on-centos-7/" target="_blank" rel="noopener">How to install Node.js on CentOS 7</a>，更新yum源来下载node 8.x的版本。</p><pre><code>curl -sL https://rpm.nodesource.com/setup_8.x | sudo bash -sudo yum install nodejs</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> website </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> longshilindotcom </tag>
-            
-            <tag> hexo </tag>
-            
-            <tag> simiki </tag>
             
         </tags>
       
