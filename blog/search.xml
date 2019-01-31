@@ -3,6 +3,31 @@
   
     
     <entry>
+      <title>快速构建Maven项目</title>
+      <link href="/blog/6961ccfa.html"/>
+      <url>/blog/6961ccfa.html</url>
+      
+        <content type="html"><![CDATA[<p>在我们开发项目时，需要测试一些功能，而需要把我们开发的功能打成jar包，放到服务器上运行，因此我们需要创建一个Maven项目，并且在本地编译项目成jar包程序，指定程序的入口类，然后运行程序。下面是如何快速构建Maven项目的流程。</p><a id="more"></a><h3 id="新建-kbd-maven-project-kbd-项目">新建<kbd>Maven Project</kbd>项目</h3><p><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzppo9azz7j30i20g73z9.jpg" alt=""></p><p><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzpplrznp6j30i20g7t9l.jpg" alt=""></p><p>初始项目目录结构：<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzppp39ow4j307704w3yh.jpg" alt=""></p><h3 id="创建项目包体和文件">创建项目包体和文件</h3><p><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzppwordu4j307f0620sr.jpg" alt=""></p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">package com.longshilin.maven;</span><br><span class="line"></span><br><span class="line">public class MavenTest &#123;</span><br><span class="line"></span><br><span class="line">  public static void main(String[] args) &#123;</span><br><span class="line">    System.out.println(&quot;This is a new Maven Project!&quot;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="配置pom-xml文件">配置POM.xml文件</h3><p>配置项目入口类<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzpq0gw6b0j31cm0izdh0.jpg" alt=""><br>源码</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">&lt;plugins&gt;</span><br><span class="line">&lt;plugin&gt;</span><br><span class="line">&lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">&lt;artifactId&gt;maven-shade-plugin&lt;/artifactId&gt;</span><br><span class="line">&lt;version&gt;3.2.1&lt;/version&gt;</span><br><span class="line">&lt;executions&gt;</span><br><span class="line">&lt;execution&gt;</span><br><span class="line">&lt;phase&gt;package&lt;/phase&gt;</span><br><span class="line">&lt;goals&gt;</span><br><span class="line">&lt;goal&gt;shade&lt;/goal&gt;</span><br><span class="line">&lt;/goals&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">&lt;transformers&gt;</span><br><span class="line">&lt;transformer</span><br><span class="line">implementation=&quot;org.apache.maven.plugins.shade.resource.ManifestResourceTransformer&quot;&gt;</span><br><span class="line">&lt;mainClass&gt;com.longshilin.maven.MavenTest&lt;/mainClass&gt;</span><br><span class="line">&lt;/transformer&gt;</span><br><span class="line">&lt;/transformers&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br><span class="line">&lt;/execution&gt;</span><br><span class="line">&lt;/executions&gt;</span><br><span class="line">&lt;/plugin&gt;</span><br><span class="line">&lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure><h3 id="编译构建maven项目">编译构建maven项目</h3><p><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzppvb7nkdj30jg0kl40a.jpg" alt=""></p><p><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzppxumtfej30jz05174k.jpg" alt=""></p><h3 id="运行jar包">运行jar包</h3><p><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzppyjm3epj30i901wa9z.jpg" alt=""></p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">LongShiLin@LongShiLin-PC MINGW64 ~/.m2/repository/com/longshilin/maven/maven-test/0.0.1-SNAPSHOT</span><br><span class="line">$ java -jar maven-test-0.0.1-SNAPSHOT.jar</span><br><span class="line">This is a new Maven Project!</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> maven </category>
+          
+          <category> java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> maven </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>功能性格式参考</title>
       <link href="/blog/2c9fcc04.html"/>
       <url>/blog/2c9fcc04.html</url>
@@ -793,7 +818,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+eYDe60HW6YgmnPC8i6DRX1BOASv1WA6yzo1nevOsZ5/A2nUwrVuowJop3B6vnGuiL6QO2zHI4JT10NvIC+/ZmAS6XgBDNb2kbDzEZ2YJ+Cc5qcqjMMQhvle/u1R/SchDwU6iwQGygLePaXwUXMNhFNciddkJqNB5EBXDpw7eou14HAAocMwu5IdCGEfk69RneyV5nrd7DlCokv2q+9xMNYkh6+t4LTYhds8Qlc5e3rF1L+VRTfjU+lxIUZJRpOUKSlCtdHWdWz4TSEbj6oYfISGnTEpA7w6Lz6PFOSolF4dMhzs1LO7PpTPAzIA4IORwMF8nB365jvWQ0lAJSf9Uf7UqC4slvsJWchZnhEVJqQtV6RqY3LBB4ftc1pxiHP+h1+bq/ywpGMNZKz5j4sgegp9EVSdiizwOC2q5/a/40vzE85rtixkA4WBbt2b1A2iCPdSN9g8eBnmcAz4rBjafQ83WJCC9gVFR1YsbXk5YiAYaVXeOBfL3PWf7f8rif0FXWqQVQervo6g2o4s4tX/5DnT67GMm4Ro+FzehxI2QicG/4BNnqB6wnhbxhADFWFksxmzR2g+W/G6o285mbDMCKJjCaQc3+AxWpj6IW2u5viFaGVh6CrE8yr/ac92hwEZwaAuwCxmQ68WYaU1sVi8oLB8OYIieVMHUYXujGilq3nnebldl7XU7ZdiPh+t6G/hdNg26ZcarIFl/xJ0rcQtmOj10ABqYMPcyqGbsGZXNAubVNLwwavFYAK2lPc1p7r7yLdn3Tq6xRJg==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1/RPrKyxTRSvCy6wLPVwiqxLuTSfa6+e2KHsb0eRYt5t2JQNx6DPh0iMnuxxMqmNaT6OinBRFF3rV6RoP3gUGa74MPIn6aYjZAlPib+bIUCkTBKgNmmfWhuL9VbjERu43ak87ISUXO0lJqiGLEeOjMQ4GlTcntRHJeChMgXt51FOn2+yxXUQYaIBabIcYuH3xageQAwDCD3CM4HGOPHPEIS3keIlAj4aicYRJW7WGMYvQ5Q9eCr0kWSKI3N5QqdsAoUFO8JD4XNbDPDEqFG0wPep14PRLa3xxxa4SiDFV28/pgOFqMBjdrhye4k2Ip044EEHTepQ1uxmBnM2YYyoHZDQoE4ksguAX8b6jW4JaB5opFCTeK0QUCOMO8ubSGevNAcvpxRJ62Jt6tHrU6vblFzEesH1Zm0ce2H1kqgwwnaBZnfBr+m147ea44/NcK5S8mm9+j2tF1ZD3EK/8aRMMjHw2VV2CBgj3PV552NIeeljfq0evpEPtKbro8wMd+aVzfW9MaL9+Y2Mq6v6mS4udS7E0mGGKiaM21ALtVLFEEVbtP6yrr6PiCAPsnpMIvIvLukL7DEJD0EdfqFSJ6HWgPGpvdJOMwr/PAcxSLG2a3dP35VnPBNuWlAnGdqo+I5hXphDVVF+wgODgGi9hqYU7v+yTHerwRKf+/RPInO/XYIGdjhaK/yTg/fhn7vMw/dLIZ0PvaHbgh/jA+G5Z1eiC8NK5QE200lz8GQxUK++qkrZnG4DZFJNgcKDvmUsUsbkdrijkftnlDaQw==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -1005,33 +1030,6 @@
     </entry>
     
     <entry>
-      <title>构建hexo和simiki工具的docker镜像</title>
-      <link href="/blog/fd401cf5.html"/>
-      <url>/blog/fd401cf5.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/flxHs0r.png" alt=""><br>基于<a href="https://hexo.io" target="_blank" rel="noopener">hexo</a>和<a href="http://simiki.org/" target="_blank" rel="noopener">simiki</a>工具构建基础镜像环境，用作我website项目中<a href="https://longshilin.com/blog/2018/09/22/website-on-gitlab/">website-on-gitlab CI/CD</a>的基础镜像。并将其发布到Docker Hub的<br><a href="https://hub.docker.com/r/longsl/hexo2simiki/" target="_blank" rel="noopener">PUBLIC REPOSITORY</a></p><a id="more"></a><h1>DockerFile</h1><p>通过官方centos7镜像为基础来构建包含构建website的构建环境。具体的环境包括：hexo, python3.6, nodejs, simiki, pip3.6</p><pre><code>FROM centos#安装EPEL依赖 Python3.6 pip3 nodejs npm hexo simikiRUN yum install -y epel-release; yum install -y https://centos7.iuscommunity.org/ius-release.rpm; yum install -y python36u; yum install -y python36u-pip; pip3.6 install --upgrade pip; curl -sL https://rpm.nodesource.com/setup_8.x | bash -; yum install -y nodejs; npm install hexo-cli -g; pip3.6 install simiki</code></pre><h1>Docker Build</h1><pre><code>docker build -t longsl/hexo2simiki .</code></pre><h1>Docker Container</h1><pre><code>docker run -it --rm longsl/hexo2simki /bin/sh</code></pre><h1>Supply</h1><p>关于下载最新版本的nodejs费了笔者一些功夫，因为通过<code>yum install -y nodejs</code>直接下载的包不是最新的版本，在hexo构建时，会提示npm版本过低的报错，因此我通过参考 <a href="https://linuxize.com/post/how-to-install-node-js-on-centos-7/" target="_blank" rel="noopener">How to install Node.js on CentOS 7</a>，更新yum源来下载node 8.x的版本。</p><pre><code>curl -sL https://rpm.nodesource.com/setup_8.x | sudo bash -sudo yum install nodejs</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> website </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> longshilindotcom </tag>
-            
-            <tag> hexo </tag>
-            
-            <tag> simiki </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>给自定义博客增加totop按钮</title>
       <link href="/blog/5b764c97.html"/>
       <url>/blog/5b764c97.html</url>
@@ -1103,6 +1101,33 @@
             <tag> longshilindotcom </tag>
             
             <tag> 域名 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>构建hexo和simiki工具的docker镜像</title>
+      <link href="/blog/fd401cf5.html"/>
+      <url>/blog/fd401cf5.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/flxHs0r.png" alt=""><br>基于<a href="https://hexo.io" target="_blank" rel="noopener">hexo</a>和<a href="http://simiki.org/" target="_blank" rel="noopener">simiki</a>工具构建基础镜像环境，用作我website项目中<a href="https://longshilin.com/blog/2018/09/22/website-on-gitlab/">website-on-gitlab CI/CD</a>的基础镜像。并将其发布到Docker Hub的<br><a href="https://hub.docker.com/r/longsl/hexo2simiki/" target="_blank" rel="noopener">PUBLIC REPOSITORY</a></p><a id="more"></a><h1>DockerFile</h1><p>通过官方centos7镜像为基础来构建包含构建website的构建环境。具体的环境包括：hexo, python3.6, nodejs, simiki, pip3.6</p><pre><code>FROM centos#安装EPEL依赖 Python3.6 pip3 nodejs npm hexo simikiRUN yum install -y epel-release; yum install -y https://centos7.iuscommunity.org/ius-release.rpm; yum install -y python36u; yum install -y python36u-pip; pip3.6 install --upgrade pip; curl -sL https://rpm.nodesource.com/setup_8.x | bash -; yum install -y nodejs; npm install hexo-cli -g; pip3.6 install simiki</code></pre><h1>Docker Build</h1><pre><code>docker build -t longsl/hexo2simiki .</code></pre><h1>Docker Container</h1><pre><code>docker run -it --rm longsl/hexo2simki /bin/sh</code></pre><h1>Supply</h1><p>关于下载最新版本的nodejs费了笔者一些功夫，因为通过<code>yum install -y nodejs</code>直接下载的包不是最新的版本，在hexo构建时，会提示npm版本过低的报错，因此我通过参考 <a href="https://linuxize.com/post/how-to-install-node-js-on-centos-7/" target="_blank" rel="noopener">How to install Node.js on CentOS 7</a>，更新yum源来下载node 8.x的版本。</p><pre><code>curl -sL https://rpm.nodesource.com/setup_8.x | sudo bash -sudo yum install nodejs</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> website </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> longshilindotcom </tag>
+            
+            <tag> hexo </tag>
+            
+            <tag> simiki </tag>
             
         </tags>
       
