@@ -37,8 +37,6 @@
           
           <category> 工具 </category>
           
-          <category> shell </category>
-          
       </categories>
       
       
@@ -870,7 +868,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX19w0DtnlrDr2EqrPL9h5I2c6dd8NTp4CUx+LXCeAN5S2KUczd7bTAynD2b30W4uHitoG/08TXYzsrF9S3+g4DskmXKYRx3n5x8SOANfKyqfjUSr2HpEVr6FxIWLKnAWMZdUpspu0N/KFo18W6sfggP+Ur7vaz5sgWcGg3YotCFJDHwwotwaRpkudu+zTjmWRV1hiDvGsWySgJ7aj4I51333iBQvRQ5afANqrpZleMFmLuhtCqbcHjLEmJrpgAaZuHTIrhH0bImhhaEnB7eXd3FbSKmluqwRklIR/gr50hpAvwzcY0/grsQj3XR91sts9QCaj0yZ0C1iXE+CRTjeteKRGYuCLM5zMEoO/2oJoeiE7UwtGhOMEznHvOl4K/y5bGst3o8KnduIsdtKMT4Aw5o5HPw+XKDl9bh+A7jsQJ02f/gbNwvuPgsgDmI6mJuFswfSJcepb22N0pVoSualBRhHLpwcNyjUQ9XMkv1BCQdrqo52SHQVVmoQ0qpFrfjZGawAMnBgRIBxU0IXKxIHoFBKK/n4M4sWFT5fnyYyKPTXdKrRVnqgDJBa+x6iL6JhYxyN0fjFzK54bdAMfFz8zHQqpIiF6O/VYn9c618a4UuBw2Q+hKpzOtB1AUxQ2FYBjUFw00tuqyzvSu/HuxWgiDMqAKe3SM1iyMD4uzYoVrRMQZEX++6OI6G9Xr5bmeWDMgPiAN88JF4H7OHMDicALGUw9pVZcnP/ezP/UQliqH/7xR8mGZtf24CuejEpAodm+k4B95oRowpFVg==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+/3KZwSWJ7vQNEerfdtiUK8qm0D6K9F1FHPQDWlA4vRCT3mXe+NThccLhiA+fC3CYER7yUg94t0nOoT83L3Lbu9XkMjPh5hReGFDGyCV8Bt/70v4Pvq/6li1xxw1pVOz97un+m6BNrttqzO0VwZNMxykM8Ux2X8yHUL+c7Sm6PAgGJz1M1WwPDWInpEuTTy9rZdY2IrIKSU5gQVhk/lgXI7bpCSH6UVjgwRulKmXZxEftsdNY6joKC7V4Vuw/i985lu/Val1i9U618XDBDQ34E0/QzZvPb7pxIRFyHC1DpJj/dknOxehyyLCV1XlabkiCCaMCcSpIMRwX2/Z5TfuoUm/CUMZEQMqcf1xBcRl4/l34WrpuMYy2ZrbXZ5tH3h5lxpSWWeEy4RiSawedOqkE2FmJb3zj22ztMGIZrV6k2XfWiqnarGb9StS5PIAjxOfqRraWRH3DtM6PeFMuEzMpw/635gdW+JdWumdezz+auFyYJcCQDKsOpWzNcuqXyr+MeA6tAJlVK5bTbMs/V+Eh0LK55Iyz8qJln9O4Hx5tgHA7KqVhhVkyrPgg1bAdSlSTqd41BE5EeLpgIw2EgNZ8+29hw1+Px892IZjlSQq0unzGGmNW/rw9IsWcsJ58ODvHpeRqFsZI1a2D9E16CfobX2RokBRzh6Ym6b5d26ZPRucA+ebXbfXP7mGIbaUWc5F926M2b8YEm/o+3Dp6ZDlv23zZvs3iaVdCzjb0D4YwV/uxMGPPv7ONjHAa2SCAs+yNIQrrMTzdtWw==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -1084,6 +1082,33 @@
     </entry>
     
     <entry>
+      <title>构建hexo和simiki工具的docker镜像</title>
+      <link href="/blog/fd401cf5.html"/>
+      <url>/blog/fd401cf5.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/flxHs0r.png" alt=""><br>基于<a href="https://hexo.io" target="_blank" rel="noopener">hexo</a>和<a href="http://simiki.org/" target="_blank" rel="noopener">simiki</a>工具构建基础镜像环境，用作我website项目中<a href="https://longshilin.com/blog/2018/09/22/website-on-gitlab/">website-on-gitlab CI/CD</a>的基础镜像。并将其发布到Docker Hub的<br><a href="https://hub.docker.com/r/longsl/hexo2simiki/" target="_blank" rel="noopener">PUBLIC REPOSITORY</a></p><a id="more"></a><h1>DockerFile</h1><p>通过官方centos7镜像为基础来构建包含构建website的构建环境。具体的环境包括：hexo, python3.6, nodejs, simiki, pip3.6</p><pre><code>FROM centos#安装EPEL依赖 Python3.6 pip3 nodejs npm hexo simikiRUN yum install -y epel-release; yum install -y https://centos7.iuscommunity.org/ius-release.rpm; yum install -y python36u; yum install -y python36u-pip; pip3.6 install --upgrade pip; curl -sL https://rpm.nodesource.com/setup_8.x | bash -; yum install -y nodejs; npm install hexo-cli -g; pip3.6 install simiki</code></pre><h1>Docker Build</h1><pre><code>docker build -t longsl/hexo2simiki .</code></pre><h1>Docker Container</h1><pre><code>docker run -it --rm longsl/hexo2simki /bin/sh</code></pre><h1>Supply</h1><p>关于下载最新版本的nodejs费了笔者一些功夫，因为通过<code>yum install -y nodejs</code>直接下载的包不是最新的版本，在hexo构建时，会提示npm版本过低的报错，因此我通过参考 <a href="https://linuxize.com/post/how-to-install-node-js-on-centos-7/" target="_blank" rel="noopener">How to install Node.js on CentOS 7</a>，更新yum源来下载node 8.x的版本。</p><pre><code>curl -sL https://rpm.nodesource.com/setup_8.x | sudo bash -sudo yum install nodejs</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> website </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> longshilindotcom </tag>
+            
+            <tag> hexo </tag>
+            
+            <tag> simiki </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>给自定义博客增加totop按钮</title>
       <link href="/blog/5b764c97.html"/>
       <url>/blog/5b764c97.html</url>
@@ -1155,33 +1180,6 @@
             <tag> longshilindotcom </tag>
             
             <tag> 域名 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>构建hexo和simiki工具的docker镜像</title>
-      <link href="/blog/fd401cf5.html"/>
-      <url>/blog/fd401cf5.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/flxHs0r.png" alt=""><br>基于<a href="https://hexo.io" target="_blank" rel="noopener">hexo</a>和<a href="http://simiki.org/" target="_blank" rel="noopener">simiki</a>工具构建基础镜像环境，用作我website项目中<a href="https://longshilin.com/blog/2018/09/22/website-on-gitlab/">website-on-gitlab CI/CD</a>的基础镜像。并将其发布到Docker Hub的<br><a href="https://hub.docker.com/r/longsl/hexo2simiki/" target="_blank" rel="noopener">PUBLIC REPOSITORY</a></p><a id="more"></a><h1>DockerFile</h1><p>通过官方centos7镜像为基础来构建包含构建website的构建环境。具体的环境包括：hexo, python3.6, nodejs, simiki, pip3.6</p><pre><code>FROM centos#安装EPEL依赖 Python3.6 pip3 nodejs npm hexo simikiRUN yum install -y epel-release; yum install -y https://centos7.iuscommunity.org/ius-release.rpm; yum install -y python36u; yum install -y python36u-pip; pip3.6 install --upgrade pip; curl -sL https://rpm.nodesource.com/setup_8.x | bash -; yum install -y nodejs; npm install hexo-cli -g; pip3.6 install simiki</code></pre><h1>Docker Build</h1><pre><code>docker build -t longsl/hexo2simiki .</code></pre><h1>Docker Container</h1><pre><code>docker run -it --rm longsl/hexo2simki /bin/sh</code></pre><h1>Supply</h1><p>关于下载最新版本的nodejs费了笔者一些功夫，因为通过<code>yum install -y nodejs</code>直接下载的包不是最新的版本，在hexo构建时，会提示npm版本过低的报错，因此我通过参考 <a href="https://linuxize.com/post/how-to-install-node-js-on-centos-7/" target="_blank" rel="noopener">How to install Node.js on CentOS 7</a>，更新yum源来下载node 8.x的版本。</p><pre><code>curl -sL https://rpm.nodesource.com/setup_8.x | sudo bash -sudo yum install nodejs</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> website </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> longshilindotcom </tag>
-            
-            <tag> hexo </tag>
-            
-            <tag> simiki </tag>
             
         </tags>
       
@@ -1274,6 +1272,31 @@
         <tags>
             
             <tag> docker </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>windows和mac上安装Tower破解版</title>
+      <link href="/blog/b5410c9.html"/>
+      <url>/blog/b5410c9.html</url>
+      
+        <content type="html"><![CDATA[<p>Tower确实蛮好用的，才试用了几天就爱上了它。在<a href="https://www.git-tower.com" target="_blank" rel="noopener">Tower官网</a>这里有关它的介绍，以及有专门的<a href="https://www.git-tower.com/learn/" target="_blank" rel="noopener">电子书和视频</a>来让你快速上手Tower和git。</p><p><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzs24oey0aj31z413ztdg.jpg" alt=""></p><a id="more"></a><p><kbd>Tower for windows</kbd><br>版本号截图<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzs26lgj0qj30ci0ai0t5.jpg" alt=""></p><p>Tower内部界面<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzs28pca0aj31de0pbtes.jpg" alt=""></p><blockquote><p>下载地址：<a href="https://pan.baidu.com/s/1uFCJ3m18RUA1vhPfs27Zvw" target="_blank" rel="noopener">https://pan.baidu.com/s/1uFCJ3m18RUA1vhPfs27Zvw</a> 密码：r1ys</p></blockquote><p><kbd>Tower for Mac</kbd><br>版本号截图<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzs2azmx8fj30lu0k0q5d.jpg" alt=""></p><p>Tower内部界面<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzs2ana3yxj31wo0xgwxu.jpg" alt=""></p><blockquote><p>下载链接：<a href="https://pan.baidu.com/s/1mIQQXm-bEZcbnz06G-FJ2w" target="_blank" rel="noopener">https://pan.baidu.com/s/1mIQQXm-bEZcbnz06G-FJ2w</a> 密码：6fbn</p></blockquote><blockquote><p>有任何问题，请在留言区留言给我~</p></blockquote>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> tower </tag>
+            
+            <tag> git </tag>
             
         </tags>
       
