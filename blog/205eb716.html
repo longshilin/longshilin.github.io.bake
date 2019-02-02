@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="积之在平日">
 <meta property="og:description" content="本论文主要研究内容是将传统的全基因组测序与Hadoop框架结合的大数据测序平台研发，通过Hadoop中的HDFS分布式存储系统来提供高可靠的存储服务，结合基因测序的一系列软件工具（如：BWA、Samtools、Picard和GATK等）来进行测序流程设计，并引入第三方FreeMarker模板引擎来制定模板脚本，针对不同的样本数据生成定制化的脚本处理文件。将各个样本的处理脚本与Hadoop框架的Ma">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-02T06:38:33.000Z">
+<meta property="og:updated_time" content="2019-02-02T06:58:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="摘要">
 <meta name="twitter:description" content="本论文主要研究内容是将传统的全基因组测序与Hadoop框架结合的大数据测序平台研发，通过Hadoop中的HDFS分布式存储系统来提供高可靠的存储服务，结合基因测序的一系列软件工具（如：BWA、Samtools、Picard和GATK等）来进行测序流程设计，并引入第三方FreeMarker模板引擎来制定模板脚本，针对不同的样本数据生成定制化的脚本处理文件。将各个样本的处理脚本与Hadoop框架的Ma">
@@ -63,6 +63,8 @@
         
           <li><a class="" href="/blog/../wiki/">Wiki</a></li>
         
+          <li><a class="" href="/blog/Self-evaluation">自我评价</a></li>
+        
           <li><a class="" href="/blog/Sequencing/">Gene Sequencing Project</a></li>
         
           <li><a class="" href="/blog/books">Books</a></li>
@@ -73,7 +75,7 @@
         
           <li><a class="" href="/blog/Daily-Plan">Daily Plan</a></li>
         
-          <li><a class="" href="/blog/Tools">Tools</a></li>
+          <li><a class="" href="/blog/Tools">常用库</a></li>
         
       </ul>
 
@@ -186,7 +188,7 @@ Through this graduation project, I learned the whole process of genome-wide gene
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/205eb716.html" data-id="cjrn3wqm5001w0lu11o8e7jg0" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/205eb716.html" data-id="cjrn4m5o3001y0lu11kowxgwe" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -270,7 +272,7 @@ Through this graduation project, I learned the whole process of genome-wide gene
   
   <div class="sidebar-module">
     <h4>Archives</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/02/">二月 2019</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/12/">十二月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/11/">十一月 2018</a><span class="sidebar-module-list-count">16</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">22</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/09/">九月 2018</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/07/">七月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2017/11/">十一月 2017</a><span class="sidebar-module-list-count">7</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/02/">二月 2019</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/12/">十二月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/11/">十一月 2018</a><span class="sidebar-module-list-count">16</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">22</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/09/">九月 2018</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/07/">七月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2017/11/">十一月 2017</a><span class="sidebar-module-list-count">7</span></li></ul>
   </div>
 
 
@@ -279,6 +281,10 @@ Through this graduation project, I learned the whole process of genome-wide gene
   <div class="sidebar-module sidebar-recents">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/blog/2eebc0ad.html">个人技术栈</a>
+        </li>
       
         <li>
           <a href="/blog/b5410c9.html">windows和mac上安装Tower破解版</a>
@@ -294,10 +300,6 @@ Through this graduation project, I learned the whole process of genome-wide gene
       
         <li>
           <a href="/blog/6961ccfa.html">快速构建Maven项目</a>
-        </li>
-      
-        <li>
-          <a href="/blog/2c9fcc04.html">功能性格式参考</a>
         </li>
       
     </ul>

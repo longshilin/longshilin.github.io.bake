@@ -3,6 +3,17 @@
   
     
     <entry>
+      <title>个人技术栈</title>
+      <link href="/blog/2eebc0ad.html"/>
+      <url>/blog/2eebc0ad.html</url>
+      
+        <content type="html"><![CDATA[<p>做开发的不谈技术怎么能行，搞技术的不谈技术栈怎么行，没有了技术你将一事无成，想想吧  什么才是你最重要的！<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzs32tugo1j30fk0ae0sz.jpg" alt=""></p><a id="more"></a><p><kbd>2019-02-02</kbd></p><iframe src="https://www.xmind.net/embed/EnX7/" width="750" height="540" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>]]></content>
+      
+      
+      
+    </entry>
+    
+    <entry>
       <title>windows和mac上安装Tower破解版</title>
       <link href="/blog/b5410c9.html"/>
       <url>/blog/b5410c9.html</url>
@@ -99,22 +110,22 @@
     </entry>
     
     <entry>
-      <title>功能性格式参考</title>
-      <link href="/blog/2c9fcc04.html"/>
-      <url>/blog/2c9fcc04.html</url>
+      <title>常用写作格式</title>
+      <link href="/blog/7eae6d59.html"/>
+      <url>/blog/7eae6d59.html</url>
       
-        <content type="html"><![CDATA[<div class="bs-callout bs-callout-primary"><p>下面会在文章中引入的几个功能点，做一些记录 方便日后直接引用。</p></div><p>下面会以这样的格式展示每一个模块<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ABC</span><br></pre></td></tr></table></figure><p>…outputs:<br>ABC</p><a id="more"></a><h3 id="hexo-github-card">hexo-github-card</h3><p>在文章中引入某个github项目卡片，<a href="https://github.com/Gisonrg/hexo-github-card" target="_blank" rel="noopener">参考地址</a><br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% githubCard user:your_user [repo:your_repo] [width:400] [theme:Default] [client_id:your_client_id] [client_secret:your_client_secret] [align:text-align_position] %&#125;</span><br><span class="line"></span><br><span class="line">如：</span><br></pre></td></tr></table></figure><p>…outputs:</p><div style="text-align:center">  <div class="github-card" data-user="longshilin" data-repo="" data-width="400" data-theme="default" data-target="" data-client-id="" data-client-secret=""></div></div><script src="/github-card-lib/githubcard.js"></script><div style="text-align:center">  <div class="github-card" data-user="longshilin" data-repo="" data-width="400" data-theme="default" data-target="" data-client-id="" data-client-secret=""></div></div><script src="/github-card-lib/githubcard.js"></script>]]></content>
+        <content type="html"><![CDATA[<div class="bs-callout bs-callout-primary"><p>c如何写的漂亮… 这是一个好问题</p></div><p>下面会以这样的格式展示每一个模块<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ABC</span><br></pre></td></tr></table></figure><p>…outputs:<br>ABC</p><a id="more"></a><h3 id="表格">表格</h3><p>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">| Table Header 1 | Table Header 2 | Table Header 3 |</span><br><span class="line">| - | - | - |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br></pre></td></tr></table></figure><p>…outputs:</p><table><thead><tr><th>Table Header 1</th><th>Table Header 2</th><th>Table Header 3</th></tr></thead><tbody><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr></tbody></table><h3 id="bootstrap重点标注">Bootstrap重点标注</h3><p>这个Bootstrap标注可以给你的文章增添更多的醒目标记信息。可选项：default | primary | success | info | warning | danger<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% callout info %&#125;</span><br><span class="line">#### &#123;% fa info-circle %&#125; Info</span><br><span class="line">This is some info content</span><br><span class="line">&#123;% endcallout %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% callout warning %&#125;</span><br><span class="line">#### &#123;% fa exclamation-triangle %&#125; Warning</span><br><span class="line">This is some warning content</span><br><span class="line">&#123;% endcallout %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% callout danger %&#125;</span><br><span class="line">#### &#123;% fa exclamation-triangle %&#125; Danger</span><br><span class="line">This is some danger content</span><br><span class="line">&#123;% endcallout %&#125;</span><br></pre></td></tr></table></figure><p>…outputs:</p><div class="bs-callout bs-callout-info"><h4 id="i-class-fa-fa-info-circle-i-info"><i class="fa fa-info-circle"></i> Info</h4><p>This is some info content</p></div><div class="bs-callout bs-callout-warning"><h4 id="i-class-fa-fa-exclamation-triangle-i-warning"><i class="fa fa-exclamation-triangle"></i> Warning</h4><p>This is some warning content</p></div><div class="bs-callout bs-callout-danger"><h4 id="i-class-fa-fa-exclamation-triangle-i-danger"><i class="fa fa-exclamation-triangle"></i> Danger</h4><p>This is some danger content</p></div><h3 id="fa图标">fa图标</h3><p>在 <a href="https://fontawesome.com/icons" target="_blank" rel="noopener">Font Awesome 资源</a>  可以选择你需要的任意图标。<br>Markdown：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% fa github %&#125;</span><br></pre></td></tr></table></figure><p>…outputs:</p><i class="fa fa-github"></i>]]></content>
       
       
       
     </entry>
     
     <entry>
-      <title>常用写作格式</title>
-      <link href="/blog/7eae6d59.html"/>
-      <url>/blog/7eae6d59.html</url>
+      <title>功能性格式参考</title>
+      <link href="/blog/2c9fcc04.html"/>
+      <url>/blog/2c9fcc04.html</url>
       
-        <content type="html"><![CDATA[<div class="bs-callout bs-callout-primary"><p>c如何写的漂亮… 这是一个好问题</p></div><p>下面会以这样的格式展示每一个模块<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ABC</span><br></pre></td></tr></table></figure><p>…outputs:<br>ABC</p><a id="more"></a><h3 id="表格">表格</h3><p>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">| Table Header 1 | Table Header 2 | Table Header 3 |</span><br><span class="line">| - | - | - |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br></pre></td></tr></table></figure><p>…outputs:</p><table><thead><tr><th>Table Header 1</th><th>Table Header 2</th><th>Table Header 3</th></tr></thead><tbody><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr></tbody></table><h3 id="bootstrap重点标注">Bootstrap重点标注</h3><p>这个Bootstrap标注可以给你的文章增添更多的醒目标记信息。可选项：default | primary | success | info | warning | danger<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% callout info %&#125;</span><br><span class="line">#### &#123;% fa info-circle %&#125; Info</span><br><span class="line">This is some info content</span><br><span class="line">&#123;% endcallout %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% callout warning %&#125;</span><br><span class="line">#### &#123;% fa exclamation-triangle %&#125; Warning</span><br><span class="line">This is some warning content</span><br><span class="line">&#123;% endcallout %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% callout danger %&#125;</span><br><span class="line">#### &#123;% fa exclamation-triangle %&#125; Danger</span><br><span class="line">This is some danger content</span><br><span class="line">&#123;% endcallout %&#125;</span><br></pre></td></tr></table></figure><p>…outputs:</p><div class="bs-callout bs-callout-info"><h4 id="i-class-fa-fa-info-circle-i-info"><i class="fa fa-info-circle"></i> Info</h4><p>This is some info content</p></div><div class="bs-callout bs-callout-warning"><h4 id="i-class-fa-fa-exclamation-triangle-i-warning"><i class="fa fa-exclamation-triangle"></i> Warning</h4><p>This is some warning content</p></div><div class="bs-callout bs-callout-danger"><h4 id="i-class-fa-fa-exclamation-triangle-i-danger"><i class="fa fa-exclamation-triangle"></i> Danger</h4><p>This is some danger content</p></div><h3 id="fa图标">fa图标</h3><p>在 <a href="https://fontawesome.com/icons" target="_blank" rel="noopener">Font Awesome 资源</a>  可以选择你需要的任意图标。<br>Markdown：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% fa github %&#125;</span><br></pre></td></tr></table></figure><p>…outputs:</p><i class="fa fa-github"></i>]]></content>
+        <content type="html"><![CDATA[<div class="bs-callout bs-callout-primary"><p>下面会在文章中引入的几个功能点，做一些记录 方便日后直接引用。</p></div><p>下面会以这样的格式展示每一个模块<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ABC</span><br></pre></td></tr></table></figure><p>…outputs:<br>ABC</p><a id="more"></a><h3 id="hexo-github-card">hexo-github-card</h3><p>在文章中引入某个github项目卡片，<a href="https://github.com/Gisonrg/hexo-github-card" target="_blank" rel="noopener">参考地址</a><br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% githubCard user:your_user [repo:your_repo] [width:400] [theme:Default] [client_id:your_client_id] [client_secret:your_client_secret] [align:text-align_position] %&#125;</span><br><span class="line"></span><br><span class="line">如：</span><br></pre></td></tr></table></figure><p>…outputs:</p><div style="text-align:center">  <div class="github-card" data-user="longshilin" data-repo="" data-width="400" data-theme="default" data-target="" data-client-id="" data-client-secret=""></div></div><script src="/github-card-lib/githubcard.js"></script><div style="text-align:center">  <div class="github-card" data-user="longshilin" data-repo="" data-width="400" data-theme="default" data-target="" data-client-id="" data-client-secret=""></div></div><script src="/github-card-lib/githubcard.js"></script>]]></content>
       
       
       
@@ -893,7 +904,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+pp5fErNkNTteboN7Y39Grncgi5Q2r36DRAgrUP3sGj3dah1uoH9iOiIHe+McUtsoZrvOlIzCCK33p6VoCoFqfbsX60sxrDBgvUnVFWmebmsKqGpR8nKcTEgYgIKHy9pmP34G9buQ72Gst3IGUB53G+TXidIyWSgVD4nXG6HVtysKCDVGaCqT96UP7z6Zfe1W9EaaOu413CxnYjOIlvXUGmoxzJjsCAu69L1YTQ81VcDXlCFurDRfuIFbYpEhEvKFYkL7pI9VUayv3dhLd7zyYUANudhrSqMOGedGiuuuFH6nYICV5v5uTv39LKUjex1Wh148Ktmv9m9JPefL+OxgEdWHG6jnYBNVn8hZRV0AKbNMFx/ZARJzmxzZhnTd7c/GgXuozXLmTlxfUMkuPsPNo7bsQZOKF+RFQ3NBu2D+Vh1GoMHGaBQG6Ih3hvoiyGRfmPURHwj+G3xASvKonCspcQMewkivzW5VKkTvj3/2pHp0LQocnXkQTIW50VwyaQUcJhvgCzZ7sEaPVwamiADRAcGFuQKo6bbHKP1KDtSnI70buqKWbfMqITDgckyk3ijxGSVC6oduEWWuwC1WXQI6S1WHfXSiSi2U3aF0WBVpbDR/tzeYTN59U1XlOr3Uymg36uWyOA6IORjzsIui4G0sMwki0VHmIt8i60IBkPgSLi6MN8bXg/bzwbTffqV03hb8kl+jI2o8eaoV2eGO1noyNx1sGOP9z3970WUJDKonFMl7R8HiYzPUembSEj7uPZnmrYfIi6kbSbQ==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+P4XvGuQJq4Xx+TPc/130hwOzkAnedY2VV+FdjLWMFMazbIuB5L/qIKmP5qIrVKh12r/l2ZW1Ps5xOp2+NHHTir8Fk7b7KlsIJY7JaWXXWqlny50+UxPwSvcq+Kag3g5OCYTtQlVOJtDeS8QHqM+x+N7ixPfPMyQfFKiA4Bx+WaWHjOuuA1m+VGMor39GjdD7PY1QR6Up+a0lGgNqVtEqvy2Tf+npZ22oZu6JFalymTSom32UwjpqCA4V3A8S71Y4ouqg7MursQ6g9IklC181RplguSkEob7dU83UU4Cu98AjjwtFbAmJsJLddonz0cSm98cF3PdkGaksxB1xQUkdrTuxMalo1hTDzNmbz0jNA6Erxa7n7OnWz5tqR/p7+JcDNFc0xi0plBw5vrRV8soqCwDfet+8kkiQ+ztj1B+t4HsAE+cIf77hU+SuYb68QY1X+iLNgWIPfbZVfR9hFte8XrBrUC+ExQoRv8EfOMpfOpItXgL2ZCGQbxYKlhjI9EzG6VfVBQZJkO15dN0ue0lZ9vqDX//7xQMn6xzYvFzQmR1/95QExeurohLKMxCGXRG3uArrt/W+LPR0AmvfVQQPKzneKJkbZsQleTCmmsritqaC9UlBXzlmAr5/r0ki/JvkvyKVMW9mhKpbk5rp2yhZ+vVgd4lyC0s1HT99iKepsYv1n6x6+7C4kGokYdNpOBCmviS6yLOdnw1db239vQt6zFzEXH0LMbiYQQ17HLJ6Sa3q83KxQaXvHiBK6PV3l8+AwcdHUzxJMmQ==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -1107,31 +1118,6 @@
     </entry>
     
     <entry>
-      <title>给自定义博客增加totop按钮</title>
-      <link href="/blog/5b764c97.html"/>
-      <url>/blog/5b764c97.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/MHvTV4w.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> website </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> longshilindotcom </tag>
-            
-            <tag> hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>GitLab CI/CD</title>
       <link href="/blog/b4ccb03f.html"/>
       <url>/blog/b4ccb03f.html</url>
@@ -1153,6 +1139,33 @@
             <tag> website </tag>
             
             <tag> gitlab </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>构建hexo和simiki工具的docker镜像</title>
+      <link href="/blog/fd401cf5.html"/>
+      <url>/blog/fd401cf5.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/flxHs0r.png" alt=""><br>基于<a href="https://hexo.io" target="_blank" rel="noopener">hexo</a>和<a href="http://simiki.org/" target="_blank" rel="noopener">simiki</a>工具构建基础镜像环境，用作我website项目中<a href="https://longshilin.com/blog/2018/09/22/website-on-gitlab/">website-on-gitlab CI/CD</a>的基础镜像。并将其发布到Docker Hub的<br><a href="https://hub.docker.com/r/longsl/hexo2simiki/" target="_blank" rel="noopener">PUBLIC REPOSITORY</a></p><a id="more"></a><h1>DockerFile</h1><p>通过官方centos7镜像为基础来构建包含构建website的构建环境。具体的环境包括：hexo, python3.6, nodejs, simiki, pip3.6</p><pre><code>FROM centos#安装EPEL依赖 Python3.6 pip3 nodejs npm hexo simikiRUN yum install -y epel-release; yum install -y https://centos7.iuscommunity.org/ius-release.rpm; yum install -y python36u; yum install -y python36u-pip; pip3.6 install --upgrade pip; curl -sL https://rpm.nodesource.com/setup_8.x | bash -; yum install -y nodejs; npm install hexo-cli -g; pip3.6 install simiki</code></pre><h1>Docker Build</h1><pre><code>docker build -t longsl/hexo2simiki .</code></pre><h1>Docker Container</h1><pre><code>docker run -it --rm longsl/hexo2simki /bin/sh</code></pre><h1>Supply</h1><p>关于下载最新版本的nodejs费了笔者一些功夫，因为通过<code>yum install -y nodejs</code>直接下载的包不是最新的版本，在hexo构建时，会提示npm版本过低的报错，因此我通过参考 <a href="https://linuxize.com/post/how-to-install-node-js-on-centos-7/" target="_blank" rel="noopener">How to install Node.js on CentOS 7</a>，更新yum源来下载node 8.x的版本。</p><pre><code>curl -sL https://rpm.nodesource.com/setup_8.x | sudo bash -sudo yum install nodejs</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> website </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> longshilindotcom </tag>
+            
+            <tag> hexo </tag>
+            
+            <tag> simiki </tag>
             
         </tags>
       
@@ -1184,11 +1197,11 @@
     </entry>
     
     <entry>
-      <title>构建hexo和simiki工具的docker镜像</title>
-      <link href="/blog/fd401cf5.html"/>
-      <url>/blog/fd401cf5.html</url>
+      <title>给自定义博客增加totop按钮</title>
+      <link href="/blog/5b764c97.html"/>
+      <url>/blog/5b764c97.html</url>
       
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/flxHs0r.png" alt=""><br>基于<a href="https://hexo.io" target="_blank" rel="noopener">hexo</a>和<a href="http://simiki.org/" target="_blank" rel="noopener">simiki</a>工具构建基础镜像环境，用作我website项目中<a href="https://longshilin.com/blog/2018/09/22/website-on-gitlab/">website-on-gitlab CI/CD</a>的基础镜像。并将其发布到Docker Hub的<br><a href="https://hub.docker.com/r/longsl/hexo2simiki/" target="_blank" rel="noopener">PUBLIC REPOSITORY</a></p><a id="more"></a><h1>DockerFile</h1><p>通过官方centos7镜像为基础来构建包含构建website的构建环境。具体的环境包括：hexo, python3.6, nodejs, simiki, pip3.6</p><pre><code>FROM centos#安装EPEL依赖 Python3.6 pip3 nodejs npm hexo simikiRUN yum install -y epel-release; yum install -y https://centos7.iuscommunity.org/ius-release.rpm; yum install -y python36u; yum install -y python36u-pip; pip3.6 install --upgrade pip; curl -sL https://rpm.nodesource.com/setup_8.x | bash -; yum install -y nodejs; npm install hexo-cli -g; pip3.6 install simiki</code></pre><h1>Docker Build</h1><pre><code>docker build -t longsl/hexo2simiki .</code></pre><h1>Docker Container</h1><pre><code>docker run -it --rm longsl/hexo2simki /bin/sh</code></pre><h1>Supply</h1><p>关于下载最新版本的nodejs费了笔者一些功夫，因为通过<code>yum install -y nodejs</code>直接下载的包不是最新的版本，在hexo构建时，会提示npm版本过低的报错，因此我通过参考 <a href="https://linuxize.com/post/how-to-install-node-js-on-centos-7/" target="_blank" rel="noopener">How to install Node.js on CentOS 7</a>，更新yum源来下载node 8.x的版本。</p><pre><code>curl -sL https://rpm.nodesource.com/setup_8.x | sudo bash -sudo yum install nodejs</code></pre>]]></content>
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/MHvTV4w.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -1203,8 +1216,6 @@
             <tag> longshilindotcom </tag>
             
             <tag> hexo </tag>
-            
-            <tag> simiki </tag>
             
         </tags>
       

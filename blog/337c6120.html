@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="积之在平日">
 <meta property="og:description" content="启动线程方法start();线程stop方法已经被弃用；守护线程在非守护线程结束后，会自动结束；等待其他线程通知方法是wait() switch结构中没有break的话，匹配完不会跳出，会继续匹配下一个case直到整个结构结束 Java.awt.*只能导入awt这个包中的所有类，awt中的包中的类不会导入 public&amp;gt;protected&amp;gt;默认(包访问权限)&amp;gt;private，因">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-02T06:38:33.000Z">
+<meta property="og:updated_time" content="2019-02-02T06:58:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java笔试易错点">
 <meta name="twitter:description" content="启动线程方法start();线程stop方法已经被弃用；守护线程在非守护线程结束后，会自动结束；等待其他线程通知方法是wait() switch结构中没有break的话，匹配完不会跳出，会继续匹配下一个case直到整个结构结束 Java.awt.*只能导入awt这个包中的所有类，awt中的包中的类不会导入 public&amp;gt;protected&amp;gt;默认(包访问权限)&amp;gt;private，因">
@@ -63,6 +63,8 @@
         
           <li><a class="" href="/blog/../wiki/">Wiki</a></li>
         
+          <li><a class="" href="/blog/Self-evaluation">自我评价</a></li>
+        
           <li><a class="" href="/blog/Sequencing/">Gene Sequencing Project</a></li>
         
           <li><a class="" href="/blog/books">Books</a></li>
@@ -73,7 +75,7 @@
         
           <li><a class="" href="/blog/Daily-Plan">Daily Plan</a></li>
         
-          <li><a class="" href="/blog/Tools">Tools</a></li>
+          <li><a class="" href="/blog/Tools">常用库</a></li>
         
       </ul>
 
@@ -208,7 +210,7 @@ C. 控制器是用户与系统之间的纽带，它接受用户输入，并指�
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/337c6120.html" data-id="cjrn3wql5000c0lu1xlpb8qgh" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/337c6120.html" data-id="cjrn4m5n4000c0lu1rb70q6rm" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -289,7 +291,7 @@ C. 控制器是用户与系统之间的纽带，它接受用户输入，并指�
   
   <div class="sidebar-module">
     <h4>Archives</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/02/">二月 2019</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/12/">十二月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/11/">十一月 2018</a><span class="sidebar-module-list-count">16</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">22</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/09/">九月 2018</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/07/">七月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2017/11/">十一月 2017</a><span class="sidebar-module-list-count">7</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/02/">二月 2019</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/12/">十二月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/11/">十一月 2018</a><span class="sidebar-module-list-count">16</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">22</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/09/">九月 2018</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/07/">七月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2017/11/">十一月 2017</a><span class="sidebar-module-list-count">7</span></li></ul>
   </div>
 
 
@@ -298,6 +300,10 @@ C. 控制器是用户与系统之间的纽带，它接受用户输入，并指�
   <div class="sidebar-module sidebar-recents">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/blog/2eebc0ad.html">个人技术栈</a>
+        </li>
       
         <li>
           <a href="/blog/b5410c9.html">windows和mac上安装Tower破解版</a>
@@ -313,10 +319,6 @@ C. 控制器是用户与系统之间的纽带，它接受用户输入，并指�
       
         <li>
           <a href="/blog/6961ccfa.html">快速构建Maven项目</a>
-        </li>
-      
-        <li>
-          <a href="/blog/2c9fcc04.html">功能性格式参考</a>
         </li>
       
     </ul>
