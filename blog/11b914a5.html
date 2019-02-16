@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <!-- 新增github的关注样式 - ->
+  <a href="https://github.com/longshilin"><img style="position: absolute; top: 35px; right: 0; border: 0;" src="https://longshilin.com/blog/images/forkme_right_green_007200.png" alt="Fork me on GitHab"></a>-->
+  <title>1 绪论 | 积之在平日</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="声明：基于Hadoop的基因组测序大数据分析平台研究是本人2018年的本科毕业设计课题，根据网络资源和自己的专业知识，独立完成整个流程设计、平台搭建和单元测试等工作。本系列文章是对该项目的一个整理总结和分享记录。该目录提及的系列文章可供转载，并无需通知作者，但需要在明显地方标注文章出处">
+<meta name="keywords" content="Hadoop,大数据,基因测序,毕业设计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="1 绪论">
+<meta property="og:url" content="https://longshilin.com/blog/11b914a5.html">
+<meta property="og:site_name" content="积之在平日">
+<meta property="og:description" content="声明：基于Hadoop的基因组测序大数据分析平台研究是本人2018年的本科毕业设计课题，根据网络资源和自己的专业知识，独立完成整个流程设计、平台搭建和单元测试等工作。本系列文章是对该项目的一个整理总结和分享记录。该目录提及的系列文章可供转载，并无需通知作者，但需要在明显地方标注文章出处">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/QufdMAd.png">
+<meta property="og:image" content="https://i.imgur.com/JdQOoUO.png">
+<meta property="og:image" content="https://i.imgur.com/BGn56hb.jpg">
+<meta property="og:updated_time" content="2019-02-16T10:32:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="1 绪论">
+<meta name="twitter:description" content="声明：基于Hadoop的基因组测序大数据分析平台研究是本人2018年的本科毕业设计课题，根据网络资源和自己的专业知识，独立完成整个流程设计、平台搭建和单元测试等工作。本系列文章是对该项目的一个整理总结和分享记录。该目录提及的系列文章可供转载，并无需通知作者，但需要在明显地方标注文章出处">
+<meta name="twitter:image" content="https://i.imgur.com/QufdMAd.png">
+<meta name="twitter:creator" content="@yilong0722">
+<link rel="publisher" href="106698639613319710000">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="积之在平日" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/blog/css/styles.css">
+  
+
+  <script src="/blog/js/baidutongji.js"></script>
+</head>
+</html>
+<body>
+  <nav class="navbar navbar-inverse navbar-wrapper">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class="" href="/blog/">Home</a></li>
+        
+          <li><a class="" href="/blog/../wiki/">Wiki</a></li>
+        
+          <li><a class="" href="/blog/Self-evaluation">自我评价</a></li>
+        
+          <li><a class="" href="/blog/books">Books</a></li>
+        
+          <li><a class="" href="/blog/movies">Movies</a></li>
+        
+          <li><a class="" href="/blog/Tools">常用库</a></li>
+        
+          <li><a class="" href="/blog/about/">关于我</a></li>
+        
+      </ul>
+
+
+      <ul class="nav navbar-nav navbar-right" id="sub-menu-navbar">
+        
+          <li><a href="/blog/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+        
+          <li><a href="https://github.com/longshilin" title="Github"><i class="fa fa-github"></i></a></li>
+        
+        
+          <li><a href="https://gitlab.com/longshilin" title="Gitlab"><i class="fa fa-gitlab"></i></a></li>
+        
+        
+          <li><a href="https://stackoverflow.com/users/7739839" title="StackOverFlow"><i class="fa fa-stack-overflow"></i></a></li>
+        
+        
+          <li><a href="https://zh.wikipedia.org/wiki/User:Longshilin" title="wikipedia"><i class="fa fa-wikipedia-w"></i></a></li>
+        
+      </ul>
+
+<!-- add google translate - ->
+      <div id="google_translate_element" style="position:absolute; right:0; margin-top: 8px; margin-right: 1px;"></div>
+
+      <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
+        }
+      </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!- - /add google translate -->
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <div class="container">
+    <!-- 隐藏header头 -->
+    
+    <div class="row">
+        <div class="col-sm-8 blog-main" id="main-body">
+          <article id="post-Hadoop基因测序/introduction" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      1 绪论
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/11b914a5.html" class="article-date"><time datetime="2018-07-20T00:00:00.000Z" itemprop="datePublished">2018-07-20</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Hadoop基因测序/">Hadoop基因测序</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/11b914a5.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+    <!-- <span id="busuanzi_container_page_pv"><i class="fa fa-eye"></i>&nbsp;阅读次数: <span id="busuanzi_value_page_pv"></span>&nbsp;</span> -->
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>声明：<strong>基于Hadoop的基因组测序大数据分析平台研究</strong>是本人2018年的本科毕业设计课题，根据网络资源和自己的专业知识，独立完成整个流程设计、平台搭建和单元测试等工作。<strong>本系列文章是对该项目的一个整理总结和分享记录。该目录提及的系列文章可供转载，并无需通知作者，但需要在明显地方标注文章出处</strong></p>
+</blockquote>
+<a id="more"></a>
+<p><strong>项目源码GitHub托管：<a href="https://github.com/longshilin/wgs" target="_blank" rel="noopener">https://github.com/longshilin/wgs</a></strong></p>
+<blockquote>
+<p>开发环境介绍：通过个人便携式笔记本ThinkPad开发，内存是8GB。</p>
+<ul>
+<li>操作系统：Ubuntu16</li>
+<li>开发平台：IDEA</li>
+<li>开发时间：2018年2月~5月</li>
+</ul>
+</blockquote>
+<h2 id="1-1-论文的研究背景及意义">1.1 论文的研究背景及意义</h2>
+<p>全基因组测序的英文是 Whole Genome Sequencing，简称WGS。它是将物种细胞里从第一个DNA开始一直到最后一个DNA的完整基因组序列，通过相关仪器和技术手段检测出来并排序好得到一种文本格式的文件，最后再将其和参考基因组做比对，鉴定出基因组上任何类型的突变。对于人类来说，全基因组测序能帮助我们更好的了解我们自身的基因位点信息，检测变异基因并应用在遗传病方面等。</p>
+<h3 id="1-1-1-全基因组测序原理及发展历程">1.1.1 全基因组测序原理及发展历程</h3>
+<p>基因测序技术经过四十多年的发展，作为二十一世纪的朝阳行业，已是时下热门。测序技术发展简史如图1-1所示，从图中可以看出，基因测序技术的开端在20世纪70年代中期，以当时英国生物化学家弗雷德里克·桑格（Sanger）开创的双脱氧链终止法<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>为开端。这是一种常用的核酸测序技术，主要用于DNA的测序分析。正因为此次的研究成果，将双脱氧链终止法与化学降解法以及其衍生方法统称为第一代DNA测序技术。</p>
+<p><img src="https://i.imgur.com/QufdMAd.png" alt="图1-1 测序技术发展简史"></p>
+<p>经过不断的技术开发和改进，在二十世纪初期随着人类基因组计划的完成，第二代测序技术诞生了。主要是以Illumina的Solexa/Hiseq技术和ABI的SOLID技术为代表，能够对一个物种的转录组或基因组进行深度测序<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>。第二代测序技术也使得DNA测序进入了高通量、低成本的功能基因组时代<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>。再后来，以PacBio的SMRT和ONT的纳米孔单分子测序技术为标志的第三代测序技术<sup class="footnote-ref"><a href="#fn4" id="fnref4">[4]</a></sup>。与之前的第一代和第二代测序技术相比，最大的不同点在于单分子测序技术的引入，测序过程不采用PCR扩增技术，并且可以进行超长读长，使得测序技术又有了进一步的提升。</p>
+<p>对于人类的全基因组测序来说，人类的全基因组一共有23对染色体，包含超过30亿个碱基<sup class="footnote-ref"><a href="#fn5" id="fnref5">[5]</a></sup>，而目前仅有3%的碱基信息能从临床医学上给予解释，因此还有大量的测序工作值得我们去发掘。由测序服务公司提供的原始测序序列文件在经过系统地分析处理前，无法提供任何有效的信息进行疾病的分析和预测.因此要想能够解密人类基因组的奥秘，就必须建立更加高效快速的数据分析平台，并结合生物测序仪器，将生物的蛋白质物质提取并转换为文本序列格式的数据，对其进行质量剔除、序列比对和基因测序等一系列测序分析工作<sup class="footnote-ref"><a href="#fn6" id="fnref6">[6]</a></sup>。</p>
+<p>纵观我国的基因组测序行业的状况，在2017年底，我国启动“中国十万人基因组计划”<sup class="footnote-ref"><a href="#fn7" id="fnref7">[7]</a></sup>，这是我国在人类全基因组测序领域的一个重大战略举措，也是目前世界最大规模的人类基因组计划，对我国的基因测序行业的发展有着深远的意义。</p>
+<h3 id="1-1-2-hadoop分布式平台">1.1.2 Hadoop分布式平台</h3>
+<p><a href="http://hadoop.apache.org/" target="_blank" rel="noopener">Hadoop</a> 是Apache基金会下的一个顶级项目，主要用于在商业硬件网络上进行大规模计算和数据处理，该项目发展到目前已有超过十年的时间。这个分布式计算平台是用Java编写，最初是由Doug Cutting创建的，可以通过一个简单的MapReduce编程模型<sup class="footnote-ref"><a href="#fn8" id="fnref8">[8]</a></sup>，跨集群地对大型数据集进行分布式存储和计算处理等，Hadoop1.x与2.x的比较如图1-2所示。</p>
+<p><img src="https://i.imgur.com/JdQOoUO.png" alt="图1 2 Hadoop1.x与2.x的比较"></p>
+<p>如今Hadoop项目已经发展为了一个大数据处理的应用框架体系，但其中主要应用在数据处理模块的仍然是HDFS分布式存储系统和MapReduce计算框架。在Hadoop2.0<sup class="footnote-ref"><a href="#fn9" id="fnref9">[9]</a></sup>之后，将集群的资源管理和任务调度的功能分离成了一个YARN服务模块。在其1.0版本中，原本计算、资源管理及调度是统一管理的，但由于调度任务的增多导致集群资源调度的性能瓶颈问题，为了打破原来的性能瓶颈，将任务调度和资源管理从原来的模块中分离出来。也正是因为这种改进，使得一些其他的计算框架如<a href="http://spark.apache.org/" target="_blank" rel="noopener">Spark</a> 、<a href="http://hbase.apache.org/" target="_blank" rel="noopener">HBase</a> 等能够轻松应用在Hadoop集群中。</p>
+<h2 id="1-2-国内外研究现状">1.2 国内外研究现状</h2>
+<h3 id="1-2-1-基因测序的研究现状">1.2.1 基因测序的研究现状</h3>
+<p>在基因测序服务方面，目前全球有上千家厂商提供测序服务，美国是基因测序服务发展较早的国家，因此大部分的服务产商都分布在美国。目前有超过200家分布在中国。在奥巴马政府于2015年初颁布<a href="http://guba.eastmoney.com/news,000788,173474151.html" target="_blank" rel="noopener">“精准医疗计划”</a> ；第二年中国国家科技部也将精准医疗列入<a href="https://www.hottui.com/bencandy-65-197782-1.htm" target="_blank" rel="noopener">重点研发计划</a> ，精准医疗受到中美两国政府的高度重视。政府机构对于个性化精准医疗的战略部署，直接反映了基因测序在当今时代的重要性。</p>
+<p>随着全球市场对基因测序的需求不断提升，一些大型的测序产商也在快速更新自己的测序仪产品。如Illumina测序公司在2014年推出了HiSeqX Ten测序仪系统，是第一个每年处理20,000个基因组的高通量系统，每个成本为1,000美元，从2015年，Illumina开始提供该系统的缩小版本HiSeq X Five。由于测序成本的不断降低，恰好也推动着一些医院和科研机构纷纷加入个性化医疗的研究领域中来，使得个性化精准医疗能够快速发展<sup class="footnote-ref"><a href="#fn10" id="fnref10">[10]</a></sup>。</p>
+<h3 id="1-2-2-hadoop与基因测序的研究现状">1.2.2 Hadoop与基因测序的研究现状</h3>
+<p>下图是每个DNA序列的测序费用，早在2007年末，测序费用已打破摩尔定律迅猛下降，而截止到2017年对于每条DNA序列的测序费用已低于0.01美元。这十年间测序技术的发展和世界各国科研的投入，使得基因测序的成本和门槛越来越低。</p>
+<p>每段DNA序列的测序成本如图1-3所示，面对如此低廉的测序成本，使得个性化测序医疗的成本也会越来越低。普通人群也可以享受基因测序带来的红利，想通过基因测序了解自己的基因变异位点和遗传病的情况等。单随之而来的会面临大数据量的基因测序问题，因此我们必须寻求其他手段来高效并发的处理基因测序，在此可以利用Hadoop大数据批量处理的优势来并行化测序。在国外已经有科研机构或者公司进行这方面的尝试，如Broad Institute研究所，他们采用Hadoop、Spark的方式和基因测序结合起来，发挥Hadoop和Spark基于内存的实时分析能力，对基因测序和大数据结合的尝试。在GATK4.0的时候推出了<a href="https://software.broadinstitute.org/gatk/documentation/article?id=11244" target="_blank" rel="noopener">“在Spark集群上启用Spark的GATK工具”</a>等系列课题 。</p>
+<p><img src="https://i.imgur.com/BGn56hb.jpg" alt="图1 3 每段DNA序列的测序成本"></p>
+<h2 id="1-3-论文的主要研究内容">1.3 论文的主要研究内容</h2>
+<p>通过全基因组测序流程分析并引入参考基因组，将测序样本进行一系列的处理操作如：</p>
+<ol>
+<li>原始数据质量控制</li>
+<li>数据预处理（包括：序列比对、排序、标记重复序列以及建立索引等）</li>
+<li>基因变异检测</li>
+</ol>
+<p>接着通过Hadoop大数据分析平台，并引入第三方模板引擎来构建分析处理脚本，结合MapReduce计算处理框架和分布式存储系统HDFS来并行计算和存储基因数据，从而实现对基因测序进行并行化测序，最终完成全基因组测序的全过程，获得样本准确的变异基因位点的集合。最后可以将这个变异集合用来指导一些疾病的研究和精准化医疗的应用方面等。</p>
+<h2 id="1-4-章节安排">1.4 章节安排</h2>
+<p>在第一章绪论中，主要介绍全基因组测序的研究背景及意义，其中包括对全基因组测序原理及发展历程的介绍，并对Hadoop分布式平台加以介绍，最后对国内外基因测序的研究现状和本论文主要的研究内容作了阐述。</p>
+<p>第二章中，将会重点介绍基因测序所需要的Hadoop平台，包括HDFS组件和MapReduce组件的内部原理和相关特性。接着对全基因组测序所用到的相关流程模块及测序技术作整体介绍，主要包括三大模块：原始数据质控、数据预处理以及变异检测。最后对测序技术中出现的主要文件格式，如FASTA、FASTQ、gVCF和VCF这四种格式做了概述和格式说明。</p>
+<p>第三章中，基于Hadoop平台基因测序的关键技术作了剖析和研究。其中包括测序逻辑与MapReduce的结合，不同格式数据的访问和存储，以及如何保证分析流程的完整性，最后引入FreeMarker模板引擎完成关键性的定制化脚本的搭建工作。</p>
+<p>第四章中，基于Hadoop平台基因测序的流程处理和MapReduce计算框架的代码实现方面。首先是对Hadoop伪分布式环境和分布式环境的搭建和功能比较比较，其次实现Shell脚本执行引擎的构建，并分析Mappe阶段和Reduce阶段作业设计与分配，最后将对作业进行整体调度的实现。</p>
+<p>第五章中，主要对第四章搭建的大数据处理平台的测试、优化及扩展。考虑到测试数据的易用性和分析平台测序流程的完整性，这里使用E.coli_K12的样本组数据。通过将该项目的样本数据引大数据分析平台，可以很好的对该平台进行测试和系统优化。最后对Hadoop分布式的基因测序效率与传统的脚本式的测序效率作比较，将系统平台进行扩展应用等。</p>
+<p>第六章，对基于Hadoop的基因测序大数据平台研究与设计的总结，通过对基于Hadoop的基因组测序大数据分析平台的研究，实现自动并行化的样本数据的基因测序，大大改善传统串行处理的测序分析处理流程，从而有效的提升基因测序处理效率，并有望将该平台研究成果应用于实际基因精准化测序和个性化医疗领域中。</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>Sanger, F. &amp; Nicklen, S. DNA sequencing with chain-terminating[P]. 74, 5463–5467 (1977). <a href="#fnref1" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>Struster SC.Next-generation sequencing transform today’s biology[J].Nat Methods.5(1):16-18 (2008). <a href="#fnref2" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn3" class="footnote-item"><p>解增言,林俊华,谭军,舒坤贤. DNA测序技术的发展历史与最新进展[J]. 生物技术通报. 2010(08). <a href="#fnref3" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn4" class="footnote-item"><p>Rusk N. Cheap third-generation sequecing[J]. Nature. 6(4): 244-245 (2011). <a href="#fnref4" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn5" class="footnote-item"><p>J. Craig Venter, Mark D. Adams, Eugene W. Myers. The Sequence of the Human Genome[J]. Science, 2001, 291(5507): 1304-1351. <a href="#fnref5" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn6" class="footnote-item"><p>高通量DNA测序技术及其应用进展[J]. 于聘飞,王英,葛芹玉. 南京晓庄学院学报	2010-05-20 (05). <a href="#fnref6" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn7" class="footnote-item"><p>衣春翔. 哈工大牵头启动十万人基因组计划[N]. 黑龙江日报. 2017-12-29 (003). <a href="#fnref7" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn8" class="footnote-item"><p>Jeffrey Dean, Sanjay Ghemawat. MapReduce: Simplified Data Processing on Large Clusters[C]. America:Google, Inc., 2004. 137-149. <a href="#fnref8" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn9" class="footnote-item"><p>Garry Turkington. Hadoop基础教程[M]. 张治起译. 人民邮电出版社 第1版, 2014. <a href="#fnref9" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn10" class="footnote-item"><p>新一代基因组测序-通往个性化医疗[M]. 贾尼特编著,薛庆中等译. 科学出版社, 2012. <a href="#fnref10" class="footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/11b914a5.html" data-id="cjs7cg2fh000n0lxgh3bcmeth" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Hadoop/">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/大数据/">大数据</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/基因测序/">基因测序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/毕业设计/">毕业设计</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/blog/205eb716.html" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">摘要</span>
+    </a>
+  </li>
+  
+  
+  <li role="presentation">
+    <a href="/blog/5290c12.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">2 相关技术及原理</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
+  
+</ul>
+
+
+  
+</article>
+
+
+<section id="comments">
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments.</a></noscript>
+    </div>
+  
+</section>
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar" id="sidebar">
+          
+  <div class="sidebar-module sidebar-toc" id="toc">
+    
+      <h4>Table of Contents</h4>
+      <ol class="sidebar-module-list"><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#1-1-论文的研究背景及意义"><span class="sidebar-module-list-number">1.</span> <span class="sidebar-module-list-text">1.1 论文的研究背景及意义</span></a><ol class="sidebar-module-list-child"><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#1-1-1-全基因组测序原理及发展历程"><span class="sidebar-module-list-number">1.1.</span> <span class="sidebar-module-list-text">1.1.1 全基因组测序原理及发展历程</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#1-1-2-hadoop分布式平台"><span class="sidebar-module-list-number">1.2.</span> <span class="sidebar-module-list-text">1.1.2 Hadoop分布式平台</span></a></li></ol></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#1-2-国内外研究现状"><span class="sidebar-module-list-number">2.</span> <span class="sidebar-module-list-text">1.2 国内外研究现状</span></a><ol class="sidebar-module-list-child"><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#1-2-1-基因测序的研究现状"><span class="sidebar-module-list-number">2.1.</span> <span class="sidebar-module-list-text">1.2.1 基因测序的研究现状</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#1-2-2-hadoop与基因测序的研究现状"><span class="sidebar-module-list-number">2.2.</span> <span class="sidebar-module-list-text">1.2.2 Hadoop与基因测序的研究现状</span></a></li></ol></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#1-3-论文的主要研究内容"><span class="sidebar-module-list-number">3.</span> <span class="sidebar-module-list-text">1.3 论文的主要研究内容</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#1-4-章节安排"><span class="sidebar-module-list-number">4.</span> <span class="sidebar-module-list-text">1.4 章节安排</span></a></li></ol>
+    
+  </div>
+
+
+
+  
+<div class="sidebar-module sidebar-tags">
+  <h4>Search</h4>
+  <form id="search-form"> <!-- 搜索框相关 -->
+    <input type="text" id="local-search-input" name="q" placeholder=" 搜一搜..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false">
+    <i class="fa fa-times" onclick="resetSearch()"></i> <!-- 清空/重置搜索框 -->
+  </form>
+  <div id="local-search-result"></div> <!-- 搜索结果区 -->
+  <p class="no-result">No results found </p> <!-- 无匹配时显示，注意请在 CSS 中设置默认隐藏 -->
+</div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/CI-CD/">CI/CD</a><span class="sidebar-module-list-count">2</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/CI-CD/Jenkins/">Jenkins</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/CI-CD/Maven/">Maven</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Hadoop基因测序/">Hadoop基因测序</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Java/">Java</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Tech/">Tech</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/docker/">docker</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/mybatis/">mybatis</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/website/">website</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/书籍/">书籍</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/学习资源/">学习资源</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/">工具</a><span class="sidebar-module-list-count">6</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/写博工具/">写博工具</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/电脑工具/">电脑工具</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/每日计划/">每日计划</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/生活记/">生活记</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/">认证</a><span class="sidebar-module-list-count">2</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/AWS-Certified/">AWS Certified</a><span class="sidebar-module-list-count">2</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/AWS-Certified/SysOps-Administrator–Associate/">SysOps-Administrator–Associate</a><span class="sidebar-module-list-count">2</span></li></ul></li></ul></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/blog/tags/90km/" style="font-size: 10px;">90km</a> <a href="/blog/tags/CI-CD/" style="font-size: 12px;">CI/CD</a> <a href="/blog/tags/Class/" style="font-size: 10px;">Class</a> <a href="/blog/tags/Hadoop/" style="font-size: 18px;">Hadoop</a> <a href="/blog/tags/SEO/" style="font-size: 10px;">SEO</a> <a href="/blog/tags/StackOverflow/" style="font-size: 10px;">StackOverflow</a> <a href="/blog/tags/aws/" style="font-size: 12px;">aws</a> <a href="/blog/tags/aws-soa/" style="font-size: 10px;">aws-soa</a> <a href="/blog/tags/docker/" style="font-size: 14px;">docker</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/blog/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/blog/tags/highlightjs/" style="font-size: 10px;">highlightjs</a> <a href="/blog/tags/java/" style="font-size: 12px;">java</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">jenkins</a> <a href="/blog/tags/learning/" style="font-size: 10px;">learning</a> <a href="/blog/tags/longshilindotcom/" style="font-size: 16px;">longshilindotcom</a> <a href="/blog/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/blog/tags/maven/" style="font-size: 10px;">maven</a> <a href="/blog/tags/memreduct/" style="font-size: 10px;">memreduct</a> <a href="/blog/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/blog/tags/plan/" style="font-size: 20px;">plan</a> <a href="/blog/tags/shell/" style="font-size: 10px;">shell</a> <a href="/blog/tags/simiki/" style="font-size: 10px;">simiki</a> <a href="/blog/tags/sysops/" style="font-size: 10px;">sysops</a> <a href="/blog/tags/tools/" style="font-size: 14px;">tools</a> <a href="/blog/tags/tower/" style="font-size: 10px;">tower</a> <a href="/blog/tags/website/" style="font-size: 10px;">website</a> <a href="/blog/tags/wordpress/" style="font-size: 10px;">wordpress</a> <a href="/blog/tags/write/" style="font-size: 10px;">write</a> <a href="/blog/tags/代理/" style="font-size: 10px;">代理</a> <a href="/blog/tags/优秀文章/" style="font-size: 10px;">优秀文章</a> <a href="/blog/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/blog/tags/域名/" style="font-size: 10px;">域名</a> <a href="/blog/tags/基因测序/" style="font-size: 18px;">基因测序</a> <a href="/blog/tags/大数据/" style="font-size: 18px;">大数据</a> <a href="/blog/tags/异常/" style="font-size: 10px;">异常</a> <a href="/blog/tags/接口与内部类/" style="font-size: 10px;">接口与内部类</a> <a href="/blog/tags/极客时间/" style="font-size: 10px;">极客时间</a> <a href="/blog/tags/毕业设计/" style="font-size: 18px;">毕业设计</a> <a href="/blog/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/blog/tags/笔试/" style="font-size: 10px;">笔试</a> <a href="/blog/tags/类对象/" style="font-size: 10px;">类对象</a> <a href="/blog/tags/线程/" style="font-size: 10px;">线程</a> <a href="/blog/tags/读书/" style="font-size: 10px;">读书</a> <a href="/blog/tags/迭代器/" style="font-size: 10px;">迭代器</a> <a href="/blog/tags/集合/" style="font-size: 10px;">集合</a> <a href="/blog/tags/马云/" style="font-size: 10px;">马云</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/02/">二月 2019</a><span class="sidebar-module-list-count">6</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/12/">十二月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/11/">十一月 2018</a><span class="sidebar-module-list-count">16</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">22</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/09/">九月 2018</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/07/">七月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2017/11/">十一月 2017</a><span class="sidebar-module-list-count">7</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module sidebar-recents">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/blog/6534143e.html">个人发展的思考</a>
+        </li>
+      
+        <li>
+          <a href="/blog/dc45726b.html">Windows和Linux上安装Jenkins</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2eebc0ad.html">个人技术栈</a>
+        </li>
+      
+        <li>
+          <a href="/blog/b5410c9.html">windows和mac上安装Tower破解版</a>
+        </li>
+      
+        <li>
+          <a href="/blog/61ee7b96.html">更新你的highlightjs版本和支持语言</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9145047272014077",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!- blog-general-responsive-sidebar ->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4721191851305300"
+     data-ad-slot="5846920073"
+     data-ad-format="auto"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+        </div>
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      Copyright &copy; 2014 - 2019 longsl&nbsp;<br>
+      For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><br>
+      <!-- CNZZ统计 -->
+      <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>&nbsp; |&nbsp;
+      Create with <a href="https://hexo.io">Hexo</a>&nbsp; |&nbsp;
+      CI/CD by <a href="https://about.gitlab.com/2015/12/14/getting-started-with-gitlab-and-gitlab-ci/" target="_blank">Gitlab</a>&nbsp; |&nbsp;
+      Host on <a href="https://pages.github.com/" target="_blank">Github</a>&nbsp; |&nbsp;
+      <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u>
+      <!-- <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"  target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a><br> -->
+      <!-- <a href="http://www.miitbeian.gov.cn">湘ICP备18009099号</a>&nbsp; |&nbsp;<img src="/images/beian.png" /> <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43060202000297">湘公网安备 43060202000297号</a> -->
+    </div>
+  </div>
+</footer>
+
+  
+
+<!-- changyan comment -->
+
+
+<!-- gitment comment -->
+
+
+<!-- Valine comment -->
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    new Valine({
+      av: AV,
+  		el: '#disqus_thread',
+  		appId: 'pMgClbOyqp0K4AQxpMUJuskE-9Nh9j0Va',
+  		appKey: 'CzXcgRguvCJa0EkILaN5F4HX',
+  		notify: false,
+  		verify: false,
+  		avatar: 'mm',
+  		placeholder: '在此处写下你的评论吧...'
+  	});
+  </script>
+
+
+<script src="/assets/js/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+  <!-- 注释掉本地取js代码块
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/github.min.css" integrity="sha384-WtUWHyk39lfUpZQVgokNfSKCJaKAeD6adgLduBLrKTMUuPzFhLtL23y1guFy6lZn" crossorigin="anonymous">-->
+  <script src="/blog/highlight/highlight.pack.js"></script>
+
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+<script src="/blog/js/search.js"></script>
+
+  
+	<div id="totop">
+	<a title="totop"><img src="/blog/images/scrollup.png"></a>
+	</div>
+	<script src="/blog/js/totop.js"></script>
+
+  <script src="/blog/js/sidebar.js"></script>
+  <script src="/blog/js/baidu_js_push.js"></script>
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <script id="__bs_script__">
+    if(location.hostname == "localhost")
+        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.0'><\/script>".replace("HOST", location.hostname));
+  </script>
+</body>
+</html>

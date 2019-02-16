@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <!-- 新增github的关注样式 - ->
+  <a href="https://github.com/longshilin"><img style="position: absolute; top: 35px; right: 0; border: 0;" src="https://longshilin.com/blog/images/forkme_right_green_007200.png" alt="Fork me on GitHab"></a>-->
+  <title>website优化之路 | 积之在平日</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在这里我会从上到下介绍我所做的优化和调整，会把每个模块的修改都覆盖到，而中间踩过的坑都给大家添上。同时也会记录自己的创新点和实践心得等等，欢迎大家评论~">
+<meta name="keywords" content="longshilindotcom">
+<meta property="og:type" content="article">
+<meta property="og:title" content="website优化之路">
+<meta property="og:url" content="https://longshilin.com/blog/baf88334.html">
+<meta property="og:site_name" content="积之在平日">
+<meta property="og:description" content="在这里我会从上到下介绍我所做的优化和调整，会把每个模块的修改都覆盖到，而中间踩过的坑都给大家添上。同时也会记录自己的创新点和实践心得等等，欢迎大家评论~">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/5x7OAkx.png">
+<meta property="og:image" content="https://i.imgur.com/a6hZnuv.png">
+<meta property="og:image" content="https://i.imgur.com/BBSVXSH.png">
+<meta property="og:image" content="https://i.imgur.com/Ycqq7iw.png">
+<meta property="og:image" content="https://i.imgur.com/c5soh5Y.png">
+<meta property="og:updated_time" content="2019-02-16T10:32:55.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="website优化之路">
+<meta name="twitter:description" content="在这里我会从上到下介绍我所做的优化和调整，会把每个模块的修改都覆盖到，而中间踩过的坑都给大家添上。同时也会记录自己的创新点和实践心得等等，欢迎大家评论~">
+<meta name="twitter:image" content="https://i.imgur.com/5x7OAkx.png">
+<meta name="twitter:creator" content="@yilong0722">
+<link rel="publisher" href="106698639613319710000">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="积之在平日" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/blog/css/styles.css">
+  
+
+  <script src="/blog/js/baidutongji.js"></script>
+</head>
+</html>
+<body>
+  <nav class="navbar navbar-inverse navbar-wrapper">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class="" href="/blog/">Home</a></li>
+        
+          <li><a class="" href="/blog/../wiki/">Wiki</a></li>
+        
+          <li><a class="" href="/blog/Self-evaluation">自我评价</a></li>
+        
+          <li><a class="" href="/blog/books">Books</a></li>
+        
+          <li><a class="" href="/blog/movies">Movies</a></li>
+        
+          <li><a class="" href="/blog/Tools">常用库</a></li>
+        
+          <li><a class="" href="/blog/about/">关于我</a></li>
+        
+      </ul>
+
+
+      <ul class="nav navbar-nav navbar-right" id="sub-menu-navbar">
+        
+          <li><a href="/blog/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+        
+          <li><a href="https://github.com/longshilin" title="Github"><i class="fa fa-github"></i></a></li>
+        
+        
+          <li><a href="https://gitlab.com/longshilin" title="Gitlab"><i class="fa fa-gitlab"></i></a></li>
+        
+        
+          <li><a href="https://stackoverflow.com/users/7739839" title="StackOverFlow"><i class="fa fa-stack-overflow"></i></a></li>
+        
+        
+          <li><a href="https://zh.wikipedia.org/wiki/User:Longshilin" title="wikipedia"><i class="fa fa-wikipedia-w"></i></a></li>
+        
+      </ul>
+
+<!-- add google translate - ->
+      <div id="google_translate_element" style="position:absolute; right:0; margin-top: 8px; margin-right: 1px;"></div>
+
+      <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
+        }
+      </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!- - /add google translate -->
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <div class="container">
+    <!-- 隐藏header头 -->
+    
+    <div class="row">
+        <div class="col-sm-8 blog-main" id="main-body">
+          <article id="post-website/website优化之路" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      website优化之路
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/baf88334.html" class="article-date"><time datetime="2018-10-14T23:19:02.000Z" itemprop="datePublished">2018-10-14</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/website/">website</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/baf88334.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+    <!-- <span id="busuanzi_container_page_pv"><i class="fa fa-eye"></i>&nbsp;阅读次数: <span id="busuanzi_value_page_pv"></span>&nbsp;</span> -->
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在这里我会从上到下介绍我所做的优化和调整，会把每个模块的修改都覆盖到，而中间踩过的坑都给大家添上。同时也会记录自己的创新点和实践心得等等，欢迎大家评论~</p>
+<a id="more"></a>
+<p><img src="https://i.imgur.com/5x7OAkx.png" alt="Blog首页"></p>
+<p>其中这个样式的原版是下面这样的：<br>
+<img src="https://i.imgur.com/a6hZnuv.png" alt="原版博客样式"><br>
+<a href="https://www.cgmartin.com" target="_blank" rel="noopener">详见原作者博客</a> | 另外该样式的<a href="https://github.com/cgmartin/hexo-theme-bootstrap-blog" target="_blank" rel="noopener">Github地址</a></p>
+<blockquote>
+<p>乍一看，感觉两者没有实质上的改变，大部分都相同。确实是这样的，下面我会一一列举我新增的内容和填过的坑。😄</p>
+</blockquote>
+<h2 id="导航栏">导航栏</h2>
+<p>首先是导航栏部分，可以看到左侧导航栏出现了多个标签页，这里我需要在<code>theme/_config.yml</code>文件中新增menu菜单栏，实质上脚本文件会自动解析你的config配置项，然后到<code>masthead.ejs</code>文件中将所有的menu以遍历的形式进行展现出来，具体看下面相关的代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[第16行开始]</span><br><span class="line">&lt;!-- Collect the nav links, forms, and other content for toggling --&gt;</span><br><span class="line">&lt;div class=&quot;collapse navbar-collapse&quot; id=&quot;main-menu-navbar&quot;&gt;</span><br><span class="line">  &lt;ul class=&quot;nav navbar-nav&quot;&gt;</span><br><span class="line">    &lt;% for (var i in theme.menu)&#123; %&gt;</span><br><span class="line">      &lt;li&gt;&lt;a class=&quot;&lt;%= is_current(theme.menu[i]) ? &apos;active&apos; : &apos;&apos; %&gt;&quot;</span><br><span class="line">             href=&quot;&lt;%- url_for(theme.menu[i]) %&gt;&quot;&gt;&lt;%= i %&gt;&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">    &lt;% &#125; %&gt;</span><br><span class="line">  &lt;/ul&gt;</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<h2 id="导航栏右侧的个人站点图表">导航栏右侧的个人站点图表</h2>
+<p>在 <kbd>masthead.ejs</kbd> 文件中加入下面的内容，这是整个顶部导航栏右侧的图表列表。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;ul class=&quot;nav navbar-nav navbar-right&quot; id=&quot;sub-menu-navbar&quot;&gt;</span><br><span class="line">  &lt;% if (theme.rss)&#123; %&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href=&quot;&lt;%- theme.rss %&gt;&quot; title=&quot;RSS Feed&quot;&gt;&lt;i class=&quot;fa fa-rss&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">  &lt;% &#125; %&gt;</span><br><span class="line">  &lt;% if (theme.github)&#123; %&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href=&quot;https://github.com/&lt;%- theme.github %&gt;&quot; title=&quot;Github&quot;&gt;&lt;i class=&quot;fa fa-github&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">  &lt;% &#125; %&gt;</span><br><span class="line">  &lt;% if (theme.gitlab)&#123; %&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href=&quot;https://gitlab.com/&lt;%- theme.gitlab %&gt;&quot; title=&quot;Gitlab&quot;&gt;&lt;i class=&quot;fa fa-gitlab&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">  &lt;% &#125; %&gt;</span><br><span class="line">  &lt;% if (theme.stackoverflow)&#123; %&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/users/&lt;%- theme.stackoverflow %&gt;&quot; title=&quot;StackOverFlow&quot;&gt;&lt;i class=&quot;fa fa-stack-overflow&quot;&gt;&lt;/i&gt;&lt;/a&gt;&lt;/li&gt;</span><br><span class="line">  &lt;% &#125; %&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="个人头像专栏设置">个人头像专栏设置</h2>
+<p><img src="https://i.imgur.com/BBSVXSH.png" alt=""></p>
+<p>这里也是有一个文件保存这些信息 <kbd>header.ejs</kbd></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;div class=&quot;blog-header hidden-xs&quot;&gt;</span><br><span class="line">  &lt;img id=&quot;blog-logo&quot; width=&quot;80&quot; height=&quot;80&quot; alt=&quot;Long Shilin&quot; src=&quot;https://www.gravatar.com/avatar/06c71e5f94c268040fd4068f336188e7.png&quot;&gt;</span><br><span class="line">  &lt;h2 class=&quot;blog-title&quot;&gt;&lt;%= config.title %&gt;&lt;/h2&gt;</span><br><span class="line">  &lt;% if (theme.subtitle)&#123; %&gt;</span><br><span class="line">    &lt;p class=&quot;lead blog-description&quot;&gt;&lt;%= theme.subtitle %&gt;&lt;/p&gt;</span><br><span class="line">  &lt;% &#125; %&gt;</span><br><span class="line">&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;blog-header visible-xs&quot;&gt;</span><br><span class="line">  &lt;h1 class=&quot;blog-title&quot;&gt;&lt;%= config.title_mobile %&gt;&lt;/h1&gt;</span><br><span class="line">  &lt;% if (theme.subtitle)&#123; %&gt;</span><br><span class="line">    &lt;p class=&quot;lead blog-description&quot;&gt;&lt;%= theme.subtitle_mobile %&gt;&lt;/p&gt;</span><br><span class="line">  &lt;% &#125; %&gt;</span><br><span class="line">&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="博客分享按钮的添加">博客分享按钮的添加</h2>
+<p><img src="https://i.imgur.com/Ycqq7iw.png" alt=""><br>
+这里我加入来五种平台的分享，其中除微信外，其他集中可以直接跳转到对应的Web或App中进行分享。</p>
+<p>下面主要介绍这几个平台分享URL是如何进行拼接的。当时找微博的url拼接的方法还是找了好一圈，不过最后还是解决了～😄 (有问题可以在下面评论区留言)</p>
+<ul>
+<li>微博、微信、Twitter、Facebook、Google+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;a href=&quot;http://service.weibo.com/share/share.php?appkey=&amp;title=&apos;+ &quot;【&quot; + title + &quot;】&quot; + description +&apos;&amp;url=&apos; + encodedUrl + &apos;&amp;searchPic=false&amp;style=simple&quot; class=&quot;article-share-weibo&quot; target=&quot;_blank&quot; title=&quot;微博&quot;&gt;&lt;/a&gt;,</span><br><span class="line">&lt;a href=&quot;http://qr.liantu.com/api.php?text=&apos; + encodedUrl + &apos;&quot; class=&quot;article-share-weixin&quot; target=&quot;_blank&quot; title=&quot;微信&quot;&gt;&lt;/a&gt;,</span><br><span class="line">&lt;a href=&quot;https://twitter.com/intent/tweet?url=&apos; + encodedUrl + &apos;&quot; class=&quot;article-share-twitter&quot; target=&quot;_blank&quot; title=&quot;Twitter&quot;&gt;&lt;/a&gt;,</span><br><span class="line">&lt;a href=&quot;https://www.facebook.com/sharer.php?u=&apos; + encodedUrl + &apos;&quot; class=&quot;article-share-facebook&quot; target=&quot;_blank&quot; title=&quot;Facebook&quot;&gt;&lt;/a&gt;,</span><br><span class="line">&lt;a href=&quot;https://plus.google.com/share?url=&apos; + encodedUrl + &apos;&quot; class=&quot;article-share-google&quot; target=&quot;_blank&quot; title=&quot;Google+&quot;&gt;&lt;/a&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="博客中增加emoji表情">博客中增加emoji表情</h2>
+<p>我推荐这篇博文 <a href="https://www.cnblogs.com/fsong/p/5929773.html" target="_blank" rel="noopener">Hexo中添加emoji表情</a>，持久化保存的pdf版<a href="https://pan.baidu.com/s/1PQdP5PQ-6HqFYAOq0AZY5A" target="_blank" rel="noopener">下载</a></p>
+<h2 id="hexo文章置顶功能">hexo文章置顶功能</h2>
+<p>npm插件：<a href="https://www.npmjs.com/package/hexo-generator-topindex" target="_blank" rel="noopener">hexo-generator-topindex</a></p>
+<p>另外在index页面的文章简介出，修改了显示置顶文章的样式，新增了一个小图标<br>
+<img src="https://i.imgur.com/c5soh5Y.png" alt=""></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;% if (post.top)&#123; %&gt;&lt;i class=&quot;fa fa-thumb-tack&quot;&gt;&lt;font color=7D26CD&gt;&amp;nbsp;置顶 &amp;nbsp;&amp;nbsp;&lt;/font&gt;|&lt;/i&gt;&lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="对接评论系统">对接评论系统</h2>
+<p>在我的博客中，我先后接入评论有四款，按照时间先后顺序分别是：<a href="https://disqus.com" target="_blank" rel="noopener">disqus</a> -&gt; <a href="https://github.com/imsun/gitment" target="_blank" rel="noopener">gitment</a> -&gt; <a href="https://changyan.kuaizhan.com/" target="_blank" rel="noopener">畅言</a> -&gt; <a href="https://valine.js.org/quickstart.html" target="_blank" rel="noopener">valine</a>，现在选择了valine 也是我比较看好的。首先它不像disqus，需要翻墙才能评论，虽然有博友已经开发了对于disqus的代理，但是还是有缺陷；后来转战gitment，这个由于<a href="https://github.com/imsun/gitment/issues/170" target="_blank" rel="noopener">存在第三方验证</a>的事情，感觉会导致评论系统的不稳定；转而国内比较稳的畅言，也因为我的域名有备案，因此还是很顺利的接入了，但是个人感觉UI实在不适合技术类博客，因此最后选择valine这一款评论系统，它是基于<a href="https://leancloud.cn/" target="_blank" rel="noopener">leancloud</a>，我们使用免费版即可满足小规模的评论，这里推荐一个valine上手参考博文<a href="https://panjunwen.com/valine-admin-document/" target="_blank" rel="noopener">Valine Admin 配置手册</a>，支持邮件通知新评论。<a href="https://pan.baidu.com/s/13chCFPv-NX1B0kJUdFl2lw" target="_blank" rel="noopener">Valine Admin pdf版下载</a></p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/baf88334.html" data-id="cjs7cg2gf002h0lxgqyd8drkv" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/longshilindotcom/">longshilindotcom</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/blog/e8df5bcb.html" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">Docker学习路径</span>
+    </a>
+  </li>
+  
+  
+  <li role="presentation">
+    <a href="/blog/49462.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">站点开源框架</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
+  
+</ul>
+
+
+  
+</article>
+
+
+<section id="comments">
+  
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments.</a></noscript>
+    </div>
+  
+</section>
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar" id="sidebar">
+          
+  <div class="sidebar-module sidebar-toc" id="toc">
+    
+      <h4>Table of Contents</h4>
+      <ol class="sidebar-module-list"><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#导航栏"><span class="sidebar-module-list-number">1.</span> <span class="sidebar-module-list-text">导航栏</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#导航栏右侧的个人站点图表"><span class="sidebar-module-list-number">2.</span> <span class="sidebar-module-list-text">导航栏右侧的个人站点图表</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#个人头像专栏设置"><span class="sidebar-module-list-number">3.</span> <span class="sidebar-module-list-text">个人头像专栏设置</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#博客分享按钮的添加"><span class="sidebar-module-list-number">4.</span> <span class="sidebar-module-list-text">博客分享按钮的添加</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#博客中增加emoji表情"><span class="sidebar-module-list-number">5.</span> <span class="sidebar-module-list-text">博客中增加emoji表情</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#hexo文章置顶功能"><span class="sidebar-module-list-number">6.</span> <span class="sidebar-module-list-text">hexo文章置顶功能</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#对接评论系统"><span class="sidebar-module-list-number">7.</span> <span class="sidebar-module-list-text">对接评论系统</span></a></li></ol>
+    
+  </div>
+
+
+
+  
+<div class="sidebar-module sidebar-tags">
+  <h4>Search</h4>
+  <form id="search-form"> <!-- 搜索框相关 -->
+    <input type="text" id="local-search-input" name="q" placeholder=" 搜一搜..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false">
+    <i class="fa fa-times" onclick="resetSearch()"></i> <!-- 清空/重置搜索框 -->
+  </form>
+  <div id="local-search-result"></div> <!-- 搜索结果区 -->
+  <p class="no-result">No results found </p> <!-- 无匹配时显示，注意请在 CSS 中设置默认隐藏 -->
+</div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/CI-CD/">CI/CD</a><span class="sidebar-module-list-count">2</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/CI-CD/Jenkins/">Jenkins</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/CI-CD/Maven/">Maven</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Hadoop基因测序/">Hadoop基因测序</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Java/">Java</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Tech/">Tech</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/docker/">docker</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/mybatis/">mybatis</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/website/">website</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/书籍/">书籍</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/学习资源/">学习资源</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/">工具</a><span class="sidebar-module-list-count">6</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/写博工具/">写博工具</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/电脑工具/">电脑工具</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/每日计划/">每日计划</a><span class="sidebar-module-list-count">21</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/生活记/">生活记</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/">认证</a><span class="sidebar-module-list-count">2</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/AWS-Certified/">AWS Certified</a><span class="sidebar-module-list-count">2</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/AWS-Certified/SysOps-Administrator–Associate/">SysOps-Administrator–Associate</a><span class="sidebar-module-list-count">2</span></li></ul></li></ul></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/blog/tags/90km/" style="font-size: 10px;">90km</a> <a href="/blog/tags/CI-CD/" style="font-size: 12px;">CI/CD</a> <a href="/blog/tags/Class/" style="font-size: 10px;">Class</a> <a href="/blog/tags/Hadoop/" style="font-size: 18px;">Hadoop</a> <a href="/blog/tags/SEO/" style="font-size: 10px;">SEO</a> <a href="/blog/tags/StackOverflow/" style="font-size: 10px;">StackOverflow</a> <a href="/blog/tags/aws/" style="font-size: 12px;">aws</a> <a href="/blog/tags/aws-soa/" style="font-size: 10px;">aws-soa</a> <a href="/blog/tags/docker/" style="font-size: 14px;">docker</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/blog/tags/hexo/" style="font-size: 12px;">hexo</a> <a href="/blog/tags/highlightjs/" style="font-size: 10px;">highlightjs</a> <a href="/blog/tags/java/" style="font-size: 12px;">java</a> <a href="/blog/tags/jenkins/" style="font-size: 10px;">jenkins</a> <a href="/blog/tags/learning/" style="font-size: 10px;">learning</a> <a href="/blog/tags/longshilindotcom/" style="font-size: 16px;">longshilindotcom</a> <a href="/blog/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/blog/tags/maven/" style="font-size: 10px;">maven</a> <a href="/blog/tags/memreduct/" style="font-size: 10px;">memreduct</a> <a href="/blog/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/blog/tags/plan/" style="font-size: 20px;">plan</a> <a href="/blog/tags/shell/" style="font-size: 10px;">shell</a> <a href="/blog/tags/simiki/" style="font-size: 10px;">simiki</a> <a href="/blog/tags/sysops/" style="font-size: 10px;">sysops</a> <a href="/blog/tags/tools/" style="font-size: 14px;">tools</a> <a href="/blog/tags/tower/" style="font-size: 10px;">tower</a> <a href="/blog/tags/website/" style="font-size: 10px;">website</a> <a href="/blog/tags/wordpress/" style="font-size: 10px;">wordpress</a> <a href="/blog/tags/write/" style="font-size: 10px;">write</a> <a href="/blog/tags/代理/" style="font-size: 10px;">代理</a> <a href="/blog/tags/优秀文章/" style="font-size: 10px;">优秀文章</a> <a href="/blog/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/blog/tags/域名/" style="font-size: 10px;">域名</a> <a href="/blog/tags/基因测序/" style="font-size: 18px;">基因测序</a> <a href="/blog/tags/大数据/" style="font-size: 18px;">大数据</a> <a href="/blog/tags/异常/" style="font-size: 10px;">异常</a> <a href="/blog/tags/接口与内部类/" style="font-size: 10px;">接口与内部类</a> <a href="/blog/tags/极客时间/" style="font-size: 10px;">极客时间</a> <a href="/blog/tags/毕业设计/" style="font-size: 18px;">毕业设计</a> <a href="/blog/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/blog/tags/笔试/" style="font-size: 10px;">笔试</a> <a href="/blog/tags/类对象/" style="font-size: 10px;">类对象</a> <a href="/blog/tags/线程/" style="font-size: 10px;">线程</a> <a href="/blog/tags/读书/" style="font-size: 10px;">读书</a> <a href="/blog/tags/迭代器/" style="font-size: 10px;">迭代器</a> <a href="/blog/tags/集合/" style="font-size: 10px;">集合</a> <a href="/blog/tags/马云/" style="font-size: 10px;">马云</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/02/">二月 2019</a><span class="sidebar-module-list-count">6</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/12/">十二月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/11/">十一月 2018</a><span class="sidebar-module-list-count">16</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">22</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/09/">九月 2018</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/07/">七月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2017/11/">十一月 2017</a><span class="sidebar-module-list-count">7</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module sidebar-recents">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/blog/6534143e.html">个人发展的思考</a>
+        </li>
+      
+        <li>
+          <a href="/blog/dc45726b.html">Windows和Linux上安装Jenkins</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2eebc0ad.html">个人技术栈</a>
+        </li>
+      
+        <li>
+          <a href="/blog/b5410c9.html">windows和mac上安装Tower破解版</a>
+        </li>
+      
+        <li>
+          <a href="/blog/61ee7b96.html">更新你的highlightjs版本和支持语言</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9145047272014077",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!- blog-general-responsive-sidebar ->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4721191851305300"
+     data-ad-slot="5846920073"
+     data-ad-format="auto"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+        </div>
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      Copyright &copy; 2014 - 2019 longsl&nbsp;<br>
+      For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><br>
+      <!-- CNZZ统计 -->
+      <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>&nbsp; |&nbsp;
+      Create with <a href="https://hexo.io">Hexo</a>&nbsp; |&nbsp;
+      CI/CD by <a href="https://about.gitlab.com/2015/12/14/getting-started-with-gitlab-and-gitlab-ci/" target="_blank">Gitlab</a>&nbsp; |&nbsp;
+      Host on <a href="https://pages.github.com/" target="_blank">Github</a>&nbsp; |&nbsp;
+      <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u>
+      <!-- <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"  target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a><br> -->
+      <!-- <a href="http://www.miitbeian.gov.cn">湘ICP备18009099号</a>&nbsp; |&nbsp;<img src="/images/beian.png" /> <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43060202000297">湘公网安备 43060202000297号</a> -->
+    </div>
+  </div>
+</footer>
+
+  
+
+<!-- changyan comment -->
+
+
+<!-- gitment comment -->
+
+
+<!-- Valine comment -->
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    new Valine({
+      av: AV,
+  		el: '#disqus_thread',
+  		appId: 'pMgClbOyqp0K4AQxpMUJuskE-9Nh9j0Va',
+  		appKey: 'CzXcgRguvCJa0EkILaN5F4HX',
+  		notify: false,
+  		verify: false,
+  		avatar: 'mm',
+  		placeholder: '在此处写下你的评论吧...'
+  	});
+  </script>
+
+
+<script src="/assets/js/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+  <!-- 注释掉本地取js代码块
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/github.min.css" integrity="sha384-WtUWHyk39lfUpZQVgokNfSKCJaKAeD6adgLduBLrKTMUuPzFhLtL23y1guFy6lZn" crossorigin="anonymous">-->
+  <script src="/blog/highlight/highlight.pack.js"></script>
+
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+<script src="/blog/js/search.js"></script>
+
+  
+	<div id="totop">
+	<a title="totop"><img src="/blog/images/scrollup.png"></a>
+	</div>
+	<script src="/blog/js/totop.js"></script>
+
+  <script src="/blog/js/sidebar.js"></script>
+  <script src="/blog/js/baidu_js_push.js"></script>
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <script id="__bs_script__">
+    if(location.hostname == "localhost")
+        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.0'><\/script>".replace("HOST", location.hostname));
+  </script>
+</body>
+</html>
