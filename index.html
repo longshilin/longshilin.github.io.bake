@@ -14,6 +14,17 @@
   <noscript>
     <link rel="stylesheet" href="assets/css/noscript.css"/>
   </noscript>
+  <script type="text/javascript">
+      $("#form-submit-email").click(function(e){
+          var _this = $(event.target);
+          var title = $(_this.parent().siblings()[0]).find("#name").val();
+          var addr = $(_this.parent().siblings()[0]).find("#email").val();
+          var message = $(_this.parent().siblings()[1]).find("#message").val();
+
+          //邮件发送
+          window.location.href="Mailto:" + addr + "?Subject=" + title + "&Body=" + message;
+      });
+  </script>
 </head>
 <body class="is-preload">
 
@@ -103,7 +114,7 @@
     <!-- Contact -->
     <article id="contact">
       <h2 class="major">Contact</h2>
-      <form method="post" action="#">
+      <form method="post" action="mailto:583297550@qq.com">
         <div class="fields">
           <div class="field half">
             <label for="name">Name</label>
@@ -119,7 +130,7 @@
           </div>
         </div>
         <ul class="actions">
-          <li><input type="submit" value="Send Message" class="primary"/></li>
+          <li><input type="submit" id="form-submit-email" value="Send Message" class="primary"/></li>
           <li><input type="reset" value="Reset"/></li>
         </ul>
       </form>
@@ -139,8 +150,8 @@
   <!-- Footer -->
   <footer id="footer">
     <p class="copyright">Copyright &copy; 2019 by <a href="https://longshilin.com">longshilin.com</a>.<br>
-      <!--<a href="https://longsl.mit-license.org/" target="_blank">MIT License</a> | <a href="http://www.miitbeian.gov.cn">湘ICP备18009099号</a> <br>
-      <img src="/images/beian.png" /> <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43060202000297">湘公网安备 43060202000297号</a>-->
+      <a href="https://longsl.mit-license.org/" target="_blank">MIT License</a> | <a href="http://www.miitbeian.gov.cn"> 湘ICP备18009099号-2</a> <br>
+      <!-- <img src="/images/beian.png" /> <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43060202000297">湘公网安备 43060202000297号</a>-->
     </p>
   </footer>
 

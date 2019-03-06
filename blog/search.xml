@@ -14,6 +14,29 @@
     </entry>
     
     <entry>
+      <title>脚本介绍</title>
+      <link href="/blog/7dfa12e1.html"/>
+      <url>/blog/7dfa12e1.html</url>
+      
+        <content type="html"><![CDATA[<p>这是Unity3D入门教程中对C#脚本入门的介绍。</p><a id="more"></a><h1>创建和使用脚本</h1><p>GameObjects的行为，由组件控制附在他们身上的。虽然Unity的内置组件可以非常通用，但您很快就会发现您需要超越他们提供的功能来实现您自己的游戏功能。Unity允许您使用脚本创建自己的组件。这些允许您触发游戏事件，随时修改组件属性并以您喜欢的任何方式响应用户输入。</p><p>Unity本身支持C＃编程语言。C＃（发音为C-sharp）是一种类似于Java或C ++的行业标准语言。</p><p>除此之外，如果可以编译兼容的DLL，许多其他.NET语言可以与Unity一起使用 - 有关详细信息，请参阅此处。</p><p>学习编程艺术和使用这些特定语言超出了本介绍的范围。但是，有很多书籍，教程和其他资源可供学习如何使用Unity进行编程。有关详细信息，请参阅我们网站的“ 学习”部分。</p><h1>创建脚本</h1><p>与大多数其他资产不同，脚本通常直接在Unity中创建。您可以从“项目”面板左上角的“创建”菜单创建新脚本，也可以从主菜单中选择“ 资源”&gt;“创建”&gt;“C＃脚本 ”。</p><p>将在“项目”面板中选择的任何文件夹中创建新脚本。将选择新脚本文件的名称，提示您输入新名称。</p><p>此时输入新脚本的名称而不是稍后编辑它是个好主意。您输入的名称将用于在文件中创建初始文本，如下所述。</p><p>脚本文件的剖析<br>双击Unity中的脚本资产时，将在文本编辑器中打开它。默认情况下，Unity将使用Visual Studio，但您可以从Unity的首选项中的“ 外部工具”面板中选择您喜欢的任何编辑器（转到Unity &gt; 首选项）。</p><p>该文件的初始内容将如下所示：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">using UnityEngine;</span><br><span class="line">using System.Collections;</span><br><span class="line"></span><br><span class="line">public class MainPlayer : MonoBehaviour &#123;</span><br><span class="line"></span><br><span class="line">    // Use this for initialization</span><br><span class="line">    void Start () &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // Update is called once per frame</span><br><span class="line">    void Update () &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>脚本通过实现一个派生自名为MonoBehaviour的内置类的类，与Unity的内部工作方式建立连接。您可以将类视为一种用于创建可附加到GameObjects的新Component类型的蓝图。每次将脚本组件附加到GameObject时，它都会创建蓝图定义的对象的新实例。<strong>类的名称取自您在创建文件时提供的名称。类名和文件名必须相同才能使脚本组件附加到GameObject。</strong></p><p>然而，要注意的主要事项是在类中定义的两个函数。该update()方法的功能是把代码将处理游戏对象的帧更新的地方。这可能包括移动，触发动作和响应用户输入，基本上是在游戏过程中需要随时间处理的任何事情。要使Update功能能够正常工作，在任何游戏操作发生之前，能够设置变量，读取首选项以及与其他GameObject建立连接通常很有用。该启动功能将通过统一的游戏开始之前被调用（即，更新函数被调用前的第一次），并做初始化的理想场所。</p><p>有经验的程序员注意：您可能会对使用构造函数未完成对象的初始化感到惊讶。这是因为对象的构造由编辑器处理，并且不会像您期望的那样在游戏开始时发生。如果您尝试为脚本组件定义构造函数，它将干扰Unity的正常操作，并可能导致项目出现重大问题。</p><h1>控制GameObject</h1><p>如上所述，脚本仅定义组件的蓝图，因此在将脚本的实例附加到GameObject之前，不会激活其代码。您可以通过拖动脚本资源<br>来附加脚本层次结构面板中的GameObject或检查器当前选择的GameObject。“组件”菜单上还有一个“脚本”子菜单，其中包含项目中可用的所有脚本，包括您自己创建的脚本。脚本实例看起来很像Inspector<br>中的任何其他Component，：</p><p>连接后，当您按Play并运行游戏时，脚本将开始工作。您可以通过在“启动”功能中添加以下代码来检查： -</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">// Use this for initialization</span><br><span class="line">void Start ()</span><br><span class="line">&#123;</span><br><span class="line">    Debug.Log(&quot;I am alive!&quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>Debug.Log是一个简单的命令，它只是向Unity的控制台输出打印一条消息。如果按立即播放，您应该会在主Unity编辑器窗口和控制台窗口底部看到消息（菜单：窗口 &gt; 常规 &gt; 控制台<br>）。</p><hr><ul><li><p>2018-03-19页面修订，编辑审查有限</p></li><li><p>从2018.1开始，MonoDevelop被Visual Studio取代</p></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> learn unity3d </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> unity3d </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Windows和Linux上安装Jenkins</title>
       <link href="/blog/dc45726b.html"/>
       <url>/blog/dc45726b.html</url>
@@ -39,6 +62,17 @@
     </entry>
     
     <entry>
+      <title>个人技术栈</title>
+      <link href="/blog/2eebc0ad.html"/>
+      <url>/blog/2eebc0ad.html</url>
+      
+        <content type="html"><![CDATA[<p>做开发的不谈技术怎么能行，搞技术的不谈技术栈怎么行，没有了技术你将一事无成，想想吧  什么才是你最重要的！<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzs32tugo1j30fk0ae0sz.jpg" alt=""></p><a id="more"></a><p><kbd>2019-02-02</kbd></p><iframe src="https://www.xmind.net/embed/EnX7/" width="900" height="700" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>]]></content>
+      
+      
+      
+    </entry>
+    
+    <entry>
       <title>windows和mac上安装Tower破解版</title>
       <link href="/blog/b5410c9.html"/>
       <url>/blog/b5410c9.html</url>
@@ -60,17 +94,6 @@
             <tag> git </tag>
             
         </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>个人技术栈</title>
-      <link href="/blog/2eebc0ad.html"/>
-      <url>/blog/2eebc0ad.html</url>
-      
-        <content type="html"><![CDATA[<p>做开发的不谈技术怎么能行，搞技术的不谈技术栈怎么行，没有了技术你将一事无成，想想吧  什么才是你最重要的！<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzs32tugo1j30fk0ae0sz.jpg" alt=""></p><a id="more"></a><p><kbd>2019-02-02</kbd></p><iframe src="https://www.xmind.net/embed/EnX7/" width="900" height="700" frameborder="0" scrolling="no" allowfullscreen="true"></iframe>]]></content>
-      
-      
       
     </entry>
     
@@ -146,22 +169,22 @@
     </entry>
     
     <entry>
-      <title>功能性格式参考</title>
-      <link href="/blog/2c9fcc04.html"/>
-      <url>/blog/2c9fcc04.html</url>
+      <title>常用写作格式</title>
+      <link href="/blog/7eae6d59.html"/>
+      <url>/blog/7eae6d59.html</url>
       
-        <content type="html"><![CDATA[<div class="bs-callout bs-callout-primary"><p>下面会在文章中引入的几个功能点，做一些记录 方便日后直接引用。</p></div><p>下面会以这样的格式展示每一个模块<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ABC</span><br></pre></td></tr></table></figure><p>…outputs:<br>ABC</p><a id="more"></a><h3 id="hexo-github-card">hexo-github-card</h3><p>在文章中引入某个github项目卡片，<a href="https://github.com/Gisonrg/hexo-github-card" target="_blank" rel="noopener">参考地址</a><br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% githubCard user:your_user [repo:your_repo] [width:400] [theme:Default] [client_id:your_client_id] [client_secret:your_client_secret] [align:text-align_position] %&#125;</span><br><span class="line"></span><br><span class="line">如：</span><br></pre></td></tr></table></figure><p>…outputs:</p><div style="text-align:center">  <div class="github-card" data-user="longshilin" data-repo="" data-width="400" data-theme="default" data-target="" data-client-id="" data-client-secret=""></div></div><script src="/github-card-lib/githubcard.js"></script><div style="text-align:center">  <div class="github-card" data-user="longshilin" data-repo="" data-width="400" data-theme="default" data-target="" data-client-id="" data-client-secret=""></div></div><script src="/github-card-lib/githubcard.js"></script>]]></content>
+        <content type="html"><![CDATA[<div class="bs-callout bs-callout-primary"><p>c如何写的漂亮… 这是一个好问题</p></div><p>下面会以这样的格式展示每一个模块<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ABC</span><br></pre></td></tr></table></figure><p>…outputs:<br>ABC</p><a id="more"></a><h3 id="表格">表格</h3><p>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">| Table Header 1 | Table Header 2 | Table Header 3 |</span><br><span class="line">| - | - | - |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br></pre></td></tr></table></figure><p>…outputs:</p><table><thead><tr><th>Table Header 1</th><th>Table Header 2</th><th>Table Header 3</th></tr></thead><tbody><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr></tbody></table><h3 id="bootstrap重点标注">Bootstrap重点标注</h3><p>这个Bootstrap标注可以给你的文章增添更多的醒目标记信息。可选项：default | primary | success | info | warning | danger<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% callout info %&#125;</span><br><span class="line">#### &#123;% fa info-circle %&#125; Info</span><br><span class="line">This is some info content</span><br><span class="line">&#123;% endcallout %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% callout warning %&#125;</span><br><span class="line">#### &#123;% fa exclamation-triangle %&#125; Warning</span><br><span class="line">This is some warning content</span><br><span class="line">&#123;% endcallout %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% callout danger %&#125;</span><br><span class="line">#### &#123;% fa exclamation-triangle %&#125; Danger</span><br><span class="line">This is some danger content</span><br><span class="line">&#123;% endcallout %&#125;</span><br></pre></td></tr></table></figure><p>…outputs:</p><div class="bs-callout bs-callout-info"><h4 id="i-class-fa-fa-info-circle-i-info"><i class="fa fa-info-circle"></i> Info</h4><p>This is some info content</p></div><div class="bs-callout bs-callout-warning"><h4 id="i-class-fa-fa-exclamation-triangle-i-warning"><i class="fa fa-exclamation-triangle"></i> Warning</h4><p>This is some warning content</p></div><div class="bs-callout bs-callout-danger"><h4 id="i-class-fa-fa-exclamation-triangle-i-danger"><i class="fa fa-exclamation-triangle"></i> Danger</h4><p>This is some danger content</p></div><h3 id="fa图标">fa图标</h3><p>在 <a href="https://fontawesome.com/icons" target="_blank" rel="noopener">Font Awesome 资源</a>  可以选择你需要的任意图标。<br>Markdown：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% fa github %&#125;</span><br></pre></td></tr></table></figure><p>…outputs:</p><i class="fa fa-github"></i>]]></content>
       
       
       
     </entry>
     
     <entry>
-      <title>常用写作格式</title>
-      <link href="/blog/7eae6d59.html"/>
-      <url>/blog/7eae6d59.html</url>
+      <title>功能性格式参考</title>
+      <link href="/blog/2c9fcc04.html"/>
+      <url>/blog/2c9fcc04.html</url>
       
-        <content type="html"><![CDATA[<div class="bs-callout bs-callout-primary"><p>c如何写的漂亮… 这是一个好问题</p></div><p>下面会以这样的格式展示每一个模块<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ABC</span><br></pre></td></tr></table></figure><p>…outputs:<br>ABC</p><a id="more"></a><h3 id="表格">表格</h3><p>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">| Table Header 1 | Table Header 2 | Table Header 3 |</span><br><span class="line">| - | - | - |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br></pre></td></tr></table></figure><p>…outputs:</p><table><thead><tr><th>Table Header 1</th><th>Table Header 2</th><th>Table Header 3</th></tr></thead><tbody><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr></tbody></table><h3 id="bootstrap重点标注">Bootstrap重点标注</h3><p>这个Bootstrap标注可以给你的文章增添更多的醒目标记信息。可选项：default | primary | success | info | warning | danger<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% callout info %&#125;</span><br><span class="line">#### &#123;% fa info-circle %&#125; Info</span><br><span class="line">This is some info content</span><br><span class="line">&#123;% endcallout %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% callout warning %&#125;</span><br><span class="line">#### &#123;% fa exclamation-triangle %&#125; Warning</span><br><span class="line">This is some warning content</span><br><span class="line">&#123;% endcallout %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% callout danger %&#125;</span><br><span class="line">#### &#123;% fa exclamation-triangle %&#125; Danger</span><br><span class="line">This is some danger content</span><br><span class="line">&#123;% endcallout %&#125;</span><br></pre></td></tr></table></figure><p>…outputs:</p><div class="bs-callout bs-callout-info"><h4 id="i-class-fa-fa-info-circle-i-info"><i class="fa fa-info-circle"></i> Info</h4><p>This is some info content</p></div><div class="bs-callout bs-callout-warning"><h4 id="i-class-fa-fa-exclamation-triangle-i-warning"><i class="fa fa-exclamation-triangle"></i> Warning</h4><p>This is some warning content</p></div><div class="bs-callout bs-callout-danger"><h4 id="i-class-fa-fa-exclamation-triangle-i-danger"><i class="fa fa-exclamation-triangle"></i> Danger</h4><p>This is some danger content</p></div><h3 id="fa图标">fa图标</h3><p>在 <a href="https://fontawesome.com/icons" target="_blank" rel="noopener">Font Awesome 资源</a>  可以选择你需要的任意图标。<br>Markdown：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% fa github %&#125;</span><br></pre></td></tr></table></figure><p>…outputs:</p><i class="fa fa-github"></i>]]></content>
+        <content type="html"><![CDATA[<div class="bs-callout bs-callout-primary"><p>下面会在文章中引入的几个功能点，做一些记录 方便日后直接引用。</p></div><p>下面会以这样的格式展示每一个模块<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ABC</span><br></pre></td></tr></table></figure><p>…outputs:<br>ABC</p><a id="more"></a><h3 id="hexo-github-card">hexo-github-card</h3><p>在文章中引入某个github项目卡片，<a href="https://github.com/Gisonrg/hexo-github-card" target="_blank" rel="noopener">参考地址</a><br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% githubCard user:your_user [repo:your_repo] [width:400] [theme:Default] [client_id:your_client_id] [client_secret:your_client_secret] [align:text-align_position] %&#125;</span><br><span class="line"></span><br><span class="line">如：</span><br></pre></td></tr></table></figure><p>…outputs:</p><div style="text-align:center">  <div class="github-card" data-user="longshilin" data-repo="" data-width="400" data-theme="default" data-target="" data-client-id="" data-client-secret=""></div></div><script src="/github-card-lib/githubcard.js"></script><div style="text-align:center">  <div class="github-card" data-user="longshilin" data-repo="" data-width="400" data-theme="default" data-target="" data-client-id="" data-client-secret=""></div></div><script src="/github-card-lib/githubcard.js"></script>]]></content>
       
       
       
@@ -922,7 +945,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+SnKr2TaFP0BLQF9QQErHcKjaY8fjtQmiV7EmQhr9q/Mr5/py+N4kcYaYIbzasmsqotO4ULuHLy7jZ/FNyrd9eoe8CJvjtHYnuTtdDERkbZafqnuzEIDe2jxLofzy/DFfyy+6TJf67Q3tu7bE3G9V1DYwjGPw6UWAzRMDEXnp8YUkd0HHZP37e/PIK3iaBuPAQqciSpPKCljlw5cjEkJ0vuRwjjkJD8IAlAwpNZbchSojm+4URyqKWCuHV29lMO6yRDAFMWbJJM7+fuapAAoywpTQElPwPh8/bTvnHcxrsWSgwHS3DPQnmvgkBPGFx8zgWhz3KX3FwQmHoRGw4tA/AABxZ0zmtLi8g9iDWjVMxGCCkTlf5eQCnsiXMWhzSPmKDdkBQJs4bW/LNyrcVrdni4e+3ut6MmCxPQgDMgadFPXfvFtOaW9if74It/4QoYAJG08QV7Ni3gzF79bUQtudogo0wuT1Rbjeub6TJAGYk/6ggdSKxVBz3XD3G/mt2Tp4W/Avp8EswO7c2EOh6f5XEJ7VSqsVrNK2rdwguyFkV7UjpKxfwssDAibmyf7s+vnSNBAkTF3eTaJu3Ucdm5/d1XW2c8izzgKkHjVN7aEZLK+H5aQuBZU3MAZLbuZhENi8Skx09VQj6qKdQSrwXXfCBI4vO8tQvcSCWJe84KiIi9Z9lKK727+CUHZiIvHMx3fVP6BJrqFex1lUOiiUKF/0sf3NTSDrq9bTS8jiMjBsvlN3QdvccrFBsKaFppFErpQWPx1O7CW4Eww==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+mZ9yQmurPzl49Us0cdPMgQVV2Sgt+fZ5gWd1gN88/Wr5t7IOPNfYg5VjjHqUjECrV2Xbdjo3epAlsrt95lvR7jg7a0ShzLYNGCcvplCnyz4jLZQdqg3VkK3Yqjb2woI0wp0ki2PLF7WiPKyZzR94UYPuv+mNJJGTzT2lm1CMEOLwneGa6LTEwgTcxlNIJlvHiflGobqs5kGce0ydsMLsiOBsEvXzG43+wDv/KZhPeymGBFGwaSgL0mle5oSYqZF/ECNCGjLh05w6//l3p4WXRoxq7reUjAd1p3YzoCwK9f5KwQtQki2/Xx/c1igNsK2aKc7aND6IF2yKc5UdSTYpg0y7AW87ExOM8B328uWA4SiPM1Zsck2V/GcSiNrHrJUlwTKn92aA3R6WV5Ed3/LkfKnDsEmjYmS4PjvFhPrO2VmxV6Kw1GskXKBzxRkmHXKLTAl8ZLKTwk8CVFOmunvOO6NZCcOkw4j+FD2Hy5Nz6HhaaNzSxASC2LPiEQHyTmQGZ+2i7BO+sqiQHA3VSW5tCQNkA3dzZ5Yr44oK9M4S0iW8w861Fok7nWl5TNj51rDc23XmZWrn2daCgcwBs/Fxl7qqS6qNkkIhEDC7+p3TnY8mtV+hvOWUPVO+9zEZGL838wUGJKB37SazS4rG9YeAEieORhky/tEbZ56AHqPBGUAPpr0z7MuptX6PyvXzgkXrrm9f0KaWRpCHQqbSl3RJ0j4v6aAt4bx6jOV4XGMMIt+A1DojqdZ3qduhKBC2EZ+1EuGJN45eUeA==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
