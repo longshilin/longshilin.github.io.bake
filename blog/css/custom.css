@@ -10,9 +10,16 @@
 
 /* Globals */
 /* Georgia, "Times New Roman", Times, serif; */
-body {
+/* body {
   font-family: Georgia, "Times New Roman", Times, serif;
   color: #555;
+} */
+
+@font-face {
+    font-family: satisfy;
+    font-style: normal;
+    font-weight: 400;
+    src: local('satisfy'), local('satisfy'), url(../fonts/satisfy.woff) format('woff')
 }
 
 h1, .h1,
