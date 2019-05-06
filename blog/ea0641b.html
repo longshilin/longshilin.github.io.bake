@@ -18,7 +18,7 @@
 <meta property="og:image" content="https://i.imgur.com/QjcWnk0.png">
 <meta property="og:image" content="https://i.imgur.com/2m77Jt1.png">
 <meta property="og:image" content="https://i.imgur.com/MdwYs8q.png">
-<meta property="og:updated_time" content="2019-05-06T12:04:45.000Z">
+<meta property="og:updated_time" content="2019-05-06T12:26:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="站点的自动化部署及发布（CI&#x2F;CD）">
 <meta name="twitter:description" content="今天看了业界比较知名的个人博主左耳朵耗子-陈浩在极客时间专栏的博文深有感触，其中对于自己写博如何将文章写得“独一份”，这是你需要思考和追求的，与其你不断优化站点的SEO，不如让你的文章更加与众不同，观点是别人少有研究，或者你的观点更鲜明，你就能被别人搜索到。 基于这个理念，我觉得对这两个月折腾的个人建站最有价值的部分，有必要好好写写，分享给想通过自动化的方式部署及发布你的博文的朋友。">
@@ -188,7 +188,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/ea0641b.html" data-id="cjvcbil6600150nu14hy9jm0b" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/ea0641b.html" data-id="cjvcc9zh500150mu1x03zmzc2" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -224,11 +224,12 @@
 </article>
 
 
-<section id="comments">
+<section id="comments" class="post-comments">
   
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments.</a></noscript>
-    </div>
+      <div class="body-container">
+        <div id="disqus_thread" class="valine">
+        </div>
+      </div>
   
 </section>
 
@@ -373,19 +374,20 @@
 
 <!-- Valine comment -->
 
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script src="//longshilin.com/assets/js/prism-default.js"></script>
+  <script src="//longshilin.com/assets/js/av-min.js"></script>
+  <script src="//longshilin.com/assets/js/Valine.min.js"></script>
+  <script src="//longshilin.com/assets/js/jquery.fitvids.js"></script>
   <script>
     new Valine({
       av: AV,
-  		el: '#disqus_thread',
-  		appId: 'pMgClbOyqp0K4AQxpMUJuskE-9Nh9j0Va',
-  		appKey: 'CzXcgRguvCJa0EkILaN5F4HX',
-  		notify: false,
-  		verify: false,
-  		avatar: 'mm',
-  		placeholder: '在此处写下你的评论吧...'
-  	});
+      el: '#disqus_thread',
+      emoticon_url: 'https://longshilin.com/emojs',
+      emoticon_list: ["吐.png","喷血.png","狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","中指.png","尴尬.png","瞅你.png","想一想.png","中枪.png","得意.png","肿包.png","扇耳光.png","亲亲.png","惊喜.png","脸红.png","无所谓.png","便便.png","愤怒.png","蜡烛.png","献黄瓜.png","内伤.png","投降.png","观察.png","看不见.png","击掌.png","抠鼻.png","邪恶.png","看热闹.png","口水.png","抽烟.png","锁眉.png","装大款.png","吐舌.png","无奈.png","长草.png","赞一个.png","呲牙.png","无语.png","阴暗.png","不出所料.png","咽气.png","期待.png","高兴.png","吐血倒地.png","哭泣.png","欢呼.png","黑线.png","喜极而泣.png","喷水.png","深思.png","鼓掌.png","暗地观察.png"],
+      appId: '{{ site.valine.appId }}',
+      appKey: '{{ site.valine.appKey }}',
+      placeholder: '{{ site.valine.placeholder }}',
+    });
   </script>
 
 

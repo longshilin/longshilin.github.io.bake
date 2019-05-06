@@ -79,8 +79,11 @@
         </footer>
       </div>
     </article>
-    <section id="comments">
-      <div id="disqus_thread"></div>
+    <section id="comments" class="post-comments">
+      <div class="body-container ">
+        <div id="disqus_thread" class="valine">
+        </div>
+      </div>
     </section>
   </div>
   <footer class="blog-footer">
@@ -100,21 +103,22 @@
     </div>
   </footer>
   <!-- Valine comment -->
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+  <script src="//longshilin.com/assets/js/prism-default.js"></script>
+  <script src="//longshilin.com/assets/js/av-min.js"></script>
+  <script src='//longshilin.com/assets/js/Valine.min.js'></script>
+  <script src='//longshilin.com/assets/js/jquery.fitvids.js'></script>
   <script>
     new Valine({
       av: AV,
       el: '#disqus_thread',
-      appId: 'pMgClbOyqp0K4AQxpMUJuskE-9Nh9j0Va',
-      appKey: 'CzXcgRguvCJa0EkILaN5F4HX',
-      notify: false,
-      verify: false,
-      path: '//404',
-      avatar: 'mm',
-      placeholder: '在此处写下你的评论吧...'
+      emoticon_url: 'https://longshilin.com/emojs',
+      emoticon_list: ["吐.png","喷血.png","狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","中指.png","尴尬.png","瞅你.png","想一想.png","中枪.png","得意.png","肿包.png","扇耳光.png","亲亲.png","惊喜.png","脸红.png","无所谓.png","便便.png","愤怒.png","蜡烛.png","献黄瓜.png","内伤.png","投降.png","观察.png","看不见.png","击掌.png","抠鼻.png","邪恶.png","看热闹.png","口水.png","抽烟.png","锁眉.png","装大款.png","吐舌.png","无奈.png","长草.png","赞一个.png","呲牙.png","无语.png","阴暗.png","不出所料.png","咽气.png","期待.png","高兴.png","吐血倒地.png","哭泣.png","欢呼.png","黑线.png","喜极而泣.png","喷水.png","深思.png","鼓掌.png","暗地观察.png"],
+      appId: '{{ site.valine.appId }}',
+      appKey: '{{ site.valine.appKey }}',
+      placeholder: '{{ site.valine.placeholder }}',
     });
   </script>
+
   <script src="/assets/js/jquery.min.js" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/github.min.css" integrity="sha384-WtUWHyk39lfUpZQVgokNfSKCJaKAeD6adgLduBLrKTMUuPzFhLtL23y1guFy6lZn" crossorigin="anonymous" />

@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="积之在平日">
 <meta property="og:description" content="启动线程方法start();线程stop方法已经被弃用；守护线程在非守护线程结束后，会自动结束；等待其他线程通知方法是wait() switch结构中没有break的话，匹配完不会跳出，会继续匹配下一个case直到整个结构结束 Java.awt.*只能导入awt这个包中的所有类，awt中的包中的类不会导入 public&amp;gt;protected&amp;gt;默认(包访问权限)&amp;gt;private，因">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-06T12:04:45.000Z">
+<meta property="og:updated_time" content="2019-05-06T12:26:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java笔试易错点">
 <meta name="twitter:description" content="启动线程方法start();线程stop方法已经被弃用；守护线程在非守护线程结束后，会自动结束；等待其他线程通知方法是wait() switch结构中没有break的话，匹配完不会跳出，会继续匹配下一个case直到整个结构结束 Java.awt.*只能导入awt这个包中的所有类，awt中的包中的类不会导入 public&amp;gt;protected&amp;gt;默认(包访问权限)&amp;gt;private，因">
@@ -186,7 +186,7 @@ C. 控制器是用户与系统之间的纽带，它接受用户输入，并指�
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/337c6120.html" data-id="cjvcbil7s003q0nu1w8wovad4" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/337c6120.html" data-id="cjvcc9ziq003q0mu1sv9ck641" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -215,11 +215,12 @@ C. 控制器是用户与系统之间的纽带，它接受用户输入，并指�
 </article>
 
 
-<section id="comments">
+<section id="comments" class="post-comments">
   
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments.</a></noscript>
-    </div>
+      <div class="body-container">
+        <div id="disqus_thread" class="valine">
+        </div>
+      </div>
   
 </section>
 
@@ -364,19 +365,20 @@ C. 控制器是用户与系统之间的纽带，它接受用户输入，并指�
 
 <!-- Valine comment -->
 
-  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script src="//longshilin.com/assets/js/prism-default.js"></script>
+  <script src="//longshilin.com/assets/js/av-min.js"></script>
+  <script src="//longshilin.com/assets/js/Valine.min.js"></script>
+  <script src="//longshilin.com/assets/js/jquery.fitvids.js"></script>
   <script>
     new Valine({
       av: AV,
-  		el: '#disqus_thread',
-  		appId: 'pMgClbOyqp0K4AQxpMUJuskE-9Nh9j0Va',
-  		appKey: 'CzXcgRguvCJa0EkILaN5F4HX',
-  		notify: false,
-  		verify: false,
-  		avatar: 'mm',
-  		placeholder: '在此处写下你的评论吧...'
-  	});
+      el: '#disqus_thread',
+      emoticon_url: 'https://longshilin.com/emojs',
+      emoticon_list: ["吐.png","喷血.png","狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","中指.png","尴尬.png","瞅你.png","想一想.png","中枪.png","得意.png","肿包.png","扇耳光.png","亲亲.png","惊喜.png","脸红.png","无所谓.png","便便.png","愤怒.png","蜡烛.png","献黄瓜.png","内伤.png","投降.png","观察.png","看不见.png","击掌.png","抠鼻.png","邪恶.png","看热闹.png","口水.png","抽烟.png","锁眉.png","装大款.png","吐舌.png","无奈.png","长草.png","赞一个.png","呲牙.png","无语.png","阴暗.png","不出所料.png","咽气.png","期待.png","高兴.png","吐血倒地.png","哭泣.png","欢呼.png","黑线.png","喜极而泣.png","喷水.png","深思.png","鼓掌.png","暗地观察.png"],
+      appId: '{{ site.valine.appId }}',
+      appKey: '{{ site.valine.appKey }}',
+      placeholder: '{{ site.valine.placeholder }}',
+    });
   </script>
 
 
