@@ -1,0 +1,236 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/wiki/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/wiki/static/css/tango.css">
+    <link rel="shortcut icon" href="/wiki/static/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/wiki/static/images/favicon.png" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>Windows和Linux上安装Jenkins - Wiki</title>
+    <meta name="keywords" content="wiki, simple"/>
+    <meta name="description" content=""/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+
+    <div id="container" style="position:relative">
+      <button type="button" style="position:absolute; left:0; margin-top: -22px; margin-left: -1px;" class="blog-button .btn"><a href="https://longshilin.com/blog">Back Blog</a></button>
+      <!-- <div id="google_translate_element" style="position:absolute; right:0; margin-top: -22px; margin-right: -1px;"></div> -->
+      
+<div id="header">
+  <div class="post-nav"><a href="/wiki/">Home</a>&nbsp;&#187;&nbsp;<a href="/wiki/#jenkins">jenkins</a>&nbsp;&#187;&nbsp;Windows和Linux上安装Jenkins
+    <span class="updated">Page Updated&nbsp;
+      2018-09-10 00:16:34
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">Windows和Linux上安装Jenkins</div>
+
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#linuxjenkins"><kbd>linux上安装Jenkins</kbd></a><ul>
+<li><a href="#jenkins">下载Jenkins</a></li>
+<li><a href="#jenkins_1">启动Jenkins</a></li>
+</ul>
+</li>
+<li><a href="#windowsjenkins"><kbd>Windows上安装Jenkins</kbd></a><ul>
+<li><a href="#localhost-jenkins">本地localhost jenkins启动</a></li>
+<li><a href="#jenkinswindows">将Jenkins提升为windows服务</a></li>
+</ul>
+</li>
+<li><a href="#_1"><kbd>附加</kbd></a><ul>
+<li><a href="#jdk">JDK准备，与本地安装。</a></li>
+<li><a href="#_2">查看命令</a></li>
+<li><a href="#maven">Maven准备</a></li>
+<li><a href="#_3">查看命令</a></li>
+</ul>
+</li>
+<li><a href="#_4"><kbd>常见问题</kbd></a></li>
+</ul>
+</div>
+<p>Jenkins系统学习，首先就是如何在你的服务器上安装Jenkins，网上列举很很多种方式，我这里主要介绍两种常用方式。第一种是在Linux服务器上，通过命令行的方式启动Jenkins.war包，第二种方式是在Windows上，把Jenkins提升为服务模式。<br />
+<img alt="" src="https://ws1.sinaimg.cn/large/005EsThygy1fzs4dx5tw2j31b90r3wgn.jpg" /></p>
+<!-- more -->
+
+<h1 id="linuxjenkins"><kbd>linux上安装Jenkins</kbd></h1>
+<h2 id="jenkins">下载Jenkins</h2>
+<p>进入Jenkins官方下载站点 https://jenkins.io/download/<br />
+$ wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war</p>
+<h2 id="jenkins_1">启动Jenkins</h2>
+<p>通过Apache Tomcat的方式启动Jenkins。将Jenkins.war包移到$TOMCAT_HOME/webapps目录下，重启Tomcat，然后访问 http://localhost:8080/jenkins/</p>
+<ul>
+<li>通过java命令行的方式启动Jenkins.war包</li>
+</ul>
+<div class="hlcode"><pre><span class="nv">$ </span>mkdir -p /var/log/jenkins/ /var/cache/jenkins/ /root/jenkins/
+<span class="nv">$ </span>sudo nohup /etc/alternatives/java -Djava.awt.headless<span class="o">=</span><span class="nb">true</span> -DJENKINS_HOME<span class="o">=</span>/root/jenkins -jar /root/jenkins/jenkins.war --logfile<span class="o">=</span>/var/log/jenkins/jenkins.log --webroot<span class="o">=</span>/var/cache/jenkins/war --httpPort<span class="o">=</span>8082 --debug<span class="o">=</span>5 --handlerCountMax<span class="o">=</span>100 --handlerCountMaxIdle<span class="o">=</span>20 &amp;
+</pre></div>
+
+
+<p>上面通过java命令来启动的好处：Jenkins运行和Tomcat服务器进行分离，另外可以在启动的时候自定义端口号和日志输出路径等。</p>
+<blockquote>
+<p>解锁jenkins<br />
+cat /root/jenkins/secrets/initialAdminPassword</p>
+</blockquote>
+<p>注意通过root用户进行创建Jenkins环境。<br />
+在SSH Publishers插件中，设置source files的时候，参考的主目录是该jobs创建的主目录。一般的格式是：$JENKINS_HOME/workspace/$view_name/</p>
+<hr />
+<h1 id="windowsjenkins"><kbd>Windows上安装Jenkins</kbd></h1>
+<h2 id="localhost-jenkins">本地localhost jenkins启动</h2>
+<div class="hlcode"><pre><span class="nv">$ </span>nohup java -Djava.awt.headless<span class="o">=</span><span class="nb">true</span> -DJENKINS_HOME<span class="o">=</span>/jenkins -jar  /jenkins/jenkins.war --logfile<span class="o">=</span>/var/log/jenkins/jenkins.log  --webroot<span class="o">=</span>/var/cache/jenkins/war --httpPort<span class="o">=</span>8088 --debug<span class="o">=</span>5  --handlerCountMax<span class="o">=</span>100 --handlerCountMaxIdle<span class="o">=</span>20 &amp;
+</pre></div>
+
+
+<h2 id="jenkinswindows">将Jenkins提升为windows服务</h2>
+<p>只要你成功运行了Jenkins，就可以连接到服务器，然后进入Jenkins的管理界面。在这里你会发现有一个按钮是Install as Windows Service。这将在服务器上创建一个Jenkins服务，它会自动且有条理地开始和停止Jenkins。</p>
+<p><img alt="" src="https://ws1.sinaimg.cn/large/005EsThygy1fzs4ogpczaj30bo0cawf0.jpg" /></p>
+<p><kbd>在JENKINS_HOME</kbd>目录下，<code>jenkins.xml</code>文件配置在提升Jenkins为系统服务后，会自动生成。</p>
+<div class="hlcode"><pre><span class="nt">&lt;service&gt;</span>
+  <span class="nt">&lt;id&gt;</span>jenkins<span class="nt">&lt;/id&gt;</span>
+  <span class="nt">&lt;name&gt;</span>Jenkins<span class="nt">&lt;/name&gt;</span>
+  <span class="nt">&lt;description&gt;</span>This service runs Jenkins automation server.<span class="nt">&lt;/description&gt;</span>
+  <span class="nt">&lt;env</span> <span class="na">name=</span><span class="s">&quot;JENKINS_HOME&quot;</span> <span class="na">value=</span><span class="s">&quot;%BASE%&quot;</span><span class="nt">/&gt;</span>
+  <span class="c">&lt;!--</span>
+<span class="c">    if you&#39;d like to run Jenkins with a specific version of Java, specify a full path to java.exe.</span>
+<span class="c">    The following value assumes that you have java in your PATH.</span>
+<span class="c">  --&gt;</span>
+  <span class="nt">&lt;executable&gt;</span>java<span class="nt">&lt;/executable&gt;</span>
+  <span class="nt">&lt;arguments&gt;</span>-Xrs -Xmx256m -Dhudson.lifecycle=hudson.lifecycle.WindowsServiceLifecycle -jar &quot;%BASE%\jenkins.war&quot; --httpPort=8088 --webroot=&quot;%BASE%\war&quot;<span class="nt">&lt;/arguments&gt;</span>
+  <span class="c">&lt;!--</span>
+<span class="c">    interactive flag causes the empty black Java window to be displayed.</span>
+<span class="c">    I&#39;m still debugging this.</span>
+<span class="c">  &lt;interactive /&gt;</span>
+<span class="c">  --&gt;</span>
+  <span class="nt">&lt;logmode&gt;</span>rotate<span class="nt">&lt;/logmode&gt;</span>
+
+  <span class="nt">&lt;onfailure</span> <span class="na">action=</span><span class="s">&quot;restart&quot;</span> <span class="nt">/&gt;</span>
+
+  <span class="c">&lt;!--</span>
+<span class="c">    In the case WinSW gets terminated and leaks the process, we want to abort</span>
+<span class="c">    these runaway JAR processes on startup to prevent corruption of JENKINS_HOME.</span>
+<span class="c">    So this extension is enabled by default.</span>
+<span class="c">  --&gt;</span>
+  <span class="nt">&lt;extensions&gt;</span>
+    <span class="c">&lt;!-- This is a sample configuration for the RunawayProcessKiller extension. --&gt;</span>
+    <span class="nt">&lt;extension</span> <span class="na">enabled=</span><span class="s">&quot;true&quot;</span>
+               <span class="na">className=</span><span class="s">&quot;winsw.Plugins.RunawayProcessKiller.RunawayProcessKillerExtension&quot;</span>
+               <span class="na">id=</span><span class="s">&quot;killOnStartup&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;pidfile&gt;</span>%BASE%\jenkins.pid<span class="nt">&lt;/pidfile&gt;</span>
+      <span class="nt">&lt;stopTimeout&gt;</span>10000<span class="nt">&lt;/stopTimeout&gt;</span>
+      <span class="nt">&lt;stopParentFirst&gt;</span>false<span class="nt">&lt;/stopParentFirst&gt;</span>
+    <span class="nt">&lt;/extension&gt;</span>
+  <span class="nt">&lt;/extensions&gt;</span>
+
+  <span class="c">&lt;!-- See the referenced examples for more options --&gt;</span>
+
+<span class="nt">&lt;/service&gt;</span>
+</pre></div>
+
+
+<blockquote>
+<p>解锁jenkins<br />
+cat /root/jenkins/secrets/initialAdminPassword</p>
+</blockquote>
+<p>注意通过root用户进行创建Jenkins环境。<br />
+在SSH Publishers插件中，设置source files的时候，参考的主目录是该jobs创建的主目录。一般的格式是：$JENKINS_HOME/workspace/$view_name/</p>
+<hr />
+<h1 id="_1"><kbd>附加</kbd></h1>
+<h2 id="jdk">JDK准备，与本地安装。</h2>
+<div class="hlcode"><pre><span class="nv">$ </span>yum install java-1.8.0-openjdk-1.8.0.191.b12-0.el7_5.x86_64
+<span class="nv">$ </span>yum install java-1.8.0-openjdk-devel-1.8.0.191.b12-0.el6_10.x86_64
+</pre></div>
+
+
+<h2 id="_2">查看命令</h2>
+<div class="hlcode"><pre><span class="o">[</span>root@longsl jvm<span class="o">]</span><span class="c"># rpm -qa | grep java</span>
+java-1.8.0-openjdk-1.8.0.191.b12-0.el6_10.x86_64
+java-1.8.0-openjdk-headless-1.8.0.191.b12-0.el6_10.x86_64
+java-1.8.0-openjdk-devel-1.8.0.191.b12-0.el6_10.x86_64
+</pre></div>
+
+
+<h2 id="maven">Maven准备</h2>
+<div class="hlcode"><pre><span class="nv">$ </span>wget http://mirrors.sonic.net/apache/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.tar.gz
+</pre></div>
+
+
+<div class="hlcode"><pre><span class="c"># Ensure JAVA_HOME environment variable is set and points to your JDK installation</span>
+<span class="nv">$ </span>vim /etc/profile
+<span class="nb">export </span><span class="nv">JAVA_HOME</span><span class="o">=</span><span class="s2">&quot;/usr/lib/jvm/java-1.8.0-openjdk-1.8.0.191.b12-0.el6_10.x86_64&quot;</span>
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;$JAVA_HOME/bin:$PATH&quot;</span>
+
+<span class="nb">export </span><span class="nv">MAVEN_HOME</span><span class="o">=</span><span class="s2">&quot;/opt/maven-3.6&quot;</span>
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;$MAVEN_HOME/bin:$PATH&quot;</span>
+
+<span class="nv">$ </span>tar xzvf apache-maven-3.6.0-bin.tar.gz
+</pre></div>
+
+
+<h2 id="_3">查看命令</h2>
+<div class="hlcode"><pre><span class="o">[</span>root@longsl maven-3.6<span class="o">]</span><span class="c"># mvn --version</span>
+Apache Maven 3.6.0 <span class="o">(</span>97c98ec64a1fdfee7767ce5ffb20918da4f719f3; 2018-10-25T02:41:47+08:00<span class="o">)</span>
+Maven home: /opt/maven-3.6
+Java version: 1.8.0_191, vendor: Oracle Corporation, runtime: /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.191.b12-0.el6_10.x86_64/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: <span class="s2">&quot;linux&quot;</span>, version: <span class="s2">&quot;4.16.12-1.el6.elrepo.x86_64&quot;</span>, arch: <span class="s2">&quot;amd64&quot;</span>, family: <span class="s2">&quot;unix&quot;</span>
+</pre></div>
+
+
+<hr />
+<h1 id="_4"><kbd>常见问题</kbd></h1>
+<p>一、修改Jenkins登录用户的密码<br />
+解决方法：进入Jenkins的用户目录，在用户主目录的$USER_HOME/.jenkins/users/目录下，每个文件夹代表一个用户，其中存在config.xml配置文件，在其中修改加密，代表111111</p>
+<div class="hlcode"><pre><span class="nt">&lt;hudson.security.HudsonPrivateSecurityRealm_-Details&gt;</span>
+<span class="nt">&lt;passwordHash&gt;</span>#jbcrypt:$2a$10$DdaWzN64JgUtLdvxWIflcuQu2fgrrMSAMabF5TSrGK5nXitqK9ZMS<span class="nt">&lt;/passwordHash&gt;</span>
+<span class="nt">&lt;/hudson.security.HudsonPrivateSecurityRealm_-Details&gt;</span>
+</pre></div>
+
+
+<p>二、在通过POST请求的方式调用Jenkins请求时，出现：错误403请求中未包含有效的crumb（Error 403 No valid crumb was included in the request）<br />
+解决方法：<kbd>Jenkins</kbd> --&gt; <kbd>全局安全配置</kbd> --&gt; <kbd>CSRF Protection</kbd>--&gt;关闭 <kbd>防止跨站点请求伪造（默认是开启状态）</kbd></p>
+
+  <!-- comments model --><hr style="border:1px dashed #eee">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments.</a></noscript>
+    </div>
+
+    <!-- Valine comment --><!-- Disqus comment --><script>
+      var disqus_shortname = 'longsl-blog';
+      <% if (page.permalink){ %>
+      var disqus_url = 'Windows和Linux上安装Jenkins';
+      <% } %>
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/<% if (page.comments) { %>embed.js<% } else { %>count.js<% } %>';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+      <br><br>
+
+    </div>
+
+    <div id="footer">
+
+      <span>
+          <p>Copyright © 2019 <a href="https://longshilin.com/wiki" target="_blank">Longshilin</a>.</p>
+          <p>For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><p/>
+          <!-- 署名协议 -->
+          <p><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>&nbsp; |&nbsp;
+            Site Generated 2019-05-06 09:48:36 &nbsp;|&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>
+
+<!-- add google translate - ->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
+  }
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+-->

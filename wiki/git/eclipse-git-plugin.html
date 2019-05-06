@@ -1,0 +1,110 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/wiki/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/wiki/static/css/tango.css">
+    <link rel="shortcut icon" href="/wiki/static/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/wiki/static/images/favicon.png" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>Eclipse中git插件的常用操作 - Wiki</title>
+    <meta name="keywords" content="wiki, simple"/>
+    <meta name="description" content=""/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+
+    <div id="container" style="position:relative">
+      <button type="button" style="position:absolute; left:0; margin-top: -22px; margin-left: -1px;" class="blog-button .btn"><a href="https://longshilin.com/blog">Back Blog</a></button>
+      <!-- <div id="google_translate_element" style="position:absolute; right:0; margin-top: -22px; margin-right: -1px;"></div> -->
+      
+<div id="header">
+  <div class="post-nav"><a href="/wiki/">Home</a>&nbsp;&#187;&nbsp;<a href="/wiki/#git">git</a>&nbsp;&#187;&nbsp;Eclipse中git插件的常用操作
+    <span class="updated">Page Updated&nbsp;
+      2018-09-10 00:16:34
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">Eclipse中git插件的常用操作</div>
+
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#_1">删除分支上的一些提交记录进行回滚</a></li>
+<li><a href="#_2">合并分支</a></li>
+<li><a href="#eclipse-git">eclipse-git忽略相关文件</a></li>
+<li><a href="#_3">本地保留仅删除远程仓库的文件<span id="rm_cached"></span></a></li>
+</ul>
+</div>
+<h1 id="_1">删除分支上的一些提交记录进行回滚</h1>
+<p>选择需要回滚到的分支记录，右键Reset重置到此<br />
+<img alt="eclipse git reset" src="https://i.imgur.com/aVb3MsC.png" /></p>
+<p>在本地代码仓库已经修改，再将修改记录merge到分支上<br />
+<img alt="eclipse git merge 1" src="https://i.imgur.com/lI8kqLX.png" /></p>
+<p>选择需要merge的remote分支。这里需要注意的当需要将其他分支的修改记录合并到master分支时，你需要将项目分支选择到master分支上，然后像下面的图片一样选择一个本地其他分支的内容，然后合并到主线上即可。<br />
+<img alt="eclipse git merge 2" src="https://i.imgur.com/WBAEhHv.png" /></p>
+<p>这样就能实现git提交的回滚操作，并且可以清除回滚中间的提交记录。:smile:</p>
+<h1 id="_2">合并分支</h1>
+<p>对于从A分支将新增内容合并到B分支的情况，采取上面步骤中后两步也可以实现记录整齐划一的处理结果。注意：在B分支上合并A分支的内容时，选择A本地的记录，这样会省去在远程分支上从A分支merge到B分支的操作，因为新增merge的内容都是从本地记录中进行修改的，再提交到远程镜像仓库，就如同自己在B分支上直接修改并上传一样。:fried_shrimp:<br />
+<img alt="git整齐划一的提交记录" src="https://i.imgur.com/Ha0vCQz.png" /></p>
+<h1 id="eclipse-git">eclipse-git忽略相关文件</h1>
+<p>在eclipse中开发时，我们可能会遇到对于一些测试类，应保留在本地但不上传到git仓库的需求，这时可以通过修改<code>.gitignore</code>文件来实现。</p>
+<p>首先打开eclipse的左侧文件目录中，显示该项目下的所有资源项。<br />
+<img alt="eclipse file filters" src="https://i.imgur.com/cr1cSId.png" /></p>
+<p>去除 <kbd>.* resources</kbd> 选项的勾选，项目文件下就会显示所有文件。然后修改 <kbd>.gitnore</kbd> 文，添加你需要忽略的文件/文件目录的路径，注意这里填写相对目录，如： <kbd>/target/</kbd> <kbd>.gitattributes</kbd> 等。</p>
+<p>但是还存在一个问题，对于已存在远程仓库的文件，不想上传到远程仓库的本次修改，可以选择该文件然后右键菜单中选择 <kbd>Team</kbd> -&gt; <kbd>Advanced</kbd> -&gt; <kbd>Assume Unchanged</kbd> 忽略本次修改，如下图<br />
+<img alt="eclipse git unchanged" src="https://i.imgur.com/wkzGDlq.png" /></p>
+<p>如果需要清除该文件之前提交到git远程仓库的版本记录，需要配合下面 <a href="#rm_cached">删除远程仓库中的文件而本地保留</a> 的步骤。</p>
+<h1 id="_3">本地保留仅删除远程仓库的文件<span id="rm_cached"></span></h1>
+<p>上面解决了对于已经在远程仓库文件的本次修改忽略的问题，但是要是已经在远程仓库中的文件，现在不需要保留在远程仓库了，那么我们需要将这个文件从远程仓库删除，但是本地还是要保留这个文件，我们删除的只是在远程仓库的记录而已。</p>
+<div class="hlcode"><pre><span class="n">git</span> <span class="n">rm</span> <span class="o">-</span><span class="n">r</span> <span class="o">--</span><span class="n">cached</span> <span class="err">$</span><span class="n">filepath</span>
+</pre></div>
+
+
+<p>上面命令的意思是删除了指定<code>$filepath</code>文件在本地git仓库中的index索引记录，该文件会从track状态变为untrack状态。执行命令后会看到项目下该文件会带上<code>?</code>符号，通过<code>git status</code>也可以看到，该文件变为了 <kbd>Untracked files</kbd> 标记，而且在 <kbd>Changes to be committed</kbd> 状态下有<code>deleted: $filepath</code>的记录，最后把这条记录push到git远程仓库之后，远程仓库中也会同步更新将这个文件删除。</p>
+<p>如果你想以后都不提交这个文件，则可以将这个文件的相对路径加入 <kbd>.gitignore</kbd> 文件。</p>
+
+  <!-- comments model --><hr style="border:1px dashed #eee">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments.</a></noscript>
+    </div>
+
+    <!-- Valine comment --><!-- Disqus comment --><script>
+      var disqus_shortname = 'longsl-blog';
+      <% if (page.permalink){ %>
+      var disqus_url = 'Eclipse中git插件的常用操作';
+      <% } %>
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/<% if (page.comments) { %>embed.js<% } else { %>count.js<% } %>';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+      <br><br>
+
+    </div>
+
+    <div id="footer">
+
+      <span>
+          <p>Copyright © 2019 <a href="https://longshilin.com/wiki" target="_blank">Longshilin</a>.</p>
+          <p>For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><p/>
+          <!-- 署名协议 -->
+          <p><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>&nbsp; |&nbsp;
+            Site Generated 2019-05-06 09:48:36 &nbsp;|&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>
+
+<!-- add google translate - ->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
+  }
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+-->

@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/wiki/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/wiki/static/css/tango.css">
+    <link rel="shortcut icon" href="/wiki/static/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/wiki/static/images/favicon.png" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>Git常用命令速查 - Wiki</title>
+    <meta name="keywords" content="wiki, simple"/>
+    <meta name="description" content=""/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+
+    <div id="container" style="position:relative">
+      <button type="button" style="position:absolute; left:0; margin-top: -22px; margin-left: -1px;" class="blog-button .btn"><a href="https://longshilin.com/blog">Back Blog</a></button>
+      <!-- <div id="google_translate_element" style="position:absolute; right:0; margin-top: -22px; margin-right: -1px;"></div> -->
+      
+<div id="header">
+  <div class="post-nav"><a href="/wiki/">Home</a>&nbsp;&#187;&nbsp;<a href="/wiki/#git">git</a>&nbsp;&#187;&nbsp;Git常用命令速查
+    <span class="updated">Page Updated&nbsp;
+      2018-09-10 00:16:34
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">Git常用命令速查</div>
+
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#_1">一、新建代码库</a></li>
+<li><a href="#_2">二、配置</a></li>
+<li><a href="#_3">三、增加/删除/修改文件</a></li>
+<li><a href="#_4">四、代码提交</a></li>
+<li><a href="#_5">五、分支</a></li>
+<li><a href="#_6">六、标签</a></li>
+<li><a href="#_7">七、查看信息</a></li>
+<li><a href="#_8">八、远程操作</a></li>
+<li><a href="#_9">九、撤销</a></li>
+<li><a href="#_10">十、其他</a></li>
+</ul>
+</div>
+<p><strong>名词</strong></p>
+<ul>
+<li>master: 默认开发分支</li>
+<li>origin: 默认远程版本库</li>
+<li>Index / Stage：暂存区</li>
+<li>Workspace：工作区</li>
+<li>Repository：仓库区（或本地仓库）</li>
+<li>Remote：远程仓库</li>
+</ul>
+<h2 id="_1"><strong>一、新建代码库</strong></h2>
+<p><img alt="" src="https://i.imgur.com/8Yfq3do.jpg" /></p>
+<h2 id="_2"><strong>二、配置</strong></h2>
+<p>Git的设置文件为.gitconfig，它可以在用户主目录下（全局配置），也可以在项目目录下（项目配置）。</p>
+<p><img alt="" src="https://i.imgur.com/Nw6cXhn.jpg" /></p>
+<h2 id="_3"><strong>三、增加/删除/修改文件</strong></h2>
+<p><img alt="" src="https://i.imgur.com/w5Mi2on.jpg" /></p>
+<h2 id="_4"><strong>四、代码提交</strong></h2>
+<p><img alt="" src="https://i.imgur.com/v1OC7qU.jpg" /></p>
+<h2 id="_5"><strong>五、分支</strong></h2>
+<p><img alt="" src="https://i.imgur.com/j1KlqIK.jpg" /></p>
+<h2 id="_6"><strong>六、标签</strong></h2>
+<p><img alt="" src="https://i.imgur.com/5SjnDIZ.jpg" /></p>
+<p><img alt="" src="https://i.imgur.com/z4KjIM8.jpg" /></p>
+<h2 id="_7"><strong>七、查看信息</strong></h2>
+<p><img alt="" src="https://i.imgur.com/jBjhFBo.jpg" /></p>
+<p><img alt="" src="https://i.imgur.com/Gy33ApT.jpg" /></p>
+<h2 id="_8"><strong>八、远程操作</strong></h2>
+<p><img alt="" src="https://i.imgur.com/t85mqm9.jpg" /></p>
+<h2 id="_9"><strong>九、撤销</strong></h2>
+<p><img alt="" src="https://i.imgur.com/g6g1CDO.jpg" /></p>
+<h2 id="_10"><strong>十、其他</strong></h2>
+<p>生成一个可供发布的压缩包</p>
+<p><img alt="" src="https://i.imgur.com/dzMavBX.png" /></p>
+
+  <!-- comments model --><hr style="border:1px dashed #eee">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments.</a></noscript>
+    </div>
+
+    <!-- Valine comment --><!-- Disqus comment --><script>
+      var disqus_shortname = 'longsl-blog';
+      <% if (page.permalink){ %>
+      var disqus_url = 'Git常用命令速查';
+      <% } %>
+      (function(){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/<% if (page.comments) { %>embed.js<% } else { %>count.js<% } %>';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+    </script>
+      <br><br>
+
+    </div>
+
+    <div id="footer">
+
+      <span>
+          <p>Copyright © 2019 <a href="https://longshilin.com/wiki" target="_blank">Longshilin</a>.</p>
+          <p>For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><p/>
+          <!-- 署名协议 -->
+          <p><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>&nbsp; |&nbsp;
+            Site Generated 2019-05-06 09:48:36 &nbsp;|&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>
+
+<!-- add google translate - ->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
+  }
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+-->
