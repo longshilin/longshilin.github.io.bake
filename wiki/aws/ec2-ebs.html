@@ -97,11 +97,53 @@ a. 创建 /etc/fstab 文件的备份，当您进行编辑时意外损坏或删�
 
   <!-- comments model --><hr style="border:1px dashed #eee">
     <br>
-    <div id="disqus_thread">
-      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments.</a></noscript>
-    </div>
+    <section class="post-comments">
+      <div class="body-container ">
+        <div id="disqus_thread" class="valine">
+        </div>
+      </div>
+    </section>
+    <!-- Valine comment --><script>
+    /* mobile navigator handler & animation */
+        var mNavlist = $('.js-m-navlist');
 
-    <!-- Valine comment --><script src="//longshilin.com/assets/js/av-min.js"></script>
+        mNavlist.on('click', function () {
+            var addclass = $(this).parent('.m_nav-list').data('cssclass'),
+                isShowed = $(this).parent('.m_nav-list').hasClass(addclass);
+
+            /* calculation the client height */
+            var clientHeight = document.documentElement.clientHeight,
+                setHeight = clientHeight * 0.56 + 'px',
+                padding = clientHeight * 0.22 + 'px',
+                navWrapper = $('.m_nav-wrapper');
+
+            navWrapper.css({
+                'height': setHeight,
+                'padding': padding + ' 0 ' + padding,
+                'transform': 'translate3d(0,-' + clientHeight + 'px,0)',
+            });
+
+            /* if it is showed */
+            if (isShowed) {
+                $(this).parent('.m_nav-list').removeClass(addclass);
+                /* hide the navlist */
+                navWrapper.css({
+                    'transform': 'translate3d(0,-' + clientHeight + 'px,0)'
+                });
+
+            } else {
+                /* if it is closed */
+                $(this).parent('.m_nav-list').addClass(addclass);
+                /* show the navlist */
+                navWrapper.css({
+                    'transform': 'translate3d(0,0,0)'
+                });
+            }
+        });
+    </script>
+    <script src="//longshilin.com/assets/js/prism-default.js"></script>
+    <script src="//longshilin.com/assets/js/jquery.min.js"></script>
+    <script src="//longshilin.com/assets/js/av-min.js"></script>
     <script src='//longshilin.com/assets/js/Valine.min.js'></script>
     <script src='//longshilin.com/assets/js/jquery.fitvids.js'></script>
     <script>
@@ -126,7 +168,7 @@ a. 创建 /etc/fstab 文件的备份，当您进行编辑时意外损坏或删�
           <p>For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><p/>
           <!-- 署名协议 -->
           <p><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>&nbsp; |&nbsp;
-            Site Generated 2019-05-06 11:36:05 &nbsp;|&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
+            Site Generated 2019-05-06 12:05:27 &nbsp;|&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
       </span>
     </div>
 
