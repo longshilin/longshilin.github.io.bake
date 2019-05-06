@@ -1,0 +1,107 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/wiki/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/wiki/static/css/tango.css">
+    <link rel="shortcut icon" href="/wiki/static/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/wiki/static/images/favicon.png" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>制作带有openjdk-dev版本以及tomcat的镜像包 - 知识库</title>
+    <meta name="keywords" content="wiki, simple"/>
+    <meta name="description" content=""/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+
+    <div id="container" style="position:relative">
+      <button type="button" style="position:absolute; left:0; margin-top: -22px; margin-left: -1px;" class="blog-button .btn"><a href="https://longshilin.com/blog">Back Blog</a></button>
+      <!-- <div id="google_translate_element" style="position:absolute; right:0; margin-top: -22px; margin-right: -1px;"></div> -->
+      
+<div id="header">
+  <div class="post-nav"><a href="/wiki/">Home</a>&nbsp;&#187;&nbsp;<a href="/wiki/#docker">docker</a>&nbsp;&#187;&nbsp;制作带有openjdk-dev版本以及tomcat的镜像包
+    <span class="updated">Page Updated&nbsp;
+      2018-11-27 11:32
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">制作带有openjdk-dev版本以及tomcat的镜像包</div>
+
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#dockefile">Dockefile</a></li>
+<li><a href="#image">Image</a></li>
+</ul>
+</div>
+<blockquote>
+<p>通过centos镜像制作带有openjdk-dev版本以及tomcat的镜像包</p>
+</blockquote>
+<h2 id="dockefile">Dockefile</h2>
+<div class="hlcode"><pre><span class="n">FROM</span> <span class="n">docker</span><span class="p">.</span><span class="n">io</span><span class="o">/</span><span class="n">centos</span><span class="o">:</span><span class="mf">7.4.1708</span>
+<span class="cp"># author</span>
+<span class="n">MAINTAINER</span> <span class="n">longsl</span> <span class="o">&lt;</span><span class="mi">583297550</span><span class="err">@</span><span class="n">qq</span><span class="p">.</span><span class="n">com</span><span class="o">&gt;</span>
+<span class="cp"># install jdk including jps,jstat,ps command.</span>
+<span class="n">RUN</span> <span class="n">yum</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">java</span><span class="o">-</span><span class="mf">1.8.0</span><span class="o">-</span><span class="n">openjdk</span><span class="o">-</span><span class="mf">1.8.0.191</span><span class="p">.</span><span class="n">b12</span><span class="o">-</span><span class="mf">0.</span><span class="n">el7_5</span><span class="p">.</span><span class="n">x86_64</span> <span class="o">&amp;&amp;</span> <span class="n">yum</span> <span class="o">-</span><span class="n">y</span> <span class="n">install</span> <span class="n">java</span><span class="o">-</span><span class="mf">1.8.0</span><span class="o">-</span><span class="n">openjdk</span><span class="o">-</span><span class="n">devel</span><span class="o">-</span><span class="mf">1.8.0.191</span><span class="p">.</span><span class="n">b12</span><span class="o">-</span><span class="mf">0.</span><span class="n">el7_5</span><span class="p">.</span><span class="n">x86_64</span>
+<span class="cp"># add tomcat gzfile</span>
+<span class="n">ADD</span> <span class="n">tomcat</span><span class="p">.</span><span class="n">tar</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span>
+<span class="cp"># set tomcat env</span>
+<span class="n">ENV</span> <span class="n">CATALINA_HOME</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">tomcat</span>
+<span class="n">ENV</span> <span class="n">PATH</span> <span class="err">$</span><span class="n">CATALINA_HOME</span><span class="o">/</span><span class="n">bin</span><span class="o">:</span><span class="err">$</span><span class="n">PATH</span>
+</pre></div>
+
+
+<h2 id="image">Image</h2>
+<div class="hlcode"><pre><span class="err">$</span> <span class="n">sudo</span> <span class="n">docker</span> <span class="n">images</span>
+<span class="n">longsl</span><span class="o">/</span><span class="n">tomcat</span>     <span class="n">dev</span>     <span class="n">dbab50272f5f</span>   <span class="mi">42</span> <span class="n">minutes</span> <span class="n">ago</span>      <span class="mi">501</span> <span class="n">MB</span>
+</pre></div>
+
+
+<p>这个Image是支持jstat命令的开发版openjdk1.8，并且将tomcat8.5集成在镜像中</p>
+
+  <!-- comments model --><hr style="border:1px dashed #eee">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments.</a></noscript>
+    </div>
+
+    <!-- Valine comment --><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <script>
+      new Valine({
+        av: AV,
+        el: '#disqus_thread',
+        appId: 'pMgClbOyqp0K4AQxpMUJuskE-9Nh9j0Va',
+        appKey: 'CzXcgRguvCJa0EkILaN5F4HX',
+        notify: false,
+        verify: false,
+        avatar: 'mm',
+        placeholder: 'write a comment...',
+        visitor: true
+      });
+    </script><!-- Disqus comment -->
+      <br><br>
+
+    </div>
+
+    <div id="footer">
+
+      <span>
+          <p>Copyright © 2019 <a href="https://longshilin.com/wiki" target="_blank">Longshilin</a>.</p>
+          <p>For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><p/>
+          <!-- 署名协议 -->
+          <p><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>&nbsp; |&nbsp;
+            Site Generated 2019-05-06 11:03:11 &nbsp;|&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>
+
+<!-- add google translate - ->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
+  }
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+-->

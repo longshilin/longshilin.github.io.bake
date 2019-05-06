@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="积之在平日">
 <meta property="og:description" content="在生产环境中，经常有docker容器的CPU消耗太高而导致宿主机的CPU占用率攀升，引起AWS CloudWatch的警报邮件等，另外在批量重启容器的时候，也会经常遇到短暂对宿主机的CPU消耗过高的情况，现阶段准备再原来的容器中新增java的监控命令。具体是在镜像中包含如：jps、jstat和ps等命令的容器。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-06T10:48:36.000Z">
+<meta property="og:updated_time" content="2019-05-06T11:02:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="制作带有java监控命令的镜像">
 <meta name="twitter:description" content="在生产环境中，经常有docker容器的CPU消耗太高而导致宿主机的CPU占用率攀升，引起AWS CloudWatch的警报邮件等，另外在批量重启容器的时候，也会经常遇到短暂对宿主机的CPU消耗过高的情况，现阶段准备再原来的容器中新增java的监控命令。具体是在镜像中包含如：jps、jstat和ps等命令的容器。">
@@ -205,7 +205,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/5544e824.html" data-id="cjvc8so3y00080m05xoyuvme7" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/5544e824.html" data-id="cjvc9alot00080mu1gzf64wg4" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -384,20 +384,6 @@
 </footer>
 
   
-<script>
-  var disqus_shortname = 'longsl-blog';
-  
-  var disqus_url = 'https://longshilin.com/blog/5544e824.html';
-  
-  (function(){
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
-
 
 <!-- changyan comment -->
 
@@ -406,6 +392,21 @@
 
 
 <!-- Valine comment -->
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    new Valine({
+      av: AV,
+  		el: '#disqus_thread',
+  		appId: 'pMgClbOyqp0K4AQxpMUJuskE-9Nh9j0Va',
+  		appKey: 'CzXcgRguvCJa0EkILaN5F4HX',
+  		notify: false,
+  		verify: false,
+  		avatar: 'mm',
+  		placeholder: '在此处写下你的评论吧...'
+  	});
+  </script>
 
 
 <script src="/assets/js/jquery.min.js" crossorigin="anonymous"></script>

@@ -1,0 +1,439 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/wiki/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/wiki/static/css/tango.css">
+    <link rel="shortcut icon" href="/wiki/static/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/wiki/static/images/favicon.png" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>使用SSL验证和Nginx代理搭建生产环境的Docker仓库 - 知识库</title>
+    <meta name="keywords" content="wiki, simple"/>
+    <meta name="description" content=""/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+
+    <div id="container" style="position:relative">
+      <button type="button" style="position:absolute; left:0; margin-top: -22px; margin-left: -1px;" class="blog-button .btn"><a href="https://longshilin.com/blog">Back Blog</a></button>
+      <!-- <div id="google_translate_element" style="position:absolute; right:0; margin-top: -22px; margin-right: -1px;"></div> -->
+      
+<div id="header">
+  <div class="post-nav"><a href="/wiki/">Home</a>&nbsp;&#187;&nbsp;<a href="/wiki/#docker">docker</a>&nbsp;&#187;&nbsp;使用SSL验证和Nginx代理搭建生产环境的Docker仓库
+    <span class="updated">Page Updated&nbsp;
+      2018-09-05 11:32
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">使用SSL验证和Nginx代理搭建生产环境的Docker仓库</div>
+
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#docker">安装Docker</a></li>
+<li><a href="#docker-registry">安装Docker Registry</a><ul>
+<li><a href="#registry">官网安装 registry</a></li>
+<li><a href="#docker-compose">使用Docker-compose安装</a></li>
+<li><a href="#githubrelease">推荐直接从github中下载稳定的release版本安装</a></li>
+</ul>
+</li>
+<li><a href="#htpasswd">安装htpasswd</a></li>
+<li><a href="#registry-containernginx">运行Registry Container并使用Nginx做代理</a><ul>
+<li><a href="#nginxregistry">运行nginx和registry容器</a></li>
+<li><a href="#nginx">配置nginx</a></li>
+<li><a href="#nginx_1">为Nginx中添加用户名和密码</a></li>
+</ul>
+</li>
+<li><a href="#ssl">加入SSL验证</a><ul>
+<li><a href="#openssl">使用openssl创建自己的证书</a></li>
+<li><a href="#_1">制作证书签名请求。</a></li>
+<li><a href="#_2">签署认证请求</a></li>
+<li><a href="#nginx_2">配置nginx使用证书</a></li>
+<li><a href="#registry_1">运行Registry</a></li>
+</ul>
+</li>
+<li><a href="#dockerregistry">Docker客户端使用Registry</a><ul>
+<li><a href="#_3">添加证书</a></li>
+<li><a href="#_4">登录远程镜像仓库</a></li>
+<li><a href="#pushregistry">制作要push到registry的镜像</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>使用私有仓库有许多优点：<br />
+　　节省网络带宽，针对于每个镜像不用每个人都去中央仓库上面去下载，只需要从私有仓库中下载即可；提供镜像资源利用，针对于公司内部使用的镜像，推送到本地的私有仓库中，以供公司内部相关人员使用。<br />
++ 我的环境：CentOS Linux release 7.5.1804 (Core)<br />
++ Docker版本：Version: 1.13.1，API version: 1.26，Go version: go1.9.4</p>
+<p>在下载Linux发行版的时候需要下载较新的版本，Docker所支持的Linux kernel版本过低会出现问题。</p>
+<h1 id="docker">安装Docker</h1>
+<p>CentOS中更新源后安装docker <a href="https://docs.docker.com/engine/installation/linux/centos/">详见官网</a>。<br />
+安装完成Docker环境之后不要去关闭CentOS的防火墙和Selinux，因为Docker的安全机制是基于iptables的，关闭selinux会是的Docker的安装出错。</p>
+<blockquote>
+<p>docker: Error response from daemon: failed to create endpoint registry on network bridge: iptables failed: iptables --wait -t nat -A DOCKER -p tcp -d 0/0 --dport 5000 -j DNAT --to-destination 172.17.0.2:5000 ! -i docker0: iptables: No chain/target/match by that name.(exit status 1).</p>
+</blockquote>
+<h1 id="docker-registry">安装Docker Registry</h1>
+<p>目前Docker Registry已经升级到了v2，最新版的Docker已不再支持v1。Registry v2使用Go语言编写，在性能和安全性上做了很多优化，重新设计了镜像的存储格式。</p>
+<h2 id="registry">官网安装 registry</h2>
+<p>https://docs.docker.com/registry/</p>
+<h2 id="docker-compose">使用Docker-compose安装</h2>
+<p>Docker-compose是一个非常有用的Docker运行，管理的工具。你可以通过定义compose文件，使用简单的一条命令同时起多个Docker Container运行不同的服务。Docker-compose对于开发，测试，环境保存以及CI都提供了非常大的便利。<br />
+　　Docker-compose是用Python开发的一个工具，所以可以用pip直接安装。</p>
+<div class="hlcode"><pre><span class="err">$</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span>
+</pre></div>
+
+
+<p>需要注意的是，docker-compose可能对requests module的版本有限制，而本机上可能安装了更高版本的requests模块，造成运行时报错。可以使用pip-conflict-checker检查版本冲突，卸载不合适的版本，重新安装一个合适的版本。</p>
+<div class="hlcode"><pre><span class="err">$</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">pip</span><span class="o">-</span><span class="n">conflict</span><span class="o">-</span><span class="n">checker</span>
+<span class="err">$</span> <span class="n">pip</span> <span class="n">conflictchecker</span>
+<span class="err">$</span> <span class="n">pip</span> <span class="n">uninstall</span> <span class="n">requests</span>
+<span class="err">$</span> <span class="n">pip</span> <span class="n">install</span> <span class="n">requests</span><span class="o">==</span><span class="mf">2.7.0</span>
+</pre></div>
+
+
+<p>实际使用操作中使用pip安装的docker-compose可能在执行时还会报代码有bug。</p>
+<h2 id="githubrelease">推荐直接从github中下载稳定的release版本安装</h2>
+<div class="hlcode"><pre><span class="err">$</span> <span class="n">curl</span> <span class="o">-</span><span class="n">L</span> <span class="n">https</span><span class="o">:</span><span class="c1">//github.com/docker/compose/releases/download/1.5.2/ \</span>
+<span class="c1">docker-compose-`uname -s`-`uname -m` &gt; /usr/local/bin/docker-compose</span>
+<span class="err">$</span> <span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span>
+<span class="err">$</span> <span class="n">ln</span> <span class="o">-</span><span class="n">s</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="o">/</span><span class="n">usr</span><span class="o">/</span><span class="n">bin</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span>
+</pre></div>
+
+
+<h1 id="htpasswd">安装htpasswd</h1>
+<p>因为需要使用nginx提供安全验证的功能，需要一个地方放置用户名和密码对。<br />
+　　使用由httpd-tools提供的htpasswd工具生成用户名密码对。</p>
+<div class="hlcode"><pre><span class="err">$</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">httpd</span><span class="o">-</span><span class="n">tools</span>
+</pre></div>
+
+
+<h1 id="registry-containernginx">运行Registry Container并使用Nginx做代理</h1>
+<h2 id="nginxregistry">运行nginx和registry容器</h2>
+<p>创建一个工作目录，例如/registry/programs/docker，并在该目录下创建docker-compose.yml文件，将以下docker-compose.yml内容复制粘贴到你的docker-compose.yml文件中。<br />
+<br />
+内容大致意思为：基于“nginx:1.9” image运行nginx容器，暴露容器443端口到host 443端口。并挂载当前目录下的nginx/目录为容器的/etc/nginx/config.d目录。 nginx link到registry容器。基于registry:2 image创建registry容器，将容器5000端口暴露到host 5000端口，使用环境变量指明使用/data为根目录，并将当前目录下data/文件夹挂载到docker容器的/data目录。</p>
+<div class="hlcode"><pre><span class="err">$</span> <span class="n">mkdir</span> <span class="o">/</span><span class="n">registry</span><span class="o">/</span><span class="n">programs</span><span class="o">/</span><span class="n">docker</span> <span class="o">-</span><span class="n">p</span>
+<span class="err">$</span> <span class="n">cd</span> <span class="o">/</span><span class="n">registry</span><span class="o">/</span><span class="n">programs</span><span class="o">/</span><span class="n">docker</span>
+<span class="err">$</span> <span class="n">mkdir</span> <span class="n">data</span> <span class="o">&amp;&amp;</span> <span class="n">mkdir</span> <span class="n">nginx</span>
+<span class="err">$</span> <span class="n">cat</span> <span class="o">/</span><span class="n">registry</span><span class="o">/</span><span class="n">programs</span><span class="o">/</span><span class="n">docker</span><span class="o">/</span><span class="n">docker</span><span class="o">-</span><span class="n">compose</span><span class="p">.</span><span class="n">yml</span>
+<span class="nl">nginx:</span>
+  <span class="nl">image:</span> <span class="s">&quot;nginx:1.9&quot;</span>
+  <span class="nl">ports:</span>
+    <span class="o">-</span> <span class="mi">443</span><span class="o">:</span><span class="mi">443</span>
+  <span class="nl">links:</span>
+    <span class="o">-</span> <span class="n">registry</span><span class="o">:</span><span class="n">registry</span>
+  <span class="nl">volumes:</span>
+    <span class="o">-</span> <span class="p">.</span><span class="o">/</span><span class="n">nginx</span><span class="o">/:/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">d</span>
+<span class="nl">registry:</span>
+  <span class="nl">image:</span> <span class="n">registry</span><span class="o">:</span><span class="mi">2</span>
+  <span class="nl">ports:</span>
+    <span class="o">-</span> <span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">5000</span><span class="o">:</span><span class="mi">5000</span>
+  <span class="nl">environment:</span>
+    <span class="nl">REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY:</span> <span class="o">/</span><span class="n">data</span>
+  <span class="nl">volumes:</span>
+
+    <span class="o">-</span> <span class="p">.</span><span class="o">/</span><span class="n">data</span><span class="o">:/</span><span class="n">data</span>
+</pre></div>
+
+
+<h2 id="nginx">配置nginx</h2>
+<p>在nginx目录中创建registry.conf文件配置nginx。配置nginx与registry的关系，转发端口，以及其他nginx的配置选项。复制，粘贴如下内容到你的registry.conf文件中。</p>
+<div class="hlcode"><pre> <span class="err">$</span> <span class="n">cat</span> <span class="o">/</span><span class="n">registry</span><span class="o">/</span><span class="n">programs</span><span class="o">/</span><span class="n">docker</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">registry</span><span class="p">.</span><span class="n">conf</span>
+<span class="n">upstream</span> <span class="n">docker</span><span class="o">-</span><span class="n">registry</span> <span class="p">{</span>
+  <span class="n">server</span> <span class="n">registry</span><span class="o">:</span><span class="mi">5000</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="n">server</span> <span class="p">{</span>
+  <span class="n">listen</span> <span class="mi">443</span><span class="p">;</span>
+  <span class="n">server_name</span> <span class="n">ec2</span><span class="o">-</span><span class="mi">18</span><span class="o">-</span><span class="mi">221</span><span class="o">-</span><span class="mi">193</span><span class="o">-</span><span class="mf">240.</span><span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mf">2.</span><span class="n">compute</span><span class="p">.</span><span class="n">amazonaws</span><span class="p">.</span><span class="n">com</span><span class="p">;</span>
+
+  <span class="err">#</span> <span class="n">SSL</span>
+  <span class="err">#</span> <span class="n">ssl</span> <span class="n">on</span><span class="p">;</span>
+  <span class="err">#</span> <span class="n">ssl_certificate</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">crt</span><span class="p">;</span>
+  <span class="err">#</span> <span class="n">ssl_certificate_key</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">key</span><span class="p">;</span>
+
+  <span class="err">#</span> <span class="n">disable</span> <span class="n">any</span> <span class="n">limits</span> <span class="n">to</span> <span class="n">avoid</span> <span class="n">HTTP</span> <span class="mi">413</span> <span class="k">for</span> <span class="n">large</span> <span class="n">image</span> <span class="n">uploads</span>
+  <span class="n">client_max_body_size</span> <span class="mi">0</span><span class="p">;</span>
+
+  <span class="err">#</span> <span class="n">required</span> <span class="n">to</span> <span class="n">avoid</span> <span class="n">HTTP</span> <span class="mi">411</span><span class="o">:</span> <span class="n">see</span> <span class="n">Issue</span> <span class="err">#</span><span class="mi">1486</span> <span class="p">(</span><span class="n">https</span><span class="o">:</span><span class="c1">//github.com/docker/docker/issues/1486)</span>
+  <span class="n">chunked_transfer_encoding</span> <span class="n">on</span><span class="p">;</span>
+
+  <span class="n">location</span> <span class="o">/</span><span class="n">v2</span><span class="o">/</span> <span class="p">{</span>
+    <span class="err">#</span> <span class="n">Do</span> <span class="n">not</span> <span class="n">allow</span> <span class="n">connections</span> <span class="n">from</span> <span class="n">docker</span> <span class="mf">1.5</span> <span class="n">and</span> <span class="n">earlier</span>
+    <span class="err">#</span> <span class="n">docker</span> <span class="n">pre</span><span class="o">-</span><span class="mf">1.6.0</span> <span class="n">did</span> <span class="n">not</span> <span class="n">properly</span> <span class="n">set</span> <span class="n">the</span> <span class="n">user</span> <span class="n">agent</span> <span class="n">on</span> <span class="n">ping</span><span class="p">,</span> <span class="n">catch</span> <span class="s">&quot;Go *&quot;</span> <span class="n">user</span> <span class="n">agents</span>
+    <span class="k">if</span> <span class="p">(</span><span class="err">$</span><span class="n">http_user_agent</span> <span class="o">~</span> <span class="s">&quot;^(docker\/1\.(3|4|5(?!\.[0-9]-dev))|Go ).*$&quot;</span> <span class="p">)</span> <span class="p">{</span>
+      <span class="k">return</span> <span class="mi">404</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="err">#</span> <span class="n">To</span> <span class="n">add</span> <span class="n">basic</span> <span class="n">authentication</span> <span class="n">to</span> <span class="n">v2</span> <span class="n">use</span> <span class="n">auth_basic</span> <span class="n">setting</span> <span class="n">plus</span> <span class="n">add_header</span>
+    <span class="err">#</span> <span class="n">auth_basic</span> <span class="s">&quot;registry.localhost&quot;</span><span class="p">;</span>
+    <span class="err">#</span> <span class="n">auth_basic_user_file</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">registry</span><span class="p">.</span><span class="n">password</span><span class="p">;</span>
+    <span class="err">#</span> <span class="n">add_header</span> <span class="err">&#39;</span><span class="n">Docker</span><span class="o">-</span><span class="n">Distribution</span><span class="o">-</span><span class="n">Api</span><span class="o">-</span><span class="n">Version</span><span class="sc">&#39; &#39;</span><span class="n">registry</span><span class="o">/</span><span class="mf">2.0</span><span class="err">&#39;</span> <span class="n">always</span><span class="p">;</span>
+
+    <span class="n">proxy_pass</span>                          <span class="n">http</span><span class="o">:</span><span class="c1">//docker-registry;</span>
+    <span class="n">proxy_set_header</span>  <span class="n">Host</span>              <span class="err">$</span><span class="n">http_host</span><span class="p">;</span>   <span class="err">#</span> <span class="n">required</span> <span class="k">for</span> <span class="n">docker</span> <span class="n">client</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">sake</span>
+    <span class="n">proxy_set_header</span>  <span class="n">X</span><span class="o">-</span><span class="n">Real</span><span class="o">-</span><span class="n">IP</span>         <span class="err">$</span><span class="n">remote_addr</span><span class="p">;</span> <span class="err">#</span> <span class="n">pass</span> <span class="n">on</span> <span class="n">real</span> <span class="n">client</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">IP</span>
+    <span class="n">proxy_set_header</span>  <span class="n">X</span><span class="o">-</span><span class="n">Forwarded</span><span class="o">-</span><span class="n">For</span>   <span class="err">$</span><span class="n">proxy_add_x_forwarded_for</span><span class="p">;</span>
+    <span class="n">proxy_set_header</span>  <span class="n">X</span><span class="o">-</span><span class="n">Forwarded</span><span class="o">-</span><span class="n">Proto</span> <span class="err">$</span><span class="n">scheme</span><span class="p">;</span>
+    <span class="n">proxy_read_timeout</span>                  <span class="mi">900</span><span class="p">;</span>
+  <span class="p">}</span>
+
+<span class="p">}</span>
+</pre></div>
+
+
+<p>配置文件创建完成后，回到工作目录<code>/registry/programs/docker/</code>，执行命令<code>docker-compose up</code>运行registry和nginx容器。</p>
+<div class="hlcode"><pre><span class="err">$</span> <span class="n">docker</span><span class="o">-</span><span class="n">compose</span> <span class="n">up</span>
+<span class="n">Creating</span> <span class="n">docker_registry_1</span>
+<span class="n">Creating</span> <span class="n">docker_nginx_1</span>
+<span class="n">Attaching</span> <span class="n">to</span> <span class="n">docker_registry_1</span><span class="p">,</span> <span class="n">docker_nginx_1</span>
+<span class="n">registry_1</span> <span class="o">|</span> <span class="n">time</span><span class="o">=</span><span class="s">&quot;2018-09-05T02:39:44Z&quot;</span> <span class="n">level</span><span class="o">=</span><span class="n">warning</span> <span class="n">msg</span><span class="o">=</span><span class="s">&quot;No HTTP secret provided - generated random secret. This may cause problems with uploads if multiple registries are behind a load-balancer. To provide a shared secret, fill in http.secret in the configuration file or set the REGISTRY_HTTP_SECRET environment variable.&quot;</span> <span class="n">instance</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="mi">4</span><span class="n">b05d29f</span><span class="o">-</span><span class="mf">6f</span><span class="mi">18</span><span class="o">-</span><span class="mi">4238</span><span class="o">-</span><span class="n">a208</span><span class="o">-</span><span class="n">d7410cea3032</span> <span class="n">version</span><span class="o">=</span><span class="n">v2</span><span class="mf">.1.1</span>
+<span class="n">registry_1</span> <span class="o">|</span> <span class="n">time</span><span class="o">=</span><span class="s">&quot;2018-09-05T02:39:44Z&quot;</span> <span class="n">level</span><span class="o">=</span><span class="n">info</span> <span class="n">msg</span><span class="o">=</span><span class="s">&quot;redis not configured&quot;</span> <span class="n">instance</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="mi">4</span><span class="n">b05d29f</span><span class="o">-</span><span class="mf">6f</span><span class="mi">18</span><span class="o">-</span><span class="mi">4238</span><span class="o">-</span><span class="n">a208</span><span class="o">-</span><span class="n">d7410cea3032</span> <span class="n">version</span><span class="o">=</span><span class="n">v2</span><span class="mf">.1.1</span>
+<span class="n">registry_1</span> <span class="o">|</span> <span class="n">time</span><span class="o">=</span><span class="s">&quot;2018-09-05T02:39:44Z&quot;</span> <span class="n">level</span><span class="o">=</span><span class="n">info</span> <span class="n">msg</span><span class="o">=</span><span class="s">&quot;using inmemory blob descriptor cache&quot;</span> <span class="n">instance</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="mi">4</span><span class="n">b05d29f</span><span class="o">-</span><span class="mf">6f</span><span class="mi">18</span><span class="o">-</span><span class="mi">4238</span><span class="o">-</span><span class="n">a208</span><span class="o">-</span><span class="n">d7410cea3032</span> <span class="n">version</span><span class="o">=</span><span class="n">v2</span><span class="mf">.1.1</span>
+<span class="n">registry_1</span> <span class="o">|</span> <span class="n">time</span><span class="o">=</span><span class="s">&quot;2018-09-05T02:39:44Z&quot;</span> <span class="n">level</span><span class="o">=</span><span class="n">info</span> <span class="n">msg</span><span class="o">=</span><span class="s">&quot;listening on [::]:5000&quot;</span> <span class="n">instance</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="mi">4</span><span class="n">b05d29f</span><span class="o">-</span><span class="mf">6f</span><span class="mi">18</span><span class="o">-</span><span class="mi">4238</span><span class="o">-</span><span class="n">a208</span><span class="o">-</span><span class="n">d7410cea3032</span> <span class="n">version</span><span class="o">=</span><span class="n">v2</span><span class="mf">.1.1</span>
+<span class="n">registry_1</span> <span class="o">|</span> <span class="n">time</span><span class="o">=</span><span class="s">&quot;2018-09-05T02:39:44Z&quot;</span> <span class="n">level</span><span class="o">=</span><span class="n">info</span> <span class="n">msg</span><span class="o">=</span><span class="s">&quot;Starting upload purge in 2m0s&quot;</span> <span class="n">instance</span><span class="p">.</span><span class="n">id</span><span class="o">=</span><span class="mi">4</span><span class="n">b05d29f</span><span class="o">-</span><span class="mf">6f</span><span class="mi">18</span><span class="o">-</span><span class="mi">4238</span><span class="o">-</span><span class="n">a208</span><span class="o">-</span><span class="n">d7410cea3032</span> <span class="n">version</span><span class="o">=</span><span class="n">v2</span><span class="mf">.1.1</span>
+</pre></div>
+
+
+<p>执行docker-compose up后。注意是否有容器启动失败的消息，如果容器启动失败的消息，需要检查网络，是否能从dockerhub上pull image（需代理，或使用使用国内镜像，使用国内镜像需更改docker-compose.yml文件中image项）。也由可能粘贴配置文件错误，需仔细检查。</p>
+<p>启动后也可以，另开一个xshell窗口并使用docker ps命令查看是否两个容器都正常运行。</p>
+<div class="hlcode"><pre><span class="err">$</span> <span class="n">docker</span> <span class="n">ps</span> <span class="o">-</span><span class="n">a</span>
+<span class="n">CONTAINER</span> <span class="n">ID</span>        <span class="n">IMAGE</span>               <span class="n">COMMAND</span>                  <span class="n">CREATED</span>             <span class="n">STATUS</span>              <span class="n">PORTS</span>                          <span class="n">NAMES</span>
+<span class="n">e106d58c07ee</span>        <span class="n">nginx</span><span class="o">:</span><span class="mf">1.9</span>           <span class="s">&quot;nginx -g &#39;daemon ...&quot;</span>   <span class="n">About</span> <span class="n">an</span> <span class="n">hour</span> <span class="n">ago</span>   <span class="n">Up</span> <span class="mi">53</span> <span class="n">minutes</span>       <span class="mi">80</span><span class="o">/</span><span class="n">tcp</span><span class="p">,</span> <span class="mf">0.0.0.0</span><span class="o">:</span><span class="mi">443</span><span class="o">-&gt;</span><span class="mi">443</span><span class="o">/</span><span class="n">tcp</span>   <span class="n">docker_nginx_1</span>
+<span class="mi">24</span><span class="n">de4f3517b2</span>        <span class="n">registry</span><span class="o">:</span><span class="mf">2.1.1</span>      <span class="s">&quot;/bin/registry /et...&quot;</span>   <span class="n">About</span> <span class="n">an</span> <span class="n">hour</span> <span class="n">ago</span>   <span class="n">Up</span> <span class="mi">53</span> <span class="n">minutes</span>       <span class="mf">127.0.0.1</span><span class="o">:</span><span class="mi">5000</span><span class="o">-&gt;</span><span class="mi">5000</span><span class="o">/</span><span class="n">tcp</span>       <span class="n">docker_registry_1</span>
+</pre></div>
+
+
+<p>确定docker容器都正常运行后，用curl 命令验证功能是否正常运行。使得localhost:5000和localhost:443访问registry都应该返回{}。这时可以查看原来的xshell窗口中docker-compose的日志情况。</p>
+<div class="hlcode"><pre><span class="err">$</span> <span class="n">curl</span> <span class="n">http</span><span class="o">:</span><span class="c1">//localhost:5000/v2/</span>
+<span class="p">{}</span>
+<span class="err">$</span> <span class="n">curl</span> <span class="n">http</span><span class="o">:</span><span class="c1">//localhost:443/v2/</span>
+<span class="p">{}</span>
+</pre></div>
+
+
+<p>回到原来的xshell窗口，使用ctrl-c退出docker-compose，继续后面的步骤。</p>
+<h2 id="nginx_1">为Nginx中添加用户名和密码</h2>
+<p>在/data/programs/docker/nginx目录下执行下面命令创建用户名和密码对，如果要创建多个用户名和密码对，则不是使用"-c"选项。</p>
+<div class="hlcode"><pre><span class="err">$</span> <span class="n">htpasswd</span> <span class="o">-</span><span class="n">c</span> <span class="n">registry</span><span class="p">.</span><span class="n">password</span> <span class="n">docker</span>
+<span class="err">然后修改</span><span class="n">Registry</span><span class="p">.</span><span class="n">conf</span><span class="err">文件，取消下面三行的注释。</span>
+<span class="n">auth_basic</span> <span class="s">&quot;registry.localhost&quot;</span><span class="p">;</span>
+<span class="n">auth_basic_user_file</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">registry</span><span class="p">.</span><span class="n">password</span><span class="p">;</span>
+<span class="n">add_header</span> <span class="err">&#39;</span><span class="n">Docker</span><span class="o">-</span><span class="n">Distribution</span><span class="o">-</span><span class="n">Api</span><span class="o">-</span><span class="n">Version</span><span class="sc">&#39; &#39;</span><span class="n">registry</span><span class="o">/</span><span class="mf">2.0</span><span class="err">&#39;</span> <span class="n">always</span><span class="p">;</span>
+</pre></div>
+
+
+<p>再次执行docker-compose up运行registry，这时在第二个xshell窗口中使用localhost:5000端口访问得到的结果为”{}”,但是使用localhost:443访问将得到”401 Authorisation Required“的提示。加入用户名和密码验证才能得到与直接访问registry 5000端口相同的结果。</p>
+<div class="hlcode"><pre><span class="err">$</span> <span class="nb">curl</span> <span class="nx">http</span><span class="p">:</span><span class="c1">//localhost:5000/v2/</span>
+<span class="p">{}</span>
+<span class="err">$</span> <span class="nb">curl</span> <span class="nx">http</span><span class="p">:</span><span class="c1">//localhost:443/v2/</span>
+<span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nb">head</span><span class="o">&gt;&lt;</span><span class="nb">title</span><span class="o">&gt;</span><span class="mi">401</span> <span class="nx">Authorization</span> <span class="nx">Required</span><span class="o">&lt;/</span><span class="nb">title</span><span class="o">&gt;&lt;/</span><span class="nb">head</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nb">body</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">center</span><span class="o">&gt;&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="mi">401</span> <span class="nx">Authorization</span> <span class="nx">Required</span><span class="o">&lt;/</span><span class="nx">h1</span><span class="o">&gt;&lt;/</span><span class="nx">center</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">hr</span><span class="o">&gt;&lt;</span><span class="nx">center</span><span class="o">&gt;</span><span class="nx">nginx</span><span class="p">/</span><span class="nx">1.9.15</span><span class="o">&lt;/</span><span class="nx">center</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nb">body</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nx">html</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<h1 id="ssl">加入SSL验证</h1>
+<p>如果你有经过认证机构认证的证书，则直接使用将证书放入nginx目录下即可。如果没有，则使用openssl创建自己的证书。</p>
+<h2 id="openssl">使用openssl创建自己的证书</h2>
+<p>进行<code>/registry/programs/docker/nginx</code>目录，生成一个新的root key。</p>
+<div class="hlcode"><pre><span class="cp"># 创建一个RSA私钥</span>
+<span class="err">$</span> <span class="n">openssl</span> <span class="n">genrsa</span> <span class="o">-</span><span class="n">out</span> <span class="n">devdockerCA</span><span class="p">.</span><span class="n">key</span> <span class="mi">2048</span>
+<span class="n">Generating</span> <span class="n">RSA</span> <span class="n">private</span> <span class="n">key</span><span class="p">,</span> <span class="mi">2048</span> <span class="n">bit</span> <span class="kt">long</span> <span class="n">modulus</span>
+<span class="p">...................................</span><span class="o">+++</span>
+<span class="p">......................................................</span><span class="o">+++</span>
+<span class="n">e</span> <span class="n">is</span> <span class="mi">65537</span> <span class="p">(</span><span class="mh">0x10001</span><span class="p">)</span>
+
+<span class="cp"># 生成根证书（一路回车即可）</span>
+<span class="err">$</span> <span class="n">openssl</span> <span class="n">req</span> <span class="o">-</span><span class="n">x509</span> <span class="o">-</span><span class="n">new</span> <span class="o">-</span><span class="n">nodes</span> <span class="o">-</span><span class="n">key</span> <span class="n">devdockerCA</span><span class="p">.</span><span class="n">key</span> <span class="o">-</span><span class="n">days</span> <span class="mi">10000</span> <span class="o">-</span><span class="n">out</span> <span class="n">devdockerCA</span><span class="p">.</span><span class="n">crt</span>
+<span class="n">You</span> <span class="n">are</span> <span class="n">about</span> <span class="n">to</span> <span class="n">be</span> <span class="n">asked</span> <span class="n">to</span> <span class="n">enter</span> <span class="n">information</span> <span class="n">that</span> <span class="n">will</span> <span class="n">be</span> <span class="n">incorporated</span>
+<span class="n">into</span> <span class="n">your</span> <span class="n">certificate</span> <span class="n">request</span><span class="p">.</span>
+<span class="n">What</span> <span class="n">you</span> <span class="n">are</span> <span class="n">about</span> <span class="n">to</span> <span class="n">enter</span> <span class="n">is</span> <span class="n">what</span> <span class="n">is</span> <span class="n">called</span> <span class="n">a</span> <span class="n">Distinguished</span> <span class="n">Name</span> <span class="n">or</span> <span class="n">a</span> <span class="n">DN</span><span class="p">.</span>
+<span class="n">There</span> <span class="n">are</span> <span class="n">quite</span> <span class="n">a</span> <span class="n">few</span> <span class="n">fields</span> <span class="n">but</span> <span class="n">you</span> <span class="n">can</span> <span class="n">leave</span> <span class="n">some</span> <span class="n">blank</span>
+<span class="n">For</span> <span class="n">some</span> <span class="n">fields</span> <span class="n">there</span> <span class="n">will</span> <span class="n">be</span> <span class="n">a</span> <span class="k">default</span> <span class="n">value</span><span class="p">,</span>
+<span class="n">If</span> <span class="n">you</span> <span class="n">enter</span> <span class="sc">&#39;.&#39;</span><span class="p">,</span> <span class="n">the</span> <span class="n">field</span> <span class="n">will</span> <span class="n">be</span> <span class="n">left</span> <span class="n">blank</span><span class="p">.</span>
+<span class="o">-----</span>
+<span class="n">Country</span> <span class="n">Name</span> <span class="p">(</span><span class="mi">2</span> <span class="n">letter</span> <span class="n">code</span><span class="p">)</span> <span class="p">[</span><span class="n">XX</span><span class="p">]</span><span class="o">:</span>
+<span class="n">State</span> <span class="n">or</span> <span class="n">Province</span> <span class="n">Name</span> <span class="p">(</span><span class="n">full</span> <span class="n">name</span><span class="p">)</span> <span class="p">[]</span><span class="o">:</span>
+<span class="n">Locality</span> <span class="n">Name</span> <span class="p">(</span><span class="n">eg</span><span class="p">,</span> <span class="n">city</span><span class="p">)</span> <span class="p">[</span><span class="n">Default</span> <span class="n">City</span><span class="p">]</span><span class="o">:</span>
+<span class="n">Organization</span> <span class="n">Name</span> <span class="p">(</span><span class="n">eg</span><span class="p">,</span> <span class="n">company</span><span class="p">)</span> <span class="p">[</span><span class="n">Default</span> <span class="n">Company</span> <span class="n">Ltd</span><span class="p">]</span><span class="o">:</span>
+<span class="n">Organizational</span> <span class="n">Unit</span> <span class="n">Name</span> <span class="p">(</span><span class="n">eg</span><span class="p">,</span> <span class="n">section</span><span class="p">)</span> <span class="p">[]</span><span class="o">:</span>
+<span class="n">Common</span> <span class="n">Name</span> <span class="p">(</span><span class="n">eg</span><span class="p">,</span> <span class="n">your</span> <span class="n">name</span> <span class="n">or</span> <span class="n">your</span> <span class="n">server</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">hostname</span><span class="p">)</span> <span class="p">[]</span><span class="o">:</span>
+<span class="n">Email</span> <span class="n">Address</span> <span class="p">[]</span><span class="o">:</span>
+
+<span class="cp"># 为server创建一个key。（这个key将被nginx配置文件registry.con中ssl_certificate_key域引用）</span>
+<span class="err">$</span> <span class="n">openssl</span> <span class="n">genrsa</span> <span class="o">-</span><span class="n">out</span> <span class="n">domain</span><span class="p">.</span><span class="n">key</span> <span class="mi">2048</span>
+<span class="n">Generating</span> <span class="n">RSA</span> <span class="n">private</span> <span class="n">key</span><span class="p">,</span> <span class="mi">2048</span> <span class="n">bit</span> <span class="kt">long</span> <span class="n">modulus</span>
+<span class="p">...................................................................................</span><span class="o">+++</span>
+<span class="p">...........................................................</span><span class="o">+++</span>
+<span class="n">e</span> <span class="n">is</span> <span class="mi">65537</span> <span class="p">(</span><span class="mh">0x10001</span><span class="p">)</span>
+</pre></div>
+
+
+<h2 id="_1">制作证书签名请求。</h2>
+<p>注意在执行下面命令时，命令会提示输入一些信息，”Common Name”一项一定要输入你的域名（官方说IP也行，但是也有IP不能加密的说法），其他项随便输入什么都可以。不要输入任何challenge密码，直接回车即可。</p>
+<div class="hlcode"><pre><span class="err">$</span> <span class="n">openssl</span> <span class="n">req</span> <span class="o">-</span><span class="n">new</span> <span class="o">-</span><span class="n">key</span> <span class="n">domain</span><span class="p">.</span><span class="n">key</span> <span class="o">-</span><span class="n">out</span> <span class="n">dev</span><span class="o">-</span><span class="n">docker</span><span class="o">-</span><span class="n">registry</span><span class="p">.</span><span class="n">com</span><span class="p">.</span><span class="n">csr</span>
+<span class="n">You</span> <span class="n">are</span> <span class="n">about</span> <span class="n">to</span> <span class="n">be</span> <span class="n">asked</span> <span class="n">to</span> <span class="n">enter</span> <span class="n">information</span> <span class="n">that</span> <span class="n">will</span> <span class="n">be</span> <span class="n">incorporated</span>
+<span class="n">into</span> <span class="n">your</span> <span class="n">certificate</span> <span class="n">request</span><span class="p">.</span>
+<span class="n">What</span> <span class="n">you</span> <span class="n">are</span> <span class="n">about</span> <span class="n">to</span> <span class="n">enter</span> <span class="n">is</span> <span class="n">what</span> <span class="n">is</span> <span class="n">called</span> <span class="n">a</span> <span class="n">Distinguished</span> <span class="n">Name</span> <span class="n">or</span> <span class="n">a</span> <span class="n">DN</span><span class="p">.</span>
+<span class="n">There</span> <span class="n">are</span> <span class="n">quite</span> <span class="n">a</span> <span class="n">few</span> <span class="n">fields</span> <span class="n">but</span> <span class="n">you</span> <span class="n">can</span> <span class="n">leave</span> <span class="n">some</span> <span class="n">blank</span>
+<span class="n">For</span> <span class="n">some</span> <span class="n">fields</span> <span class="n">there</span> <span class="n">will</span> <span class="n">be</span> <span class="n">a</span> <span class="k">default</span> <span class="n">value</span><span class="p">,</span>
+<span class="n">If</span> <span class="n">you</span> <span class="n">enter</span> <span class="sc">&#39;.&#39;</span><span class="p">,</span> <span class="n">the</span> <span class="n">field</span> <span class="n">will</span> <span class="n">be</span> <span class="n">left</span> <span class="n">blank</span><span class="p">.</span>
+<span class="o">-----</span>
+<span class="n">Country</span> <span class="n">Name</span> <span class="p">(</span><span class="mi">2</span> <span class="n">letter</span> <span class="n">code</span><span class="p">)</span> <span class="p">[</span><span class="n">XX</span><span class="p">]</span><span class="o">:</span>
+<span class="n">State</span> <span class="n">or</span> <span class="n">Province</span> <span class="n">Name</span> <span class="p">(</span><span class="n">full</span> <span class="n">name</span><span class="p">)</span> <span class="p">[]</span><span class="o">:</span>
+<span class="n">Locality</span> <span class="n">Name</span> <span class="p">(</span><span class="n">eg</span><span class="p">,</span> <span class="n">city</span><span class="p">)</span> <span class="p">[</span><span class="n">Default</span> <span class="n">City</span><span class="p">]</span><span class="o">:</span>
+<span class="n">Organization</span> <span class="n">Name</span> <span class="p">(</span><span class="n">eg</span><span class="p">,</span> <span class="n">company</span><span class="p">)</span> <span class="p">[</span><span class="n">Default</span> <span class="n">Company</span> <span class="n">Ltd</span><span class="p">]</span><span class="o">:</span>
+<span class="n">Organizational</span> <span class="n">Unit</span> <span class="n">Name</span> <span class="p">(</span><span class="n">eg</span><span class="p">,</span> <span class="n">section</span><span class="p">)</span> <span class="p">[]</span><span class="o">:</span>
+<span class="n">Common</span> <span class="n">Name</span> <span class="p">(</span><span class="n">eg</span><span class="p">,</span> <span class="n">your</span> <span class="n">name</span> <span class="n">or</span> <span class="n">your</span> <span class="n">server</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">hostname</span><span class="p">)</span> <span class="p">[]</span><span class="o">:</span><span class="n">ec2</span><span class="o">-</span><span class="mi">18</span><span class="o">-</span><span class="mi">221</span><span class="o">-</span><span class="mi">193</span><span class="o">-</span><span class="mf">240.</span><span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mf">2.</span><span class="n">compute</span><span class="p">.</span><span class="n">amazonaws</span><span class="p">.</span><span class="n">com</span>
+<span class="n">Email</span> <span class="n">Address</span> <span class="p">[]</span><span class="o">:</span>
+
+<span class="n">Please</span> <span class="n">enter</span> <span class="n">the</span> <span class="n">following</span> <span class="err">&#39;</span><span class="n">extra</span><span class="err">&#39;</span> <span class="n">attributes</span>
+<span class="n">to</span> <span class="n">be</span> <span class="n">sent</span> <span class="n">with</span> <span class="n">your</span> <span class="n">certificate</span> <span class="n">request</span>
+<span class="n">A</span> <span class="n">challenge</span> <span class="n">password</span> <span class="p">[]</span><span class="o">:</span>
+<span class="n">An</span> <span class="n">optional</span> <span class="n">company</span> <span class="n">name</span> <span class="p">[]</span><span class="o">:</span>
+</pre></div>
+
+
+<h2 id="_2">签署认证请求</h2>
+<div class="hlcode"><pre><span class="err">$</span> <span class="n">openssl</span> <span class="n">x509</span> <span class="o">-</span><span class="n">req</span> <span class="o">-</span><span class="n">in</span> <span class="n">dev</span><span class="o">-</span><span class="n">docker</span><span class="o">-</span><span class="n">registry</span><span class="p">.</span><span class="n">com</span><span class="p">.</span><span class="n">csr</span> <span class="o">-</span><span class="n">CA</span> <span class="n">devdockerCA</span><span class="p">.</span><span class="n">crt</span> <span class="o">-</span><span class="n">CAkey</span> <span class="n">devdockerCA</span><span class="p">.</span><span class="n">key</span> <span class="o">-</span><span class="n">CAcreateserial</span> <span class="o">-</span><span class="n">out</span> <span class="n">domain</span><span class="p">.</span><span class="n">crt</span> <span class="o">-</span><span class="n">days</span> <span class="mi">10000</span>
+<span class="n">Signature</span> <span class="n">ok</span>
+<span class="n">subject</span><span class="o">=/</span><span class="n">C</span><span class="o">=</span><span class="n">XX</span><span class="o">/</span><span class="n">L</span><span class="o">=</span><span class="n">Default</span> <span class="n">City</span><span class="o">/</span><span class="n">O</span><span class="o">=</span><span class="n">Default</span> <span class="n">Company</span> <span class="n">Ltd</span><span class="o">/</span><span class="n">CN</span><span class="o">=</span><span class="n">ec2</span><span class="o">-</span><span class="mi">18</span><span class="o">-</span><span class="mi">221</span><span class="o">-</span><span class="mi">193</span><span class="o">-</span><span class="mf">240.</span><span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mf">2.</span><span class="n">compute</span><span class="p">.</span><span class="n">amazonaws</span><span class="p">.</span><span class="n">com</span>
+<span class="n">Getting</span> <span class="n">CA</span> <span class="n">Private</span> <span class="n">Key</span>
+</pre></div>
+
+
+<h2 id="nginx_2">配置nginx使用证书</h2>
+<p>修改registry.conf配置文件，取消如下三行的注释</p>
+<div class="hlcode"><pre><span class="n">ssl</span> <span class="n">on</span><span class="p">;</span>
+<span class="n">ssl_certificate</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">crt</span><span class="p">;</span>
+<span class="n">ssl_certificate_key</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">nginx</span><span class="o">/</span><span class="n">conf</span><span class="p">.</span><span class="n">d</span><span class="o">/</span><span class="n">domain</span><span class="p">.</span><span class="n">key</span><span class="p">;</span>
+</pre></div>
+
+
+<h2 id="registry_1">运行Registry</h2>
+<p>执行docker-compose up -d在后台运行Registry，并使用curl验证结果。这时使用localhost:5000端口仍然可以直接访问Registry，但是如果使用443端口通过nginx代理访问，因为已经加了SSL认证，所以使用http将返回“400 bad request”</p>
+<div class="hlcode"><pre><span class="err">$</span> <span class="nb">curl</span> <span class="nx">http</span><span class="p">:</span><span class="c1">//localhost:5000/v2/</span>
+<span class="p">{}</span>
+<span class="err">$</span> <span class="nb">curl</span> <span class="nx">http</span><span class="p">:</span><span class="c1">//localhost:443/v2/</span>
+<span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nb">head</span><span class="o">&gt;&lt;</span><span class="nb">title</span><span class="o">&gt;</span><span class="mi">400</span> <span class="nx">The</span> <span class="nx">plain</span> <span class="nx">HTTP</span> <span class="nx">request</span> <span class="nx">was</span> <span class="nx">sent</span> <span class="k">to</span> <span class="nx">HTTPS</span> <span class="nb">port</span><span class="o">&lt;/</span><span class="nb">title</span><span class="o">&gt;&lt;/</span><span class="nb">head</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nb">body</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">center</span><span class="o">&gt;&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="mi">400</span> <span class="nx">Bad</span> <span class="nx">Request</span><span class="o">&lt;/</span><span class="nx">h1</span><span class="o">&gt;&lt;/</span><span class="nx">center</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">center</span><span class="o">&gt;</span><span class="nx">The</span> <span class="nx">plain</span> <span class="nx">HTTP</span> <span class="nx">request</span> <span class="nx">was</span> <span class="nx">sent</span> <span class="k">to</span> <span class="nx">HTTPS</span> <span class="nb">port</span><span class="o">&lt;/</span><span class="nx">center</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">hr</span><span class="o">&gt;&lt;</span><span class="nx">center</span><span class="o">&gt;</span><span class="nx">nginx</span><span class="p">/</span><span class="nx">1.9.15</span><span class="o">&lt;/</span><span class="nx">center</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nb">body</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nx">html</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<p>应该使用https协议</p>
+<div class="hlcode"><pre><span class="err">$</span> <span class="n">curl</span> <span class="n">https</span><span class="o">:</span><span class="c1">//localhost:443/v2/</span>
+<span class="nl">curl:</span> <span class="p">(</span><span class="mi">60</span><span class="p">)</span> <span class="n">Peer</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">certificate</span> <span class="n">has</span> <span class="n">an</span> <span class="n">invalid</span> <span class="n">signature</span><span class="p">.</span>
+<span class="n">More</span> <span class="n">details</span> <span class="n">here</span><span class="o">:</span> <span class="n">http</span><span class="o">:</span><span class="c1">//curl.haxx.se/docs/sslcerts.html</span>
+
+<span class="n">curl</span> <span class="n">performs</span> <span class="n">SSL</span> <span class="n">certificate</span> <span class="n">verification</span> <span class="n">by</span> <span class="k">default</span><span class="p">,</span> <span class="n">using</span> <span class="n">a</span> <span class="s">&quot;bundle&quot;</span>
+ <span class="n">of</span> <span class="n">Certificate</span> <span class="n">Authority</span> <span class="p">(</span><span class="n">CA</span><span class="p">)</span> <span class="n">public</span> <span class="n">keys</span> <span class="p">(</span><span class="n">CA</span> <span class="n">certs</span><span class="p">).</span> <span class="n">If</span> <span class="n">the</span> <span class="k">default</span>
+ <span class="n">bundle</span> <span class="n">file</span> <span class="n">isn</span><span class="err">&#39;</span><span class="n">t</span> <span class="n">adequate</span><span class="p">,</span> <span class="n">you</span> <span class="n">can</span> <span class="n">specify</span> <span class="n">an</span> <span class="n">alternate</span> <span class="n">file</span>
+ <span class="n">using</span> <span class="n">the</span> <span class="o">--</span><span class="n">cacert</span> <span class="n">option</span><span class="p">.</span>
+<span class="n">If</span> <span class="n">this</span> <span class="n">HTTPS</span> <span class="n">server</span> <span class="n">uses</span> <span class="n">a</span> <span class="n">certificate</span> <span class="kt">signed</span> <span class="n">by</span> <span class="n">a</span> <span class="n">CA</span> <span class="n">represented</span> <span class="n">in</span>
+ <span class="n">the</span> <span class="n">bundle</span><span class="p">,</span> <span class="n">the</span> <span class="n">certificate</span> <span class="n">verification</span> <span class="n">probably</span> <span class="n">failed</span> <span class="n">due</span> <span class="n">to</span> <span class="n">a</span>
+ <span class="n">problem</span> <span class="n">with</span> <span class="n">the</span> <span class="n">certificate</span> <span class="p">(</span><span class="n">it</span> <span class="n">might</span> <span class="n">be</span> <span class="n">expired</span><span class="p">,</span> <span class="n">or</span> <span class="n">the</span> <span class="n">name</span> <span class="n">might</span>
+ <span class="n">not</span> <span class="n">match</span> <span class="n">the</span> <span class="n">domain</span> <span class="n">name</span> <span class="n">in</span> <span class="n">the</span> <span class="n">URL</span><span class="p">).</span>
+<span class="n">If</span> <span class="n">you</span><span class="err">&#39;</span><span class="n">d</span> <span class="n">like</span> <span class="n">to</span> <span class="n">turn</span> <span class="n">off</span> <span class="n">curl</span><span class="err">&#39;</span><span class="n">s</span> <span class="n">verification</span> <span class="n">of</span> <span class="n">the</span> <span class="n">certificate</span><span class="p">,</span> <span class="n">use</span>
+ <span class="n">the</span> <span class="o">-</span><span class="n">k</span> <span class="p">(</span><span class="n">or</span> <span class="o">--</span><span class="n">insecure</span><span class="p">)</span> <span class="n">option</span><span class="p">.</span>
+</pre></div>
+
+
+<p>由于是使用的未经任何认证机构认证的证书，并且还没有在本地应用自己生成的证书。所以此时会提示使用的是未经认证的证书，可以使用“-k”选项不进行验证。</p>
+<div class="hlcode"><pre><span class="err">$</span> <span class="nb">curl</span> <span class="na">-k</span> <span class="nx">https</span><span class="p">:</span><span class="c1">//localhost:443/v2/</span>
+<span class="o">&lt;</span><span class="nx">html</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nb">head</span><span class="o">&gt;&lt;</span><span class="nb">title</span><span class="o">&gt;</span><span class="mi">401</span> <span class="nx">Authorization</span> <span class="nx">Required</span><span class="o">&lt;/</span><span class="nb">title</span><span class="o">&gt;&lt;/</span><span class="nb">head</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nb">body</span> <span class="n">bgcolor</span><span class="o">=</span><span class="s2">&quot;white&quot;</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">center</span><span class="o">&gt;&lt;</span><span class="nx">h1</span><span class="o">&gt;</span><span class="mi">401</span> <span class="nx">Authorization</span> <span class="nx">Required</span><span class="o">&lt;/</span><span class="nx">h1</span><span class="o">&gt;&lt;/</span><span class="nx">center</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">hr</span><span class="o">&gt;&lt;</span><span class="nx">center</span><span class="o">&gt;</span><span class="nx">nginx</span><span class="p">/</span><span class="nx">1.9.15</span><span class="o">&lt;/</span><span class="nx">center</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nb">body</span><span class="o">&gt;</span>
+<span class="o">&lt;/</span><span class="nx">html</span><span class="o">&gt;</span>
+</pre></div>
+
+
+<h1 id="dockerregistry">Docker客户端使用Registry</h1>
+<h2 id="_3">添加证书</h2>
+<p>Centos 6/7 添加证书具体步骤如下</p>
+<div class="hlcode"><pre><span class="cp"># 安装ca-certificates包</span>
+<span class="err">$</span> <span class="n">yum</span> <span class="n">install</span> <span class="n">ca</span><span class="o">-</span><span class="n">certificates</span>
+<span class="cp"># 使能动态CA配置功能</span>
+<span class="err">$</span> <span class="n">update</span><span class="o">-</span><span class="n">ca</span><span class="o">-</span><span class="n">trust</span> <span class="n">force</span><span class="o">-</span><span class="n">enable</span>
+<span class="cp"># 将镜像仓库的证书拷贝到Docker客户端主机的/etc/pki/ca-trust/source/anchors/</span>
+<span class="err">$</span> <span class="n">scp</span> <span class="o">/</span><span class="n">etc</span><span class="o">/</span><span class="n">pki</span><span class="o">/</span><span class="n">ca</span><span class="o">-</span><span class="n">trust</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">anchors</span><span class="o">/</span><span class="n">devdockerCA</span><span class="p">.</span><span class="n">crt</span> <span class="n">root</span><span class="err">@</span><span class="mf">172.31.17.2</span><span class="o">:/</span><span class="n">etc</span><span class="o">/</span><span class="n">pki</span><span class="o">/</span><span class="n">ca</span><span class="o">-</span><span class="n">trust</span><span class="o">/</span><span class="n">source</span><span class="o">/</span><span class="n">anchors</span><span class="o">/</span>
+<span class="cp"># 使新拷贝的证书生效</span>
+<span class="err">$</span> <span class="n">update</span><span class="o">-</span><span class="n">ca</span><span class="o">-</span><span class="n">trust</span> <span class="n">extract</span>
+<span class="cp"># 证书拷贝后，需要重启docker以保证docker能使用新的证书</span>
+<span class="err">$</span> <span class="n">service</span> <span class="n">docker</span> <span class="n">restart</span>
+</pre></div>
+
+
+<h2 id="_4">登录远程镜像仓库</h2>
+<div class="hlcode"><pre><span class="n">sudo</span> <span class="n">docker</span> <span class="n">login</span> <span class="o">-</span><span class="n">u</span> <span class="n">docker</span> <span class="o">-</span><span class="n">p</span> <span class="p">[</span><span class="err">\</span><span class="o">*</span><span class="err">\</span><span class="o">*</span><span class="err">\</span><span class="o">*</span><span class="p">]</span> <span class="n">https</span><span class="o">:</span><span class="c1">//ec2-18-221-193-240.us-east-2.compute.amazonaws.com</span>
+</pre></div>
+
+
+<h2 id="pushregistry">制作要push到registry的镜像</h2>
+<p>注意需要提交到远程镜像仓库的镜像，需要用自定义的域名进行tag标记。例如：ec2-18-221-193-240.us-east-2.compute.amazonaws.com/image:1.0，可以通过下面的命令进行tag。</p>
+<div class="hlcode"><pre><span class="n">docker</span> <span class="n">tag</span> <span class="n">SOURCE_IMAGE</span><span class="p">[</span><span class="o">:</span><span class="n">TAG</span><span class="p">]</span> <span class="n">TARGET_IMAGE</span><span class="p">[</span><span class="o">:</span><span class="n">TAG</span><span class="p">]</span>
+</pre></div>
+
+
+<p>Docker pull/push image测试</p>
+<div class="hlcode"><pre><span class="n">sudo</span> <span class="n">docker</span> <span class="n">push</span> <span class="n">ec2</span><span class="o">-</span><span class="mi">18</span><span class="o">-</span><span class="mi">221</span><span class="o">-</span><span class="mi">193</span><span class="o">-</span><span class="mf">240.</span><span class="n">us</span><span class="o">-</span><span class="n">east</span><span class="o">-</span><span class="mf">2.</span><span class="n">compute</span><span class="p">.</span><span class="n">amazonaws</span><span class="p">.</span><span class="n">com</span><span class="o">/</span><span class="n">image</span><span class="o">:</span><span class="mf">1.0</span>
+</pre></div>
+
+  <!-- comments model --><hr style="border:1px dashed #eee">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments.</a></noscript>
+    </div>
+
+    <!-- Valine comment --><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <script>
+      new Valine({
+        av: AV,
+        el: '#disqus_thread',
+        appId: 'pMgClbOyqp0K4AQxpMUJuskE-9Nh9j0Va',
+        appKey: 'CzXcgRguvCJa0EkILaN5F4HX',
+        notify: false,
+        verify: false,
+        avatar: 'mm',
+        placeholder: 'write a comment...',
+        visitor: true
+      });
+    </script><!-- Disqus comment -->
+      <br><br>
+
+    </div>
+
+    <div id="footer">
+
+      <span>
+          <p>Copyright © 2019 <a href="https://longshilin.com/wiki" target="_blank">Longshilin</a>.</p>
+          <p>For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><p/>
+          <!-- 署名协议 -->
+          <p><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>&nbsp; |&nbsp;
+            Site Generated 2019-05-06 11:03:11 &nbsp;|&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>
+
+<!-- add google translate - ->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
+  }
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+-->

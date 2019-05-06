@@ -1,0 +1,153 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="Stylesheet" type="text/css" href="/wiki/static/css/style.css">
+    <link rel="Stylesheet" type="text/css" href="/wiki/static/css/tango.css">
+    <link rel="shortcut icon" href="/wiki/static/images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="/wiki/static/images/favicon.png" type="image/x-icon">
+    <link rel="alternate" type="application/atom+xml" href="atom.xml" title="Atom feed">
+    <title>Atom通过自定义配置提升效率 - 知识库</title>
+    <meta name="keywords" content="wiki, simple"/>
+    <meta name="description" content=""/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  </head>
+
+  <body>
+
+    <div id="container" style="position:relative">
+      <button type="button" style="position:absolute; left:0; margin-top: -22px; margin-left: -1px;" class="blog-button .btn"><a href="https://longshilin.com/blog">Back Blog</a></button>
+      <!-- <div id="google_translate_element" style="position:absolute; right:0; margin-top: -22px; margin-right: -1px;"></div> -->
+      
+<div id="header">
+  <div class="post-nav"><a href="/wiki/">Home</a>&nbsp;&#187;&nbsp;<a href="/wiki/#editor">editor</a>&nbsp;&#187;&nbsp;Atom通过自定义配置提升效率
+    <span class="updated">Page Updated&nbsp;
+      2018-10-09 11:32
+    </span></div>
+</div>
+<div class="clearfix"></div>
+
+<div class="page_title">Atom通过自定义配置提升效率</div>
+
+  <div class="toc"><span class="toctitle">Table of Contents</span><ul>
+<li><a href="#atom">设置Atom个人配置多端同步</a><ul>
+<li><a href="#_1">目标</a></li>
+<li><a href="#_2">流程步骤</a></li>
+<li><a href="#_3">讨论</a></li>
+</ul>
+</li>
+<li><a href="#atommarkdown">Atom设置markdown的快捷键</a><ul>
+<li><a href="#_4">目标</a></li>
+<li><a href="#_5">流程步骤</a></li>
+<li><a href="#_6">讨论</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>在我搭建博客和进行写作以来，慢慢的磨合最终找到适配自己的写作模式，其中就有通过Atom进行编辑的地方，现在将我使用到的一些功能加以分享和记录。这里大多数功能都是通过插件的方式加以呈现的，旨在提升编辑的便利性和高效性，期间可能存在拖慢编辑器之嫌（ps：目前我为感觉出来），但是相较于我的高效能工作而比，这点性能损耗不算什么~</p>
+<h2 id="atom">设置Atom个人配置多端同步</h2>
+<h3 id="_1">目标</h3>
+<p>通过一款名叫<code>sync-settings</code>的Atom插件完成在多端的个人Atom配置的问题，详见官方文档 <a href="https://atom.io/packages/sync-settings">Sync Settings for Atom</a><br />
+这款插件是利用Gist来实现将Atom的config文件同步到Gist远程仓库实现配置文件的云端化，然后用户可以通过在其他客户端上使用Gist访问秘钥实现远程同步配置文件。</p>
+<h3 id="_2">流程步骤</h3>
+<p>通过参考这篇博客 <a href="https://segmentfault.com/a/1190000010604017">使用gist来备份atom的配置</a> 来获取你的<code>gistId</code>和<code>personalAccessToken</code>，我这里已经保存在我的gist中了，gistid为你的当前gist文档的url最后一串英文Id，而Token已经保存在此文档中了。</p>
+<p>当你在一个新Atom客户端上需要同步之前的个人配置时，通过在Atom客户端首页菜单栏，点击<code>File</code>--&gt;<code>settings</code>--&gt;<code>install</code>，搜索<code>sync-settings</code>插件并安装，点击该插件的<code>setting</code></p>
+<p><img alt="sync-settings" src="https://i.imgur.com/TF1bjXm.png" /></p>
+<p>官方具体的操作指南，可以查看设置该插件页面的下方，有README的文档可以查看。</p>
+<p>这里我着重列出几个常用的命令并说明其用法，使用快捷键 <kbd>cmd-shift-p</kbd> (macOS) or <kbd>ctrl-shift-p</kbd> (Linux/Windows) 来调出Command窗口.</p>
+<ul>
+<li><code>sync-settings:backup</code>  将本地配置同步到远程Gist仓库</li>
+<li><code>sync-settings:restore</code>  将远程仓库的文件同步到Atom本地客户端中</li>
+<li><code>sync-settings:view-backup</code>  通过URL查看远程仓库的文件</li>
+<li><code>sync-settings:check-backup</code>  校验本地配置是否是远程最新版</li>
+<li><code>sync-settings:fork</code>  Fork他人的Gist配置，在接下来的窗口中填入他人的GistId。 ps：这里给出我的GistId <code>360230ac46a19f3f31b8e0cc0c554656</code>，里面包含我所安装的所有插件，大家可以自由取舍 | 欢迎Fork :） 和我使用相同的Atom配置，并在此基础上进行自定义~</li>
+</ul>
+<h3 id="_3">讨论</h3>
+<p>这里给出了多客户端同步Atom个人配置的方法，主要是达到一个客户端配置适配自己所有的平台，加速开发效率和跨平台性，非常棒的解决方案~  以后的写作可以起飞了！！！:)</p>
+<h2 id="atommarkdown">Atom设置markdown的快捷键</h2>
+<h3 id="_4">目标</h3>
+<p>在Atom编辑器中编写markdown格式的博客是习以为常的事，但是要是在此基础上增添快捷键，来修饰我们的写作那就更棒了，比如说<kbd>Ctrl+B</kbd>表示字体加粗，我们使用快捷键就可以方便的达到目的哦~</p>
+<h3 id="_5">流程步骤</h3>
+<p>为Atom编辑器安装Markdown Writer插件，详见[Markdown Writer]<br />
+正确的方式是在下面的截图中打开<code>C:\Users\$USERNAME\.atom\keymap.cson</code><br />
+<img alt="keymap.cson" src="https://i.imgur.com/3H6xDVR.png" /></p>
+<p>并在其中加入下面的快捷键：</p>
+<div class="hlcode"><pre><span class="cp"># Default Keymaps for Markdown Writer</span>
+<span class="cp"># https:</span><span class="c1">//atom.io/packages/markdown-writer</span>
+<span class="cp">#</span>
+<span class="cp"># Wiki: https:</span><span class="c1">//github.com/zhuochun/md-writer/wiki/Settings-for-Keymaps</span>
+<span class="cp">#</span>
+<span class="s">&quot;.platform-win32 atom-text-editor:not([mini])&quot;</span><span class="o">:</span>
+  <span class="s">&quot;shift-ctrl-K&quot;</span><span class="o">:</span> <span class="s">&quot;markdown-writer:insert-link&quot;</span>
+  <span class="s">&quot;shift-ctrl-I&quot;</span><span class="o">:</span> <span class="s">&quot;markdown-writer:insert-image&quot;</span>
+  <span class="s">&quot;ctrl-v&quot;</span><span class="o">:</span>       <span class="s">&quot;markdown-writer:insert-image-clipboard&quot;</span>
+  <span class="s">&quot;ctrl-i&quot;</span><span class="o">:</span>       <span class="s">&quot;markdown-writer:toggle-italic-text&quot;</span>
+  <span class="s">&quot;ctrl-b&quot;</span><span class="o">:</span>       <span class="s">&quot;markdown-writer:toggle-bold-text&quot;</span>
+  <span class="s">&quot;ctrl-&#39;&quot;</span><span class="o">:</span>       <span class="s">&quot;markdown-writer:toggle-code-text&quot;</span>
+  <span class="s">&quot;ctrl-k&quot;</span><span class="o">:</span>       <span class="s">&quot;markdown-writer:toggle-keystroke-text&quot;</span>
+  <span class="s">&quot;ctrl-h&quot;</span><span class="o">:</span>       <span class="s">&quot;markdown-writer:toggle-strikethrough-text&quot;</span>
+  <span class="s">&quot;ctrl-alt-1&quot;</span><span class="o">:</span>  <span class="s">&quot;markdown-writer:toggle-h1&quot;</span>
+  <span class="s">&quot;ctrl-alt-2&quot;</span><span class="o">:</span>  <span class="s">&quot;markdown-writer:toggle-h2&quot;</span>
+  <span class="s">&quot;ctrl-alt-3&quot;</span><span class="o">:</span>  <span class="s">&quot;markdown-writer:toggle-h3&quot;</span>
+  <span class="s">&quot;ctrl-alt-4&quot;</span><span class="o">:</span>  <span class="s">&quot;markdown-writer:toggle-h4&quot;</span>
+  <span class="s">&quot;ctrl-alt-5&quot;</span><span class="o">:</span>  <span class="s">&quot;markdown-writer:toggle-h5&quot;</span>
+  <span class="s">&quot;shift-ctrl-O&quot;</span><span class="o">:</span> <span class="s">&quot;markdown-writer:toggle-ol&quot;</span>
+  <span class="s">&quot;shift-ctrl-U&quot;</span><span class="o">:</span> <span class="s">&quot;markdown-writer:toggle-ul&quot;</span>
+  <span class="s">&quot;shift-ctrl-&gt;&quot;</span><span class="o">:</span> <span class="s">&quot;markdown-writer:toggle-blockquote&quot;</span>
+  <span class="err">&#39;</span><span class="n">shift</span><span class="o">-</span><span class="n">ctrl</span><span class="o">-</span><span class="s">&quot;&#39;: &quot;</span><span class="n">markdown</span><span class="o">-</span><span class="n">writer</span><span class="o">:</span><span class="n">toggle</span><span class="o">-</span><span class="n">codeblock</span><span class="o">-</span><span class="n">text</span><span class="s">&quot;</span>
+  <span class="s">&quot;ctrl-j ctrl-p&quot;</span><span class="o">:</span> <span class="s">&quot;markdown-writer:jump-to-previous-heading&quot;</span>
+  <span class="s">&quot;ctrl-j ctrl-n&quot;</span><span class="o">:</span> <span class="s">&quot;markdown-writer:jump-to-next-heading&quot;</span>
+  <span class="s">&quot;ctrl-j ctrl-d&quot;</span><span class="o">:</span> <span class="s">&quot;markdown-writer:jump-to-reference-definition&quot;</span>
+  <span class="s">&quot;ctrl-j ctrl-t&quot;</span><span class="o">:</span> <span class="s">&quot;markdown-writer:jump-to-next-table-cell&quot;</span>
+</pre></div>
+
+
+<h3 id="_6">讨论</h3>
+<p>通过上面的流程，其实不光是解决了Markdown快捷键的问题，而且学习到Atom自定义快捷键的通用方法，就是自定义Atom编辑器的keymap.cson文件即可。:smiley:</p>
+
+  <!-- comments model --><hr style="border:1px dashed #eee">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments.</a></noscript>
+    </div>
+
+    <!-- Valine comment --><script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <script>
+      new Valine({
+        av: AV,
+        el: '#disqus_thread',
+        appId: 'pMgClbOyqp0K4AQxpMUJuskE-9Nh9j0Va',
+        appKey: 'CzXcgRguvCJa0EkILaN5F4HX',
+        notify: false,
+        verify: false,
+        avatar: 'mm',
+        placeholder: 'write a comment...',
+        visitor: true
+      });
+    </script><!-- Disqus comment -->
+      <br><br>
+
+    </div>
+
+    <div id="footer">
+
+      <span>
+          <p>Copyright © 2019 <a href="https://longshilin.com/wiki" target="_blank">Longshilin</a>.</p>
+          <p>For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><p/>
+          <!-- 署名协议 -->
+          <p><script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>&nbsp; |&nbsp;
+            Site Generated 2019-05-06 11:03:11 &nbsp;|&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
+      </span>
+    </div>
+
+    
+    
+  </body>
+</html>
+
+<!-- add google translate - ->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
+  }
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+-->

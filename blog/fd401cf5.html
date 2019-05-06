@@ -16,7 +16,7 @@
 <meta property="og:description" content="基于hexo和simiki工具构建基础镜像环境，用作我website项目中website-on-gitlab CI/CD的基础镜像。并将其发布到Docker Hub的 PUBLIC REPOSITORY">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://i.imgur.com/flxHs0r.png">
-<meta property="og:updated_time" content="2019-05-06T10:48:36.000Z">
+<meta property="og:updated_time" content="2019-05-06T11:02:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="构建hexo和simiki工具的docker镜像">
 <meta name="twitter:description" content="基于hexo和simiki工具构建基础镜像环境，用作我website项目中website-on-gitlab CI/CD的基础镜像。并将其发布到Docker Hub的 PUBLIC REPOSITORY">
@@ -177,7 +177,7 @@ sudo yum install nodejs
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/fd401cf5.html" data-id="cjvc8so4b000d0m05evurfobs" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/fd401cf5.html" data-id="cjvc9alp8000d0mu1rlspyy9t" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -356,20 +356,6 @@ sudo yum install nodejs
 </footer>
 
   
-<script>
-  var disqus_shortname = 'longsl-blog';
-  
-  var disqus_url = 'https://longshilin.com/blog/fd401cf5.html';
-  
-  (function(){
-    var dsq = document.createElement('script');
-    dsq.type = 'text/javascript';
-    dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-  })();
-</script>
-
 
 <!-- changyan comment -->
 
@@ -378,6 +364,21 @@ sudo yum install nodejs
 
 
 <!-- Valine comment -->
+
+  <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+  <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+  <script>
+    new Valine({
+      av: AV,
+  		el: '#disqus_thread',
+  		appId: 'pMgClbOyqp0K4AQxpMUJuskE-9Nh9j0Va',
+  		appKey: 'CzXcgRguvCJa0EkILaN5F4HX',
+  		notify: false,
+  		verify: false,
+  		avatar: 'mm',
+  		placeholder: '在此处写下你的评论吧...'
+  	});
+  </script>
 
 
 <script src="/assets/js/jquery.min.js" crossorigin="anonymous"></script>
