@@ -96,8 +96,6 @@
           
           <category> 工具 </category>
           
-          <category> 写博工具 </category>
-          
       </categories>
       
       
@@ -132,8 +130,6 @@
           
           <category> 工具 </category>
           
-          <category> 电脑工具 </category>
-          
       </categories>
       
       
@@ -154,6 +150,8 @@
       
       
       <categories>
+          
+          <category> 语言 </category>
           
           <category> mybatis </category>
           
@@ -268,7 +266,7 @@
       
       <categories>
           
-          <category> 学习资源 </category>
+          <category> 资源 </category>
           
       </categories>
       
@@ -291,7 +289,7 @@
       
       <categories>
           
-          <category> 学习资源 </category>
+          <category> 资源 </category>
           
       </categories>
       
@@ -309,7 +307,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1/T2jTcSTZm3LNHNEn4oYFebTKivZyUE+yRv0JxGIzZ2cKg7GMb6O29FBXniDGk45m2lI0JArWCKeI7NhXPa5KI1hLgP/q45uRznOSyw95sBBzvBVR3V+d9kiaoDnbRSGpvaFNP/IRoNFvHIyRA9OKsc3TFrO7Zij1o3AAnuWAFu8BsJqMGMxVLGYD9HC8Mz9R51rTIMzh6veQn7gHyLn88AFTHEJ6+aB9DHrwFIHrqiGh6b9/fixHENkTkd1V5R9A620JjW24+2bGBr5+ayey8JJnvp0AEpk93mj2ZYkJPtpaY/sztg5Gb5DbOjItqOBidTUvbOVuCpgUdjnnHovah6MOaN25NS7kHe0qw6tdPNwVYix3LExbGzYOKU9GcR0mZ6jrW/s4MMOJXigam4x42q3EXIapOTAoUurAt+iumOjSUTpCC7hipPCll9f+4/9M7d9zutugWhlIhQFrvgCR1aBNxn091UcmN/XETOrELaj6PEfhb+8pbEF+N7lYpUsQGX07T8cd9ObQGpNg7CNSugIvX2DdS91qo4DD4Ui62579BIuIPTY1IWHbrGP+6p//HCvyNihINAntm3XPj3qabb+K4fERJZsh+zvArsrPXwlf7+USKATKTF9Mmvor6IhkF2kawnelILJlCUAV3EE3bNVavarFRxLUAZVMLUyvyX4IoRsgQq2o9lTm+B88tdy9H4emISWv93OcNweL9djhHqf7g/XL4iRg3nhAoUy+fmvJ9us0TEjFKgQgwL4+7N26EdBIpldi5CA==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX19WqvYnLDr/GLLlab8CrOARz+aWhsspLsnlgdW8OoO6IAQ/PiQcSRFlmVF/uVV1Od1wuAGYqt2Iyz3jeJbrk6qnwRasS0e4ngNuFbPzutEDgc7jf2CdTn9iHe5+tkjprxx4750GhoH/2XIONKzC17fqvVffa3LOUlyq3vYNH26uggpv14/Xk5k3vwnmqPZU99+VvbrmiDyH6izrssWVvC2Ba+WvHF2R7YRDyKcIfTSiBtVVBAm6XdEnvJ8Zt5xfVCkJ05/j2Hr7C02ZOxUX5C1cZLpCP+azgtxvr9YMtg9eXwy+ACO/BRDE6xpQEG266237XLSLG1mam3W4n9Gg1BKXfq/JRTW8ScZWzpgdZfZxtVTt92z9scOZannNZjWxKx6Qr+SmKtDqu5CJYPRoORxW6dmiSyfQIMKdwDpjSelJM0vk+9s9C638dmIPqdwVilvQ4vyB/OMESzKq+qzDKtapGSjT6oKKBq0K4dqdmTwtLbjcfZ1Qy+gc5d35cZr0tRrYpqU7kUJmtmv9Cwu3HwY1M/z3DfyXOKnOwLLkoYYz2nf8aXxyA7xkRZcz24NcZhN7GxQpqi/GJmrq0zlKCqKnjWGJ3lZFZLUv3I5Q3MANajX0rUtc4hMwe9iLcB3jhWekIVgy3ubMA+HWYwphPK+OhwhzuRDEIyZ4ydubewPcOBMhElxtfRqvjyO+jxUI1+iNDemvmU6Pg1PuSphiFtE8qtbp03dpgwCo/98afvcs7hS8Smu/rAwG4r580/xR0A8ZTQGBSxnVTw==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -326,8 +324,6 @@
       <categories>
           
           <category> 工具 </category>
-          
-          <category> 电脑工具 </category>
           
       </categories>
       
@@ -409,7 +405,7 @@
       
       <categories>
           
-          <category> docker </category>
+          <category> Docker </category>
           
       </categories>
       
@@ -525,6 +521,33 @@
     </entry>
     
     <entry>
+      <title>构建hexo和simiki工具的docker镜像</title>
+      <link href="/blog/fd401cf5.html"/>
+      <url>/blog/fd401cf5.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/flxHs0r.png" alt=""><br>基于<a href="https://hexo.io" target="_blank" rel="noopener">hexo</a>和<a href="http://simiki.org/" target="_blank" rel="noopener">simiki</a>工具构建基础镜像环境，用作我website项目中<a href="https://longshilin.com/blog/2018/09/22/website-on-gitlab/">website-on-gitlab CI/CD</a>的基础镜像。并将其发布到Docker Hub的<br><a href="https://hub.docker.com/r/longsl/hexo2simiki/" target="_blank" rel="noopener">PUBLIC REPOSITORY</a></p><a id="more"></a><h1>DockerFile</h1><p>通过官方centos7镜像为基础来构建包含构建website的构建环境。具体的环境包括：hexo, python3.6, nodejs, simiki, pip3.6</p><pre><code>FROM centos#安装EPEL依赖 Python3.6 pip3 nodejs npm hexo simikiRUN yum install -y epel-release; yum install -y https://centos7.iuscommunity.org/ius-release.rpm; yum install -y python36u; yum install -y python36u-pip; pip3.6 install --upgrade pip; curl -sL https://rpm.nodesource.com/setup_8.x | bash -; yum install -y nodejs; npm install hexo-cli -g; pip3.6 install simiki</code></pre><h1>Docker Build</h1><pre><code>docker build -t longsl/hexo2simiki .</code></pre><h1>Docker Container</h1><pre><code>docker run -it --rm longsl/hexo2simki /bin/sh</code></pre><h1>Supply</h1><p>关于下载最新版本的nodejs费了笔者一些功夫，因为通过<code>yum install -y nodejs</code>直接下载的包不是最新的版本，在hexo构建时，会提示npm版本过低的报错，因此我通过参考 <a href="https://linuxize.com/post/how-to-install-node-js-on-centos-7/" target="_blank" rel="noopener">How to install Node.js on CentOS 7</a>，更新yum源来下载node 8.x的版本。</p><pre><code>curl -sL https://rpm.nodesource.com/setup_8.x | sudo bash -sudo yum install nodejs</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> website </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> longshilindotcom </tag>
+            
+            <tag> hexo </tag>
+            
+            <tag> simiki </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>给自定义博客增加totop按钮</title>
       <link href="/blog/5b764c97.html"/>
       <url>/blog/5b764c97.html</url>
@@ -577,33 +600,6 @@
     </entry>
     
     <entry>
-      <title>构建hexo和simiki工具的docker镜像</title>
-      <link href="/blog/fd401cf5.html"/>
-      <url>/blog/fd401cf5.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/flxHs0r.png" alt=""><br>基于<a href="https://hexo.io" target="_blank" rel="noopener">hexo</a>和<a href="http://simiki.org/" target="_blank" rel="noopener">simiki</a>工具构建基础镜像环境，用作我website项目中<a href="https://longshilin.com/blog/2018/09/22/website-on-gitlab/">website-on-gitlab CI/CD</a>的基础镜像。并将其发布到Docker Hub的<br><a href="https://hub.docker.com/r/longsl/hexo2simiki/" target="_blank" rel="noopener">PUBLIC REPOSITORY</a></p><a id="more"></a><h1>DockerFile</h1><p>通过官方centos7镜像为基础来构建包含构建website的构建环境。具体的环境包括：hexo, python3.6, nodejs, simiki, pip3.6</p><pre><code>FROM centos#安装EPEL依赖 Python3.6 pip3 nodejs npm hexo simikiRUN yum install -y epel-release; yum install -y https://centos7.iuscommunity.org/ius-release.rpm; yum install -y python36u; yum install -y python36u-pip; pip3.6 install --upgrade pip; curl -sL https://rpm.nodesource.com/setup_8.x | bash -; yum install -y nodejs; npm install hexo-cli -g; pip3.6 install simiki</code></pre><h1>Docker Build</h1><pre><code>docker build -t longsl/hexo2simiki .</code></pre><h1>Docker Container</h1><pre><code>docker run -it --rm longsl/hexo2simki /bin/sh</code></pre><h1>Supply</h1><p>关于下载最新版本的nodejs费了笔者一些功夫，因为通过<code>yum install -y nodejs</code>直接下载的包不是最新的版本，在hexo构建时，会提示npm版本过低的报错，因此我通过参考 <a href="https://linuxize.com/post/how-to-install-node-js-on-centos-7/" target="_blank" rel="noopener">How to install Node.js on CentOS 7</a>，更新yum源来下载node 8.x的版本。</p><pre><code>curl -sL https://rpm.nodesource.com/setup_8.x | sudo bash -sudo yum install nodejs</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> website </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> longshilindotcom </tag>
-            
-            <tag> hexo </tag>
-            
-            <tag> simiki </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>在玖万里的第一次团建</title>
       <link href="/blog/1b08df06.html"/>
       <url>/blog/1b08df06.html</url>
@@ -636,7 +632,7 @@
       
       <categories>
           
-          <category> docker </category>
+          <category> Docker </category>
           
       </categories>
       
@@ -938,6 +934,8 @@
       
       <categories>
           
+          <category> 语言 </category>
+          
           <category> Java </category>
           
       </categories>
@@ -965,6 +963,8 @@
       
       <categories>
           
+          <category> 语言 </category>
+          
           <category> Java </category>
           
       </categories>
@@ -972,7 +972,7 @@
       
         <tags>
             
-            <tag> 接口与内部类 </tag>
+            <tag> Java </tag>
             
         </tags>
       
@@ -987,6 +987,8 @@
       
       
       <categories>
+          
+          <category> 语言 </category>
           
           <category> Java </category>
           
@@ -1017,6 +1019,8 @@
       
       <categories>
           
+          <category> 语言 </category>
+          
           <category> Java </category>
           
       </categories>
@@ -1033,6 +1037,8 @@
       
       
       <categories>
+          
+          <category> 语言 </category>
           
           <category> Java </category>
           
@@ -1059,6 +1065,8 @@
       
       <categories>
           
+          <category> 语言 </category>
+          
           <category> Java </category>
           
       </categories>
@@ -1081,6 +1089,8 @@
       
       
       <categories>
+          
+          <category> 语言 </category>
           
           <category> Java </category>
           
