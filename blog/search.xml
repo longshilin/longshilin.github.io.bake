@@ -7,7 +7,7 @@
       <link href="/blog/b5410c9.html"/>
       <url>/blog/b5410c9.html</url>
       
-        <content type="html"><![CDATA[<p>Tower确实蛮好用的，才试用了几天就爱上了它。在<a href="https://www.git-tower.com" target="_blank" rel="noopener">Tower官网</a>这里有关它的介绍，以及有专门的<a href="https://www.git-tower.com/learn/" target="_blank" rel="noopener">电子书和视频</a>来让你快速上手Tower和git。</p><p><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzs24oey0aj31z413ztdg.jpg" alt=""></p><a id="more"></a><p>#<kbd>Tower for windows</kbd><br>版本号截图<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzs26lgj0qj30ci0ai0t5.jpg" alt=""></p><p>Tower内部界面<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzs28pca0aj31de0pbtes.jpg" alt=""></p><blockquote><p>下载地址：<a href="https://pan.baidu.com/s/1uFCJ3m18RUA1vhPfs27Zvw" target="_blank" rel="noopener">https://pan.baidu.com/s/1uFCJ3m18RUA1vhPfs27Zvw</a> 密码：r1ys</p></blockquote><p>#<kbd>Tower for Mac</kbd><br>版本号截图<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzs2azmx8fj30lu0k0q5d.jpg" alt=""></p><p>Tower内部界面<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzs2ana3yxj31wo0xgwxu.jpg" alt=""></p><blockquote><p>下载链接：<a href="https://pan.baidu.com/s/1mIQQXm-bEZcbnz06G-FJ2w" target="_blank" rel="noopener">https://pan.baidu.com/s/1mIQQXm-bEZcbnz06G-FJ2w</a> 密码：6fbn</p></blockquote><blockquote><p>有任何问题，请在留言区留言给我~</p></blockquote>]]></content>
+        <content type="html"><![CDATA[<p>Tower确实蛮好用的，才试用了几天就爱上了它。在<a href="https://www.git-tower.com" target="_blank" rel="noopener">Tower官网</a>这里有关它的介绍，以及有专门的<a href="https://www.git-tower.com/learn/" target="_blank" rel="noopener">电子书和视频</a>来让你快速上手Tower和git。</p><p><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzs24oey0aj31z413ztdg.jpg" alt=""></p><a id="more"></a><p>#<kbd>Tower for windows</kbd><br>版本号截图<br><img src="https://longshilin.com/images/20190507100004.jpg" alt=""></p><p>Tower内部界面<br><img src="https://longshilin.com/images/20190507100014.jpg" alt=""></p><blockquote><p>下载地址：<a href="https://pan.baidu.com/s/1uFCJ3m18RUA1vhPfs27Zvw" target="_blank" rel="noopener">https://pan.baidu.com/s/1uFCJ3m18RUA1vhPfs27Zvw</a> 密码：r1ys</p></blockquote><p>#<kbd>Tower for Mac</kbd><br>版本号截图<br><img src="https://longshilin.com/images/20190507100042.jpg" alt=""></p><p>Tower内部界面<br><img src="https://longshilin.com/images/20190507100050.jpg" alt=""></p><blockquote><p>下载链接：<a href="https://pan.baidu.com/s/1mIQQXm-bEZcbnz06G-FJ2w" target="_blank" rel="noopener">https://pan.baidu.com/s/1mIQQXm-bEZcbnz06G-FJ2w</a> 密码：6fbn</p></blockquote><blockquote><p>有任何问题，请在留言区留言给我~</p></blockquote>]]></content>
       
       
       <categories>
@@ -45,29 +45,6 @@
         <tags>
             
             <tag> highlightjs </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>windows下运行linux命令行环境配置</title>
-      <link href="/blog/7e400281.html"/>
-      <url>/blog/7e400281.html</url>
-      
-        <content type="html"><![CDATA[<p>在windows下配置linux命令行的运行环境</p><a id="more"></a><p>介绍一个工具 <kbd>Chocolatey</kbd> The package manager for Windows<br><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzr16bqz7bj31gw0qtn1w.jpg" alt=""></p><h3 id="kbd-安装-git-for-windows-kbd"><kbd>安装 git for windows</kbd></h3><p>Download: <a href="https://git-scm.com/download/win" target="_blank" rel="noopener">https://git-scm.com/download/win</a></p><p><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzr17zsmy4j30j90eu3zh.jpg" alt=""></p><h3 id="kbd-chocolatey包含丰富的软件包-kbd"><kbd>chocolatey包含丰富的软件包</kbd></h3><p><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzr1a1w79rj31gf0qswjh.jpg" alt=""></p><h3 id="kbd-命令行配置-kbd"><kbd>命令行配置</kbd></h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ cat /etc/bash.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 避免出现命令乱码的别名使用</span></span><br><span class="line"><span class="built_in">alias</span> ping=<span class="string">"winpty ping"</span></span><br><span class="line"><span class="built_in">alias</span> ipconfig=<span class="string">"winpty ipconfig"</span></span><br><span class="line"><span class="built_in">alias</span> python=<span class="string">"winpty python"</span></span><br><span class="line"><span class="built_in">alias</span> aws=<span class="string">"winpty aws"</span></span><br><span class="line"><span class="built_in">alias</span> java=<span class="string">"winpty java"</span></span><br><span class="line"><span class="built_in">alias</span> ll=<span class="string">"ls -al"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Aria下载器</span></span><br><span class="line"><span class="built_in">alias</span> aria2=<span class="string">"/d/soft/aria2/aria2-1.34.0-win-64bit-build1/aria2c.exe"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 慢查询日志分析命令</span></span><br><span class="line"><span class="built_in">alias</span> slow-query=<span class="string">"pt-query-digest"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># MarkdownPad 2</span></span><br><span class="line"><span class="built_in">alias</span> markdown=<span class="string">"/d/soft/'MarkdownPad 2'/MarkdownPad2.exe"</span></span><br><span class="line"><span class="comment">#export JRE_HOME=/c/Program\ Files/Java/jdk1.8.0_162/jre</span></span><br><span class="line"><span class="comment">#export LC_ALL="zh_CN.GBK"</span></span><br><span class="line"><span class="comment">#export LANG="zh_CN.GBK"</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># ruby 命令</span></span><br><span class="line"><span class="built_in">alias</span> ruby=<span class="string">"/d/package/ruby25/bin/ruby.exe"</span></span><br><span class="line"><span class="comment"># gem命令</span></span><br><span class="line"><span class="built_in">alias</span> gem=<span class="string">"/d/package/rubygems-2.7.7/bin/gem"</span></span><br><span class="line"><span class="built_in">alias</span> notepad=<span class="string">"/d/soft/Notepad++/notepad++.exe"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">alias</span> proxy=<span class="string">'export all_proxy=socks5://127.0.0.1:1086'</span></span><br><span class="line"><span class="built_in">alias</span> unproxy=<span class="string">'unset all_proxy'</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">alias</span> mysql=<span class="string">'/d/package/mysql-5.7.24/bin/mysql.exe'</span></span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> 工具 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> shell </tag>
             
         </tags>
       
@@ -307,7 +284,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX19xFB5/z7OpG4Rle8vVBYTqHjZP1BlwFjqY479eNT6czi7x+bhlfFV7ZUjV6/Hy6aqwOfz2UG8tPfZ9hL1+011mIwm2oG6hpbFGNmku0J6IHiqknqGo353VyqPQvVoFb+FfNgJeQnBj+3VEuhcH6iupKXcLTHI8g/OXCuAgsjKupO87RiDwFOR7f/JRmXOr71x/H8JDU+WyI/cWVA4goAlTY/MYgiQVnXCfyYQSELOGLhORGw1QMH4/FTam7HtziUWCmCLehQO3FxLMEB3XQngYL8/l1TkLbpOltI/X3Qtr2ynr6eN4qocL2N1A6gxJ/h7EJLRVzQo5oiP3p9M5n9a9nrOAMlwA/qKliDozhVI8pWkbYl7XMJz88z7QzYJaB4iDRyPKZpMFVWaHSk5yceLu2FNSelEDSvL4VRGKn6VJJp2UaDynNgQ1J+GB8rW76Ylv4YOM4F/5Mvt0yKL5KB0mgS1DyYrqrDBbmkQrjQ5/a8jBO47bc878drAle/9xAvvomTUSNxGmn0kV/oHwklO4cuz++97jIPr9zv9nIi1qP3pcEf2QqlpXwaiWMmkdlO9lrUCf+4OFgGEzU0bQYLdFhAX5XBT+1qQwsMe6fTpVPH/T1GEbIRp9sPkHrY/13hxM5uT5RCALQ3u/KVyiKp/gL1naO8Y56Js39ms2vQYPjFKoCUZbvac6GIe9+mFmP9Pu+Efv4vlxiCMTOmyYSFkWNFkosnMCLkKRmDRI7zqraLLpKneH8IZw808Emmn7avXncA3HkrsMgg==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+2lXO0xxdF7QTweRUVDKp0SlCWxSpCPeleLdpVoscHt7WMnVeW4J5W7ZGhafZ1jHUfgOCkJ/VNVVnz1r780vXKeb3Mu2220Hmqytjm/EPI7WT9pnhubYKRwJYSzSd9iPZOdXNX+EitjfM36sWFXG6JH+9yHez4hAR7BvP+FVflgqSF8c8Ur2ryUIHPTuTVHDpI3AIrAIBfNrupvHr6Y13ZyYIHu0WfR7jCPmG+j5bfTkkjPMnW3O4rhZmiTg20jlYi2G5G7lZJG+Nwzwgjet4V9R7y6v1BIcvP64QBpVJLTGhuWlY2f23wYDxq0i9OWP2vq42R8xrln3fgbsxv0WS1oEHqho0XqEcLdEZp+RMd1TvODMJ8UOrdev9jeH9H9FHKn33tBmNcvnY9kXipsDvCGhiNzTt0Kqf4KZPPMZK0aDJ34K4Gd5IiV6p+/7tawgtbYoN/H4kz5gqP7cUke5bcw114vLvrhooX/Zd7FDj90bnEsXxK3MlJmLZ7fNQ9kZGAQExRvbxAvV1q33KUEmRa00L0Ij/3dbspVeCS/nKgPWdKIJnGzqG3y7LtJCPBTLqHqgc03ekfSAjxUhpJ90NrUE59aMuDtXF/ZMM7Dw97AudidMojECA/wvoqNZKz9W7tYshR48b6s27mSdioygu7z9tHcmhez+qfuqjiK6hejCz7m8CswpAEbFLd0uKqPjs/GthULnLhE824W8tsLXAwDd1KL4FXNJ/wyj93OracMnWTndBEmpFHB5FtadRsEyk+dqgj3qN17g==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -548,31 +525,6 @@
     </entry>
     
     <entry>
-      <title>给自定义博客增加totop按钮</title>
-      <link href="/blog/5b764c97.html"/>
-      <url>/blog/5b764c97.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/MHvTV4w.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> website </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> longshilindotcom </tag>
-            
-            <tag> hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>GitLab CI/CD</title>
       <link href="/blog/b4ccb03f.html"/>
       <url>/blog/b4ccb03f.html</url>
@@ -594,6 +546,31 @@
             <tag> website </tag>
             
             <tag> gitlab </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>给自定义博客增加totop按钮</title>
+      <link href="/blog/5b764c97.html"/>
+      <url>/blog/5b764c97.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/MHvTV4w.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> website </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> longshilindotcom </tag>
+            
+            <tag> hexo </tag>
             
         </tags>
       
