@@ -109,6 +109,76 @@
 
 
   
+    <article id="post-项目/Hadoop基因测序/Research-on-Key-Techniques-of-Data-Processing-Based-on-Hadoop-Gene-Sequencing" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/34f6c0b5.html">3 基于Hadoop基因测序数据处理关键技术的研究</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/34f6c0b5.html" class="article-date"><time datetime="2018-07-22T00:00:00.000Z" itemprop="datePublished">2018-07-22</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/项目/">项目</a> / <a class="article-category-link" href="/blog/categories/项目/Hadoop基因测序/">Hadoop基因测序</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/34f6c0b5.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+    <!-- <span id="busuanzi_container_page_pv"><i class="fa fa-eye"></i>&nbsp;阅读次数: <span id="busuanzi_value_page_pv"></span>&nbsp;</span> -->
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="3-1-测序处理流程与mapreduce结合">3.1 测序处理流程与MapReduce结合</h2>
+<p>基因测序处理流程中有gVCF和VCF文件生成两个阶段，而MapReduce恰好是一种分阶段处理的编程模型，它拥有Mapper和Reducer两个处理阶段，因此将MapReduce框架和测序流程结合在一起，既能保证测序流程的有序进行，又能在MapReduce框架中进行并行调度，提升测序数据处理的效率。</p>
+<h3 id="3-1-1-测序流程与mapreduce结合的可行性分析">3.1.1 测序流程与MapReduce结合的可行性分析</h3>
+<p>MapReduce是一种可用于数据处理的编程模型，可以将数据分析处理流程分为映射阶段和归约阶段<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>。在映射阶段，各个Map程序在不同的Container中运行彼此互不干扰，即各个Mapper阶段的程序本质上是并行运行的；而到了Reducer规约阶段，将各个Mapper阶段产生的中间结果做规约整合得到最终的处理结果。因此可以将大规模的数据分析任务分发给任何一个拥有足够多机器的数据中心，也正是因为其强劲的数据分析和并行处理能力，所以选择其和测序处理流程作整合。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/blog/34f6c0b5.html#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/34f6c0b5.html" data-id="cjvl4d7sq00480mu1nkg4rsz5" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Hadoop/">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/大数据/">大数据</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/基因测序/">基因测序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/毕业设计/">毕业设计</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-项目/Hadoop基因测序/Related-technologies-and-principles" class="article article-type-post" itemscope="" itemprop="blogPost">
 
   <header class="article-header">
@@ -163,7 +233,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/5290c12.html" data-id="cjvd7anb600450m05phf33993" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/5290c12.html" data-id="cjvl4d7sp00460mu1tm6qtzu9" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -232,7 +302,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/11b914a5.html" data-id="cjvd7anbk004f0m050agztnyc" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/11b914a5.html" data-id="cjvl4d7sw004g0mu1p7gysaoy" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -299,7 +369,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/205eb716.html" data-id="cjvd7anbn004m0m05y2ege176" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/205eb716.html" data-id="cjvl4d7t0004n0mu1350trxni" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -368,7 +438,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/f054fe4e.html" data-id="cjvd7anas003v0m05rb5zue00" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/f054fe4e.html" data-id="cjvl4d7sb003w0mu17u0hf3x4" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -438,7 +508,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/9ab14111.html" data-id="cjvd7anao003r0m05fcect22c" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/9ab14111.html" data-id="cjvl4d7s7003s0mu1grj5j0yx" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -507,7 +577,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/cfff76a5.html" data-id="cjvd7anak003n0m052x374qzh" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/cfff76a5.html" data-id="cjvl4d7s3003o0mu151406s5k" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -579,7 +649,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/3bf9b222.html" data-id="cjvd7anat003x0m05y8uc507g" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/3bf9b222.html" data-id="cjvl4d7sc003y0mu1gtn7h0pr" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -647,7 +717,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/ea45fa53.html" data-id="cjvd7anam003o0m051v9cnxb7" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/ea45fa53.html" data-id="cjvl4d7s5003p0mu1usq3qpts" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -719,7 +789,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/df938bb4.html" data-id="cjvd7anap003s0m05rgq2du8f" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/df938bb4.html" data-id="cjvl4d7s8003t0mu1n3zvf3pi" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -735,82 +805,10 @@
 
 
   
-    <article id="post-语言/Java/【Java基础总结】-Java笔试易错点 第一篇" class="article article-type-post" itemscope="" itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/337c6120.html">Java笔试易错点</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    
-    <div class="article-datetime">
-  <a href="/blog/337c6120.html" class="article-date"><time datetime="2017-11-24T09:04:04.000Z" itemprop="datePublished">2017-11-24</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/语言/">语言</a> / <a class="article-category-link" href="/blog/categories/语言/Java/">Java</a>
-  </div>
-
-
-    
-      
-        <a href="https://longshilin.com/blog/337c6120.html#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> 评论
-        </a>
-      
-    
-    <!-- <span id="busuanzi_container_page_pv"><i class="fa fa-eye"></i>&nbsp;阅读次数: <span id="busuanzi_value_page_pv"></span>&nbsp;</span> -->
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>启动线程方法start();线程stop方法已经被弃用；守护线程在非守护线程结束后，会自动结束；等待其他线程通知方法是wait()</li>
-<li>switch结构中没有break的话，匹配完不会跳出，会继续匹配下一个case直到整个结构结束</li>
-<li>Java.awt.*只能导入awt这个包中的所有类，awt中的包中的类不会导入</li>
-<li>public&gt;protected&gt;默认(包访问权限)&gt;private，因为protected除了可以被同一包访问，还可以被包外的子类所访问</li>
-</ul>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/blog/337c6120.html#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/337c6120.html" data-id="cjvd7anah003m0m05j04zyjjn" class="article-share-link">
-        <i class="fa fa-share"></i> 分享
-      </a>
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/笔试/">笔试</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/blog/page/3/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/blog/">1</a></li><li><a class="page-number" href="/blog/page/2/">2</a></li><li><a class="page-number" href="/blog/page/3/">3</a></li><li class="active"><span class="page-number">4</span></li><li class="disabled"><span class="page-next">Next <i class="fa fa-chevron-right"></i></span></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/blog/page/3/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/blog/">1</a></li><li><a class="page-number" href="/blog/page/2/">2</a></li><li><a class="page-number" href="/blog/page/3/">3</a></li><li class="active"><span class="page-number">4</span></li><li><a class="page-number" href="/blog/page/5/">5</a></li><li><a class="page-next" rel="next" href="/blog/page/5/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
@@ -853,7 +851,7 @@
   
   <div class="sidebar-module">
     <h4>Archives</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/02/">二月 2019</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/12/">十二月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/11/">十一月 2018</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/09/">九月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/07/">七月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2017/11/">十一月 2017</a><span class="sidebar-module-list-count">7</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/05/">五月 2019</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/02/">二月 2019</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/12/">十二月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/11/">十一月 2018</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/09/">九月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/07/">七月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2017/11/">十一月 2017</a><span class="sidebar-module-list-count">7</span></li></ul>
   </div>
 
 
@@ -862,6 +860,10 @@
   <div class="sidebar-module sidebar-recents">
     <h4>Recents</h4>
     <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/blog/0.html">(no title)</a>
+        </li>
       
         <li>
           <a href="/blog/b5410c9.html">windows和mac上安装Tower破解版</a>
@@ -877,10 +879,6 @@
       
         <li>
           <a href="/blog/4b315c79.html">写博客必备的工具合集</a>
-        </li>
-      
-        <li>
-          <a href="/blog/3e68368d.html">Double365</a>
         </li>
       
     </ul>

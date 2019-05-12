@@ -3,6 +3,17 @@
   
     
     <entry>
+      <title></title>
+      <link href="/blog/0.html"/>
+      <url>/blog/0.html</url>
+      
+        <content type="html"><![CDATA[<hr><hr><p><a href="https://docs.unity3d.com/Manual/JobSystem.html" target="_blank" rel="noopener">C# Job System 官方文档</a></p><p>Data-Oriented Technology Stack<br>数据和行为分离的很好，依赖关系也分的很清楚</p><p>Profile-&gt;c# Job System</p><p>一个核跑一个线程，Job System能够利用多核并行计算，达到高效计算。</p><h1>Worker Threads | Base on number of cores | Plaform specific</h1><h1>Job System Work Flow</h1>]]></content>
+      
+      
+      
+    </entry>
+    
+    <entry>
       <title>windows和mac上安装Tower破解版</title>
       <link href="/blog/b5410c9.html"/>
       <url>/blog/b5410c9.html</url>
@@ -284,7 +295,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1/Kxk05pu1dnoMaoCNYg3ssuZyT6rUAnIF9rFcKXrZAl+VR0hxGnBFKGeFj/flKpCmobYuKdK+ht/uBNusOKCNvTD86xQXTASyp4IWfT2HHc1c1ub8+ejCeIA7GjFG+fHvKeRsgmvkYQ+d4V5KM5yF1Gw2ywoN1D2Ro1V5/hPYWrAKaXo4sP1EiWhA4xaa0fzqgT5p9d/uk3JPALatkJS+ROAVuy2sf5O2zEhwwxUajfPhkd/n2pSy6IOrvsT403KRTgm0kSA2q0d2QTiedHW/qYBbbvphPQ9uycOxLxifU5gaziYf7Zba2091ANvQ4vwalmNlJ12Yfrbh1tVZKlaEnI+NgrFePbbsRhe0PyoLY+gJ3UfqrgH2ROaF6kdND0xO3ACBJucmAKGuNqo2KGeBhK4oMttujlT6e2znt02GWjZRJlX21oNWsurvOUBXqDGucNbi664h07NZ4IZg3RxU6NfS/WZv5WU6XUL0AK31IYlqOJJyr9gPrbn3svVxuWPlwU0L0CnAOVxcw9S7vesfGhLVs3WAAFsbYsQw3SufQ3uX5KqYbAj22XBtkXpg89kTE4LRzLgHWRxYnwhu0JaJmW8zCIxD9cOFLqif3F0WxvDJnzvW2KJvxqkrNFa7VmM/gAFbolhiEXnIi2KLXSfc7obedFnDJSWOOszlRmu20uNNYW1YwNyqfQvfOAOS3z2rrnCg6bGz/QUikiirOwBug1kN3ELerj9iRSkmVSfy3wNJYptffYOj/Cq99llZVQCtWEMC1TZXr3g==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1/Ky8HhLnx+REul0KzfqPU2CfQ3aEt0BRZVbFPteu8qSZL74vFzNp31xDcdoewparO1aj/FQ3chmbD+veFoF6hdZf0Ly6lfWrSWZThkoi3+rNkFhwhELQ5yL7qNzty9f8hmquVqHcRnVip3gLCAO0V+M7e4GCD5c7jWWdXpiTFbFTylw0Vp9gCZ102Tb4Z8IKPgnw7c/MQs8z1seHwP4JCb3HjqlKxCorxb2GBq+qoQvAGWAXkvDgcVGmOR7/c2B6IRi90WM2MawRaVCEBK1bMk1AJuz2UsWx9j4Fp6t9p8bJ2iq6wbf83H1KcfiexGqE/PqsbV4TeoMV81nGDIyilfEkzUmVlLVeUq0S9DYsRfh4MjXZ6plxDFTPWN2StJEk8Im9dFvvAnnBgvg66nbjNMFBFhXbWYtM8nbfqG2I8V/jQgh2d/SSYsSNal2cV0wzIsdlHFSuewtd5tUdN99NeDMye+aBuZNaHQZd4snIKxC236QNBxxiiVs9N39KaW5chGs+RvTzl2WpORgoYJrGfZPk3IgiZc93pXhzqK64pDOngpYBVtyyDWFpMyESfC9cd3VKJnIEy7av8YcRxbjaVzweHnTClcJ0kny35DJRA+f8HlFbDuE2y2SxGePU5ZsZHYSGAwjVIUksIHuFY9uHBmkthBTjPrTrRZ0T3ZBJ7tDFrdrZ8bC+EtzD/n+y0g55kRBcxKgWPXuU5NPRr84Rn1vurpfg666UM5t2TqqlLfl96EvaNH/KugHmtNYFdtXudDBdOb/Wn97g==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -473,11 +484,11 @@
     </entry>
     
     <entry>
-      <title>gitlab绑定域名</title>
-      <link href="/blog/57c188a8.html"/>
-      <url>/blog/57c188a8.html</url>
+      <title>GitLab CI/CD</title>
+      <link href="/blog/b4ccb03f.html"/>
+      <url>/blog/b4ccb03f.html</url>
       
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/rQfzXnn.png" alt=""></p><p>通过gitlab部署并发布静态网站，通过绑定自己的域名来实现自定义访问。</p><a id="more"></a><p>在项目的设置中，选择pages项，里面配置你的域名证书，这里可以使用域名的注册商提供给你的证书，或者是通过<a href="https://freessl.org/" target="_blank" rel="noopener">FreeSSL</a>提供免费证书申请，将得到的证书文件依次拷贝到Pages中，创建 <strong>New Pages Domain</strong></p><p><img src="https://i.imgur.com/vO69TtL.png" alt=""></p>]]></content>
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/BrmSMBD.png" alt="GitLab CI/CD"></p><p>在之前的github上搭建静态资源网站的基础上有了新的提升。把原来在本地机器编译的工作，通过gitlab实现自动化编译部署及发布，我只用专注于写作及将写好的内容上传到gitlab上即可。这也是现在最流行的CI/CD理念（持续集成持续发布）。</p><a id="more"></a><blockquote><p>下面着重来说明下我在部署过程中主要过程及填的坑等等，主要是提供一个部署思路和学习路径。</p></blockquote><h2 id="注册gitlab账号">注册gitlab账号</h2><p>在进行此次迁移资源之前，我是没有接触过<a href="https://gitlab.com/" target="_blank" rel="noopener">gitlab</a>的，自己这一块也是现用现学，所以说都是自己需要才会真正去接触它和学习它，好了继续~</p><h2 id="官方pages">官方Pages</h2><p>在gitlab上，有专门的<a href="https://gitlab.com/pages" target="_blank" rel="noopener">pages页面</a>，这里目前总共有三十种不同的模板，种类还是一应俱全。下面是首页的内容<br><img src="https://i.imgur.com/pXS3DgP.png" alt="gitlab pages"></p><p>我们的目的是通过官方<a href="https://gitlab.com/pages/hexo" target="_blank" rel="noopener">hexo pages</a>来学习快速入门及部署我们自己的静态网页。</p><h2 id="学习yaml">学习YAML</h2><p>通过gitlab<a href="https://docs.gitlab.com/ce/ci/yaml/README.html" target="_blank" rel="noopener">YAML官方文档</a>来学习YAML格式，这里我展示下在我的项目中的YAML文件</p><pre><code>image: longsl/hexo2simikipages:  cache:    paths:    - blog/node_modules/  script:    - HOME=/builds/longshilin/longshilindotcom    - cd blog    - npm install    - hexo deploy    - cp -r blog $HOME/public    - cd $HOME/wiki    - simiki g    - cp -r wiki $HOME/public/  artifacts:    paths:    - public  only:  - master</code></pre><p>这里还是比较清晰，容易理解的。上面的YAML文件主要进行的操作时通过longsl/hexo2simiki镜像作为基础环境，并在上面进行项目构建，并将指定的文件目录public作为发布资源进行发布。详细说明：</p><ol><li>image是本次构建所使用的镜像，这里我使用的是包含hexo和simiki构建工具的自定义镜像，详见<a href="https://longshilin.com/blog/2018/09/22/hexo2simiki/">hexo2simiki</a></li><li>pages表示是一个默认的任务</li><li>cache表示在该任务下将指定的路径下的文件进项缓存（其实就是在构建开始的时候将上次打包并保存的文件再次拿来用），这样在每次构建并发布时，可以省去很多固定资源的构建开销。</li><li>script下面是编写shell脚本，这些脚本命令直接就是在docker容器中执行的，因此如果你的镜像时以linux为基础，可以直接执行。</li><li>artifacts是发布项，可以指定本次构建出的哪部分内容会被保留下来，并作为该pipline的发布源文件。</li><li>only指的是本次job任务只会涉及到master分支上的内容。</li></ol><p>更多信息详见 <a href="https://docs.gitlab.com/ce/ci/" target="_blank" rel="noopener">GitLab Continuous Integration</a></p><h2 id="部署及发布">部署及发布</h2><p>编写自己的.gitlab-ci.yml文件，并放在项目的根目录下，这样在每次有新的更新提交到gitlab上时，会自动触发进行项目构建。</p>]]></content>
       
       
       <categories>
@@ -489,9 +500,11 @@
       
         <tags>
             
-            <tag> longshilindotcom </tag>
+            <tag> CI/CD </tag>
             
-            <tag> 域名 </tag>
+            <tag> website </tag>
+            
+            <tag> gitlab </tag>
             
         </tags>
       
@@ -525,11 +538,11 @@
     </entry>
     
     <entry>
-      <title>GitLab CI/CD</title>
-      <link href="/blog/b4ccb03f.html"/>
-      <url>/blog/b4ccb03f.html</url>
+      <title>gitlab绑定域名</title>
+      <link href="/blog/57c188a8.html"/>
+      <url>/blog/57c188a8.html</url>
       
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/BrmSMBD.png" alt="GitLab CI/CD"></p><p>在之前的github上搭建静态资源网站的基础上有了新的提升。把原来在本地机器编译的工作，通过gitlab实现自动化编译部署及发布，我只用专注于写作及将写好的内容上传到gitlab上即可。这也是现在最流行的CI/CD理念（持续集成持续发布）。</p><a id="more"></a><blockquote><p>下面着重来说明下我在部署过程中主要过程及填的坑等等，主要是提供一个部署思路和学习路径。</p></blockquote><h2 id="注册gitlab账号">注册gitlab账号</h2><p>在进行此次迁移资源之前，我是没有接触过<a href="https://gitlab.com/" target="_blank" rel="noopener">gitlab</a>的，自己这一块也是现用现学，所以说都是自己需要才会真正去接触它和学习它，好了继续~</p><h2 id="官方pages">官方Pages</h2><p>在gitlab上，有专门的<a href="https://gitlab.com/pages" target="_blank" rel="noopener">pages页面</a>，这里目前总共有三十种不同的模板，种类还是一应俱全。下面是首页的内容<br><img src="https://i.imgur.com/pXS3DgP.png" alt="gitlab pages"></p><p>我们的目的是通过官方<a href="https://gitlab.com/pages/hexo" target="_blank" rel="noopener">hexo pages</a>来学习快速入门及部署我们自己的静态网页。</p><h2 id="学习yaml">学习YAML</h2><p>通过gitlab<a href="https://docs.gitlab.com/ce/ci/yaml/README.html" target="_blank" rel="noopener">YAML官方文档</a>来学习YAML格式，这里我展示下在我的项目中的YAML文件</p><pre><code>image: longsl/hexo2simikipages:  cache:    paths:    - blog/node_modules/  script:    - HOME=/builds/longshilin/longshilindotcom    - cd blog    - npm install    - hexo deploy    - cp -r blog $HOME/public    - cd $HOME/wiki    - simiki g    - cp -r wiki $HOME/public/  artifacts:    paths:    - public  only:  - master</code></pre><p>这里还是比较清晰，容易理解的。上面的YAML文件主要进行的操作时通过longsl/hexo2simiki镜像作为基础环境，并在上面进行项目构建，并将指定的文件目录public作为发布资源进行发布。详细说明：</p><ol><li>image是本次构建所使用的镜像，这里我使用的是包含hexo和simiki构建工具的自定义镜像，详见<a href="https://longshilin.com/blog/2018/09/22/hexo2simiki/">hexo2simiki</a></li><li>pages表示是一个默认的任务</li><li>cache表示在该任务下将指定的路径下的文件进项缓存（其实就是在构建开始的时候将上次打包并保存的文件再次拿来用），这样在每次构建并发布时，可以省去很多固定资源的构建开销。</li><li>script下面是编写shell脚本，这些脚本命令直接就是在docker容器中执行的，因此如果你的镜像时以linux为基础，可以直接执行。</li><li>artifacts是发布项，可以指定本次构建出的哪部分内容会被保留下来，并作为该pipline的发布源文件。</li><li>only指的是本次job任务只会涉及到master分支上的内容。</li></ol><p>更多信息详见 <a href="https://docs.gitlab.com/ce/ci/" target="_blank" rel="noopener">GitLab Continuous Integration</a></p><h2 id="部署及发布">部署及发布</h2><p>编写自己的.gitlab-ci.yml文件，并放在项目的根目录下，这样在每次有新的更新提交到gitlab上时，会自动触发进行项目构建。</p>]]></content>
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/rQfzXnn.png" alt=""></p><p>通过gitlab部署并发布静态网站，通过绑定自己的域名来实现自定义访问。</p><a id="more"></a><p>在项目的设置中，选择pages项，里面配置你的域名证书，这里可以使用域名的注册商提供给你的证书，或者是通过<a href="https://freessl.org/" target="_blank" rel="noopener">FreeSSL</a>提供免费证书申请，将得到的证书文件依次拷贝到Pages中，创建 <strong>New Pages Domain</strong></p><p><img src="https://i.imgur.com/vO69TtL.png" alt=""></p>]]></content>
       
       
       <categories>
@@ -541,11 +554,9 @@
       
         <tags>
             
-            <tag> CI/CD </tag>
+            <tag> longshilindotcom </tag>
             
-            <tag> website </tag>
-            
-            <tag> gitlab </tag>
+            <tag> 域名 </tag>
             
         </tags>
       

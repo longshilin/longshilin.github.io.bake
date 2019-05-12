@@ -5,20 +5,19 @@
   
   <!-- 新增github的关注样式 - ->
   <a href="https://github.com/longshilin"><img style="position: absolute; top: 35px; right: 0; border: 0;" src="https://longshilin.com/blog/images/forkme_right_green_007200.png" alt="Fork me on GitHab"></a>-->
-  <title>异常与泛型 | 积之在平日</title>
+  <title>index | 积之在平日</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="捕获异常 异常分为两种类型：未检查异常和已检查异常。 已检查异常：系统已检查可能发生异常的地方，程序员编写再精细的程序也无法保证不发生异常的地方。(派生于IOException) 未检查异常：派生于Error类或RuntimeException">
-<meta name="keywords" content="异常,泛型">
-<meta property="og:type" content="article">
-<meta property="og:title" content="异常与泛型">
-<meta property="og:url" content="https://longshilin.com/blog/ea45fa53.html">
+  <meta name="description" content="学习总结 思考感悟 知识管理">
+<meta name="keywords" content="Linux, Java, AWS, Hadoop, Github">
+<meta property="og:type" content="website">
+<meta property="og:title" content="index">
+<meta property="og:url" content="https://longshilin.com/blog/index/page/5/index.html">
 <meta property="og:site_name" content="积之在平日">
-<meta property="og:description" content="捕获异常 异常分为两种类型：未检查异常和已检查异常。 已检查异常：系统已检查可能发生异常的地方，程序员编写再精细的程序也无法保证不发生异常的地方。(派生于IOException) 未检查异常：派生于Error类或RuntimeException">
+<meta property="og:description" content="学习总结 思考感悟 知识管理">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-05-12T15:54:31.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="异常与泛型">
-<meta name="twitter:description" content="捕获异常 异常分为两种类型：未检查异常和已检查异常。 已检查异常：系统已检查可能发生异常的地方，程序员编写再精细的程序也无法保证不发生异常的地方。(派生于IOException) 未检查异常：派生于Error类或RuntimeException">
+<meta name="twitter:title" content="index">
+<meta name="twitter:description" content="学习总结 思考感悟 知识管理">
 <meta name="twitter:creator" content="@yilong0722">
 <link rel="publisher" href="106698639613319710000">
   
@@ -105,13 +104,18 @@
     
     <div class="row">
         <div class="col-sm-8 blog-main" id="main-body">
-          <article id="post-语言/Java/【Java基础总结】-异常与泛型" class="article article-type-post" itemscope="" itemprop="blogPost">
+          
+
+
+
+  
+    <article id="post-语言/Java/【Java基础总结】-Java笔试易错点 第一篇" class="article article-type-post" itemscope="" itemprop="blogPost">
 
   <header class="article-header">
     
   
-    <h1 class="article-title" itemprop="name">
-      异常与泛型
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/337c6120.html">Java笔试易错点</a>
     </h1>
   
 
@@ -121,7 +125,7 @@
   <div class="article-meta">
     
     <div class="article-datetime">
-  <a href="/blog/ea45fa53.html" class="article-date"><time datetime="2017-11-29T06:37:06.000Z" itemprop="datePublished">2017-11-29</time></a>
+  <a href="/blog/337c6120.html" class="article-date"><time datetime="2017-11-24T09:04:04.000Z" itemprop="datePublished">2017-11-24</time></a>
 </div>
 
     
@@ -133,7 +137,7 @@
 
     
       
-        <a href="https://longshilin.com/blog/ea45fa53.html#disqus_thread" class="article-comment-link">
+        <a href="https://longshilin.com/blog/337c6120.html#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> 评论
         </a>
       
@@ -144,86 +148,50 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="捕获异常"><strong>捕获异常</strong></h2>
-<p>异常分为两种类型：未检查异常和已检查异常。</p>
-<p><strong>已检查异常</strong>：系统已检查可能发生异常的地方，程序员编写再精细的程序也无法保证不发生异常的地方。(派生于IOException)<br>
-<strong>未检查异常</strong>：派生于Error类或RuntimeException</p>
-<a id="more"></a>
-<p>对于已检查异常，编译器将会检查是否提供了处理器。(在即时编译器的编译阶段就已经检测出来，必须处理或抛出该有可能发生的已检查异常)。<br>
-然而，有很多常见的异常，例如，访问null引用，都属于未检查异常。编译器不会查看是否为这些错误提供了处理器。毕竟，应该精心地编写代码来避免这些错误的发生，而不是将精力放在编写异常处理器上。</p>
-<p>|—throw	在方法体中抛出异常<br>
-|—throws  在方法头上抛出异常<br>
-|—try-catch  捕获并处理异常</p>
-<h2 id="泛型"><strong>泛型</strong></h2>
-<p>泛型类可以看作不同类的工厂<br>
-一个泛型类就是具有一个或多个类型变量的类</p>
-
+        <ul>
+<li>启动线程方法start();线程stop方法已经被弃用；守护线程在非守护线程结束后，会自动结束；等待其他线程通知方法是wait()</li>
+<li>switch结构中没有break的话，匹配完不会跳出，会继续匹配下一个case直到整个结构结束</li>
+<li>Java.awt.*只能导入awt这个包中的所有类，awt中的包中的类不会导入</li>
+<li>public&gt;protected&gt;默认(包访问权限)&gt;private，因为protected除了可以被同一包访问，还可以被包外的子类所访问</li>
+</ul>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/blog/337c6120.html#more">Read More</a>
+          </p>
+        
       
     </div>
 
     
-      
-
-    
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/ea45fa53.html" data-id="cjvl4d7s5003p0mu1usq3qpts" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/337c6120.html" data-id="cjvl4d7s2003n0mu1820l3dvg" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/异常/">异常</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/泛型/">泛型</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/笔试/">笔试</a></li></ul>
 
 
     </footer>
   </div>
   
-    
-<ul id="article-nav" class="nav nav-pills nav-justified">
-  
-  <li role="presentation">
-    <a href="/blog/df938bb4.html" id="article-nav-older" class="article-nav-link-wrap">
-      <i class="fa fa-chevron-left pull-left"></i>
-      <span class="article-nav-link-title">类和对象的易错点</span>
-    </a>
-  </li>
-  
-  
-  <li role="presentation">
-    <a href="/blog/3bf9b222.html" id="article-nav-newer" class="article-nav-link-wrap">
-      <span class="article-nav-link-title">零碎注意点</span>
-      <i class="fa fa-chevron-right pull-right"></i>
-    </a>
-  </li>
-  
-</ul>
-
-
-  
 </article>
 
 
-<section id="comments" class="post-comments">
+
   
-      <div class="body-container">
-        <div id="disqus_thread" class="valine">
-        </div>
-      </div>
-  
-</section>
+
+
+  <div id="page-nav">
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/blog/page/4/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/blog/">1</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/blog/page/3/">3</a></li><li><a class="page-number" href="/blog/page/4/">4</a></li><li class="active"><span class="page-number">5</span></li><li class="disabled"><span class="page-next">Next <i class="fa fa-chevron-right"></i></span></li></ul></nav>
+  </div>
 
 
 
         </div>
         <div class="col-sm-3 col-sm-offset-1 blog-sidebar" id="sidebar">
           
-  <div class="sidebar-module sidebar-toc" id="toc">
-    
-      <h4>Table of Contents</h4>
-      <ol class="sidebar-module-list"><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#捕获异常"><span class="sidebar-module-list-number">1.</span> <span class="sidebar-module-list-text">捕获异常</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#泛型"><span class="sidebar-module-list-number">2.</span> <span class="sidebar-module-list-text">泛型</span></a></li></ol>
-    
-  </div>
-
 
 
   
