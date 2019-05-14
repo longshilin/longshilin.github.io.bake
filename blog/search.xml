@@ -3,13 +3,25 @@
   
     
     <entry>
-      <title></title>
-      <link href="/blog/0.html"/>
-      <url>/blog/0.html</url>
+      <title>c#JobSystem</title>
+      <link href="/blog/27a62a5a.html"/>
+      <url>/blog/27a62a5a.html</url>
       
-        <content type="html"><![CDATA[<hr><hr><p><a href="https://docs.unity3d.com/Manual/JobSystem.html" target="_blank" rel="noopener">C# Job System 官方文档</a></p><p>Data-Oriented Technology Stack<br>数据和行为分离的很好，依赖关系也分的很清楚</p><p>Profile-&gt;c# Job System</p><p>一个核跑一个线程，Job System能够利用多核并行计算，达到高效计算。</p><h1>Worker Threads | Base on number of cores | Plaform specific</h1><h1>Job System Work Flow</h1>]]></content>
+        <content type="html"><![CDATA[<p><a href="https://docs.unity3d.com/Manual/JobSystem.html" target="_blank" rel="noopener">C# Job System 官方文档</a></p><p>Data-Oriented Technology Stack<br>数据和行为分离的很好，依赖关系也分的很清楚</p><p>Profile-&gt;c# Job System</p><p>一个核跑一个线程，Job System能够利用多核并行计算，达到高效计算。</p><h1>Worker Threads | Base on number of cores | Plaform specific</h1><h1>Job System Work Flow</h1>]]></content>
       
       
+      <categories>
+          
+          <category> 客户端 - Unity </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> c# </tag>
+            
+        </tags>
       
     </entry>
     
@@ -295,7 +307,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1/Ky8HhLnx+REul0KzfqPU2CfQ3aEt0BRZVbFPteu8qSZL74vFzNp31xDcdoewparO1aj/FQ3chmbD+veFoF6hdZf0Ly6lfWrSWZThkoi3+rNkFhwhELQ5yL7qNzty9f8hmquVqHcRnVip3gLCAO0V+M7e4GCD5c7jWWdXpiTFbFTylw0Vp9gCZ102Tb4Z8IKPgnw7c/MQs8z1seHwP4JCb3HjqlKxCorxb2GBq+qoQvAGWAXkvDgcVGmOR7/c2B6IRi90WM2MawRaVCEBK1bMk1AJuz2UsWx9j4Fp6t9p8bJ2iq6wbf83H1KcfiexGqE/PqsbV4TeoMV81nGDIyilfEkzUmVlLVeUq0S9DYsRfh4MjXZ6plxDFTPWN2StJEk8Im9dFvvAnnBgvg66nbjNMFBFhXbWYtM8nbfqG2I8V/jQgh2d/SSYsSNal2cV0wzIsdlHFSuewtd5tUdN99NeDMye+aBuZNaHQZd4snIKxC236QNBxxiiVs9N39KaW5chGs+RvTzl2WpORgoYJrGfZPk3IgiZc93pXhzqK64pDOngpYBVtyyDWFpMyESfC9cd3VKJnIEy7av8YcRxbjaVzweHnTClcJ0kny35DJRA+f8HlFbDuE2y2SxGePU5ZsZHYSGAwjVIUksIHuFY9uHBmkthBTjPrTrRZ0T3ZBJ7tDFrdrZ8bC+EtzD/n+y0g55kRBcxKgWPXuU5NPRr84Rn1vurpfg666UM5t2TqqlLfl96EvaNH/KugHmtNYFdtXudDBdOb/Wn97g==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+Xhl7As+JyvjZi9tf8yD1dikiCcleVqZzwqmsx7cQRGHCl9lZOpMqF6GrS0wD/D0e+X0CtrkNWXFEh8+35tY6ANpwemzojR8CDPex+uNZK00eYxUl8w3UBejTNrI31goGgIltTVdHiikqUURP44TyapRo8o0tuZA0D7v1YkLpgjrsuHp3J1Ky1D4CUFi2DDe/rkFX+u37UNqljLrzTm4tZVQaa0ToAvMKO8MvEqpW419prXzme6K6fW8e7cziGgIHwXlxoE8S61OJi/vmCIuo9x2sDTMYOA0x7IjXesXPwcaNYpHfk3vJ4y6dWo+hnh3ZWFRceyCuphrCLLkDtfmWoklLLcjjaIwALSUnYyjHCaSJqCfLeFtio142nXVc6RQK/kDH/QPwqYp8sM7aaFJHG57FTCO6WUWyxbbMUPiIkgldQ5ihq10hzRj1IsWGFUbjnD29uf0+0KKBhqo/sNQ9N6lYA6Pusg9tBGoIkwE6OJSQKnS9RW4U8N6Fbjl3a/YtfpCPbZESnbauRiAdPZuIygs+gXnvBKCczHGcTgFZKoDyROZC2WlG/XdrKVpHCY1Zq1zqGfmVyPCYPKxmWvtMQioR42naRJZR6R6JbX6FHWl8ZBQ+hUNWxL7fSw2Huekuk3kYyZsSD7O/jtjUbAO6SQI9hBV3cFN/ZdS2zR7cmw9aS1ULArHy/KNpzactbm4NkZvxEr5F/H6n4JLHFx5EWJv724R1lSuaQ8ENhSoIyo51UgqRGUY+LFWWAf+cyA/ZucY+q3FNxHg==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -511,6 +523,31 @@
     </entry>
     
     <entry>
+      <title>给自定义博客增加totop按钮</title>
+      <link href="/blog/5b764c97.html"/>
+      <url>/blog/5b764c97.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://longshilin.com/images/20190507102321.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> website </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> longshilindotcom </tag>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>构建hexo和simiki工具的docker镜像</title>
       <link href="/blog/fd401cf5.html"/>
       <url>/blog/fd401cf5.html</url>
@@ -557,31 +594,6 @@
             <tag> longshilindotcom </tag>
             
             <tag> 域名 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>给自定义博客增加totop按钮</title>
-      <link href="/blog/5b764c97.html"/>
-      <url>/blog/5b764c97.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://longshilin.com/images/20190507102321.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> website </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> longshilindotcom </tag>
-            
-            <tag> hexo </tag>
             
         </tags>
       
