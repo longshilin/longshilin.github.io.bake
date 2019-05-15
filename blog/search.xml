@@ -3,6 +3,31 @@
   
     
     <entry>
+      <title>Unity3D中使用委托</title>
+      <link href="/blog/30526cbb.html"/>
+      <url>/blog/30526cbb.html</url>
+      
+        <content type="html"><![CDATA[<p>首先来了解委托是什么，在《Unity3D脚本编程》一书中，指明委托要确定一个回调方法签名，包括参数以及返回类型等。在下面的例子中，MyDelegate委托定制的回调方法的参数类型是int型，同时返回类型为void。</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//声明一个委托类型，它的实例引用一个方法</span></span><br><span class="line"><span class="function"><span class="keyword">internal</span> <span class="keyword">delegate</span> <span class="keyword">void</span> <span class="title">MyDelegate</span>(<span class="params"><span class="keyword">int</span> num</span>)</span>;</span><br></pre></td></tr></table></figure><a id="more"></a><p>在为委托实例引用方法时，C#允许引用类型的协变性和逆变性。协变性是指方法的返回类型可以是从委托的返回类型派生的一个派生类，逆变性则是指方法获取的参数的类型可以是委托的参数的类型的基类。</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 声明一个委托类型</span></span><br><span class="line"><span class="function"><span class="keyword">delegate</span> Object <span class="title">TellMeYourName</span>(<span class="params">SoldierClass soldier</span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 实例化一个方法，该方法的返回值是委托的返回类型派生的一个派生类</span></span><br><span class="line"><span class="function"><span class="keyword">string</span> <span class="title">TellMeYourNameMethod</span>(<span class="params">BaseUnitClass <span class="keyword">base</span></span>)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注意，这里该方法不能被绑定到委托实例上，编译器会报错。</span></span><br><span class="line"><span class="comment">// 这是因为虽然int型和string型一样，都派生自Object类，但是int型是值类型，因此是不支持协变性的。</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">TellMeYourNameMethod</span>(<span class="params">BaseUnitClass <span class="keyword">base</span></span>)</span>;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> 脚本编程 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Unity </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>1. Scripts as Behaviour Components</title>
       <link href="/blog/d6acd003.html"/>
       <url>/blog/d6acd003.html</url>
@@ -336,7 +361,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+kEuzLx+9n0o2yGlTeI0QU1taJOV2/PjXl3duT+6GeG+3qydXt7j6F76M2Fhfew0Ti/fp/X5ynDe6DXNeUPA+FjDibuWTWfg89BSvdclhWYCrbdVEXfUl70iA5+R7EkXYjMoEjoEQePqwam3bi44gN1w5rcg+ybIi+3UlGsHiZomxLukl3wzUHM23KFLZ0lvFdlTETqcs1DNXdhqXKD8aOSkuzGBUXxoKkGu99N+dst3lR9upuyuF/IrlMzAKBulEZa3OyZgsKMYwctm7OHSFNcoSnsdxE+hG/OdmgI2ZxJcbuwR/PPgXFAcnfALix9JU/2sUaE77P1JNuouvcyARk0vWjWaiS6MTdD8Acb3Dx733UsWj3YaANVpWj5jTm1MtCeKV6/HhCUsIUswZab96WkKnS/F/HZCT4U/ZPLEGP8y60fqEJOV36cii/P1/v2wRnxJBOMb6a2mstXl2cKU41y+HFbpmDezg81OUbYlOLV2uqU+g1s+oFxpz3NbM2elIaeaJvQBTbeMEMcpHyDMK85vhVXzZTYaituUzld8c4ZXQs3TVV1MLk1XJwICfpC/BA9ecuZ7pW5mVhQrdE7jO54IJUROetNAL/2vRU+0ZSFxPkUPLa9nfnsHqOft9V5wCE/k6vE/ILdKCsFz3e+i1L0b0D+4tHYx52h1RqLr/ZJGo9iNhaBvgYnr+toXOg4G9iQE+ixPetNGt+6OH9p6UpPGfcjS1/1b14lgNNc8s+FSetHray3Awn1ZI/i7habK+H5D3zGiSe8A==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+nQhlxXsRrCpyGvBVjh+h6z8Mp3PO+hmDO9I0tAL1emDlW+AAtTpwrKGt4wh9b3mogg1Y8W1lxhV39ocWcJKhmxj0dw0MC7nAI23aVIvy1ZNJWXvL+K9l7ryJ7GaOXCmIVcuiFi2Q2dqZhQKI5y/V6BU+mDzEeA5fpSwFDp93byxmR3wb7gxhsOrcPONzVYlLPT9LgJFGht8XzYUqrnrKevXx4rhPhP0oZJm/dE5xCniBp5LZ/KTEvgsnyzFIFhcHVlWmtTdWkG3GK+8c2WMU12qAjG9Z0DkfM380YFTu6lBeLXxWEzcdMRDVLUeOzl3W5Uafz0bqAawFPf3bhuoYL8fSCUh5a7IrmmYDIaiKIpH+5au6QWAgILcirEpEYvdIphksIU0Cap30jcWctnTkxMqQU673sAEknxqzO4pRLMjCa9BdbiJj86XieN16xc4bTnxTuPX9uvhr7kF4GKIAAf+XUQSZP1eKCJYiKq5oDAYn4GpZWNPWbN5eolMUs4eNjctMN1i/3rgb5eNFNzwdwUXgmfcHZyS11g+xdN7vbDHNK2Zf/M8iLAxanlyF/1qZcuStqbigHRH7lFwZkbc8AGoF1Q+0BM6CF4T+b7zzdKTJU95++dqInA+VEEZXci5ZOYAbzrQWxnmPtBbuX6TcOwkI5DavVIBwcrRi+vjTk/t4HhbjDlIZzyvZZNKBEkaNqbOIgKSC2hg+Co06mBgs9h9k7YmVh/Pu6yKssmK4MzH+roXF4IbWAg85Gi0J8bTpYBXoyGiTODg==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -550,31 +575,6 @@
     </entry>
     
     <entry>
-      <title>给自定义博客增加totop按钮</title>
-      <link href="/blog/5b764c97.html"/>
-      <url>/blog/5b764c97.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://longshilin.com/images/20190507102321.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> website </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> longshilindotcom </tag>
-            
-            <tag> hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>GitLab CI/CD</title>
       <link href="/blog/b4ccb03f.html"/>
       <url>/blog/b4ccb03f.html</url>
@@ -623,6 +623,31 @@
             <tag> hexo </tag>
             
             <tag> simiki </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>给自定义博客增加totop按钮</title>
+      <link href="/blog/5b764c97.html"/>
+      <url>/blog/5b764c97.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://longshilin.com/images/20190507102321.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> website </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> longshilindotcom </tag>
+            
+            <tag> hexo </tag>
             
         </tags>
       
