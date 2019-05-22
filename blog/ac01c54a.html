@@ -5,19 +5,31 @@
   
   <!-- 新增github的关注样式 - ->
   <a href="https://github.com/longshilin"><img style="position: absolute; top: 35px; right: 0; border: 0;" src="https://longshilin.com/blog/images/forkme_right_green_007200.png" alt="Fork me on GitHab"></a>-->
-  <title>Category: Tutorial | 积之在平日</title>
+  <title>创建ECS项目 | 积之在平日</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习总结 思考感悟 知识管理">
-<meta name="keywords" content="Linux, Java, AWS, Hadoop, Github">
-<meta property="og:type" content="website">
-<meta property="og:title" content="积之在平日">
-<meta property="og:url" content="https://longshilin.com/blog/categories/Unity/Tutorial/index.html">
+  <meta name="description" content="选择Unity版本 我这里安装的是Unity2019.2.0b1版本，通过Unity Hub直接安装的，顺便推荐下Unity Hub这个软件。它是Unity官方用来在同一电脑上管理多个Unity版本的协同工具。    安装Package  由于ECS还没有作为正式组件公之于众，因此只能在预览包中看到它们的身影，ps：ECS作为正式组件预计在Unity2020.1版本中。  安装两个Package：">
+<meta name="keywords" content="Project">
+<meta property="og:type" content="article">
+<meta property="og:title" content="创建ECS项目">
+<meta property="og:url" content="https://longshilin.com/blog/ac01c54a.html">
 <meta property="og:site_name" content="积之在平日">
-<meta property="og:description" content="学习总结 思考感悟 知识管理">
+<meta property="og:description" content="选择Unity版本 我这里安装的是Unity2019.2.0b1版本，通过Unity Hub直接安装的，顺便推荐下Unity Hub这个软件。它是Unity官方用来在同一电脑上管理多个Unity版本的协同工具。    安装Package  由于ECS还没有作为正式组件公之于众，因此只能在预览包中看到它们的身影，ps：ECS作为正式组件预计在Unity2020.1版本中。  安装两个Package：">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://longshilin.com/images/20190522212113.png">
+<meta property="og:image" content="https://longshilin.com/images/20190522212923.png">
+<meta property="og:image" content="https://longshilin.com/images/20190522213442.png">
+<meta property="og:image" content="https://longshilin.com/images/20190522214037.png">
+<meta property="og:image" content="https://longshilin.com/images/20190522214903.png">
+<meta property="og:image" content="https://longshilin.com/images/20190522215142.png">
+<meta property="og:image" content="https://longshilin.com/images/20190522215208.png">
+<meta property="og:image" content="https://longshilin.com/images/20190522214752.png">
+<meta property="og:image" content="https://longshilin.com/images/20190522215605.png">
+<meta property="og:image" content="https://longshilin.com/images/20190522215759.png">
+<meta property="og:updated_time" content="2019-05-22T14:11:46.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="积之在平日">
-<meta name="twitter:description" content="学习总结 思考感悟 知识管理">
+<meta name="twitter:title" content="创建ECS项目">
+<meta name="twitter:description" content="选择Unity版本 我这里安装的是Unity2019.2.0b1版本，通过Unity Hub直接安装的，顺便推荐下Unity Hub这个软件。它是Unity官方用来在同一电脑上管理多个Unity版本的协同工具。    安装Package  由于ECS还没有作为正式组件公之于众，因此只能在预览包中看到它们的身影，ps：ECS作为正式组件预计在Unity2020.1版本中。  安装两个Package：">
+<meta name="twitter:image" content="https://longshilin.com/images/20190522212113.png">
 <meta name="twitter:creator" content="@yilong0722">
 <link rel="publisher" href="106698639613319710000">
   
@@ -100,50 +112,121 @@
     
     <div class="row">
         <div class="col-sm-8 blog-main" id="main-body">
-          
+          <article id="post-Unity/ECS/创建ECS项目" class="article article-type-post" itemscope="" itemprop="blogPost">
 
-<div class="page-header category-type"><h1>Tutorial</h1></div>
-
-
-
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/blog/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <header class="archive-article-header">
-    <div class="article-datetime">
-  <a href="/blog/d6acd003.html" class="archive-article-date"><time datetime="2019-05-14T19:00:00.000Z" itemprop="datePublished">五月 14日</time></a>
-</div>
-
+  <header class="article-header">
     
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/blog/d6acd003.html">1. Scripts as Behaviour Components</a>
+    <h1 class="article-title" itemprop="name">
+      创建ECS项目
     </h1>
   
 
 
-    
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Unity/">Unity</a></li></ul>
-
-
   </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/ac01c54a.html" class="article-date"><time datetime="2019-05-22T18:00:00.000Z" itemprop="datePublished">2019-05-22</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Unity/">Unity</a> / <a class="article-category-link" href="/blog/categories/Unity/ECS/">ECS</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/ac01c54a.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+    <!-- <span id="busuanzi_container_page_pv"><i class="fa fa-eye"></i>&nbsp;阅读次数: <span id="busuanzi_value_page_pv"></span>&nbsp;</span> -->
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="选择unity版本">选择Unity版本</h3>
+<p>我这里安装的是Unity2019.2.0b1版本，通过Unity Hub直接安装的，顺便推荐下Unity Hub这个软件。它是Unity官方用来在同一电脑上管理多个Unity版本的协同工具。</p>
+<p><img src="https://longshilin.com/images/20190522212113.png" alt="选择Unity版本"></p>
+<p><img src="https://longshilin.com/images/20190522212923.png" alt="创建项目"></p>
+<p><img src="https://longshilin.com/images/20190522213442.png" alt="这是刚打开的样子"></p>
+<h3 id="安装package">安装Package</h3>
+<p><img src="https://longshilin.com/images/20190522214037.png" alt="打开Package Manager窗口"></p>
+<p>由于ECS还没有作为正式组件公之于众，因此只能在预览包中看到它们的身影，ps：ECS作为正式组件预计在Unity2020.1版本中。</p>
+<p><img src="https://longshilin.com/images/20190522214903.png" alt="预览版Package"></p>
+<p>安装两个Package：</p>
+<ul>
+<li>Entities</li>
+<li>Hybrid.Renderer</li>
+</ul>
+<p><img src="https://longshilin.com/images/20190522215142.png" alt="Entities Package"></p>
+<p><img src="https://longshilin.com/images/20190522215208.png" alt="Hybrid.Renderer Package"></p>
+<p>下面我们来对比下安装之前和安装之后，到底多了哪些包依赖，下面图是通过对比工具得到的，其实刚好就是增加安装的那两个包。</p>
+<p><img src="https://longshilin.com/images/20190522214752.png" alt="安装package前后对比结果"></p>
+<h3 id="了解package的依赖关系">了解Package的依赖关系</h3>
+<p>另外需要补充的是，在安装这两个package的时候，下面这些包也已经被加入到项目中：</p>
+<ul>
+<li>Burst</li>
+<li>Collections</li>
+<li>Jobs</li>
+<li>Mathematics</li>
+</ul>
+<p>可以通过勾选Advance -&gt; show dependencies查看两个package包依赖关系。</p>
+<p><img src="https://longshilin.com/images/20190522215605.png" alt="Entities Package Dependence"></p>
+<p><img src="https://longshilin.com/images/20190522215759.png" alt="Hybrid.Renderer Package Dependence"></p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/ac01c54a.html" data-id="cjvzb3u1q003j0mu1baa0pgiy" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Project/">Project</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/blog/30526cbb.html" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">Unity3D中使用委托</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
 </article>
 
-  
-  
-    </div></section>
-  
 
+<section id="comments" class="post-comments">
+  
+      <div class="body-container">
+        <div id="disqus_thread" class="valine">
+        </div>
+      </div>
+  
+</section>
 
 
 
