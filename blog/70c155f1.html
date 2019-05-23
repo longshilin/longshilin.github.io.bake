@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <!-- 新增github的关注样式 - ->
+  <a href="https://github.com/longshilin"><img style="position: absolute; top: 35px; right: 0; border: 0;" src="https://longshilin.com/blog/images/forkme_right_green_007200.png" alt="Fork me on GitHab"></a>-->
+  <title>轻量化去广告的内存清理工具 — 积之在平日</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="其实我的需求仅仅是需要是在电脑上安装一个清理内存的软件，但是在安装了那么多大型软件之后，我发现或多或少会有一些广告的成分在其中，因为他们需要从广告中获利，才能继续维系他们的产品开发也业务拓展，所以对于用这些大型管理软件和我的需求是有冲突的，因为我不喜欢臃肿的功能以及广告弹窗的出现，因此我选择了这个应用，它足够轻量 免费，而且无广告。">
+<meta name="keywords" content="tools,memreduct">
+<meta property="og:type" content="article">
+<meta property="og:title" content="轻量化去广告的内存清理工具">
+<meta property="og:url" content="https://longshilin.com/blog/70c155f1.html">
+<meta property="og:site_name" content="积之在平日">
+<meta property="og:description" content="其实我的需求仅仅是需要是在电脑上安装一个清理内存的软件，但是在安装了那么多大型软件之后，我发现或多或少会有一些广告的成分在其中，因为他们需要从广告中获利，才能继续维系他们的产品开发也业务拓展，所以对于用这些大型管理软件和我的需求是有冲突的，因为我不喜欢臃肿的功能以及广告弹窗的出现，因此我选择了这个应用，它足够轻量 免费，而且无广告。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/GoD9FAR.jpg">
+<meta property="og:image" content="https://i.imgur.com/pnTJ47T.png">
+<meta property="og:image" content="https://i.imgur.com/rOtHQQV.png">
+<meta property="og:image" content="https://i.imgur.com/pX6btFW.png">
+<meta property="og:image" content="https://i.imgur.com/lJFvaGL.png">
+<meta property="og:image" content="https://i.imgur.com/nbSPcPl.png">
+<meta property="og:updated_time" content="2019-05-23T15:26:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="轻量化去广告的内存清理工具">
+<meta name="twitter:description" content="其实我的需求仅仅是需要是在电脑上安装一个清理内存的软件，但是在安装了那么多大型软件之后，我发现或多或少会有一些广告的成分在其中，因为他们需要从广告中获利，才能继续维系他们的产品开发也业务拓展，所以对于用这些大型管理软件和我的需求是有冲突的，因为我不喜欢臃肿的功能以及广告弹窗的出现，因此我选择了这个应用，它足够轻量 免费，而且无广告。">
+<meta name="twitter:image" content="https://i.imgur.com/GoD9FAR.jpg">
+<meta name="twitter:creator" content="@yilong0722">
+<link rel="publisher" href="106698639613319710000">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="积之在平日" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/blog/css/styles.css">
+  
+
+  <script src="/blog/js/baidutongji.js"></script>
+</head>
+</html>
+<body>
+  <nav class="navbar navbar-inverse navbar-wrapper">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class="" href="/blog/">Home</a></li>
+        
+          <li><a class="" href="/blog/../wiki/">Wiki</a></li>
+        
+      </ul>
+
+
+      <ul class="nav navbar-nav navbar-right" id="sub-menu-navbar">
+        
+          <li><a href="/blog/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+        
+          <li><a href="https://github.com/longshilin" title="Github"><i class="fa fa-github"></i></a></li>
+        
+        
+          <li><a href="https://gitlab.com/longshilin" title="Gitlab"><i class="fa fa-gitlab"></i></a></li>
+        
+        
+          <li><a href="https://stackoverflow.com/users/7739839" title="StackOverFlow"><i class="fa fa-stack-overflow"></i></a></li>
+        
+        
+      </ul>
+
+<!-- add google translate - ->
+      <div id="google_translate_element" style="position:absolute; right:0; margin-top: 8px; margin-right: 1px;"></div>
+
+      <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
+        }
+      </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!- - /add google translate -->
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <div class="container">
+    <!-- 隐藏header头 -->
+    
+    <div class="row">
+        <div class="col-sm-8 blog-main" id="main-body">
+          <article id="post-工具/电脑管理/轻量化去广告的内存清理工具" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      轻量化去广告的内存清理工具
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/70c155f1.html" class="article-date"><time datetime="2018-10-18T10:30:40.000Z" itemprop="datePublished">2018-10-18</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/工具/">工具</a> / <a class="article-category-link" href="/blog/categories/工具/电脑管理/">电脑管理</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/70c155f1.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+    <!-- <span id="busuanzi_container_page_pv"><i class="fa fa-eye"></i>&nbsp;阅读次数: <span id="busuanzi_value_page_pv"></span>&nbsp;</span> -->
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>其实我的需求仅仅是需要是在电脑上安装一个清理内存的软件，但是在安装了那么多大型软件之后，我发现或多或少会有一些广告的成分在其中，因为他们需要从广告中获利，才能继续维系他们的产品开发也业务拓展，所以对于用这些大型管理软件和我的需求是有冲突的，因为我不喜欢臃肿的功能以及广告弹窗的出现，因此我选择了这个应用，它足够轻量 免费，而且无广告。</p>
+<a id="more"></a>
+<p>下面，我介绍一款自认为足够满足轻量化与去广告需求的开源应用，并且仅仅是具备清理机器内存这一个功能，非常有针对性，很Nice！</p>
+<p>它是个人项目，这里是网址：<a href="https://www.henrypp.org/product/memreduct" target="_blank" rel="noopener">https://www.henrypp.org/product/memreduct</a></p>
+<p><img src="https://i.imgur.com/GoD9FAR.jpg" alt="memreduct"></p>
+<p>轻松上手，下面是自定义设置，可以达到双击右下角图标自动清理机器内存的目的。<br>
+<img src="https://i.imgur.com/pnTJ47T.png" alt=""></p>
+<p>下面是个人设置，实现上面的双击图标自动清理内存，并没有任何弹窗，极其方便~ 🌛<br>
+<img src="https://i.imgur.com/rOtHQQV.png" alt=""><img src="https://i.imgur.com/pX6btFW.png" alt=""><img src="https://i.imgur.com/lJFvaGL.png" alt=""><img src="https://i.imgur.com/nbSPcPl.png" alt=""></p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/70c155f1.html" data-id="cjw0t82ss001p0m05np3hibds" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/tools/">tools</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/memreduct/">memreduct</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/blog/49462.html" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">站点开源框架</span>
+    </a>
+  </li>
+  
+  
+  <li role="presentation">
+    <a href="/blog/157464b7.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">风移影动 | 珊珊可爱</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
+  
+</ul>
+
+
+  
+</article>
+
+
+<section id="comments" class="post-comments">
+  
+      <div class="body-container">
+        <div id="disqus_thread" class="valine">
+        </div>
+      </div>
+  
+</section>
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar" id="sidebar">
+          
+  <div class="sidebar-module sidebar-toc" id="toc">
+    
+  </div>
+
+
+
+  
+<div class="sidebar-module sidebar-tags">
+  <h4>Search</h4>
+  <form id="search-form"> <!-- 搜索框相关 -->
+    <input type="text" id="local-search-input" name="q" placeholder=" 搜本站..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false">
+    <i class="fa fa-times" onclick="resetSearch()"></i> <!-- 清空/重置搜索框 -->
+  </form>
+  <div id="local-search-result"></div> <!-- 搜索结果区 -->
+  <p class="no-result">No results found </p> <!-- 无匹配时显示，注意请在 CSS 中设置默认隐藏 -->
+</div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Docker/">Docker</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/">Unity</a><span class="sidebar-module-list-count">4</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/ECS/">ECS</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Tutorial/">Tutorial</a><span class="sidebar-module-list-count">1</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Tutorial/Scripts/">Scripts</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/脚本编程/">脚本编程</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/">工具</a><span class="sidebar-module-list-count">7</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/Atom/">Atom</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/写作/">写作</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/版本控制/">版本控制</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/电脑管理/">电脑管理</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/旅游/">旅游</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/网站构建/">网站构建</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/解决方案/">解决方案</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/">认证</a><span class="sidebar-module-list-count">2</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/AWS认证/">AWS认证</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/">语言</a><span class="sidebar-module-list-count">8</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/Java/">Java</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/mybatis/">mybatis</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/资源/">资源</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/项目/">项目</a><span class="sidebar-module-list-count">9</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/项目/Hadoop基因测序/">Hadoop基因测序</a><span class="sidebar-module-list-count">9</span></li></ul></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/blog/tags/90km/" style="font-size: 10px;">90km</a> <a href="/blog/tags/Atom-Snippets/" style="font-size: 10px;">Atom Snippets</a> <a href="/blog/tags/CI-CD/" style="font-size: 13.33px;">CI/CD</a> <a href="/blog/tags/Class/" style="font-size: 10px;">Class</a> <a href="/blog/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/Project/" style="font-size: 10px;">Project</a> <a href="/blog/tags/SEO/" style="font-size: 10px;">SEO</a> <a href="/blog/tags/Unity/" style="font-size: 16.67px;">Unity</a> <a href="/blog/tags/Visual-Studio/" style="font-size: 10px;">Visual Studio</a> <a href="/blog/tags/aws/" style="font-size: 13.33px;">aws</a> <a href="/blog/tags/aws-soa/" style="font-size: 10px;">aws-soa</a> <a href="/blog/tags/c/" style="font-size: 10px;">c#</a> <a href="/blog/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/blog/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/blog/tags/highlightjs/" style="font-size: 10px;">highlightjs</a> <a href="/blog/tags/java/" style="font-size: 13.33px;">java</a> <a href="/blog/tags/longshilindotcom/" style="font-size: 10px;">longshilindotcom</a> <a href="/blog/tags/markdown/" style="font-size: 13.33px;">markdown</a> <a href="/blog/tags/memreduct/" style="font-size: 10px;">memreduct</a> <a href="/blog/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/blog/tags/simiki/" style="font-size: 10px;">simiki</a> <a href="/blog/tags/sysops/" style="font-size: 10px;">sysops</a> <a href="/blog/tags/tools/" style="font-size: 16.67px;">tools</a> <a href="/blog/tags/tower/" style="font-size: 10px;">tower</a> <a href="/blog/tags/wordpress/" style="font-size: 10px;">wordpress</a> <a href="/blog/tags/write/" style="font-size: 13.33px;">write</a> <a href="/blog/tags/代理/" style="font-size: 10px;">代理</a> <a href="/blog/tags/优秀文章/" style="font-size: 10px;">优秀文章</a> <a href="/blog/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/blog/tags/基因测序/" style="font-size: 20px;">基因测序</a> <a href="/blog/tags/大数据/" style="font-size: 20px;">大数据</a> <a href="/blog/tags/异常/" style="font-size: 10px;">异常</a> <a href="/blog/tags/效率/" style="font-size: 10px;">效率</a> <a href="/blog/tags/极客时间/" style="font-size: 10px;">极客时间</a> <a href="/blog/tags/毕业设计/" style="font-size: 20px;">毕业设计</a> <a href="/blog/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/blog/tags/笔试/" style="font-size: 10px;">笔试</a> <a href="/blog/tags/类对象/" style="font-size: 10px;">类对象</a> <a href="/blog/tags/线程/" style="font-size: 10px;">线程</a> <a href="/blog/tags/迭代器/" style="font-size: 10px;">迭代器</a> <a href="/blog/tags/集合/" style="font-size: 10px;">集合</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/05/">五月 2019</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/02/">二月 2019</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/12/">十二月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/11/">十一月 2018</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/09/">九月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/07/">七月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2017/11/">十一月 2017</a><span class="sidebar-module-list-count">7</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module sidebar-recents">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/blog/7eae6d59.html">写博文的常用板书格式</a>
+        </li>
+      
+        <li>
+          <a href="/blog/f427fb19.html">Atom自定义代码片段以提高编码效率</a>
+        </li>
+      
+        <li>
+          <a href="/blog/f243dbe9.html">Unity双击脚本不会自动跳转到vs中的解决方案</a>
+        </li>
+      
+        <li>
+          <a href="/blog/ac01c54a.html">创建ECS项目</a>
+        </li>
+      
+        <li>
+          <a href="/blog/30526cbb.html">Unity3D中使用委托</a>
+        </li>
+      
+        <li>
+          <a href="/blog/d6acd003.html">1. Scripts as Behaviour Components</a>
+        </li>
+      
+        <li>
+          <a href="/blog/27a62a5a.html">c#JobSystem</a>
+        </li>
+      
+        <li>
+          <a href="/blog/b5410c9.html">windows和mac上安装Tower破解版</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9145047272014077",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!- blog-general-responsive-sidebar ->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4721191851305300"
+     data-ad-slot="5846920073"
+     data-ad-format="auto"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+        </div>
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      <!-- Copyright &copy; 2014 - 2019 longsl&nbsp;<br> -->
+      <!-- For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><br/> -->
+      Site Generated 2019-05-23 15:05:31&nbsp;&nbsp;
+      <!-- CNZZ统计 -->
+      <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script><br>
+      Create with <a href="https://hexo.io">Hexo</a>&nbsp; |&nbsp;
+      CI/CD by <a href="https://about.gitlab.com/2015/12/14/getting-started-with-gitlab-and-gitlab-ci/" target="_blank">Gitlab</a>&nbsp; |&nbsp;
+      Host on <a href="https://pages.github.com/" target="_blank">Github</a>&nbsp; |&nbsp;
+      <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u>
+      <!-- <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"  target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a><br> -->
+      <!-- <a href="http://www.miitbeian.gov.cn">湘ICP备18009099号</a>&nbsp; |&nbsp;<img src="/images/beian.png" /> <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43060202000297">湘公网安备 43060202000297号</a> -->
+    </div>
+  </div>
+</footer>
+
+  
+
+<!-- changyan comment -->
+
+
+<!-- gitment comment -->
+
+
+<!-- Valine comment -->
+
+  <script src="//longshilin.com/assets/js/prism-default.js"></script>
+  <script src="//longshilin.com/assets/js/jquery.min.js"></script>
+  <script src="//longshilin.com/assets/js/av-min.js"></script>
+  <script src="//longshilin.com/assets/js/Valine.min.js"></script>
+  <script src="//longshilin.com/assets/js/jquery.fitvids.js"></script>
+  <script>
+    new Valine({
+      av: AV,
+      el: '#disqus_thread',
+      emoticon_url: 'https://longshilin.com/emojs',
+      emoticon_list: ["吐.png","喷血.png","狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","中指.png","尴尬.png","瞅你.png","想一想.png","中枪.png","得意.png","肿包.png","扇耳光.png","亲亲.png","惊喜.png","脸红.png","无所谓.png","便便.png","愤怒.png","蜡烛.png","献黄瓜.png","内伤.png","投降.png","观察.png","看不见.png","击掌.png","抠鼻.png","邪恶.png","看热闹.png","口水.png","抽烟.png","锁眉.png","装大款.png","吐舌.png","无奈.png","长草.png","赞一个.png","呲牙.png","无语.png","阴暗.png","不出所料.png","咽气.png","期待.png","高兴.png","吐血倒地.png","哭泣.png","欢呼.png","黑线.png","喜极而泣.png","喷水.png","深思.png","鼓掌.png","暗地观察.png"],
+      appId: 'pMgClbOyqp0K4AQxpMUJuskE-9Nh9j0Va',
+      appKey: 'CzXcgRguvCJa0EkILaN5F4HX',
+      placeholder: 'Write a Comment...',
+    });
+  </script>
+
+
+<script src="/assets/js/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+  <!-- 注释掉本地取js代码块
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/github.min.css" integrity="sha384-WtUWHyk39lfUpZQVgokNfSKCJaKAeD6adgLduBLrKTMUuPzFhLtL23y1guFy6lZn" crossorigin="anonymous">-->
+  <script src="/blog/highlight/highlight.pack.js"></script>
+
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+<script src="/blog/js/search.js"></script>
+
+  
+	<div id="totop">
+	<a title="totop"><img src="/blog/images/scrollup.png"></a>
+	</div>
+	<script src="/blog/js/totop.js"></script>
+
+  <script src="/blog/js/sidebar.js"></script>
+  <script src="/blog/js/baidu_js_push.js"></script>
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <script id="__bs_script__">
+    if(location.hostname == "localhost")
+        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.0'><\/script>".replace("HOST", location.hostname));
+  </script>
+</body>
+</html>

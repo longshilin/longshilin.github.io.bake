@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <!-- 新增github的关注样式 - ->
+  <a href="https://github.com/longshilin"><img style="position: absolute; top: 35px; right: 0; border: 0;" src="https://longshilin.com/blog/images/forkme_right_green_007200.png" alt="Fork me on GitHab"></a>-->
+  <title>4 基于Hadoop的平台搭建与MapReduce作业设计 — 积之在平日</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="4.1 基于Hadoop的伪分布式平台搭建 在搭建Hadoop分布式系统平台[1]时，我们有两种方式可以选择，分别是伪分布的模式和完全分布式模式。这两种模式的主要区别在于前者是在本地一台机器中运行Hadoop框架中的各种服务，是一种模拟分布式的集群环境。而完全分布式的环境就是在真实的多个主机上配置Hadoop，并搭建整个集群环境。">
+<meta name="keywords" content="Hadoop,大数据,基因测序,毕业设计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4 基于Hadoop的平台搭建与MapReduce作业设计">
+<meta property="og:url" content="https://longshilin.com/blog/3fd0f93f.html">
+<meta property="og:site_name" content="积之在平日">
+<meta property="og:description" content="4.1 基于Hadoop的伪分布式平台搭建 在搭建Hadoop分布式系统平台[1]时，我们有两种方式可以选择，分别是伪分布的模式和完全分布式模式。这两种模式的主要区别在于前者是在本地一台机器中运行Hadoop框架中的各种服务，是一种模拟分布式的集群环境。而完全分布式的环境就是在真实的多个主机上配置Hadoop，并搭建整个集群环境。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/kBOP38U.png">
+<meta property="og:image" content="https://i.imgur.com/NvL3uNw.png">
+<meta property="og:image" content="https://i.imgur.com/BRr8fqM.png">
+<meta property="og:image" content="https://i.imgur.com/Oa91nGQ.png">
+<meta property="og:image" content="https://i.imgur.com/aLtO039.png">
+<meta property="og:image" content="https://i.imgur.com/SdyGul2.png">
+<meta property="og:updated_time" content="2019-05-23T15:26:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="4 基于Hadoop的平台搭建与MapReduce作业设计">
+<meta name="twitter:description" content="4.1 基于Hadoop的伪分布式平台搭建 在搭建Hadoop分布式系统平台[1]时，我们有两种方式可以选择，分别是伪分布的模式和完全分布式模式。这两种模式的主要区别在于前者是在本地一台机器中运行Hadoop框架中的各种服务，是一种模拟分布式的集群环境。而完全分布式的环境就是在真实的多个主机上配置Hadoop，并搭建整个集群环境。">
+<meta name="twitter:image" content="https://i.imgur.com/kBOP38U.png">
+<meta name="twitter:creator" content="@yilong0722">
+<link rel="publisher" href="106698639613319710000">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="积之在平日" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/blog/css/styles.css">
+  
+
+  <script src="/blog/js/baidutongji.js"></script>
+</head>
+</html>
+<body>
+  <nav class="navbar navbar-inverse navbar-wrapper">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class="" href="/blog/">Home</a></li>
+        
+          <li><a class="" href="/blog/../wiki/">Wiki</a></li>
+        
+      </ul>
+
+
+      <ul class="nav navbar-nav navbar-right" id="sub-menu-navbar">
+        
+          <li><a href="/blog/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+        
+          <li><a href="https://github.com/longshilin" title="Github"><i class="fa fa-github"></i></a></li>
+        
+        
+          <li><a href="https://gitlab.com/longshilin" title="Gitlab"><i class="fa fa-gitlab"></i></a></li>
+        
+        
+          <li><a href="https://stackoverflow.com/users/7739839" title="StackOverFlow"><i class="fa fa-stack-overflow"></i></a></li>
+        
+        
+      </ul>
+
+<!-- add google translate - ->
+      <div id="google_translate_element" style="position:absolute; right:0; margin-top: 8px; margin-right: 1px;"></div>
+
+      <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
+        }
+      </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!- - /add google translate -->
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <div class="container">
+    <!-- 隐藏header头 -->
+    
+    <div class="row">
+        <div class="col-sm-8 blog-main" id="main-body">
+          <article id="post-项目/Hadoop基因测序/Hadoop-based-platform-construction-and-MapReduce-job-design" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      4 基于Hadoop的平台搭建与MapReduce作业设计
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/3fd0f93f.html" class="article-date"><time datetime="2018-07-23T00:00:00.000Z" itemprop="datePublished">2018-07-23</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/项目/">项目</a> / <a class="article-category-link" href="/blog/categories/项目/Hadoop基因测序/">Hadoop基因测序</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/3fd0f93f.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+    <!-- <span id="busuanzi_container_page_pv"><i class="fa fa-eye"></i>&nbsp;阅读次数: <span id="busuanzi_value_page_pv"></span>&nbsp;</span> -->
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="4-1-基于hadoop的伪分布式平台搭建">4.1 基于Hadoop的伪分布式平台搭建</h2>
+<p>在搭建Hadoop分布式系统平台<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>时，我们有两种方式可以选择，分别是伪分布的模式和完全分布式模式。这两种模式的主要区别在于前者是在本地一台机器中运行Hadoop框架中的各种服务，是一种模拟分布式的集群环境。而完全分布式的环境就是在真实的多个主机上配置Hadoop，并搭建整个集群环境。</p>
+<a id="more"></a>
+<h3 id="4-1-1-搭建hadoop伪分布式平台">4.1.1 搭建Hadoop伪分布式平台</h3>
+<p>使用分布式的环境对全基因组测序的环境进行搭建，下面介绍整个分布式环境的搭建流程。<br>
+<img src="https://i.imgur.com/kBOP38U.png" alt="图4-1 Hadoop伪分布式集群架构图"></p>
+<p>1）安装并检查Java版本<br>
+必须确保Hadoop集群安装的是合适版本的Java。可以通过Hadoop wiki界面<a href="http://wiki.apache.org/hsdoop/HadoopJavaVersions" target="_blank" rel="noopener">Hadoop wiki界面</a>来查看具。通过键入以下命令，查看本机的java版本信息：</p>
+<pre><code>elon@longsl:~$ java -version
+java version &quot;1.8.0_161&quot;
+Java(TM) SE Runtime Environment (build 1.8.0_161-b12)
+Java HotSpot(TM) 64-Bit Server VM (build 25.161-b12, mixed mode)
+</code></pre>
+<p>2）创建Unix用户账号<br>
+最好创建特定的Unix用户账号以区分各Hadoop进程，及区分同一机器上的其他服务。在我的主机上，我创建一个名叫elon的用户名来执行Hadoop程序。</p>
+<p>3）安装Hadoop<br>
+从<a href="http://hadoop.apache.org/common/realease.html" target="_blank" rel="noopener">Apache Hadoop发布页</a>下载一个稳定版的二进制发布版本包（通常打包为一个tar.gz结尾的文件），再解压缩到本地文件系统。在我的主机上执行以下命令即可：<br>
+<code>elon@longsl:~$ tar -zxvf hadoop-2.7.6.tar.gz -C .</code></p>
+<p>4）SSH配置<br>
+SSH免密码登录的原理是首先在主机A的本地生成公钥和私钥，然后将本机的公钥发送到要免密登录的主机上，然后在访问目的主机时，本机的私钥和目的主机中的公钥配对成功，即可以免密登录。<br>
+在本次伪分布式环境中，只需配置本机用户自己和自己免密登陆以及自己和localhost用户免密登陆即可。我本机的主机名为longsl，因此我需要为longsl用户生成公私密钥对:</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">elon@longsl:~$ ssh-keygen -t rsa</span><br><span class="line"><span class="meta">#</span><span class="bash"> 并且配置ssh longsl和ssh localhost能免密登陆:</span></span><br><span class="line">elon@longsl:~$ ssh-copy-id longsl</span><br><span class="line">elon@longsl:~$ ssh-copy-id localhost</span><br></pre></td></tr></table></figure>
+<p>5）配置Hadoop<br>
+Hadoop集群的配置文件在$HADOOP_HOME/etc/hadoop目录下，主要修改五个配置文件，分别是slaves、core-site.xml、hdfs-site.xml、mapred-site.xml和yarn-site.xml。<br>
+修改slaves文件，这个文件表明该集群中的子节点的主机名，在伪分布式环境中，直接将localhost添加进去即可。<br>
+配置core-site.xml，主要设置NameNode运行的主机信息。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://longsl:8080/<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 指定hadoop运行时产生文件的存储目录 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>/home/elon/hadoop/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 配置hdfs-site.xml，需要设置的dfs.replication的参数，主要用于设置集群中副本的个数，由于这个是伪分布模式，因此副本数设置为1即可。 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>配置mapred-site.xml，首先设置了日志聚合相关的参数配置，我们可以理解为将集群环境中原本存储于系统tmp目录下的作业运行日志作了归档处理，并存储在了HDFS上。接下来，对集群中在各个容器中作业的运行环境做了相应的配置，具体是设置了每个作业在map阶段和reduce阶段能够被分配的最大运行内存，另外设置了其可以使用的java虚拟机的最大内存资源数。最后对map阶段和reduce阶段能够被使用的CPU核数做了相应配置。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- log aggreation --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistory.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>localhost:10020<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistory.webapp.address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>localhost:19888<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistory.intermediate-done-dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>/mr-history/done_intermediate<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.jobhistory.done-dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>/mr-history/done<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- configure RAM for a Container --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.map.memory.mb<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>2048<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.reduce.memory.mb<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>2048<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.map.java.opts<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>-Xmx1024m<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.reduce.java.opts<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>-Xmx1024m<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- configure cpu core on map and reduce --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.map.cpu.vcores<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>4<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.reduce.cpu.vcores<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>4<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>配置yarn-site.xml，主要需配置RM运行的主机，在伪分布式环境中就是指本地主机，另外NM节点上运行的服务是mapreduce_shuffle，这个选项是必须配置的，因为我们需要处理的就是mapreduce程序。最后开启了yarn上的日志聚合功能，并将各个容器上产生的日志存储在HDFS上。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>longsl<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- log aggreation --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.log-aggregation-enable<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.remote-app-log-dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>/user/container/logs<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>6）环境设置<br>
+需要设置Hadoop系统的Java安装的位置，通过在etc/hadoop/hadoop-env.sh文件中设置JAVA_HOME项。<br>
+<code>export JAVA_HOME=/opt/jdk1.8</code></p>
+<p>7）格式化HDFS文件系统<br>
+在能够使用之前，全新的HDFS安装需要进行格式化。通过创建存储目录和初始版本的namenode持久数据结构，格式化进程将创建一个空的文件系统。格式化HDFS是一个快速操作，以hdfs用户身份运行命令：hadoop namenode -format</p>
+<h3 id="4-1-2-启动和停止hadoop集群">4.1.2 启动和停止Hadoop集群</h3>
+<p>Hadoop自带脚本，可以运行脚本命令，启动或者停止如hdfs、yarn或者日志聚合等服务进程。为了使用这些脚本，需要告诉Hadoop集群中有哪些机器。文件slaves用于此目的，该文件包含了机器主机名或IP地址的列表，每行代表一个机器信息。文件slaves列举了可以运行datanode和节点管理器的机器。</p>
+<p>1）启动HDFS守护进程<br>
+<a href="http://xn--elonstart-dfs-lm3uka20b011ffp0dkh7dc9zdt71ahjf.sh" target="_blank" rel="noopener">以elon用户身份运行命令start-dfs.sh</a>，可以启动HDFS守护进程。默认情况下，该命令从core-site.xml配置项fs.defaultFS中找到namenode的主机名。更具体一些，start-dfs.sh脚本所做的事情如下：<br>
+1)在每台机器上启动一个namenode。<br>
+2)在slaves文件列举的每台机器上启动一个datanode<br>
+3)在每台机器上启动一个辅助namenode。</p>
+<p>2）启动YARN守护进程<br>
+YARN守护进程以相同的方式启动，通过以yarn用户身份在托管资源管理器的机器上运行命令：<a href="http://start-yarn.sh" target="_blank" rel="noopener">start-yarn.sh</a>。默认情况下，资源管理器总是和start-yarn.sh脚本运行在同一机器上。脚本明确完成以下事情。<br>
+1)在本地机器上启动一个资源管理器。<br>
+2)在slaves文件列举的每台机器上启动一个节点管理器。</p>
+<p>同样，还提供了stop-dfs.sh和stop-yarn.sh脚本用于停止由相应的启动脚本启动的守护进程。下面是在我的集群环境中开启集群环境的实例：</p>
+<pre><code>elon@longsl:~$ start-dfs.sh &amp;&amp; start-yarn.sh
+Starting namenodes on [longsl]
+longsl: starting namenode, logging to /home/elon/hadoop/logs/hadoop-elon-namenode-longsl.out
+localhost: starting datanode, logging to /home/elon/hadoop/logs/hadoop-elon-datanode-longsl.out
+Starting secondary namenodes [0.0.0.0]
+0.0.0.0: starting secondarynamenode, logging to /home/elon/hadoop/logs/hadoop-elon-secondarynamenode-longsl.out
+starting yarn daemons
+starting resourcemanager, logging to /home/elon/hadoop/logs/yarn-elon-resourcemanager-longsl.out
+localhost: starting nodemanager, logging to /home/elon/hadoop/logs/yarn-elon-nodemanager-longsl.out
+</code></pre>
+<h2 id="4-2-伪分布式环境的mapreduce作业构建">4.2 伪分布式环境的MapReduce作业构建</h2>
+<p><img src="https://i.imgur.com/NvL3uNw.png" alt="图4-2 伪分布式的MapReduce任务流程"></p>
+<p>伪分布式的MapReduce任务执行图如图4-2所示，MapReduce框架中共分为Mapper阶段和Reducer阶段，本节会主要研究Mapper和Reducer的流程构造。在伪分布式环境中，Map任务和Reduce任务是串行执行下去的，其中先执行完所有Map任务再执行Reduce任务，另外Map任务和Reduce任务都会在本地执行器中执行。</p>
+<h3 id="4-2-1-mapper流程构造">4.2.1 Mapper流程构造</h3>
+<p>在Mapper阶段中，重点关注单样本的基因测序流程，从而得到变异检测的中间gVCF文件，基因测序Mapper阶段的流程如图4-3所示。</p>
+<p><img src="https://i.imgur.com/BRr8fqM.png" alt="图4-3 基因测序Mapper阶段的流程图"></p>
+<p>在上图中，主要是对Mapper阶段从输入sample.txt文本文件开始，一直到输出端得到output输出文件并把得到的gVCF文件上传到HDFS上的展示。其中在输入的文本文件中保存的是本次测序中样本组中各样本的名称信息，作为测序对象传入模版文件中，在模版引擎的调用下生成测序可执行脚本，然后在Shell脚本执行引擎中调用该脚本，以脚本命令的模式执行基因测序分析流程。<br>
+在脚本执行过程中，需要访问HDFS系统，获取该测序样本的数据文件，最后生成gVCF文件并上传至HDFS上存储。另外对于Mapper的输入端的输出文本，设计是将key设置为同一个，这样在reduce程序调用时，可以在同一个reduce程序中读取到，这样样本就可以在同一个测序分析流程中被调用，形成最终的VCF文件。</p>
+<h3 id="4-2-2-reducer流程构造">4.2.2 Reducer流程构造</h3>
+<p>在Reduer阶段，主要侧重的是基因测序的单样本变异检测结果的合并，得到最终的VCF文件的过程，基因测序Reduce阶段流程图如图4-4所示。</p>
+<p>在该阶段的分析流程中，主要是将上一步Mapper产生的输出文件作为此阶段的输入文件，而reduce程序对于键相同的元素和经过shuffle混洗之后在同一个reduce对象中处理，这样就可以将这一组样本生成的gVCF文件统一传递到reduce程序的shell分析流程脚本中处理，再调用FreeMarker模板引擎来生成合并gVCF文件的脚本文件，最后调用shell脚本执行引擎来调用该脚本文件，得到该组样本统一的变异检测文件。</p>
+<p><img src="https://i.imgur.com/Oa91nGQ.png" alt="图4-4 基因测序Reduce阶段流程图"></p>
+<p>同样，在最后需要将得到的VCF文件上传至HDFS上存储并同意管理，这样就完成了基因测序的完整流程，从单个样本的测序分析得到变异位点信息，到最后合并各个样本的变异位点信息得到最终能反映该生物物种的全基因组变异位点信息集合。<br>
+##4.3 基于Hadoop分布式环境搭建<br>
+在对Hadoop平台的分布式环境的搭建过程，其中的Java环境配置、用户创建、Hadoop二进制包的安装等步骤都和伪分布式的搭建方式一致，主要的不同之处在于其对Hadoop配置文件的配置不同。<br>
+###4.3.1 Hadoop分布式架构<br>
+在我的Hadoop分布式环境配置中，我利用了三台虚拟机来模拟真实主机，三台主机的主机名分别是node1、node2和node3，其中一台作为Master主机，另外两台作为slaves从节点。<br>
+Hadoop完全分布式架构图如图4-5所示，在该图中，主要通过配置集群中各个机器的Java环境变量和SSH免密登录，并在各个机器上配置Hadoop可执行包和修改Hadoop配置文件，搭建Hadoop分布式集群环境。</p>
+<p><img src="https://i.imgur.com/aLtO039.png" alt="图4-5 Hadoop完全分布式架构图"></p>
+<h3 id="4-3-2-hadoop完全分布式配置">4.3.2 Hadoop完全分布式配置</h3>
+<p>首先在node1上进行下面各项的配置，最后再将各个配置项同步复制到node2和node3节点上。</p>
+<pre><code>scp /home/node1/hadoop/etc/hadoop/ root@node2:/home/node2/hadoop/etc/Hadoop
+scp /home/node1/hadoop/etc/hadoop/ root@node3:/home/node2/hadoop/etc/hadoop
+</code></pre>
+<p>(1) 配置slaves文件<br>
+$HADOOP_HOME/etc/Hadoop/slaves文件是用来配置Hadoop集群中的从节点的主机，将集群中所有的从节点都在slaves中进行记录，通常这些从节点就是承担计算任务的节点。在我的完全分布式环境中，我配置了两个从节点，一个主节点。因此需将从节点的主机名node2和node3写入slaves文件中。进行如下配置：</p>
+<pre><code>node2
+node3
+</code></pre>
+<p>(2) 配置core-site.xml文件<br>
+在对core-site.xml文件进行配置时，指定node1为Master主节点，因此NameNode服务就指定在node1主机上。进行如下配置：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">name</span>&gt;</span>fs.defaultFS<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">value</span>&gt;</span>hdfs://node1:8080<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>hadoop.tmp.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>/root/hadoop/tmp<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>(3) 配置hdfs-site.xml文件<br>
+在对hdfs-site.xml文件进行配置时，主要和伪分布式不同的地方在于可以指定多个副本数了，其副本数的多少代表这个文件系统的可靠程度，副本数越高越可靠，但为了兼顾存储资源和高可靠性也不能设置太高，官方默认的副本数是3。另外我们可以对namenode和datanode的存储地址进行自定义，最后指定NameNode的辅助进程的运行主机。具体配置如下：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.replication<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">value</span>&gt;</span>3<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.name.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">value</span>&gt;</span>/root/hadoop/tmp/name<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.datanode.data.dir<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">value</span>&gt;</span>/root/hadoop/tmp/data<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">	    <span class="tag">&lt;<span class="name">name</span>&gt;</span>dfs.namenode.secondary.http-address<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>node1:8081<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>(4) 配置mapred-site.xml文件<br>
+在mapred-site.xml文件中，主要是与MapReduce任务的相关配置。其中要配置MapReduce使用的资源调度框架，这里默认是yarn。另外还要对map任务和reduce任务执行时的可用资源和java虚拟机的资源进行配置。具体配置如下：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.framework.name<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>yarn<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.map.memory.mb<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>1600<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.reduce.memory.mb<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>1600<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.map.java.opts<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>-Xmx1300m<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>mapreduce.reduce.java.opts<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>-Xmx1300m<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>(5) 配置yarn-site.xml文件<br>
+在yarn-site.xml文件中，可以对resourcemanager运行的主机进行指定，这里我将其放在Master节点node1上运行，用于对集群中的作业进行任务调度和资源分配。由于我所创建的三个虚拟机上在我的单个真实主机上的，因此可用资源是非常紧张的，这要求我不同直接使用默认配置，而必须对yarn上的资源进行更为细致化的重新分配。</p>
+<p>首先需要用户配置每个节点上可用的物理内存资源和CPU核数，因为一个node计算节点除了跑相关作业外，还可能运行着其他应用和服务等。下一步需要对yarn中可调度的单个容器资源进行配置，如配置调度的最小分配内存和最大分配内存，其中最小分配内存决定着该节点上最多可部署的容器个数，可通过yarn可用的物理内存除以每个容器最小可分配的内存来得到容器个数，同理CPU核数也是这样来指定。</p>
+<p>接着还需要定义每个Map和Reduce任务需要的最大内存量。由于每个Map和每个Reduce都将在单独的Container中运行，因此这些最大内存设置应至少等于或大于YARN最小Container容量分配。最后，每个Map和Reduce任务的虚拟内存（物理+分页内存）上限由每个允许YARN容器的虚拟内存比决定，默认值为2.1。具体的配置细节如下：</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.resourcemanager.hostname<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">    	<span class="tag">&lt;<span class="name">value</span>&gt;</span>node1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.aux-services<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>mapreduce_shuffle<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.resource.memory-mb<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>2500<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.resource.vcores<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>4<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		 <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.scheduler.minimum-allocation-mb<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		 <span class="tag">&lt;<span class="name">value</span>&gt;</span>2000<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.scheduler.maximum-allocation-mb<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>2500<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.scheduler.minimum-allocation-vcores<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.scheduler.maximum-allocation-vcores<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>4<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.scheduler.increment-allocation-mb<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>100<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.scheduler.increment-allocation-vcores<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>1<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.app.mapreduce.am.resource.mb<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">value</span>&gt;</span>300<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.vmem-pmem-ratio<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>4<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">name</span>&gt;</span>yarn.nodemanager.vmem-check-enabled<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">value</span>&gt;</span>true<span class="tag">&lt;/<span class="name">value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>(6) SSH免密登陆配置<br>
+在配置SSH免密登陆时，主要对针对Master能免密登陆到各个slave节点上，保证NameNode和ResourceManager服务能在集群的各个节点上进行便携访问。在我的分布式环境中，由于NN和RM都是运行在主节点node1上，因此我需要配置node1到node2和node3的免密登陆。具体操作：在node1上使用命令“ssh-keygen –t rsa”生成node1的密钥对，并将node1的公钥分别发送到node2和node3的~/.ssh/authorized文件中，即可实现SSH免密登陆。</p>
+<h3 id="4-3-3-启动和停止hadoop集群">4.3.3 启动和停止Hadoop集群</h3>
+<p>完全分布式和伪分布式一样，<a href="http://xn--start-dfs-zo31ac0a.sh" target="_blank" rel="noopener">通过start-dfs.sh</a>、<a href="http://start-yarn.xn--shstop-dfs-ih7q.sh" target="_blank" rel="noopener">start-yarn.sh和stop-dfs.sh</a>、stop-yarn.sh脚本，启动或者停止如hdfs、yarn或者日志聚合等服务进程。下面是在我的完全分布式集群中的启动实例：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">root@node1:~# start-dfs.sh &amp;&amp; start-yarn.sh</span><br><span class="line">Starting namenodes on [node1]</span><br><span class="line">node1: starting namenode, logging to /root/hadoop/logs/hadoop-root-namenode-node1.out</span><br><span class="line">node2: starting datanode, logging to /root/hadoop/logs/hadoop-root-datanode-node2.out</span><br><span class="line">node3: starting datanode, logging to /root/hadoop/logs/hadoop-root-datanode-node3.out</span><br><span class="line">node1: starting datanode, logging to /root/hadoop/logs/hadoop-root-datanode-node1.out</span><br><span class="line">Starting secondary namenodes [node1]</span><br><span class="line">node1: starting secondarynamenode, logging to /root/hadoop/logs/hadoop-root-secondarynamenode-node1.out</span><br><span class="line">starting yarn daemons</span><br><span class="line">starting resourcemanager, logging to /root/hadoop/logs/yarn-root-resourcemanager-node1.out</span><br><span class="line">node3: starting nodemanager, logging to /root/hadoop/logs/yarn-root-nodemanager-node3.out</span><br><span class="line">node2: starting nodemanager, logging to /root/hadoop/logs/yarn-root-nodemanager-node2.out</span><br><span class="line">node1: starting nodemanager, logging to /root/hadoop/logs/yarn-root-nodemanager-node1.out</span><br></pre></td></tr></table></figure>
+<p>从上面打印的信息可以看出，NameNode是运行在node1主节点上的，在集群中的三个节点都作为计算节点运行这DataNode进程和NodeManager进程。</p>
+<h2 id="4-4-分布式环境下mapreduce作业构建">4.4 分布式环境下MapReduce作业构建</h2>
+<p><img src="https://i.imgur.com/SdyGul2.png" alt="图4-6 分布式环境下的MapReduce的流程"></p>
+<p>在分布式环境中，与伪分布式不同的地方在于，多个slave节点可以提供多个container容器供MapReduce任务来运行，分布式环境下的MapReduce的流程构造如图4-6所示。</p>
+<p>从图中可以看出，在完全分布式环境中总共有多个计算节点，其中包含多个container容器，而我们提交的Map作业和Reduce作业就是在多个容器中分别进行运算，最后再将Map作业运行的结果通过一个Reduce作业进行规约计算。整个MapReduce运行流程，由原来的伪分布式中串行运算Map作业和Reduce作业，到现在分布式环境中并行运算Map作业，最后将Map的中间结果用一个Reduce作业来处理。</p>
+<h2 id="4-5-shell脚本执行引擎的构建">4.5 Shell脚本执行引擎的构建</h2>
+<p>在得到最终的执行脚本后，还需要通过特定的方法来调用执行该脚本文件。通过编写ShellScriptUtil工具类，执行指定的脚本并打印执行过程中出现的日志，并存放在指定的路径下，下面是shell脚本执行工具类的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * shell脚本工具包</span></span><br><span class="line"><span class="comment">* 用于将一个指定的可执行脚本进行执行的Java程序</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShellScriptUtil</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 日志记录</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Logger theLogger = Logger.getLogger(TemplateEngine.class.getName());</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 调用Shell脚本执行的方法</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> paths 指定多个路径参数</span></span><br><span class="line"><span class="comment">     *              第一个指定的是shell模版</span></span><br><span class="line"><span class="comment">     *              第二个参数指定的是脚本执行结果存放路径</span></span><br><span class="line"><span class="comment">     *              第三个参数指定的是执行脚本中日志存放路径，是可选参数，未给出此参数则默认为无日志输出</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">callProcess</span><span class="params">(String... paths)</span> </span>&#123;</span><br><span class="line">        File outputFile;</span><br><span class="line">        File logFile;</span><br><span class="line">        Process process;</span><br><span class="line">        String scriptPath = paths[<span class="number">0</span>];</span><br><span class="line">        String chmod = <span class="string">"chmod u+x "</span> + scriptPath;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="comment">// 为shell脚本增加可执行权限</span></span><br><span class="line">            Runtime.getRuntime().exec(chmod).waitFor();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"执行脚本："</span> + scriptPath);</span><br><span class="line">        ProcessBuilder pb = <span class="keyword">new</span> ProcessBuilder(<span class="string">"./"</span> + scriptPath);</span><br><span class="line">        pb.inheritIO();</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 指定shell脚本执行的结果输出路径和执行时日志文件的输出路径</span></span><br><span class="line">        <span class="keyword">if</span> (paths.length == <span class="number">3</span>) &#123;</span><br><span class="line">            outputFile = <span class="keyword">new</span> File(paths[<span class="number">1</span>]);</span><br><span class="line">            pb.redirectOutput(outputFile);</span><br><span class="line">            logFile = <span class="keyword">new</span> File(paths[<span class="number">2</span>]);</span><br><span class="line">            pb.redirectError(logFile);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 指定shell脚本执行的日志输出路径</span></span><br><span class="line">        <span class="keyword">if</span> (paths.length == <span class="number">2</span>) &#123;</span><br><span class="line">            logFile = <span class="keyword">new</span> File(paths[<span class="number">1</span>]);</span><br><span class="line">            <span class="keyword">if</span> (logFile.exists()) &#123;</span><br><span class="line">                logFile.delete();</span><br><span class="line">            &#125;</span><br><span class="line">            pb.redirectError(logFile);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            process = pb.start();</span><br><span class="line">            process.waitFor();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            theLogger.error(<span class="string">"发生I/O错误..."</span>);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            theLogger.error(<span class="string">"当前线程在等待时被另一个线程中断..."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-6-mapreduce作业编写与整体调度">4.6 MapReduce作业编写与整体调度</h2>
+<p>在MapReduce计算框架中，通过Mapper和Reducer来整体调度整个WGS分析流程，这里需要自定义map()函数和reduce()函数。其中map()函数是用来传入要分析的样本名称，并通过样本名称对不同的样本分多个map任务来并行执行，从而调用模板类，并执行最终的WGS分析脚本。下面是wgsMapper类的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    编写全基因组测序的Mapper类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">wgsMapper</span> <span class="keyword">extends</span> <span class="title">Mapper</span>&lt;<span class="title">LongWritable</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String LOG_DIRECTORY = <span class="string">"./wgs-logs"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String SCRIPT_DIRECTORY = <span class="string">"./wgs-scripts"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">map</span><span class="params">(LongWritable key, Text value, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        String sample_name = value.toString();</span><br><span class="line">        wgs(sample_name);</span><br><span class="line">        context.write(<span class="keyword">new</span> Text(<span class="string">"1"</span>),<span class="keyword">new</span> Text(sample_name));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">wgs</span><span class="params">(String sampleName)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        HashMap&lt;String, String&gt; templateMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        templateMap.put(<span class="string">"sample_name"</span>, sampleName);</span><br><span class="line"></span><br><span class="line">        String template = <span class="string">"wgsMapper.template"</span>;</span><br><span class="line">        String scriptPath = SCRIPT_DIRECTORY + <span class="string">"/wgs_mapper_"</span> + templateMap.get(<span class="string">"sample_name"</span>) + <span class="string">".sh"</span>;</span><br><span class="line">        String logPath = LOG_DIRECTORY + <span class="string">"/wgs_mapper_"</span> + templateMap.get(<span class="string">"sample_name"</span>) + <span class="string">".log"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 从模板创建具体脚本</span></span><br><span class="line">        File scriptFile = TemplateEngine.createDynamicContentAsFile(template, templateMap, scriptPath);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (scriptFile != <span class="keyword">null</span>) &#123;</span><br><span class="line">            ShellScriptUtil.callProcess(scriptPath, logPath);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>而在reduce()函数中，通过传递的样本名称到Reducer脚本模版中，对指定的gvcf文件作合并处理，从而得到最终的VCF文件。下面是wgsReducer类的代码：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    编写全基因组测序的Reducer类</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">wgsReducer</span> <span class="keyword">extends</span> <span class="title">Reducer</span>&lt;<span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>, <span class="title">Text</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String LOG_DIRECTORY = <span class="string">"./wgs-logs"</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> String SCRIPT_DIRECTORY = <span class="string">"./wgs-scripts"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">reduce</span><span class="params">(Text key, Iterable&lt;Text&gt; values, Context context)</span> <span class="keyword">throws</span> IOException, InterruptedException </span>&#123;</span><br><span class="line"></span><br><span class="line">        HashMap&lt;String, String&gt; templateMap = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">        Iterator&lt;Text&gt; value = values.iterator();</span><br><span class="line">        <span class="keyword">int</span> count = <span class="number">0</span>;</span><br><span class="line">        String str = <span class="string">""</span>;</span><br><span class="line">        <span class="keyword">while</span> (value.hasNext()) &#123;</span><br><span class="line">            str = value.next().toString();</span><br><span class="line">            templateMap.put(<span class="string">"sample_name"</span> + (++count), str);</span><br><span class="line">        &#125;</span><br><span class="line">        mergeGVCF(templateMap);</span><br><span class="line">        context.write(<span class="keyword">new</span> Text(<span class="string">"1"</span>), <span class="keyword">new</span> Text(str));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeGVCF</span><span class="params">(HashMap&lt;String, String&gt; templateMap)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        String template = <span class="string">"wgsReducer.template"</span>;</span><br><span class="line">        String scriptPath = SCRIPT_DIRECTORY + <span class="string">"/wgs_reducer_"</span> + <span class="string">".sh"</span>;</span><br><span class="line">        String logPath = LOG_DIRECTORY + <span class="string">"/wgs_reducer_"</span> + <span class="string">".log"</span>;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 从模板创建具体脚本</span></span><br><span class="line">        File scriptFile = TemplateEngine.createDynamicContentAsFile(template, templateMap, scriptPath);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (scriptFile != <span class="keyword">null</span>) &#123;</span><br><span class="line">            ShellScriptUtil.callProcess(scriptPath, logPath);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-7-本章小结">4.7 本章小结</h2>
+<p>在本章中，主要介绍了Hadoop伪分布式环境及分布式环境进行搭建，还对WGS分析流程与MapReduce计算框架如何结合起来，其中就涉及到如何分多个map任务并行执行分析流程，对于WGS测序过程在linux环境中运行的情况，引入FreeMarker第三方库，通过编写脚本模板，并结合map和reduce作业，使得不同的map或者reduce任务在执行过程中，以不同的样本数据来执行不同的WGS脚本，达到高效并行化的全基因组测序的目的，最后再通过调用Driver驱动类执行整个MapReduce程序。</p>
+<p>下一章主要对构建的测序平台做一个多样本数据的测试，并进行优化和系统扩展。</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>Tom White. Hadoop权威指南[M]. 王海,华东,刘喻,吕粤海译. 清华大学出版社 第四版 2017. <a href="#fnref1" class="footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/3fd0f93f.html" data-id="cjw0t82tc002h0m05by1lgode" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Hadoop/">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/大数据/">大数据</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/基因测序/">基因测序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/毕业设计/">毕业设计</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/blog/34f6c0b5.html" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">3 基于Hadoop基因测序数据处理关键技术的研究</span>
+    </a>
+  </li>
+  
+  
+  <li role="presentation">
+    <a href="/blog/c7060cce.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">5 系统的测试与扩展</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
+  
+</ul>
+
+
+  
+</article>
+
+
+<section id="comments" class="post-comments">
+  
+      <div class="body-container">
+        <div id="disqus_thread" class="valine">
+        </div>
+      </div>
+  
+</section>
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar" id="sidebar">
+          
+  <div class="sidebar-module sidebar-toc" id="toc">
+    
+      <h4>Table of Contents</h4>
+      <ol class="sidebar-module-list"><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#4-1-基于hadoop的伪分布式平台搭建"><span class="sidebar-module-list-number">1.</span> <span class="sidebar-module-list-text">4.1 基于Hadoop的伪分布式平台搭建</span></a><ol class="sidebar-module-list-child"><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#4-1-1-搭建hadoop伪分布式平台"><span class="sidebar-module-list-number">1.1.</span> <span class="sidebar-module-list-text">4.1.1 搭建Hadoop伪分布式平台</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#4-1-2-启动和停止hadoop集群"><span class="sidebar-module-list-number">1.2.</span> <span class="sidebar-module-list-text">4.1.2 启动和停止Hadoop集群</span></a></li></ol></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#4-2-伪分布式环境的mapreduce作业构建"><span class="sidebar-module-list-number">2.</span> <span class="sidebar-module-list-text">4.2 伪分布式环境的MapReduce作业构建</span></a><ol class="sidebar-module-list-child"><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#4-2-1-mapper流程构造"><span class="sidebar-module-list-number">2.1.</span> <span class="sidebar-module-list-text">4.2.1 Mapper流程构造</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#4-2-2-reducer流程构造"><span class="sidebar-module-list-number">2.2.</span> <span class="sidebar-module-list-text">4.2.2 Reducer流程构造</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#4-3-2-hadoop完全分布式配置"><span class="sidebar-module-list-number">2.3.</span> <span class="sidebar-module-list-text">4.3.2 Hadoop完全分布式配置</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#4-3-3-启动和停止hadoop集群"><span class="sidebar-module-list-number">2.4.</span> <span class="sidebar-module-list-text">4.3.3 启动和停止Hadoop集群</span></a></li></ol></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#4-4-分布式环境下mapreduce作业构建"><span class="sidebar-module-list-number">3.</span> <span class="sidebar-module-list-text">4.4 分布式环境下MapReduce作业构建</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#4-5-shell脚本执行引擎的构建"><span class="sidebar-module-list-number">4.</span> <span class="sidebar-module-list-text">4.5 Shell脚本执行引擎的构建</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#4-6-mapreduce作业编写与整体调度"><span class="sidebar-module-list-number">5.</span> <span class="sidebar-module-list-text">4.6 MapReduce作业编写与整体调度</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#4-7-本章小结"><span class="sidebar-module-list-number">6.</span> <span class="sidebar-module-list-text">4.7 本章小结</span></a></li></ol>
+    
+  </div>
+
+
+
+  
+<div class="sidebar-module sidebar-tags">
+  <h4>Search</h4>
+  <form id="search-form"> <!-- 搜索框相关 -->
+    <input type="text" id="local-search-input" name="q" placeholder=" 搜本站..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false">
+    <i class="fa fa-times" onclick="resetSearch()"></i> <!-- 清空/重置搜索框 -->
+  </form>
+  <div id="local-search-result"></div> <!-- 搜索结果区 -->
+  <p class="no-result">No results found </p> <!-- 无匹配时显示，注意请在 CSS 中设置默认隐藏 -->
+</div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Docker/">Docker</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/">Unity</a><span class="sidebar-module-list-count">4</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/ECS/">ECS</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Tutorial/">Tutorial</a><span class="sidebar-module-list-count">1</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Tutorial/Scripts/">Scripts</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/脚本编程/">脚本编程</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/">工具</a><span class="sidebar-module-list-count">7</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/Atom/">Atom</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/写作/">写作</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/版本控制/">版本控制</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/电脑管理/">电脑管理</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/旅游/">旅游</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/网站构建/">网站构建</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/解决方案/">解决方案</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/">认证</a><span class="sidebar-module-list-count">2</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/AWS认证/">AWS认证</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/">语言</a><span class="sidebar-module-list-count">8</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/Java/">Java</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/mybatis/">mybatis</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/资源/">资源</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/项目/">项目</a><span class="sidebar-module-list-count">9</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/项目/Hadoop基因测序/">Hadoop基因测序</a><span class="sidebar-module-list-count">9</span></li></ul></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/blog/tags/90km/" style="font-size: 10px;">90km</a> <a href="/blog/tags/Atom-Snippets/" style="font-size: 10px;">Atom Snippets</a> <a href="/blog/tags/CI-CD/" style="font-size: 13.33px;">CI/CD</a> <a href="/blog/tags/Class/" style="font-size: 10px;">Class</a> <a href="/blog/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/Project/" style="font-size: 10px;">Project</a> <a href="/blog/tags/SEO/" style="font-size: 10px;">SEO</a> <a href="/blog/tags/Unity/" style="font-size: 16.67px;">Unity</a> <a href="/blog/tags/Visual-Studio/" style="font-size: 10px;">Visual Studio</a> <a href="/blog/tags/aws/" style="font-size: 13.33px;">aws</a> <a href="/blog/tags/aws-soa/" style="font-size: 10px;">aws-soa</a> <a href="/blog/tags/c/" style="font-size: 10px;">c#</a> <a href="/blog/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/blog/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/blog/tags/highlightjs/" style="font-size: 10px;">highlightjs</a> <a href="/blog/tags/java/" style="font-size: 13.33px;">java</a> <a href="/blog/tags/longshilindotcom/" style="font-size: 10px;">longshilindotcom</a> <a href="/blog/tags/markdown/" style="font-size: 13.33px;">markdown</a> <a href="/blog/tags/memreduct/" style="font-size: 10px;">memreduct</a> <a href="/blog/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/blog/tags/simiki/" style="font-size: 10px;">simiki</a> <a href="/blog/tags/sysops/" style="font-size: 10px;">sysops</a> <a href="/blog/tags/tools/" style="font-size: 16.67px;">tools</a> <a href="/blog/tags/tower/" style="font-size: 10px;">tower</a> <a href="/blog/tags/wordpress/" style="font-size: 10px;">wordpress</a> <a href="/blog/tags/write/" style="font-size: 13.33px;">write</a> <a href="/blog/tags/代理/" style="font-size: 10px;">代理</a> <a href="/blog/tags/优秀文章/" style="font-size: 10px;">优秀文章</a> <a href="/blog/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/blog/tags/基因测序/" style="font-size: 20px;">基因测序</a> <a href="/blog/tags/大数据/" style="font-size: 20px;">大数据</a> <a href="/blog/tags/异常/" style="font-size: 10px;">异常</a> <a href="/blog/tags/效率/" style="font-size: 10px;">效率</a> <a href="/blog/tags/极客时间/" style="font-size: 10px;">极客时间</a> <a href="/blog/tags/毕业设计/" style="font-size: 20px;">毕业设计</a> <a href="/blog/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/blog/tags/笔试/" style="font-size: 10px;">笔试</a> <a href="/blog/tags/类对象/" style="font-size: 10px;">类对象</a> <a href="/blog/tags/线程/" style="font-size: 10px;">线程</a> <a href="/blog/tags/迭代器/" style="font-size: 10px;">迭代器</a> <a href="/blog/tags/集合/" style="font-size: 10px;">集合</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/05/">五月 2019</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/02/">二月 2019</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/12/">十二月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/11/">十一月 2018</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/09/">九月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/07/">七月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2017/11/">十一月 2017</a><span class="sidebar-module-list-count">7</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module sidebar-recents">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/blog/7eae6d59.html">写博文的常用板书格式</a>
+        </li>
+      
+        <li>
+          <a href="/blog/f427fb19.html">Atom自定义代码片段以提高编码效率</a>
+        </li>
+      
+        <li>
+          <a href="/blog/f243dbe9.html">Unity双击脚本不会自动跳转到vs中的解决方案</a>
+        </li>
+      
+        <li>
+          <a href="/blog/ac01c54a.html">创建ECS项目</a>
+        </li>
+      
+        <li>
+          <a href="/blog/30526cbb.html">Unity3D中使用委托</a>
+        </li>
+      
+        <li>
+          <a href="/blog/d6acd003.html">1. Scripts as Behaviour Components</a>
+        </li>
+      
+        <li>
+          <a href="/blog/27a62a5a.html">c#JobSystem</a>
+        </li>
+      
+        <li>
+          <a href="/blog/b5410c9.html">windows和mac上安装Tower破解版</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9145047272014077",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!- blog-general-responsive-sidebar ->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4721191851305300"
+     data-ad-slot="5846920073"
+     data-ad-format="auto"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+        </div>
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      <!-- Copyright &copy; 2014 - 2019 longsl&nbsp;<br> -->
+      <!-- For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><br/> -->
+      Site Generated 2019-05-23 15:05:31&nbsp;&nbsp;
+      <!-- CNZZ统计 -->
+      <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script><br>
+      Create with <a href="https://hexo.io">Hexo</a>&nbsp; |&nbsp;
+      CI/CD by <a href="https://about.gitlab.com/2015/12/14/getting-started-with-gitlab-and-gitlab-ci/" target="_blank">Gitlab</a>&nbsp; |&nbsp;
+      Host on <a href="https://pages.github.com/" target="_blank">Github</a>&nbsp; |&nbsp;
+      <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u>
+      <!-- <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"  target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a><br> -->
+      <!-- <a href="http://www.miitbeian.gov.cn">湘ICP备18009099号</a>&nbsp; |&nbsp;<img src="/images/beian.png" /> <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43060202000297">湘公网安备 43060202000297号</a> -->
+    </div>
+  </div>
+</footer>
+
+  
+
+<!-- changyan comment -->
+
+
+<!-- gitment comment -->
+
+
+<!-- Valine comment -->
+
+  <script src="//longshilin.com/assets/js/prism-default.js"></script>
+  <script src="//longshilin.com/assets/js/jquery.min.js"></script>
+  <script src="//longshilin.com/assets/js/av-min.js"></script>
+  <script src="//longshilin.com/assets/js/Valine.min.js"></script>
+  <script src="//longshilin.com/assets/js/jquery.fitvids.js"></script>
+  <script>
+    new Valine({
+      av: AV,
+      el: '#disqus_thread',
+      emoticon_url: 'https://longshilin.com/emojs',
+      emoticon_list: ["吐.png","喷血.png","狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","中指.png","尴尬.png","瞅你.png","想一想.png","中枪.png","得意.png","肿包.png","扇耳光.png","亲亲.png","惊喜.png","脸红.png","无所谓.png","便便.png","愤怒.png","蜡烛.png","献黄瓜.png","内伤.png","投降.png","观察.png","看不见.png","击掌.png","抠鼻.png","邪恶.png","看热闹.png","口水.png","抽烟.png","锁眉.png","装大款.png","吐舌.png","无奈.png","长草.png","赞一个.png","呲牙.png","无语.png","阴暗.png","不出所料.png","咽气.png","期待.png","高兴.png","吐血倒地.png","哭泣.png","欢呼.png","黑线.png","喜极而泣.png","喷水.png","深思.png","鼓掌.png","暗地观察.png"],
+      appId: 'pMgClbOyqp0K4AQxpMUJuskE-9Nh9j0Va',
+      appKey: 'CzXcgRguvCJa0EkILaN5F4HX',
+      placeholder: 'Write a Comment...',
+    });
+  </script>
+
+
+<script src="/assets/js/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+  <!-- 注释掉本地取js代码块
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/github.min.css" integrity="sha384-WtUWHyk39lfUpZQVgokNfSKCJaKAeD6adgLduBLrKTMUuPzFhLtL23y1guFy6lZn" crossorigin="anonymous">-->
+  <script src="/blog/highlight/highlight.pack.js"></script>
+
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+<script src="/blog/js/search.js"></script>
+
+  
+	<div id="totop">
+	<a title="totop"><img src="/blog/images/scrollup.png"></a>
+	</div>
+	<script src="/blog/js/totop.js"></script>
+
+  <script src="/blog/js/sidebar.js"></script>
+  <script src="/blog/js/baidu_js_push.js"></script>
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <script id="__bs_script__">
+    if(location.hostname == "localhost")
+        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.0'><\/script>".replace("HOST", location.hostname));
+  </script>
+</body>
+</html>

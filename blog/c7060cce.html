@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <!-- 新增github的关注样式 - ->
+  <a href="https://github.com/longshilin"><img style="position: absolute; top: 35px; right: 0; border: 0;" src="https://longshilin.com/blog/images/forkme_right_green_007200.png" alt="Fork me on GitHab"></a>-->
+  <title>5 系统的测试与扩展 — 积之在平日</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="5.1 MRUnit测试类编写 MRUnit是一个MapReduce的测试库，它能将已知的输入通过函数的形式直接传递给Map()函数，然后该函数直接被调用运行，或者检查Reduce()函数的输出和测试的指定输出匹配，看是否符合预期输出。MRUnit与标准的测试执行框架（如：JUnit）一起使用[1]，因此可以在正常的开发环境中运行MapReduce作业的测试。">
+<meta name="keywords" content="Hadoop,大数据,基因测序,毕业设计">
+<meta property="og:type" content="article">
+<meta property="og:title" content="5 系统的测试与扩展">
+<meta property="og:url" content="https://longshilin.com/blog/c7060cce.html">
+<meta property="og:site_name" content="积之在平日">
+<meta property="og:description" content="5.1 MRUnit测试类编写 MRUnit是一个MapReduce的测试库，它能将已知的输入通过函数的形式直接传递给Map()函数，然后该函数直接被调用运行，或者检查Reduce()函数的输出和测试的指定输出匹配，看是否符合预期输出。MRUnit与标准的测试执行框架（如：JUnit）一起使用[1]，因此可以在正常的开发环境中运行MapReduce作业的测试。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://i.imgur.com/LTjKPzf.png">
+<meta property="og:image" content="https://i.imgur.com/ACMv0sK.png">
+<meta property="og:image" content="https://i.imgur.com/A7ytgpS.png">
+<meta property="og:updated_time" content="2019-05-23T15:26:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="5 系统的测试与扩展">
+<meta name="twitter:description" content="5.1 MRUnit测试类编写 MRUnit是一个MapReduce的测试库，它能将已知的输入通过函数的形式直接传递给Map()函数，然后该函数直接被调用运行，或者检查Reduce()函数的输出和测试的指定输出匹配，看是否符合预期输出。MRUnit与标准的测试执行框架（如：JUnit）一起使用[1]，因此可以在正常的开发环境中运行MapReduce作业的测试。">
+<meta name="twitter:image" content="https://i.imgur.com/LTjKPzf.png">
+<meta name="twitter:creator" content="@yilong0722">
+<link rel="publisher" href="106698639613319710000">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="积之在平日" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/blog/css/styles.css">
+  
+
+  <script src="/blog/js/baidutongji.js"></script>
+</head>
+</html>
+<body>
+  <nav class="navbar navbar-inverse navbar-wrapper">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class="" href="/blog/">Home</a></li>
+        
+          <li><a class="" href="/blog/../wiki/">Wiki</a></li>
+        
+      </ul>
+
+
+      <ul class="nav navbar-nav navbar-right" id="sub-menu-navbar">
+        
+          <li><a href="/blog/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+        
+          <li><a href="https://github.com/longshilin" title="Github"><i class="fa fa-github"></i></a></li>
+        
+        
+          <li><a href="https://gitlab.com/longshilin" title="Gitlab"><i class="fa fa-gitlab"></i></a></li>
+        
+        
+          <li><a href="https://stackoverflow.com/users/7739839" title="StackOverFlow"><i class="fa fa-stack-overflow"></i></a></li>
+        
+        
+      </ul>
+
+<!-- add google translate - ->
+      <div id="google_translate_element" style="position:absolute; right:0; margin-top: 8px; margin-right: 1px;"></div>
+
+      <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
+        }
+      </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!- - /add google translate -->
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <div class="container">
+    <!-- 隐藏header头 -->
+    
+    <div class="row">
+        <div class="col-sm-8 blog-main" id="main-body">
+          <article id="post-项目/Hadoop基因测序/System-testing-and-extension" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      5 系统的测试与扩展
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/c7060cce.html" class="article-date"><time datetime="2018-07-25T00:00:00.000Z" itemprop="datePublished">2018-07-25</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/项目/">项目</a> / <a class="article-category-link" href="/blog/categories/项目/Hadoop基因测序/">Hadoop基因测序</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/c7060cce.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+    <!-- <span id="busuanzi_container_page_pv"><i class="fa fa-eye"></i>&nbsp;阅读次数: <span id="busuanzi_value_page_pv"></span>&nbsp;</span> -->
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="5-1-mrunit测试类编写">5.1 MRUnit测试类编写</h2>
+<p><a href="http://mrunit.apache.org" target="_blank" rel="noopener">MRUnit</a>是一个MapReduce的测试库，它能将已知的输入通过函数的形式直接传递给Map()函数，然后该函数直接被调用运行，或者检查Reduce()函数的输出和测试的指定输出匹配，看是否符合预期输出。MRUnit与标准的测试执行框架（如：JUnit）一起使用<sup class="footnote-ref"><a href="#fn1" id="fnref1">[1]</a></sup>，因此可以在正常的开发环境中运行MapReduce作业的测试。</p>
+<a id="more"></a>
+<h3 id="5-1-1-map任务的测试类编写与调度">5.1.1 Map任务的测试类编写与调度</h3>
+<p>这里通过对Mapper函数传入一个样本名称，如SRR3226035，测试其程序是否调用流程分析脚本，并输出正常结果。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">wgsMapperTest</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        测试Mapper</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">wgs</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Text value = <span class="keyword">new</span> Text(“SRR3226035”);</span><br><span class="line">        <span class="keyword">new</span> MapDriver&lt;LongWritable, Text, Text, Text&gt;()</span><br><span class="line">                .withMapper(<span class="keyword">new</span> wgsMapper())</span><br><span class="line">                .withInput(<span class="keyword">new</span> LongWritable(<span class="number">0</span>), value)</span><br><span class="line">                .withOutput(<span class="keyword">new</span> Text(“<span class="number">1</span>”), value)</span><br><span class="line">                .runTest();</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="5-1-2-reduce任务的测试类编写与调度">5.1.2 Reduce任务的测试类编写与调度</h3>
+<p>这里通过对Reducer函数传入多个样本名称，如SRR3226035，测试其程序是否调用shell脚本，整合多个gvcf变异文件，并整合为一个VCF文件。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">wgsReducerTest</span> </span>&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">        测试Reducer</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">()</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        Text value1 = <span class="keyword">new</span> Text(<span class="string">"SRR3226035"</span>);</span><br><span class="line">        Text value2 = <span class="keyword">new</span> Text(<span class="string">"SRR3226039"</span>);</span><br><span class="line">        Text value3 = <span class="keyword">new</span> Text(<span class="string">"SRR3226042"</span>);</span><br><span class="line">        <span class="keyword">new</span> ReduceDriver&lt;Text, Text, Text, Text&gt;()</span><br><span class="line">                .withReducer(<span class="keyword">new</span> wgsReducer())</span><br><span class="line">                .withInputKey(<span class="keyword">new</span> Text(<span class="string">"1"</span>))</span><br><span class="line">                .withInputValues(Arrays.asList(value1,value2,value3))</span><br><span class="line">                .withOutput(<span class="keyword">new</span> Text(<span class="string">"1"</span>), value3)</span><br><span class="line">                .runTest();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="5-2-hadoop测序平台的测试">5.2 Hadoop测序平台的测试</h2>
+<p>人类的参考基因组数据文件很大，其序列长度大概在3GB，包含30亿个碱基信息。而一个人的高深度测序所需要准备的样本数据往往是这个数字的30倍多，大约达到100GB。如果直接用这样的数据来完成基因测序分析，会下载大量的数据以及花费大量的处理时间，而且对机器性能也要有很高的要求。</p>
+<p>因此在保证WGS全基因组测序流程的的完整性和正确性的情况下，使用一种大肠杆菌E.coli K12的全基因组数据作为代替。这是美国国家生物技术信息中心的一个研究课题，主要是针对一种大肠杆菌的全基因组测序的实验项目。该E.coli K12生物的基因组比较单一，全基因组中仅包含NC_000913.3这一种染色体，数据量相比于人类来说算很小的，它的全基因组的文本数据总大小只有4.6Mb，非常适合用来测试基于Hadoop的全基因组测序分析平台。以后对人类基因组数据作分析时再作替换即可。</p>
+<h3 id="5-2-1-测试环境与测试数据准备">5.2.1 测试环境与测试数据准备</h3>
+<p>在测试环境的准备中，在上一章中着重介绍了Hadoop伪分布式的搭建和Hadoop分布式的搭建流程，由于机器的限制，就本次的测试选择Hadoop伪分布环境下进行，我可以在我自己学习用的笔记本上直接搭建好该环境，接着对测试样本数据进行下载和预处理。</p>
+<p>1）处理E.coli K12的参考基因组序列<br>
+物种的基因组参考序列可以在NCBI上获取，下面是E.coli K12参考序列的<a href="ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/000/005/845/GCF_000005845.2_ASM584v2/GCF_000005845.2_ASM584v2_genomic.fna.gz" target="_blank" rel="noopener">ftp地址</a>。为了接下来表达上的清晰和操作上的方便，通过bgzip将这个序列文件进行解压并重命名为E.coli_K12_MG1655.fa<br>
+<code>$ gzip -dc GCF_000005845.2_ASM584v2_genomic.fna.gz &gt; E.coli_K12_MG1655.fa</code><br>
+接着，使用Samtools软件为参考文件建立索引，方便其他数据分析工具（比如GATK）能够快速地获取fasta上的任何位点的序列信息。<br>
+<code>$ /home/elon/biosoft/samtools/1.0/bin/samtools faidx E.coli_K12_MG1655.fa</code></p>
+<p>2）下载E.coli K12的测序数据<br>
+基因组参考序列准备好之后，我们还需要准备该物种的测序样本数据。这里使用一组科研的E.coli K12实验数据<a href="https://www.ncbi.nlm.nih.gov/biosample/SAMN04505064/" target="_blank" rel="noopener">E.coli K12测试数据 </a>，其作为一种供研究使用的模式生物，已经在NCBI上有许多的测序数据了。我这里选取某次科研组织的样本数据共9组，样本号序列分别为：SRR3226034、SRR3226035 … SRR3226042。</p>
+<p>通过<a href="http://www.ebi.ac.uk/ena/data/view/SRR_number" target="_blank" rel="noopener">点击下载数据样本</a>，并把最后SRR_number替换成指定的样本号。这些样本数据来自Illumina MiSeq测序平台，read长度是300bp，测序类型Pair-End，说明样 本有R1和R2双端测序数据。</p>
+<p>从NCBI上下载下来的测序数据是一种NCBI的特殊格式SRA，它具较高的压缩率。我们需要对下载下来的SRA数据进行转换，得到我们需要的FASTQ格式数据，需要用到NCBI的官方工具包sratoolkit<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>，解压之后就可以使用了。</p>
+<p>sratoolkit是一个工具包，所有的执行程序都在它解压后的bin文件夹下，我们要把SRA转换为fastq，只需直接通过工具包中的fastq-dump即可完成。<br>
+<code>$ /home/elon/biosoft/sratoolkit/2.9.0/bin/fastq-dump --split-files SRR_number.sra</code></p>
+<p>然后我们就会得到这个E.coli K12数据的read1和read2了：SRR_number_1.fastq和SRR_number_2.fastq。在得到R1和R2序列对之后，可以用bgzip命令将其压缩为.gz文件，这样可以节省空间，并且不会对接下来的数据分析产生影响。</p>
+<pre><code>$ bgzip -f SRR_number_1.fastq
+$ bgzip -f SRR_number_2.fastq
+</code></pre>
+<p>在得到gz格式的FASTQ样本数据之后，接下来就可以进行下面具体的测序分析流程了。</p>
+<h3 id="5-2-2-系统平台的测试">5.2.2 系统平台的测试</h3>
+<p>在本机的伪分布式的Hadoop环境中，用IDEA开发平台进行测试。首先通过以下指令运行Hadoop集群：<br>
+<code>$ start-dfs.sh &amp;&amp; start-yarn.sh</code></p>
+<p>编辑Mapper阶段的输入文本sample.txt，每行指定一个样本数据：</p>
+<pre><code>SRR3226034
+SRR3226035
+SRR3226036
+SRR3226037
+SRR3226038
+SRR3226039
+SRR3226040
+SRR3226041
+SRR3226042
+</code></pre>
+<p>接下来，需要通过以下命令将样本数据上传到HDFS上的指定文件夹：<br>
+<code>$ hadoop fs -put sample.txt /wgsv2-input/</code></p>
+<p>最后，调用wgsDriver驱动程序，这是整个项目的入口程序。从这里开始整个项目的MapReduce分析流程，并在指定文件夹中打印日志和脚本信息，最终得到VCF变异检测文件，并已上传到HDFS的指定位置。</p>
+<p>对gVCF文件和VCF文件的解读在第二章的相关文件格式介绍中已经提及，其中的样本数据就是来自这一组测试数据得到的最终变异集合。</p>
+<h2 id="5-3-测序平台的分析与优化">5.3 测序平台的分析与优化</h2>
+<h3 id="5-3-1-测序平台与传统测序流程的比较">5.3.1 测序平台与传统测序流程的比较</h3>
+<p>与传统的处理流程相比，对于这九组样本数据，在传统的分析流程中，需要手动编写九组测序的脚本，这个重复性的工作在FreeMarker的引入之后可以简化了。只需编写一套测序分析模板脚本，通过模版生成引擎，得到九组不同的测序分析脚本。</p>
+<p><img src="https://i.imgur.com/LTjKPzf.png" alt="图5-1  Map阶段测序分析运行时间比对"></p>
+<p>Map阶段测序分析运行时间比对如图5-1所示，横坐标表示的是用于测序的样本个数，纵坐标表示的是测序流程总的运行时间。在传统的测序分析是进行串行处理的方式，在处理单个样本对数据时，耗时大概12分钟左右，因此对于样本个数逐个递增的情况其总耗时时间呈线性递增；而对于分布式环境的Map任务执行，各个map任务在集群中是同时提交并行执行的，在每一种测序样本数处理情况中，以处理用时最长那一组的测序时间作为总运行时间。<br>
+因此由图5-1可知，随着样本数的增多，传统的测序方法的运行时间呈线性增加，而基于Hadoop的分布式测序所需要的时间基本保持不变。</p>
+<p><img src="https://i.imgur.com/ACMv0sK.png" alt="图5-2  Reduce阶段测序分析运行时间比对"></p>
+<p>Reduce阶段测序分析运行时间比对如图5-2所示，在Reducer规约阶段需要将上一步骤中各个样本产生的单个变异检测样本合并，而这里都是经由一个脚本程序处理，因此传统基因测序时间和分布式基因测序时间相近。</p>
+<h3 id="5-3-2-增加测序流程处理的时间戳标记">5.3.2 增加测序流程处理的时间戳标记</h3>
+<p>在每个分析流程执行的时候，在各个Shell命令中加入time命令，可以在日志中打印该流程所花费的时间。比如：程序执行的开始时间和程序执行的结束时间，一共花费了多少时间等，这样可以对分析流程中各个程序的执行时间和执行流程顺序更加了解。</p>
+<h3 id="5-3-3-引入log4j日志框架">5.3.3 引入Log4j日志框架</h3>
+<p>在整个项目中引入Log4j日志框架，将不同的日志类型的信息导向不同的文件中存储，便于项目的开发和调试。下面是我的log4j的配置文件：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## Log4j建议只使用四个级别，优先级从高到低分别是ERROR、WARN、INFO、DEBUG。###</span></span></span><br><span class="line">log4j.rootLogger = stdout,D,E,I</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## 输出信息到控制台 ###</span></span></span><br><span class="line">log4j.appender.stdout = org.apache.log4j.ConsoleAppender</span><br><span class="line">log4j.appender.stdout.Target = System.out</span><br><span class="line">log4j.appender.stdout.layout = org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.stdout.layout.ConversionPattern = [%-5p] %d&#123;yyyy-MM-dd HH:mm:ss,SSS&#125; method:%l%n%m%n</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## 输出DEBUG 级别以上的日志到 $PROJECT_HOME/wgsv2/wgs-logs/debug.log ###</span></span></span><br><span class="line">log4j.appender.D = org.apache.log4j.DailyRollingFileAppender</span><br><span class="line">log4j.appender.D.File = ./wgs-logs/debug.log</span><br><span class="line">log4j.appender.D.Append = true</span><br><span class="line">log4j.appender.D.Threshold = DEBUG</span><br><span class="line">log4j.appender.D.layout = org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.D.layout.ConversionPattern = %-d&#123;yyyy-MM-dd HH:mm:ss&#125;  [ %t:%r ] - [ %p ]  %m%n</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## 输出ERROR 级别以上的日志到 $PROJECT_HOME/wgsv2/wgs-logs/error.log ###</span></span></span><br><span class="line">log4j.appender.E = org.apache.log4j.DailyRollingFileAppender</span><br><span class="line">log4j.appender.E.File =./wgs-logs/error.log</span><br><span class="line">log4j.appender.E.Append = true</span><br><span class="line">log4j.appender.E.Threshold = ERROR</span><br><span class="line">log4j.appender.E.layout = org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.E.layout.ConversionPattern = %-d&#123;yyyy-MM-dd HH:mm:ss&#125;  [ %t:%r ] - [ %p ]  %m%n</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment">## 输出INFO 级别以上的日志到=$PROJECT_HOME/wgsv2/wgs-logs/TemplateEngine-info.log ###</span></span></span><br><span class="line">log4j.appender.I = org.apache.log4j.DailyRollingFileAppender</span><br><span class="line">log4j.appender.I.File =./wgs-logs/info.log</span><br><span class="line">log4j.appender.I.Append = true</span><br><span class="line">log4j.appender.I.Threshold = INFO</span><br><span class="line">log4j.appender.I.layout = org.apache.log4j.PatternLayout</span><br><span class="line">log4j.appender.I.layout.ConversionPattern = %-d&#123;yyyy-MM-dd HH:mm:ss&#125;  [ %t:%r ] - [ %p ]  %m%n</span><br></pre></td></tr></table></figure>
+<p>从配置文件中可以看到，日志优先级共四种，优先级从高到低分别是ERROR、WARN、INFO、DEBUG，对于不同日志等级的日志文件进行分文件存储。这样对于后期的系统调试至关重要。</p>
+<h2 id="5-4-基于hadoop基因测序平台的扩展">5.4 基于Hadoop基因测序平台的扩展</h2>
+<p>在对不同物种进行基于Hadoop平台的全基因组测序流程开发时，只需对WGS处理模板进行重构，适配特定的物种即可，在本章的测试样本中，我使用的是大肠杆菌的K12生物来进行测序流程构建，而将其换作是其他生物的全基因组数据完全可以。下图是测序平台的扩展性示意图，由于每个样本的测序分析流程都是封装在Map任务和Reduce任务中的，因此可以同时并行化的开展对不同物种的测序流程，Hadoop大数据测序平台扩展如图5-3所示。</p>
+<p><img src="https://i.imgur.com/A7ytgpS.png" alt="图5-3 Hadoop大数据测序平台扩展图"></p>
+<p>在该Hadoop基因测序平台中，对于其他物种如人类，只需将人类的全基因组测序样本上传至HDFS分布式存储系统中，将人类的参考基因组数据在集群的各个主机上进行分布，再设计人类基因测序流程的模板文件即可适配该平台。因为各个Map任务和Reduce任务是独立存在，并隔离在不同的container中执行的，因此各个子任务之间互不干扰，达到完全并行化计算处理。<br>
+##5.5 本章小结<br>
+本章主要对搭建的基于Hadoop的WGS分析流程平台的一个测试，在保证WGS全基因组测序流程的的完整性和正确性的情况下，用 E.coli K12生物的数据作为代替，测试平台的可用性和健壮性等。对传统WGS分析流程与Hadoop大数据框架整合，从测序源到产生最终的变异结果gVCF和VCF文件的过程进行测试。<br>
+在这次测试中，通过观察运行过程的日志信息，发现尝试分析最耗时间的步骤基本聚集在比对和变异检测这两步中，最后对于测序平台的扩展性进行论述，说明其如何适配不同物种的基因测序流程，并进行并行化计算等。</p>
+<hr class="footnotes-sep">
+<section class="footnotes">
+<ol class="footnotes-list">
+<li id="fn1" class="footnote-item"><p>Apache. Apache MRUNIT™[EB/OL]. <a href="http://mrunit.apache.org/" target="_blank" rel="noopener">http://mrunit.apache.org/</a>, 2018. <a href="#fnref1" class="footnote-backref">↩</a></p>
+</li>
+<li id="fn2" class="footnote-item"><p>The sratoolkit Toolkit [EB/OL]. <a href="https://github.com/ncbi/sra-tools/wiki/Downloads" target="_blank" rel="noopener">https://github.com/ncbi/sra-tools/wiki/Downloads</a>, 2018. <a href="#fnref2" class="footnote-backref">↩</a></p>
+</li>
+</ol>
+</section>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/c7060cce.html" data-id="cjw0t82th002q0m05scb8s8v7" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Hadoop/">Hadoop</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/大数据/">大数据</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/基因测序/">基因测序</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/毕业设计/">毕业设计</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/blog/3fd0f93f.html" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">4 基于Hadoop的平台搭建与MapReduce作业设计</span>
+    </a>
+  </li>
+  
+  
+  <li role="presentation">
+    <a href="/blog/88854671.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">结  论</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
+  
+</ul>
+
+
+  
+</article>
+
+
+<section id="comments" class="post-comments">
+  
+      <div class="body-container">
+        <div id="disqus_thread" class="valine">
+        </div>
+      </div>
+  
+</section>
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar" id="sidebar">
+          
+  <div class="sidebar-module sidebar-toc" id="toc">
+    
+      <h4>Table of Contents</h4>
+      <ol class="sidebar-module-list"><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#5-1-mrunit测试类编写"><span class="sidebar-module-list-number">1.</span> <span class="sidebar-module-list-text">5.1 MRUnit测试类编写</span></a><ol class="sidebar-module-list-child"><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#5-1-1-map任务的测试类编写与调度"><span class="sidebar-module-list-number">1.1.</span> <span class="sidebar-module-list-text">5.1.1 Map任务的测试类编写与调度</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#5-1-2-reduce任务的测试类编写与调度"><span class="sidebar-module-list-number">1.2.</span> <span class="sidebar-module-list-text">5.1.2 Reduce任务的测试类编写与调度</span></a></li></ol></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#5-2-hadoop测序平台的测试"><span class="sidebar-module-list-number">2.</span> <span class="sidebar-module-list-text">5.2 Hadoop测序平台的测试</span></a><ol class="sidebar-module-list-child"><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#5-2-1-测试环境与测试数据准备"><span class="sidebar-module-list-number">2.1.</span> <span class="sidebar-module-list-text">5.2.1 测试环境与测试数据准备</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#5-2-2-系统平台的测试"><span class="sidebar-module-list-number">2.2.</span> <span class="sidebar-module-list-text">5.2.2 系统平台的测试</span></a></li></ol></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#5-3-测序平台的分析与优化"><span class="sidebar-module-list-number">3.</span> <span class="sidebar-module-list-text">5.3 测序平台的分析与优化</span></a><ol class="sidebar-module-list-child"><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#5-3-1-测序平台与传统测序流程的比较"><span class="sidebar-module-list-number">3.1.</span> <span class="sidebar-module-list-text">5.3.1 测序平台与传统测序流程的比较</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#5-3-2-增加测序流程处理的时间戳标记"><span class="sidebar-module-list-number">3.2.</span> <span class="sidebar-module-list-text">5.3.2 增加测序流程处理的时间戳标记</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-3"><a class="sidebar-module-list-link" href="#5-3-3-引入log4j日志框架"><span class="sidebar-module-list-number">3.3.</span> <span class="sidebar-module-list-text">5.3.3 引入Log4j日志框架</span></a></li></ol></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#5-4-基于hadoop基因测序平台的扩展"><span class="sidebar-module-list-number">4.</span> <span class="sidebar-module-list-text">5.4 基于Hadoop基因测序平台的扩展</span></a></li></ol>
+    
+  </div>
+
+
+
+  
+<div class="sidebar-module sidebar-tags">
+  <h4>Search</h4>
+  <form id="search-form"> <!-- 搜索框相关 -->
+    <input type="text" id="local-search-input" name="q" placeholder=" 搜本站..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false">
+    <i class="fa fa-times" onclick="resetSearch()"></i> <!-- 清空/重置搜索框 -->
+  </form>
+  <div id="local-search-result"></div> <!-- 搜索结果区 -->
+  <p class="no-result">No results found </p> <!-- 无匹配时显示，注意请在 CSS 中设置默认隐藏 -->
+</div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Docker/">Docker</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/">Unity</a><span class="sidebar-module-list-count">4</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/ECS/">ECS</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Tutorial/">Tutorial</a><span class="sidebar-module-list-count">1</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Tutorial/Scripts/">Scripts</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/脚本编程/">脚本编程</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/">工具</a><span class="sidebar-module-list-count">7</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/Atom/">Atom</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/写作/">写作</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/版本控制/">版本控制</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/电脑管理/">电脑管理</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/旅游/">旅游</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/网站构建/">网站构建</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/解决方案/">解决方案</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/">认证</a><span class="sidebar-module-list-count">2</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/AWS认证/">AWS认证</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/">语言</a><span class="sidebar-module-list-count">8</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/Java/">Java</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/mybatis/">mybatis</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/资源/">资源</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/项目/">项目</a><span class="sidebar-module-list-count">9</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/项目/Hadoop基因测序/">Hadoop基因测序</a><span class="sidebar-module-list-count">9</span></li></ul></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/blog/tags/90km/" style="font-size: 10px;">90km</a> <a href="/blog/tags/Atom-Snippets/" style="font-size: 10px;">Atom Snippets</a> <a href="/blog/tags/CI-CD/" style="font-size: 13.33px;">CI/CD</a> <a href="/blog/tags/Class/" style="font-size: 10px;">Class</a> <a href="/blog/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/Project/" style="font-size: 10px;">Project</a> <a href="/blog/tags/SEO/" style="font-size: 10px;">SEO</a> <a href="/blog/tags/Unity/" style="font-size: 16.67px;">Unity</a> <a href="/blog/tags/Visual-Studio/" style="font-size: 10px;">Visual Studio</a> <a href="/blog/tags/aws/" style="font-size: 13.33px;">aws</a> <a href="/blog/tags/aws-soa/" style="font-size: 10px;">aws-soa</a> <a href="/blog/tags/c/" style="font-size: 10px;">c#</a> <a href="/blog/tags/docker/" style="font-size: 13.33px;">docker</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/blog/tags/hexo/" style="font-size: 13.33px;">hexo</a> <a href="/blog/tags/highlightjs/" style="font-size: 10px;">highlightjs</a> <a href="/blog/tags/java/" style="font-size: 13.33px;">java</a> <a href="/blog/tags/longshilindotcom/" style="font-size: 10px;">longshilindotcom</a> <a href="/blog/tags/markdown/" style="font-size: 13.33px;">markdown</a> <a href="/blog/tags/memreduct/" style="font-size: 10px;">memreduct</a> <a href="/blog/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/blog/tags/simiki/" style="font-size: 10px;">simiki</a> <a href="/blog/tags/sysops/" style="font-size: 10px;">sysops</a> <a href="/blog/tags/tools/" style="font-size: 16.67px;">tools</a> <a href="/blog/tags/tower/" style="font-size: 10px;">tower</a> <a href="/blog/tags/wordpress/" style="font-size: 10px;">wordpress</a> <a href="/blog/tags/write/" style="font-size: 13.33px;">write</a> <a href="/blog/tags/代理/" style="font-size: 10px;">代理</a> <a href="/blog/tags/优秀文章/" style="font-size: 10px;">优秀文章</a> <a href="/blog/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/blog/tags/基因测序/" style="font-size: 20px;">基因测序</a> <a href="/blog/tags/大数据/" style="font-size: 20px;">大数据</a> <a href="/blog/tags/异常/" style="font-size: 10px;">异常</a> <a href="/blog/tags/效率/" style="font-size: 10px;">效率</a> <a href="/blog/tags/极客时间/" style="font-size: 10px;">极客时间</a> <a href="/blog/tags/毕业设计/" style="font-size: 20px;">毕业设计</a> <a href="/blog/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/blog/tags/笔试/" style="font-size: 10px;">笔试</a> <a href="/blog/tags/类对象/" style="font-size: 10px;">类对象</a> <a href="/blog/tags/线程/" style="font-size: 10px;">线程</a> <a href="/blog/tags/迭代器/" style="font-size: 10px;">迭代器</a> <a href="/blog/tags/集合/" style="font-size: 10px;">集合</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/05/">五月 2019</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/02/">二月 2019</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/12/">十二月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/11/">十一月 2018</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/09/">九月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/07/">七月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2017/11/">十一月 2017</a><span class="sidebar-module-list-count">7</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module sidebar-recents">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/blog/7eae6d59.html">写博文的常用板书格式</a>
+        </li>
+      
+        <li>
+          <a href="/blog/f427fb19.html">Atom自定义代码片段以提高编码效率</a>
+        </li>
+      
+        <li>
+          <a href="/blog/f243dbe9.html">Unity双击脚本不会自动跳转到vs中的解决方案</a>
+        </li>
+      
+        <li>
+          <a href="/blog/ac01c54a.html">创建ECS项目</a>
+        </li>
+      
+        <li>
+          <a href="/blog/30526cbb.html">Unity3D中使用委托</a>
+        </li>
+      
+        <li>
+          <a href="/blog/d6acd003.html">1. Scripts as Behaviour Components</a>
+        </li>
+      
+        <li>
+          <a href="/blog/27a62a5a.html">c#JobSystem</a>
+        </li>
+      
+        <li>
+          <a href="/blog/b5410c9.html">windows和mac上安装Tower破解版</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9145047272014077",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!- blog-general-responsive-sidebar ->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4721191851305300"
+     data-ad-slot="5846920073"
+     data-ad-format="auto"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+        </div>
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      <!-- Copyright &copy; 2014 - 2019 longsl&nbsp;<br> -->
+      <!-- For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><br/> -->
+      Site Generated 2019-05-23 15:05:31&nbsp;&nbsp;
+      <!-- CNZZ统计 -->
+      <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script><br>
+      Create with <a href="https://hexo.io">Hexo</a>&nbsp; |&nbsp;
+      CI/CD by <a href="https://about.gitlab.com/2015/12/14/getting-started-with-gitlab-and-gitlab-ci/" target="_blank">Gitlab</a>&nbsp; |&nbsp;
+      Host on <a href="https://pages.github.com/" target="_blank">Github</a>&nbsp; |&nbsp;
+      <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u>
+      <!-- <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"  target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a><br> -->
+      <!-- <a href="http://www.miitbeian.gov.cn">湘ICP备18009099号</a>&nbsp; |&nbsp;<img src="/images/beian.png" /> <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43060202000297">湘公网安备 43060202000297号</a> -->
+    </div>
+  </div>
+</footer>
+
+  
+
+<!-- changyan comment -->
+
+
+<!-- gitment comment -->
+
+
+<!-- Valine comment -->
+
+  <script src="//longshilin.com/assets/js/prism-default.js"></script>
+  <script src="//longshilin.com/assets/js/jquery.min.js"></script>
+  <script src="//longshilin.com/assets/js/av-min.js"></script>
+  <script src="//longshilin.com/assets/js/Valine.min.js"></script>
+  <script src="//longshilin.com/assets/js/jquery.fitvids.js"></script>
+  <script>
+    new Valine({
+      av: AV,
+      el: '#disqus_thread',
+      emoticon_url: 'https://longshilin.com/emojs',
+      emoticon_list: ["吐.png","喷血.png","狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","中指.png","尴尬.png","瞅你.png","想一想.png","中枪.png","得意.png","肿包.png","扇耳光.png","亲亲.png","惊喜.png","脸红.png","无所谓.png","便便.png","愤怒.png","蜡烛.png","献黄瓜.png","内伤.png","投降.png","观察.png","看不见.png","击掌.png","抠鼻.png","邪恶.png","看热闹.png","口水.png","抽烟.png","锁眉.png","装大款.png","吐舌.png","无奈.png","长草.png","赞一个.png","呲牙.png","无语.png","阴暗.png","不出所料.png","咽气.png","期待.png","高兴.png","吐血倒地.png","哭泣.png","欢呼.png","黑线.png","喜极而泣.png","喷水.png","深思.png","鼓掌.png","暗地观察.png"],
+      appId: 'pMgClbOyqp0K4AQxpMUJuskE-9Nh9j0Va',
+      appKey: 'CzXcgRguvCJa0EkILaN5F4HX',
+      placeholder: 'Write a Comment...',
+    });
+  </script>
+
+
+<script src="/assets/js/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+  <!-- 注释掉本地取js代码块
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/github.min.css" integrity="sha384-WtUWHyk39lfUpZQVgokNfSKCJaKAeD6adgLduBLrKTMUuPzFhLtL23y1guFy6lZn" crossorigin="anonymous">-->
+  <script src="/blog/highlight/highlight.pack.js"></script>
+
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+<script src="/blog/js/search.js"></script>
+
+  
+	<div id="totop">
+	<a title="totop"><img src="/blog/images/scrollup.png"></a>
+	</div>
+	<script src="/blog/js/totop.js"></script>
+
+  <script src="/blog/js/sidebar.js"></script>
+  <script src="/blog/js/baidu_js_push.js"></script>
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <script id="__bs_script__">
+    if(location.hostname == "localhost")
+        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.0'><\/script>".replace("HOST", location.hostname));
+  </script>
+</body>
+</html>
