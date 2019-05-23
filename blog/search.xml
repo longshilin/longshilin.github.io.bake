@@ -3,11 +3,36 @@
   
     
     <entry>
+      <title>Unity双击脚本不会自动跳转到vs中的解决方案</title>
+      <link href="/blog/f243dbe9.html"/>
+      <url>/blog/f243dbe9.html</url>
+      
+        <content type="html"><![CDATA[<p>在这个问题中，我遇到的时候是因为Unity中导入的VS Package版本不支持新版的Virtual Studio所导致的</p><a id="more"></a><p><img src="https://longshilin.com/images/20190522214037.png" alt="选择Package Manager"></p><p><img src="https://longshilin.com/images/20190523101650.png" alt="升级Visual Studio Editor Package"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 解决方案 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Unity </tag>
+            
+            <tag> Visual Studio </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>创建ECS项目</title>
       <link href="/blog/ac01c54a.html"/>
       <url>/blog/ac01c54a.html</url>
       
-        <content type="html"><![CDATA[<h3 id="选择unity版本">选择Unity版本</h3><p>我这里安装的是Unity2019.2.0b1版本，通过Unity Hub直接安装的，顺便推荐下Unity Hub这个软件。它是Unity官方用来在同一电脑上管理多个Unity版本的协同工具。</p><p><img src="https://longshilin.com/images/20190522212113.png" alt="选择Unity版本"></p><p><img src="https://longshilin.com/images/20190522212923.png" alt="创建项目"></p><p><img src="https://longshilin.com/images/20190522213442.png" alt="这是刚打开的样子"></p><h3 id="安装package">安装Package</h3><p><img src="https://longshilin.com/images/20190522214037.png" alt="打开Package Manager窗口"></p><p>由于ECS还没有作为正式组件公之于众，因此只能在预览包中看到它们的身影，ps：ECS作为正式组件预计在Unity2020.1版本中。</p><p><img src="https://longshilin.com/images/20190522214903.png" alt="预览版Package"></p><p>安装两个Package：</p><ul><li>Entities</li><li>Hybrid.Renderer</li></ul><p><img src="https://longshilin.com/images/20190522215142.png" alt="Entities Package"></p><p><img src="https://longshilin.com/images/20190522215208.png" alt="Hybrid.Renderer Package"></p><p>下面我们来对比下安装之前和安装之后，到底多了哪些包依赖，下面图是通过对比工具得到的，其实刚好就是增加安装的那两个包。</p><p><img src="https://longshilin.com/images/20190522214752.png" alt="安装package前后对比结果"></p><h3 id="了解package的依赖关系">了解Package的依赖关系</h3><p>另外需要补充的是，在安装这两个package的时候，下面这些包也已经被加入到项目中：</p><ul><li>Burst</li><li>Collections</li><li>Jobs</li><li>Mathematics</li></ul><p>可以通过勾选Advance -&gt; show dependencies查看两个package包依赖关系。</p><p><img src="https://longshilin.com/images/20190522215605.png" alt="Entities Package Dependence"></p><p><img src="https://longshilin.com/images/20190522215759.png" alt="Hybrid.Renderer Package Dependence"></p>]]></content>
+        <content type="html"><![CDATA[<h3 id="选择unity版本">选择Unity版本</h3><p>我这里安装的是Unity2019.2.0b1版本，通过Unity Hub直接安装的，顺便推荐下Unity Hub这个软件。它是Unity官方用来在同一电脑上管理多个Unity版本的协同工具。</p><a id="more"></a><p><img src="https://longshilin.com/images/20190522212113.png" alt="选择Unity版本"></p><p><img src="https://longshilin.com/images/20190522212923.png" alt="创建项目"></p><p><img src="https://longshilin.com/images/20190522213442.png" alt="这是刚打开的样子"></p><h3 id="安装package">安装Package</h3><p><img src="https://longshilin.com/images/20190522214037.png" alt="打开Package Manager窗口"></p><p>由于ECS还没有作为正式组件公之于众，因此只能在预览包中看到它们的身影，ps：ECS作为正式组件预计在Unity2020.1版本中。</p><p><img src="https://longshilin.com/images/20190522214903.png" alt="预览版Package"></p><p>安装两个Package：</p><ul><li>Entities</li><li>Hybrid.Renderer</li></ul><p><img src="https://longshilin.com/images/20190522215142.png" alt="Entities Package"></p><p><img src="https://longshilin.com/images/20190522215208.png" alt="Hybrid.Renderer Package"></p><p>下面我们来对比下安装之前和安装之后，到底多了哪些包依赖，下面图是通过对比工具得到的，其实刚好就是增加安装的那两个包。</p><p><img src="https://longshilin.com/images/20190522214752.png" alt="安装package前后对比结果"></p><h3 id="了解package的依赖关系">了解Package的依赖关系</h3><p>另外需要补充的是，在安装这两个package的时候，下面这些包也已经被加入到项目中：</p><ul><li>Burst</li><li>Collections</li><li>Jobs</li><li>Mathematics</li></ul><p>可以通过勾选Advance -&gt; show dependencies查看两个package包依赖关系。</p><p><img src="https://longshilin.com/images/20190522215605.png" alt="Entities Package Dependence"></p><p><img src="https://longshilin.com/images/20190522215759.png" alt="Hybrid.Renderer Package Dependence"></p>]]></content>
       
       
       <categories>
@@ -386,7 +411,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+ky7zxovM1Ltbiud4WpOTCY8aI+dFIV6HsbkLBwdy252MT8T2y77uc1k29qpJCylInbic5nBRUkC5TZCRwC4obVkaLPviKyWZEZc3C/rY+6Prn6pGIen4Zqg0O5JGbybwcOni8WwdHZYC+NXtAlcKn1w0pWGIeHa8olGX/lHTQZfY29DZN1RLp6WK8dTwMaDNGitbsYfd3Qz/ch/eE/7L6uoBPK38t9TKfSXXRag9Gg1czdgsNEUPuYLKNC9Gk0Ad0lHvfslTE6QC/otzDVW8YkvI3jBYOa4fkPcOcRGBaxtHYKQ31SsRKx6QzJ1XS8L7sSYopS5VGCTEChLa6b0Xh6/1P3CDpdQz+4aDbRLL9J6dV0vRGXk6+vqT4fspRlxuf7QhUiigToFheHUvzNnZyo9eO9304GCXkZyUfQCFr1DIpBVpfXtcaAnc4QAugglO+H9lULrBWq+gDy3MqoHq34ZaIBG752PXm9jva0veAGnJ0T9CliIYaQHutayUISXDG388eUUWbTSri1ZIP9IsT0REpeVuJRlD52V4Cb3kTow4d2WRLh1B2t9agECgmIkBlAV+VHs2hTaVRzQWmKTY4SYo0+sBnIdDXKMUQvG3WOB6SdX0n3JoeArYiQRo3R06hFICu2rs21IUMOjLKpGnRuTML7oiQ2LhsvzCZ710DwmYn0oRZePAGsyvCoNGo2PcwCjenPGlF/HtW3Iej9IjQNoqQbW9fWfjmlT+qWdQX7soetlOGZsl2OFvIhVU1zeZYjhUNW9AYPA==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX19hij2aTUPzMZg3+vNQHe6TULa9ITxQgFtQXlt0mRxea/r165jkkhmsvMyBz0mTR0brvTJBmgZFjYttJAwNBTeZLRhgxce3p7qQfZdS39rR/9D5WMl9ruqIgJAyz+K9sMGwx2LpOn+7J5CdDy8NVrfs9rg+w+uu3vMRZFcNzjuEl0+0eXfLac3ePLXjj6AspmluniinXsauTenKqGh8lFrJeethARSmDX+OwhTHrSUMYOWasMz8NzZgkLdVC0Q+LDheypv89rlDjnSp61CO3w8O0evACAOGgUcrx5vDjNZlcCkR4TRcDqbfy7PE6R4cIcKJ1p+LVyCzpec3plcF/s/K7Wbrjdfe+jbTyCd7/9+byxe9N3/OMNlTPyilRzjk72ZufEMZdXkCLCHON5EoB7GROVrFbw8nClTvf3a8PWOg6DcSUXW8FOWG/NerWymfursRMoJzSXxnDBoYTEzzBpSW3WJu0aayd5lQDudTSfncJr0Qm1g02/f5VRV9FvsLKmFSI9aI1Ongp9qRxtdKDSaFGO6aVZb7A5NcV+P5U0zRHUsNQdibD1Mqy3zEPqS/e0QBGiGKjMwZOiKR11y2OhtpoSA/vxFePWUwtrOMboG6xcovNPD2ZuCBqvkVSwGh/nCuLYD1MzsB05cvmNnFSvPkd0wvKO7S4hFfut5DGzWFs/DqzPdbVorBCTit9G3Qz58XvHeZwQbk9u++E+uTuWyaD2tf98kqcaUWJdsCaksCFq2T5SRp0mI5nnlIOQZCK/IPynCmPFKQ2Q==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -575,11 +600,11 @@
     </entry>
     
     <entry>
-      <title>构建hexo和simiki工具的docker镜像</title>
-      <link href="/blog/fd401cf5.html"/>
-      <url>/blog/fd401cf5.html</url>
+      <title>给自定义博客增加totop按钮</title>
+      <link href="/blog/5b764c97.html"/>
+      <url>/blog/5b764c97.html</url>
       
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/flxHs0r.png" alt=""><br>基于<a href="https://hexo.io" target="_blank" rel="noopener">hexo</a>和<a href="http://simiki.org/" target="_blank" rel="noopener">simiki</a>工具构建基础镜像环境，用作我website项目中<a href="https://longshilin.com/blog/2018/09/22/website-on-gitlab/">website-on-gitlab CI/CD</a>的基础镜像。并将其发布到Docker Hub的<br><a href="https://hub.docker.com/r/longsl/hexo2simiki/" target="_blank" rel="noopener">PUBLIC REPOSITORY</a></p><a id="more"></a><h1>DockerFile</h1><p>通过官方centos7镜像为基础来构建包含构建website的构建环境。具体的环境包括：hexo, python3.6, nodejs, simiki, pip3.6</p><pre><code>FROM centos#安装EPEL依赖 Python3.6 pip3 nodejs npm hexo simikiRUN yum install -y epel-release; yum install -y https://centos7.iuscommunity.org/ius-release.rpm; yum install -y python36u; yum install -y python36u-pip; pip3.6 install --upgrade pip; curl -sL https://rpm.nodesource.com/setup_8.x | bash -; yum install -y nodejs; npm install hexo-cli -g; pip3.6 install simiki</code></pre><h1>Docker Build</h1><pre><code>docker build -t longsl/hexo2simiki .</code></pre><h1>Docker Container</h1><pre><code>docker run -it --rm longsl/hexo2simki /bin/sh</code></pre><h1>Supply</h1><p>关于下载最新版本的nodejs费了笔者一些功夫，因为通过<code>yum install -y nodejs</code>直接下载的包不是最新的版本，在hexo构建时，会提示npm版本过低的报错，因此我通过参考 <a href="https://linuxize.com/post/how-to-install-node-js-on-centos-7/" target="_blank" rel="noopener">How to install Node.js on CentOS 7</a>，更新yum源来下载node 8.x的版本。</p><pre><code>curl -sL https://rpm.nodesource.com/setup_8.x | sudo bash -sudo yum install nodejs</code></pre>]]></content>
+        <content type="html"><![CDATA[<p><img src="https://longshilin.com/images/20190507102321.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -594,8 +619,6 @@
             <tag> longshilindotcom </tag>
             
             <tag> hexo </tag>
-            
-            <tag> simiki </tag>
             
         </tags>
       
@@ -627,31 +650,6 @@
     </entry>
     
     <entry>
-      <title>给自定义博客增加totop按钮</title>
-      <link href="/blog/5b764c97.html"/>
-      <url>/blog/5b764c97.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://longshilin.com/images/20190507102321.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> website </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> longshilindotcom </tag>
-            
-            <tag> hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>GitLab CI/CD</title>
       <link href="/blog/b4ccb03f.html"/>
       <url>/blog/b4ccb03f.html</url>
@@ -673,6 +671,33 @@
             <tag> website </tag>
             
             <tag> gitlab </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>构建hexo和simiki工具的docker镜像</title>
+      <link href="/blog/fd401cf5.html"/>
+      <url>/blog/fd401cf5.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/flxHs0r.png" alt=""><br>基于<a href="https://hexo.io" target="_blank" rel="noopener">hexo</a>和<a href="http://simiki.org/" target="_blank" rel="noopener">simiki</a>工具构建基础镜像环境，用作我website项目中<a href="https://longshilin.com/blog/2018/09/22/website-on-gitlab/">website-on-gitlab CI/CD</a>的基础镜像。并将其发布到Docker Hub的<br><a href="https://hub.docker.com/r/longsl/hexo2simiki/" target="_blank" rel="noopener">PUBLIC REPOSITORY</a></p><a id="more"></a><h1>DockerFile</h1><p>通过官方centos7镜像为基础来构建包含构建website的构建环境。具体的环境包括：hexo, python3.6, nodejs, simiki, pip3.6</p><pre><code>FROM centos#安装EPEL依赖 Python3.6 pip3 nodejs npm hexo simikiRUN yum install -y epel-release; yum install -y https://centos7.iuscommunity.org/ius-release.rpm; yum install -y python36u; yum install -y python36u-pip; pip3.6 install --upgrade pip; curl -sL https://rpm.nodesource.com/setup_8.x | bash -; yum install -y nodejs; npm install hexo-cli -g; pip3.6 install simiki</code></pre><h1>Docker Build</h1><pre><code>docker build -t longsl/hexo2simiki .</code></pre><h1>Docker Container</h1><pre><code>docker run -it --rm longsl/hexo2simki /bin/sh</code></pre><h1>Supply</h1><p>关于下载最新版本的nodejs费了笔者一些功夫，因为通过<code>yum install -y nodejs</code>直接下载的包不是最新的版本，在hexo构建时，会提示npm版本过低的报错，因此我通过参考 <a href="https://linuxize.com/post/how-to-install-node-js-on-centos-7/" target="_blank" rel="noopener">How to install Node.js on CentOS 7</a>，更新yum源来下载node 8.x的版本。</p><pre><code>curl -sL https://rpm.nodesource.com/setup_8.x | sudo bash -sudo yum install nodejs</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> website </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> longshilindotcom </tag>
+            
+            <tag> hexo </tag>
+            
+            <tag> simiki </tag>
             
         </tags>
       
