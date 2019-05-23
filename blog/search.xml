@@ -3,25 +3,27 @@
   
     
     <entry>
-      <title>Unity双击脚本不会自动跳转到vs中的解决方案</title>
-      <link href="/blog/f243dbe9.html"/>
-      <url>/blog/f243dbe9.html</url>
+      <title>写博文的常用板书格式</title>
+      <link href="/blog/7eae6d59.html"/>
+      <url>/blog/7eae6d59.html</url>
       
-        <content type="html"><![CDATA[<p>在这个问题中，我遇到的时候是因为Unity中导入的VS Package版本不支持新版的Virtual Studio所导致的</p><a id="more"></a><p><img src="https://longshilin.com/images/20190522214037.png" alt="选择Package Manager"></p><p><img src="https://longshilin.com/images/20190523101650.png" alt="升级Visual Studio Editor Package"></p>]]></content>
+        <content type="html"><![CDATA[<div class="bs-callout bs-callout-primary"><p>c如何写的漂亮… 这是一个好问题</p></div><p>下面会以这样的格式展示每一个模块<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ABC</span><br></pre></td></tr></table></figure><p>…outputs:<br>ABC</p><a id="more"></a><h3 id="表格">表格</h3><p>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">| Table Header 1 | Table Header 2 | Table Header 3 |</span><br><span class="line">| - | - | - |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br></pre></td></tr></table></figure><p>…outputs:</p><table><thead><tr><th>Table Header 1</th><th>Table Header 2</th><th>Table Header 3</th></tr></thead><tbody><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr></tbody></table><h3 id="bootstrap重点标注">Bootstrap重点标注</h3><p>这个Bootstrap标注可以给你的文章增添更多的醒目标记信息。可选项：default | primary | success | info | warning | danger<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% callout info %&#125;</span><br><span class="line">#### &#123;% fa info-circle %&#125; Info</span><br><span class="line">This is some info content</span><br><span class="line">&#123;% endcallout %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% callout warning %&#125;</span><br><span class="line">#### &#123;% fa exclamation-triangle %&#125; Warning</span><br><span class="line">This is some warning content</span><br><span class="line">&#123;% endcallout %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% callout danger %&#125;</span><br><span class="line">#### &#123;% fa exclamation-triangle %&#125; Danger</span><br><span class="line">This is some danger content</span><br><span class="line">&#123;% endcallout %&#125;</span><br></pre></td></tr></table></figure><p>…outputs:</p><div class="bs-callout bs-callout-info"><h4 id="i-class-fa-fa-info-circle-i-info"><i class="fa fa-info-circle"></i> Info</h4><p>This is some info content</p></div><div class="bs-callout bs-callout-warning"><h4 id="i-class-fa-fa-exclamation-triangle-i-warning"><i class="fa fa-exclamation-triangle"></i> Warning</h4><p>This is some warning content</p></div><div class="bs-callout bs-callout-danger"><h4 id="i-class-fa-fa-exclamation-triangle-i-danger"><i class="fa fa-exclamation-triangle"></i> Danger</h4><p>This is some danger content</p></div><h3 id="fa图标">fa图标</h3><p>在 <a href="https://fontawesome.com/icons" target="_blank" rel="noopener">Font Awesome 资源</a>  可以选择你需要的任意图标。<br>Markdown：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% fa github %&#125;</span><br></pre></td></tr></table></figure><p>…outputs:</p><i class="fa fa-github"></i><h3 id="hexo-github-card">hexo-github-card</h3><p>在文章中引入某个github项目卡片，<a href="https://github.com/Gisonrg/hexo-github-card" target="_blank" rel="noopener">参考地址</a><br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% githubCard user:your_user [repo:your_repo] [width:400] [theme:Default] [client_id:your_client_id] [client_secret:your_client_secret] [align:text-align_position] %&#125;</span><br><span class="line"></span><br><span class="line">如：</span><br></pre></td></tr></table></figure><p>…outputs:</p><div style="text-align:center">  <div class="github-card" data-user="longshilin" data-repo="" data-width="400" data-theme="default" data-target="" data-client-id="" data-client-secret=""></div></div><script src="/github-card-lib/githubcard.js"></script><div style="text-align:center">  <div class="github-card" data-user="longshilin" data-repo="" data-width="400" data-theme="default" data-target="" data-client-id="" data-client-secret=""></div></div><script src="/github-card-lib/githubcard.js"></script>]]></content>
       
       
       <categories>
           
-          <category> 解决方案 </category>
+          <category> 工具 </category>
+          
+          <category> 写作 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> Unity </tag>
+            <tag> write </tag>
             
-            <tag> Visual Studio </tag>
+            <tag> markdown </tag>
             
         </tags>
       
@@ -47,6 +49,33 @@
         <tags>
             
             <tag> Atom Snippets </tag>
+            
+            <tag> 效率 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Unity双击脚本不会自动跳转到vs中的解决方案</title>
+      <link href="/blog/f243dbe9.html"/>
+      <url>/blog/f243dbe9.html</url>
+      
+        <content type="html"><![CDATA[<p>在这个问题中，我遇到的时候是因为Unity中导入的VS Package版本不支持新版的Virtual Studio所导致的</p><a id="more"></a><p><img src="https://longshilin.com/images/20190522214037.png" alt="选择Package Manager"></p><p><img src="https://longshilin.com/images/20190523101650.png" alt="升级Visual Studio Editor Package"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 解决方案 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Unity </tag>
+            
+            <tag> Visual Studio </tag>
             
         </tags>
       
@@ -166,6 +195,8 @@
           
           <category> 工具 </category>
           
+          <category> 版本控制 </category>
+          
       </categories>
       
       
@@ -189,7 +220,7 @@
       
       <categories>
           
-          <category> website </category>
+          <category> 网站构建 </category>
           
       </categories>
       
@@ -203,18 +234,7 @@
     </entry>
     
     <entry>
-      <title>常用写作格式</title>
-      <link href="/blog/7eae6d59.html"/>
-      <url>/blog/7eae6d59.html</url>
-      
-        <content type="html"><![CDATA[<div class="bs-callout bs-callout-primary"><p>c如何写的漂亮… 这是一个好问题</p></div><p>下面会以这样的格式展示每一个模块<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ABC</span><br></pre></td></tr></table></figure><p>…outputs:<br>ABC</p><a id="more"></a><h3 id="表格">表格</h3><p>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">| Table Header 1 | Table Header 2 | Table Header 3 |</span><br><span class="line">| - | - | - |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br><span class="line">| Division 1 | Division 2 | Division 3 |</span><br></pre></td></tr></table></figure><p>…outputs:</p><table><thead><tr><th>Table Header 1</th><th>Table Header 2</th><th>Table Header 3</th></tr></thead><tbody><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr><tr><td>Division 1</td><td>Division 2</td><td>Division 3</td></tr></tbody></table><h3 id="bootstrap重点标注">Bootstrap重点标注</h3><p>这个Bootstrap标注可以给你的文章增添更多的醒目标记信息。可选项：default | primary | success | info | warning | danger<br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% callout info %&#125;</span><br><span class="line">#### &#123;% fa info-circle %&#125; Info</span><br><span class="line">This is some info content</span><br><span class="line">&#123;% endcallout %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% callout warning %&#125;</span><br><span class="line">#### &#123;% fa exclamation-triangle %&#125; Warning</span><br><span class="line">This is some warning content</span><br><span class="line">&#123;% endcallout %&#125;</span><br><span class="line"></span><br><span class="line">&#123;% callout danger %&#125;</span><br><span class="line">#### &#123;% fa exclamation-triangle %&#125; Danger</span><br><span class="line">This is some danger content</span><br><span class="line">&#123;% endcallout %&#125;</span><br></pre></td></tr></table></figure><p>…outputs:</p><div class="bs-callout bs-callout-info"><h4 id="i-class-fa-fa-info-circle-i-info"><i class="fa fa-info-circle"></i> Info</h4><p>This is some info content</p></div><div class="bs-callout bs-callout-warning"><h4 id="i-class-fa-fa-exclamation-triangle-i-warning"><i class="fa fa-exclamation-triangle"></i> Warning</h4><p>This is some warning content</p></div><div class="bs-callout bs-callout-danger"><h4 id="i-class-fa-fa-exclamation-triangle-i-danger"><i class="fa fa-exclamation-triangle"></i> Danger</h4><p>This is some danger content</p></div><h3 id="fa图标">fa图标</h3><p>在 <a href="https://fontawesome.com/icons" target="_blank" rel="noopener">Font Awesome 资源</a>  可以选择你需要的任意图标。<br>Markdown：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% fa github %&#125;</span><br></pre></td></tr></table></figure><p>…outputs:</p><i class="fa fa-github"></i><h3 id="hexo-github-card">hexo-github-card</h3><p>在文章中引入某个github项目卡片，<a href="https://github.com/Gisonrg/hexo-github-card" target="_blank" rel="noopener">参考地址</a><br>Markdown:</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#123;% githubCard user:your_user [repo:your_repo] [width:400] [theme:Default] [client_id:your_client_id] [client_secret:your_client_secret] [align:text-align_position] %&#125;</span><br><span class="line"></span><br><span class="line">如：</span><br></pre></td></tr></table></figure><p>…outputs:</p><div style="text-align:center">  <div class="github-card" data-user="longshilin" data-repo="" data-width="400" data-theme="default" data-target="" data-client-id="" data-client-secret=""></div></div><script src="/github-card-lib/githubcard.js"></script><div style="text-align:center">  <div class="github-card" data-user="longshilin" data-repo="" data-width="400" data-theme="default" data-target="" data-client-id="" data-client-secret=""></div></div><script src="/github-card-lib/githubcard.js"></script>]]></content>
-      
-      
-      
-    </entry>
-    
-    <entry>
-      <title>写博客必备的工具合集</title>
+      <title>写博文必备的工具合集</title>
       <link href="/blog/4b315c79.html"/>
       <url>/blog/4b315c79.html</url>
       
@@ -224,6 +244,8 @@
       <categories>
           
           <category> 工具 </category>
+          
+          <category> 写作 </category>
           
       </categories>
       
@@ -258,6 +280,8 @@
       <categories>
           
           <category> 工具 </category>
+          
+          <category> 电脑管理 </category>
           
       </categories>
       
@@ -334,7 +358,7 @@
     </entry>
     
     <entry>
-      <title>如何优雅写作</title>
+      <title>如何更优雅的写文章</title>
       <link href="/blog/52b07b5c.html"/>
       <url>/blog/52b07b5c.html</url>
       
@@ -345,7 +369,7 @@
           
           <category> 工具 </category>
           
-          <category> 写博工具 </category>
+          <category> 写作 </category>
           
       </categories>
       
@@ -370,14 +394,12 @@
       
       <categories>
           
-          <category> website </category>
+          <category> 网站构建 </category>
           
       </categories>
       
       
         <tags>
-            
-            <tag> longshilindotcom </tag>
             
             <tag> CI/CD </tag>
             
@@ -436,7 +458,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX180Ocs0mEzzTvjEV7ElHKXWGzaoTfuwmBiZ848TiBPYmiOkEgyQnWCdhC+tliTFvwwT5pXwDRxdq46ufTBZrW2ATs2Z3u6Ua0kIr1262Qrau0u8Dk+feacvq76/lUtATXXf1sH71g+/ue62wBnBmQHHTnRnv9DACVXfCbpj0mnEvjq6KvXxVmxQiyaioTkncVUghqfQ8DmjXeICbJf7XBowYPuFsvqC3Jhz3+IyHVbFsGKi8qIiO0Hly4YwNBx8Xk55+Podg+8SPInJ9oIAiRSS+PNNenrsoH0fk9cs1tlijkmKdDbSeLsa38on5Qnr4WXs8I7tJF6Cyjhx2A7ePsMVpBWcNHRVNpeP+L8WR10yeko8a8frk4cIS30+RwGtbYocJPUiQ3T9kdw6X0JUf1EGSW0iMpg7PM2ALMVolf/ZroKeiQe6FNy67ygOGatKsobtUqWq89PhJA7QcDwinr2fESyze9uXxp9VOtdKkCv4PYwIy3El7lsi0QfoZvmmiPBOWX0zHJPklGfB6CJ54VEYDWnL5FbGsqH9+0S5xsw4IJOj/9aqQoRsUHBO3uzlnb++hTmyP67bDeTGJq2liOEidTVZKmizzlAkWoXMoaZe9AFO+2J5h7VJK6xUpPleV/QiZ6JKr8P99uS4qmsd6WJRcu2umJzLgTwWPXisKYJzm5EoCVKEw9igI5WEQ8Xcf6q8VTdPi9PdA2dS3JD6Lh4Y5Yu7vXciuu/5o2WlNPTKj2dBZlNSF2GHDFj+UnnpA0/+xeTTfD83NA==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1/EHCtoaE2aCNmFVTjpeHEyyXe93WHb/HCl3EGoikvM+1emkuaU/dd0ffFwnqD2c+wWXSxOUZAdBCKOhgi81aeBhref2sKXDellOVc4gjOyZ10Wcfid784qWrjrBAMST5wDA5XPZGTHq6q28tpCozh4i5J+66duAniofZ69wmx48ke1G/D1baEOGhb2OocDpjeTheja0k/SJCswTq/LOlVTRVRZq4NcYB5lNSmNLGKObiJ94tQw9KwLPy4wxplscKAB9CknzAaR7t48DYsXrXQviSeVvpewG47Fnxl/OYtsird1AvUaFdqM536ZVDJXp3HhvssgsQhx6Gtri1l4A5RC54DrOLeVo7L81mpwHyjc2fDxPpGKxtwO6o/jOkAPDMPSnH3y3+0XIyZFHVZoZS6PrFbFF7UzGc7sNaEvAz0ED7iSns4aTzptxAelD7bs9MKqKaYP2aNeU6touClekuNio6XWQEpoNFYj3Vi/uO7XiNBZ/X0/F9o4GdRMEXsituk/lWduCYStoFDh2/LNaFZxmLhNqvrB8P09JObinOonBm6Bkh8GOpsO3G8xhlh7ol+ThzSN7qHaGcmx0j3wgsX3LtfOqUE1GP+2DyF5iUkV5IseiEfh23I9M+zh3emLITWuelAL02G7plK5CNvkYsktW8EVbWLmzn3waigy0FF+6OxsIJLpH3ykeYi41vlSIu8EQG5i6qTxyiXZ4BJJAaXe4xMhbwYcDdB3Sj7psWA5xszKN0Z8Qd6syeATUlWnoAEVAZJa7Onwog==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -453,6 +475,8 @@
       <categories>
           
           <category> 工具 </category>
+          
+          <category> 电脑管理 </category>
           
       </categories>
       
@@ -477,16 +501,10 @@
       
       <categories>
           
-          <category> website </category>
+          <category> 网站构建 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> longshilindotcom </tag>
-            
-        </tags>
       
     </entry>
     
@@ -500,16 +518,10 @@
       
       <categories>
           
-          <category> website </category>
+          <category> 网站构建 </category>
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> longshilindotcom </tag>
-            
-        </tags>
       
     </entry>
     
@@ -559,14 +571,12 @@
       
       <categories>
           
-          <category> website </category>
+          <category> 网站构建 </category>
           
       </categories>
       
       
         <tags>
-            
-            <tag> longshilindotcom </tag>
             
             <tag> SEO </tag>
             
@@ -584,7 +594,7 @@
       
       <categories>
           
-          <category> website </category>
+          <category> 网站构建 </category>
           
       </categories>
       
@@ -634,14 +644,12 @@
       
       <categories>
           
-          <category> website </category>
+          <category> 网站构建 </category>
           
       </categories>
       
       
         <tags>
-            
-            <tag> longshilindotcom </tag>
             
             <tag> hexo </tag>
             
@@ -659,7 +667,7 @@
       
       <categories>
           
-          <category> website </category>
+          <category> 网站构建 </category>
           
       </categories>
       
@@ -668,36 +676,7 @@
             
             <tag> CI/CD </tag>
             
-            <tag> website </tag>
-            
             <tag> gitlab </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>构建hexo和simiki工具的docker镜像</title>
-      <link href="/blog/fd401cf5.html"/>
-      <url>/blog/fd401cf5.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/flxHs0r.png" alt=""><br>基于<a href="https://hexo.io" target="_blank" rel="noopener">hexo</a>和<a href="http://simiki.org/" target="_blank" rel="noopener">simiki</a>工具构建基础镜像环境，用作我website项目中<a href="https://longshilin.com/blog/2018/09/22/website-on-gitlab/">website-on-gitlab CI/CD</a>的基础镜像。并将其发布到Docker Hub的<br><a href="https://hub.docker.com/r/longsl/hexo2simiki/" target="_blank" rel="noopener">PUBLIC REPOSITORY</a></p><a id="more"></a><h1>DockerFile</h1><p>通过官方centos7镜像为基础来构建包含构建website的构建环境。具体的环境包括：hexo, python3.6, nodejs, simiki, pip3.6</p><pre><code>FROM centos#安装EPEL依赖 Python3.6 pip3 nodejs npm hexo simikiRUN yum install -y epel-release; yum install -y https://centos7.iuscommunity.org/ius-release.rpm; yum install -y python36u; yum install -y python36u-pip; pip3.6 install --upgrade pip; curl -sL https://rpm.nodesource.com/setup_8.x | bash -; yum install -y nodejs; npm install hexo-cli -g; pip3.6 install simiki</code></pre><h1>Docker Build</h1><pre><code>docker build -t longsl/hexo2simiki .</code></pre><h1>Docker Container</h1><pre><code>docker run -it --rm longsl/hexo2simki /bin/sh</code></pre><h1>Supply</h1><p>关于下载最新版本的nodejs费了笔者一些功夫，因为通过<code>yum install -y nodejs</code>直接下载的包不是最新的版本，在hexo构建时，会提示npm版本过低的报错，因此我通过参考 <a href="https://linuxize.com/post/how-to-install-node-js-on-centos-7/" target="_blank" rel="noopener">How to install Node.js on CentOS 7</a>，更新yum源来下载node 8.x的版本。</p><pre><code>curl -sL https://rpm.nodesource.com/setup_8.x | sudo bash -sudo yum install nodejs</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> website </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> longshilindotcom </tag>
-            
-            <tag> hexo </tag>
-            
-            <tag> simiki </tag>
             
         </tags>
       
@@ -713,16 +692,33 @@
       
       <categories>
           
-          <category> website </category>
+          <category> 网站构建 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    <entry>
+      <title>构建hexo和simiki工具的docker镜像</title>
+      <link href="/blog/fd401cf5.html"/>
+      <url>/blog/fd401cf5.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/flxHs0r.png" alt=""><br>基于<a href="https://hexo.io" target="_blank" rel="noopener">hexo</a>和<a href="http://simiki.org/" target="_blank" rel="noopener">simiki</a>工具构建基础镜像环境，用作我website项目中<a href="https://longshilin.com/blog/2018/09/22/website-on-gitlab/">website-on-gitlab CI/CD</a>的基础镜像。并将其发布到Docker Hub的<br><a href="https://hub.docker.com/r/longsl/hexo2simiki/" target="_blank" rel="noopener">PUBLIC REPOSITORY</a></p><a id="more"></a><h1>DockerFile</h1><p>通过官方centos7镜像为基础来构建包含构建website的构建环境。具体的环境包括：hexo, python3.6, nodejs, simiki, pip3.6</p><pre><code>FROM centos#安装EPEL依赖 Python3.6 pip3 nodejs npm hexo simikiRUN yum install -y epel-release; yum install -y https://centos7.iuscommunity.org/ius-release.rpm; yum install -y python36u; yum install -y python36u-pip; pip3.6 install --upgrade pip; curl -sL https://rpm.nodesource.com/setup_8.x | bash -; yum install -y nodejs; npm install hexo-cli -g; pip3.6 install simiki</code></pre><h1>Docker Build</h1><pre><code>docker build -t longsl/hexo2simiki .</code></pre><h1>Docker Container</h1><pre><code>docker run -it --rm longsl/hexo2simki /bin/sh</code></pre><h1>Supply</h1><p>关于下载最新版本的nodejs费了笔者一些功夫，因为通过<code>yum install -y nodejs</code>直接下载的包不是最新的版本，在hexo构建时，会提示npm版本过低的报错，因此我通过参考 <a href="https://linuxize.com/post/how-to-install-node-js-on-centos-7/" target="_blank" rel="noopener">How to install Node.js on CentOS 7</a>，更新yum源来下载node 8.x的版本。</p><pre><code>curl -sL https://rpm.nodesource.com/setup_8.x | sudo bash -sudo yum install nodejs</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 网站构建 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> longshilindotcom </tag>
+            <tag> hexo </tag>
             
-            <tag> 域名 </tag>
+            <tag> simiki </tag>
             
         </tags>
       
