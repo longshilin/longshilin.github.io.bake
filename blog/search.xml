@@ -3,31 +3,6 @@
   
     
     <entry>
-      <title>为Atom指定代码片段提高打字效率</title>
-      <link href="/blog/2fbb084f.html"/>
-      <url>/blog/2fbb084f.html</url>
-      
-        <content type="html"><![CDATA[<p>通过在Atom中自定义代码片段，绑定指定的文件类型，就可以在编辑该类型文件时实现快速提示功能。<br><img src="https://longshilin.com/images/20190523104526.gif" alt="Atom定制快捷提示片段示例"></p><a id="more"></a><p><img src="https://longshilin.com/images/20190523104940.png" alt="打开Atom的Snippets设置"></p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 下面是我的自定义</span><br><span class="line">&apos;.text.md&apos;:</span><br><span class="line">  &apos;more&apos;:</span><br><span class="line">    &apos;prefix&apos;: &apos;more&apos;</span><br><span class="line">    &apos;body&apos;: &apos;&lt;!-- more --&gt;&apos;</span><br><span class="line"></span><br><span class="line">  &apos;title&apos;:</span><br><span class="line">    &apos;prefix&apos;: &apos;title&apos;</span><br><span class="line">    &apos;body&apos;: &apos;--- \ntitle: $1 \nlayout: post \ntags: \n  - $2 \ncategories: \n  - $3 \ncomments: true \ntoc: false \ndate: $4  \n---\n&apos;</span><br></pre></td></tr></table></figure><p>具体Snippets文件中的语法参考下面的官方文档：</p><p><a href="https://flight-manual.atom.io/using-atom/sections/basic-customization/#_cson" title="Atom基本定制" target="_blank" rel="noopener">1.Atom基本定制官方文档</a></p><p><a href="https://flight-manual.atom.io/using-atom/sections/snippets/" target="_blank" rel="noopener">2.Atom片段设置</a></p><p><img src="https://longshilin.com/images/20190523105720.png" alt="查看文件类型的快速方式"></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 工具 </category>
-          
-          <category> Atom </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Atom </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>Unity双击脚本不会自动跳转到vs中的解决方案</title>
       <link href="/blog/f243dbe9.html"/>
       <url>/blog/f243dbe9.html</url>
@@ -47,6 +22,31 @@
             <tag> Unity </tag>
             
             <tag> Visual Studio </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Atom自定义代码片段以提高编码效率</title>
+      <link href="/blog/f427fb19.html"/>
+      <url>/blog/f427fb19.html</url>
+      
+        <content type="html"><![CDATA[<p>通过在Atom中自定义代码片段，绑定指定的文件类型，就可以在编辑该类型文件时实现快速提示功能。<br><img src="https://longshilin.com/images/20190523104526.gif" alt="Atom定制快捷提示片段示例"></p><a id="more"></a><p><img src="https://longshilin.com/images/20190523104940.png" alt="打开Atom的Snippets设置"></p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 下面是我的自定义</span><br><span class="line">&apos;.text.md&apos;:</span><br><span class="line">  &apos;more&apos;:</span><br><span class="line">    &apos;prefix&apos;: &apos;more&apos;</span><br><span class="line">    &apos;body&apos;: &apos;&lt;!-- more --&gt;&apos;</span><br><span class="line"></span><br><span class="line">  &apos;title&apos;:</span><br><span class="line">    &apos;prefix&apos;: &apos;title&apos;</span><br><span class="line">    &apos;body&apos;: &apos;--- \ntitle: $1 \nlayout: post \ntags: \n  - $2 \ncategories: \n  - $3 \ncomments: true \ntoc: false \ndate: $4  \n---\n&apos;</span><br></pre></td></tr></table></figure><p>具体Snippets文件中的语法参考下面的官方文档：</p><p><a href="https://flight-manual.atom.io/using-atom/sections/basic-customization/#_cson" title="Atom基本定制" target="_blank" rel="noopener">1.Atom基本定制官方文档</a></p><p><a href="https://flight-manual.atom.io/using-atom/sections/snippets/" target="_blank" rel="noopener">2.Atom片段设置</a></p><p><img src="https://longshilin.com/images/20190523105720.png" alt="查看文件类型的快速方式"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 工具 </category>
+          
+          <category> Atom </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Atom Snippets </tag>
             
         </tags>
       
@@ -436,7 +436,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+TkAsvRwL04gNcg2sjMZ1i+rHDcRwNmA0H04NxVTkGrCgEEcLfdtvX0yssqZ9qkzh8LX+1YOIAtAdUe2AUoueYsukt0AdviTzL0o7dvbGD5SRd4QnDXCDZclhDEGcSPl6iA1U1wCtjnNh4dUDFP59KT+waDjfObyAN/G0cfGX5ENGdwCRa5EJiI0Jf/p3Gxn7yisgbLbIalQaiqHh5CgWKFSj5tJlJNCHCUSop7yU8doc2duh0Ke6FRaHP7rQGUVImGb3jxMElPoe/GSgpLqJy8Ftth3DN3KOLNr5kFc8ILEhTGASlkIlGAgp9hpnER6BMmPzDQrjEx6L4Y7dADlqqiR2xxiLQv1SMW2Vu1Xt1ozsOohJg/WKIBvE/3P4CoP3ylZyFtqIxgCVPO8Y2FnCGM694FrKzaXC+ZQ42I4HoKiIMTlQfgC3AeGYOJjS9D1L5oFCd6HtLt6rG5jWBo1KMTJ+LbX7pfz3AE8xCsF38uZJE8zPxosYuFBj36WLC5eG2jVtHhFT1jxGighuWNBop4p409zOdFTBJgcSgBJD4dkHcKOYuYbihwDmtfvixCLi8vo0YIcspy+k+xIL7N+VZn9HQwKqYLyFVipuEvELERv+zpfYzcSgDJnumQdEgQ+C2FRe+gCBE60ihHTpBdu2rFtGCh2ZHAMeFg/MLSBb/vcQzkHECBnnqZUt0F66YN4Y/EPb2Yt8OhK9LCvAv8zyofnETQ0XMRxWvFajDAKsJupFFZKKu6/cJYuO0fUI8JpkDS/s+TMQzmg==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX180Ocs0mEzzTvjEV7ElHKXWGzaoTfuwmBiZ848TiBPYmiOkEgyQnWCdhC+tliTFvwwT5pXwDRxdq46ufTBZrW2ATs2Z3u6Ua0kIr1262Qrau0u8Dk+feacvq76/lUtATXXf1sH71g+/ue62wBnBmQHHTnRnv9DACVXfCbpj0mnEvjq6KvXxVmxQiyaioTkncVUghqfQ8DmjXeICbJf7XBowYPuFsvqC3Jhz3+IyHVbFsGKi8qIiO0Hly4YwNBx8Xk55+Podg+8SPInJ9oIAiRSS+PNNenrsoH0fk9cs1tlijkmKdDbSeLsa38on5Qnr4WXs8I7tJF6Cyjhx2A7ePsMVpBWcNHRVNpeP+L8WR10yeko8a8frk4cIS30+RwGtbYocJPUiQ3T9kdw6X0JUf1EGSW0iMpg7PM2ALMVolf/ZroKeiQe6FNy67ygOGatKsobtUqWq89PhJA7QcDwinr2fESyze9uXxp9VOtdKkCv4PYwIy3El7lsi0QfoZvmmiPBOWX0zHJPklGfB6CJ54VEYDWnL5FbGsqH9+0S5xsw4IJOj/9aqQoRsUHBO3uzlnb++hTmyP67bDeTGJq2liOEidTVZKmizzlAkWoXMoaZe9AFO+2J5h7VJK6xUpPleV/QiZ6JKr8P99uS4qmsd6WJRcu2umJzLgTwWPXisKYJzm5EoCVKEw9igI5WEQ8Xcf6q8VTdPi9PdA2dS3JD6Lh4Y5Yu7vXciuu/5o2WlNPTKj2dBZlNSF2GHDFj+UnnpA0/+xeTTfD83NA==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -625,6 +625,31 @@
     </entry>
     
     <entry>
+      <title>给自定义博客增加totop按钮</title>
+      <link href="/blog/5b764c97.html"/>
+      <url>/blog/5b764c97.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://longshilin.com/images/20190507102321.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> website </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> longshilindotcom </tag>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>GitLab CI/CD</title>
       <link href="/blog/b4ccb03f.html"/>
       <url>/blog/b4ccb03f.html</url>
@@ -698,31 +723,6 @@
             <tag> longshilindotcom </tag>
             
             <tag> 域名 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>给自定义博客增加totop按钮</title>
-      <link href="/blog/5b764c97.html"/>
-      <url>/blog/5b764c97.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://longshilin.com/images/20190507102321.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> website </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> longshilindotcom </tag>
-            
-            <tag> hexo </tag>
             
         </tags>
       
