@@ -3,6 +3,29 @@
   
     
     <entry>
+      <title>virtual和override实现继承关系</title>
+      <link href="/blog/3e7c0e8a.html"/>
+      <url>/blog/3e7c0e8a.html</url>
+      
+        <content type="html"><![CDATA[<p>官方文档：<a href="https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/inheritance" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/inheritance</a></p><p>详细信息直接看官方文档，我只记录自己的一点感受。</p><ol><li>子类继承父类时，需要用virtual和override配合。</li><li>子类重载方法中调用父类的该重载源方法，例如：<code>base.method();</code>，如果子类中没有调用，则不会执行父类该源方法的逻辑。</li></ol><a id="more"></a><p>------ 示例 ------</p><p><kbd>BaseClass.cs</kbd></p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">LearnCSharp</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">BaseClass</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">method</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            Console.WriteLine(<span class="string">"我是Base类！"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><kbd>ChildClass.cs</kbd></p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">LearnCSharp</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">class</span> <span class="title">ChildClass</span> : <span class="title">BaseClass</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">method</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            <span class="comment">// 调用子类的逻辑</span></span><br><span class="line">            Console.WriteLine(<span class="string">"我是Child类!"</span>);</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 调用父类的逻辑</span></span><br><span class="line">            <span class="keyword">base</span>.method();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>        &#123;</span><br><span class="line">            ChildClass childClass = <span class="keyword">new</span> ChildClass();</span><br><span class="line">            childClass.method();</span><br><span class="line"></span><br><span class="line">            Console.ReadKey();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><kbd>控制台输出</kbd><br><img src="https://longshilin.com/images/20190524142854.png" alt="控制台输出"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> CSharp </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 继承 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>写博文的常用板书格式</title>
       <link href="/blog/7eae6d59.html"/>
       <url>/blog/7eae6d59.html</url>
@@ -458,7 +481,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+29duTY3lFBkHMmMyk89S1La1Xkd/hz7HgHEN6ZvuYtGKiww6XZc9Jqs134S+mpWI6JNquzDo9WQbOKbX3BjfFL3jkj3185BJW3f/8VBkVuaEeh7D+87IM0dPDfEnRw1doMAr38NNXekcIf7zXYvUWvKP1A5X85NQGlOhVHvwK352ow90aZVsgV21XhUFFZJeqhehVa0wvz5jzlgzZHvXgRWstpTDnbInSnxN/bvev1RGlmSQJ/v4JVpZmUdBmXO7vC/0gnxainkRgB7tABFZwAPkxGIrgj0CuGSftXGbQkxLl6uXUwHF6tKC4vGapab5i6RrhZzeFYoKUQ9CK6dMOU+J0ninTPE0qGAVPVwC+yrKkJ3sJ3S5QVACAgDv9hRDywoKtNuV6vplSrVZNB6Y5aWffJp4tMw6dbQ8l7yfKgly5rKfn5c2n3+CujJtGcW24FHNTP3pgCgY5gCn77hPB/I4GD5QtLowpLsR9HK7BYUzyW7oQ0ehDOFgREHoDKrFxUFfV/m3c/X2AFuLCZ83nk4F/U4ktOolT3iV76inzBRGdGIr2ZXJaOwNBEgBoit7j69VaoWH+Bzwi588mBAMfgWcvbBrVGHZMybBkFghKMMsSxjHMwTInKMWKpBz8JHkAtJPXGDBz5kK5+nGEQjv0+RaIMzJrrInj1iZN4W1wBSN0qP8DhluevNrGRrL+vuYwTlUG+ClZfQgLPV6wI9qkHiaTFAbT7O+T7DcThj3IVjvpmlIqUPYa2MwdlTGh0Jysgpi1BUTjMQ==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX19UW2StvD2RGPdIrKlJ4W6htI7ahuHxdqG4/BM/nJCSJ09X4fPB+wTNJDGh9/WAtR/oLKKKi+C+Z6dTP1gjax6bLTOJNJuB8sL8QaqmRHfxl0KiJV7zRVTE+rPLjh3I4rLw5S/3j0FftisSXi+cAIX+nILJYA7RQM2XDaP02I/mjqAKO1T6Ii9h4jZe9cdkWPeFOUFDD/atbZlAWQNPJ/exMqh2MSTScBMQqwjxFb/9Weeu7H8itc2VHjFtOyT9zESdWCKmxHsYIJc1zUOyWm43BhVXArFvhqR5n/bJG7tsHEGZf4sA7dmtoeXpVbpjeGfPbHktEomxen0hyXUwLI7ZXsGCX7RoyU3aM58nGldpxOAp3ay51LXnfVatgszj5YiK3Kqcx8RBD/ZnX2PSv7OIGb5OefXgRCiZeqf/zjoeAwtyxa4a3gPMFysaoliqY9m14/1B+mh4ApQ8Q7yL0ehV5p+PAKHtd9e96cGCXez7LGrnUjtOoM//hwYaJ/hdF0vj3aAl2ThtJRx/41qFKSwsTWHaXROOczKKtxYVhPtGBs79cmXmUPuib/X1iu+vcI0zgdrZZq0XREzrFteifbub0o6U7AEIGl7A8IydNu2/ZwkG1qkTHuK3gS0oqeld9uJJ/QTnIYEH7UUgO58VK1DsLwgwUMHM1RBCrDYhUKi26oXzUti66qzKSM6TEj9RIKkfJ1VNr50vdtM8nHhop1gBX793xrsNUOBZr4qTVTRcwf4LPuT/0HgsRZ89wh/9un58KnU7o7Q52w==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -683,23 +706,6 @@
     </entry>
     
     <entry>
-      <title>gitlab绑定域名</title>
-      <link href="/blog/57c188a8.html"/>
-      <url>/blog/57c188a8.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/rQfzXnn.png" alt=""></p><p>通过gitlab部署并发布静态网站，通过绑定自己的域名来实现自定义访问。</p><a id="more"></a><p>在项目的设置中，选择pages项，里面配置你的域名证书，这里可以使用域名的注册商提供给你的证书，或者是通过<a href="https://freessl.org/" target="_blank" rel="noopener">FreeSSL</a>提供免费证书申请，将得到的证书文件依次拷贝到Pages中，创建 <strong>New Pages Domain</strong></p><p><img src="https://i.imgur.com/vO69TtL.png" alt=""></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 网站构建 </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    <entry>
       <title>构建hexo和simiki工具的docker镜像</title>
       <link href="/blog/fd401cf5.html"/>
       <url>/blog/fd401cf5.html</url>
@@ -721,6 +727,23 @@
             <tag> simiki </tag>
             
         </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>gitlab绑定域名</title>
+      <link href="/blog/57c188a8.html"/>
+      <url>/blog/57c188a8.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/rQfzXnn.png" alt=""></p><p>通过gitlab部署并发布静态网站，通过绑定自己的域名来实现自定义访问。</p><a id="more"></a><p>在项目的设置中，选择pages项，里面配置你的域名证书，这里可以使用域名的注册商提供给你的证书，或者是通过<a href="https://freessl.org/" target="_blank" rel="noopener">FreeSSL</a>提供免费证书申请，将得到的证书文件依次拷贝到Pages中，创建 <strong>New Pages Domain</strong></p><p><img src="https://i.imgur.com/vO69TtL.png" alt=""></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 网站构建 </category>
+          
+      </categories>
+      
       
     </entry>
     
