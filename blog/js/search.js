@@ -1,9 +1,31 @@
+// 是否已经加载search.xml文件
+var isfetched = false;
+
+// 隐藏加载动画
+function proceedsearch() {
+  $(".no-result")
+    .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+    .css('overflow', 'hidden');
+}
+
 var searchFunc = function(path, search_id, content_id) {
   'use strict';
+
+  // start loading animation 加载search.xml文件时播放动画
+  $(".no-result")
+    .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+      '<div id="search-loading-icon">' +
+      '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+      '</div>' +
+      '</div>')
+    .css('overflow', 'hidden');
+  $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
   $.ajax({
     url: path,
     dataType: "xml",
     success: function( xmlResponse ) {
+      isfetched = true;
       // get the contents from search data
       var datas = $( "entry", xmlResponse ).map(function() {
         return {
@@ -50,7 +72,7 @@ var searchFunc = function(path, search_id, content_id) {
           }
           // show search results
           if (isMatch) {
-            str += "<li><a href='"+ data_url +"' class='search-result-title' target='_blank'>"+ "> " + data_title +"</a>";
+            str += "<li><a href='"+ data_url +"' class='search-result-title' target='_blank'>" + data_title +"</a>";
             var content = data.content.trim().replace(/<[^>]+>/g,"");
             if (first_occur >= 0) {
               // cut out characters
@@ -75,17 +97,21 @@ var searchFunc = function(path, search_id, content_id) {
             }
           }
         })
-        $resultContent.innerHTML = str;
+        $resultContent.innerHTML = str; // 查询结果写入页面中
+        proceedsearch();  // 隐藏加载动画
       })
     }
   })
 }
 
-
 var inputArea = document.querySelector("#local-search-input");
 var getSearchFile = function(){
   var path = "/blog/search.xml";
-  searchFunc(path, 'local-search-input', 'local-search-result');
+  if (isfetched === false) {
+    searchFunc(path, 'local-search-input', 'local-search-result');
+  } else {
+    proceedsearch();
+  };
 }
 
 inputArea.onfocus = function(){ getSearchFile() }
