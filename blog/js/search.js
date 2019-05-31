@@ -32,6 +32,8 @@ var searchFunc = function(path, search_id, content_id) {
         var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
         $resultContent.innerHTML = "";
         if (this.value.trim().length <= 0) {
+          $("#search-loading-icon").hide();  // 隐藏加载动画
+          isLoadingIcon = false;
           return;
         }
         // perform local searching
@@ -103,7 +105,7 @@ var getSearchFile = function(){
 }
 
 inputArea.onfocus = function(){
-  if($("input[id='local-search-input']").val() === ""){
+  if($("input[id='local-search-input']").val().value.trim().length <= 0){
     return;
   }
   getSearchFile()
