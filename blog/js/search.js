@@ -1,11 +1,3 @@
-// 是否已经加载search.xml文件
-var isfetched = false;
-
-// 隐藏加载动画
-function proceedsearch() {
-  $("#search-loading-icon").hide();
-}
-
 var searchFunc = function(path, search_id, content_id) {
   'use strict';
 
@@ -20,7 +12,6 @@ var searchFunc = function(path, search_id, content_id) {
     url: path,
     dataType: "xml",
     success: function( xmlResponse ) {
-      isfetched = true;
       // get the contents from search data
       var datas = $( "entry", xmlResponse ).map(function() {
         return {
@@ -93,7 +84,7 @@ var searchFunc = function(path, search_id, content_id) {
           }
         })
         $resultContent.innerHTML = str; // 查询结果写入页面中
-        proceedsearch();  // 隐藏加载动画
+        $("#search-loading-icon").hide();  // 隐藏加载动画
       })
     }
   })
@@ -102,14 +93,15 @@ var searchFunc = function(path, search_id, content_id) {
 var inputArea = document.querySelector("#local-search-input");
 var getSearchFile = function(){
   var path = "/blog/search.xml";
-  if (isfetched === false) {
-    searchFunc(path, 'local-search-input', 'local-search-result');
-  } else {
-    proceedsearch();
-  };
+  searchFunc(path, 'local-search-input', 'local-search-result');
 }
 
-inputArea.onfocus = function(){ getSearchFile() }
+inputArea.onfocus = function(){
+  if(keywords.length === 1 && keywords[0] === ""){
+    return;
+  }
+  getSearchFile()
+}
 
 var $resetButton = $("#search-form .fa-times");
 var $resultArea = $("#local-search-result");
