@@ -1,18 +1,5 @@
-var isLoadingIcon = false;  // 记录加载动画是否在界面上显示
-
 var searchFunc = function(path, search_id, content_id) {
   'use strict';
-
-  // start loading animation 加载search.xml文件时播放动画
-  if(!isLoadingIcon){
-    $("#local-search-result")
-      .append('<div id="search-loading-icon">' +
-        '<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>' +
-        '</div>');
-    $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
-    isLoadingIcon = true;
-  }
-
   $.ajax({
     url: path,
     dataType: "xml",
@@ -63,7 +50,7 @@ var searchFunc = function(path, search_id, content_id) {
           }
           // show search results
           if (isMatch) {
-            str += "<li><a href='"+ data_url +"' class='search-result-title' target='_blank'>" + data_title +"</a>";
+            str += "<li><a href='"+ data_url +"' class='search-result-title' target='_blank'>"+ "> " + data_title +"</a>";
             var content = data.content.trim().replace(/<[^>]+>/g,"");
             if (first_occur >= 0) {
               // cut out characters
@@ -88,13 +75,12 @@ var searchFunc = function(path, search_id, content_id) {
             }
           }
         })
-        $resultContent.innerHTML = str; // 查询结果写入页面中
-        $("#search-loading-icon").hide();  // 隐藏加载动画
-        isLoadingIcon = false;
+        $resultContent.innerHTML = str;
       })
     }
   })
 }
+
 
 var inputArea = document.querySelector("#local-search-input");
 var getSearchFile = function(){
@@ -102,12 +88,7 @@ var getSearchFile = function(){
   searchFunc(path, 'local-search-input', 'local-search-result');
 }
 
-inputArea.onfocus = function(){
-  if($("input[id='local-search-input']").val() === ""){
-    return;
-  }
-  getSearchFile()
-}
+inputArea.onfocus = function(){ getSearchFile() }
 
 var $resetButton = $("#search-form .fa-times");
 var $resultArea = $("#local-search-result");
