@@ -103,7 +103,7 @@ var getSearchFile = function(){
 }
 
 inputArea.onfocus = function(){
-  if($("input[id='local-search-input']").val().length === ""){
+  if($("input[id='local-search-input']").val() === ""){
     return;
   }
   getSearchFile()
