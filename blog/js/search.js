@@ -1,5 +1,12 @@
 var isLoadingIcon = false;  // 记录加载动画是否在界面上显示
 
+var loadIcon = function(isLoadingIcon){
+  if(isLoadingIcon){
+    $("#search-loading-icon").hide();  // 隐藏加载动画
+    isLoadingIcon = false;
+  }
+}
+
 var searchFunc = function(path, search_id, content_id) {
   'use strict';
 
@@ -32,8 +39,6 @@ var searchFunc = function(path, search_id, content_id) {
         var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
         $resultContent.innerHTML = "";
         if (this.value.trim().length <= 0) {
-          $("#search-loading-icon").hide();  // 隐藏加载动画
-          isLoadingIcon = false;
           return;
         }
         // perform local searching
@@ -53,6 +58,8 @@ var searchFunc = function(path, search_id, content_id) {
               index_content = data_content.indexOf(keyword);
               if( index_title < 0 && index_content < 0 ){
                 isMatch = false;
+                loadIcon(isLoadingIcon);
+                isLoadingIcon = false;
               } else {
                 if (index_content < 0) {
                   index_content = 0;
@@ -91,7 +98,7 @@ var searchFunc = function(path, search_id, content_id) {
           }
         })
         $resultContent.innerHTML = str; // 查询结果写入页面中
-        $("#search-loading-icon").hide();  // 隐藏加载动画
+        loadIcon(isLoadingIcon);
         isLoadingIcon = false;
       })
     }
@@ -105,7 +112,7 @@ var getSearchFile = function(){
 }
 
 inputArea.onfocus = function(){
-  if($("input[id='local-search-input']").val().value.trim().length <= 0){
+  if($("input[id='local-search-input']").val().trim() == ''){
     return;
   }
   getSearchFile()
