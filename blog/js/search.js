@@ -3,22 +3,17 @@ var isfetched = false;
 
 // 隐藏加载动画
 function proceedsearch() {
-  $(".no-result")
-    .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
-    .css('overflow', 'hidden');
+  $("#search-loading-icon").hide();
 }
 
 var searchFunc = function(path, search_id, content_id) {
   'use strict';
 
   // start loading animation 加载search.xml文件时播放动画
-  $(".no-result")
-    .append('<div class="search-popup-overlay local-search-pop-overlay">' +
-      '<div id="search-loading-icon">' +
-      '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
-      '</div>' +
-      '</div>')
-    .css('overflow', 'hidden');
+  $("#local-search-result")
+    .append('<div id="search-loading-icon">' +
+      '<i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>' +
+      '</div>');
   $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
 
   $.ajax({
