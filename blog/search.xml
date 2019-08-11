@@ -28,11 +28,11 @@
     </entry>
     
     <entry>
-      <title>安排工作</title>
-      <link href="/blog/fdd0c96a.html"/>
-      <url>/blog/fdd0c96a.html</url>
+      <title>ParallelForTransform作业</title>
+      <link href="/blog/894c6889.html"/>
+      <url>/blog/894c6889.html</url>
       
-        <content type="html"><![CDATA[<p>要在主线程中安排作业，您必须：</p><ul><li>实例化作业。</li><li>填充作业的数据。</li><li>调用<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobExtensions.Schedule.html" target="_blank" rel="noopener">Schedule</a>方法。</li></ul><p>调用<code>Schedule</code>将作业放入作业队列以便在适当的时间执行。一旦安排，你就不能打断工作。</p><a id="more"></a><p><strong>注意</strong>：您只能<code>Schedule</code>从主线程调用。</p><h4 id="安排工作的一个例子">安排工作的一个例子</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Create a native array of a single float to store the result. This example waits for the job to complete for illustration purposes</span></span><br><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; result = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">1</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Set up the job data</span></span><br><span class="line">MyJob jobData = <span class="keyword">new</span> MyJob();</span><br><span class="line">jobData.a = <span class="number">10</span>;</span><br><span class="line">jobData.b = <span class="number">10</span>;</span><br><span class="line">jobData.result = result;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Schedule the job</span></span><br><span class="line">JobHandle handle = jobData.Schedule();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Wait for the job to complete</span></span><br><span class="line">handle.Complete();</span><br><span class="line"></span><br><span class="line"><span class="comment">// All copies of the NativeArray point to the same memory, you can access the result in "your" copy of the NativeArray</span></span><br><span class="line"><span class="keyword">float</span> aPlusB = result[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// Free the memory allocated by the result array</span></span><br><span class="line">result.Dispose();</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p>ParallelForTransform作业是另一种<a href="https://docs.unity3d.com/Manual/JobSystemParallelForJobs.html" target="_blank" rel="noopener">ParallelFor作业</a> ; 专为在<a href="https://docs.unity3d.com/Manual/Transforms.html" target="_blank" rel="noopener">变形上</a>操作而设计。</p><p><strong>注意</strong>：ParallelForTransform作业是Unity中用于实现<a href="https://docs.unity3d.com/ScriptReference/Jobs.IJobParallelForTransform.html" target="_blank" rel="noopener">IJobParallelForTransform</a>接口的任何作业的集合术语。</p><a id="more"></a>]]></content>
       
       
       <categories>
@@ -53,18 +53,93 @@
     </entry>
     
     <entry>
-      <title>什么是工作制度？</title>
-      <link href="/blog/2b778a74.html"/>
-      <url>/blog/2b778a74.html</url>
+      <title>ECS适合你吗？</title>
+      <link href="/blog/43b8c1c3.html"/>
+      <url>/blog/43b8c1c3.html</url>
       
-        <content type="html"><![CDATA[<p>作业系统通过创建<a href="https://en.wikipedia.org/wiki/Job_(computing)" target="_blank" rel="noopener">作业</a>而不是线程来管理<a href="https://docs.unity3d.com/Manual/JobSystemMultithreading.html" target="_blank" rel="noopener">多线程代码</a>。</p><p>作业系统跨多个核心管理一组<a href="https://docs.microsoft.com/en-us/cpp/parallel/multithreading-creating-worker-threads" target="_blank" rel="noopener">工作线程</a>。它通常每个<a href="https://www.howtogeek.com/194756/cpu-basics-multiple-cpus-cores-and-hyper-threading-explained/" target="_blank" rel="noopener">逻辑CPU核心</a>有一个工作线程，以避免上下文切换（尽管它可能为操作系统或其他专用应用程序保留一些核心）。</p><a id="more"></a><p>作业系统将作业放入<a href="https://en.wikipedia.org/wiki/Job_queue" target="_blank" rel="noopener">作业队列中</a>以执行。作业系统中的工作线程从作业队列中获取项目并执行它们。作业系统管理<a href="http://tutorials.jenkov.com/ood/understanding-dependencies.html" target="_blank" rel="noopener">依赖关系</a>并确保作业以适当的顺序执行。</p><h4 id="什么是工作？">什么是工作？</h4><p>工作是完成一项特定任务的一小部分工作。作业接收参数并对数据进行操作，类似于方法调用的行为方式。作业可以是自包含的，也可以依赖其他作业在运行之前完成。</p><h4 id="什么是工作依赖？">什么是工作依赖？</h4><p>在复杂的系统中，如游戏开发所需的系统，每个作业都不可能是独立的。一项工作通常是为下一份工作准备数据。工作人员知道并支持依赖关系以使其工作。如果<code>jobA</code>具有依赖性<code>jobB</code>，则作业系统确保在完成<code>jobA</code>之前不会开始执行<code>jobB</code>。</p>]]></content>
+        <content type="html"><![CDATA[<p>实体组件系统处于预览状态。不建议用于生产。</p><p>目前有两个很好的理由使用它。</p><a id="more"></a><h5 id="你想试验">你想试验</h5><p>这是令人兴奋的新技术，并且大规模性能提升的承诺正在引诱。试试看。给我们您的反馈。我们很乐意在论坛上与您交谈。</p><h5 id="您正在尝试构建一个在没有实体组件系统的情况下无法完成的游戏">您正在尝试构建一个在没有实体组件系统的情况下无法完成的游戏</h5><p>我们很想知道您的游戏。请随时在论坛上发布您正在尝试实现的内容以及您认为实体组件系统为您提供的无法实现的内容。</p><h4 id="尝试实体组件系统">尝试实体组件系统</h4><p>您已经听说过ECS不仅可以提高性能，还可以帮助您编写更清晰，更清晰，更易于维护的代码。你想看看它在实践中是如何运作的。这是一个有趣的场景，因为您可以从头开始编写简单的代码。</p>]]></content>
       
       
       <categories>
           
           <category> Unity </category>
           
-          <category> C＃ Job System </category>
+          <category> DOTS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>DOTS默认情况下的性能</title>
+      <link href="/blog/9c7fc9b9.html"/>
+      <url>/blog/9c7fc9b9.html</url>
+      
+        <content type="html"><![CDATA[<p>利用Unity全新的高性能多线程数据导向技术堆栈（DOTS），充分利用当今的多核处理器。您的游戏运行速度更快，您的代码更易于在其他项目中阅读和重用。</p><a id="more"></a><h4 id="重建unity的核心">重建Unity的核心</h4><p>我们正在使用高性能多线程数据导向技术堆栈重建Unity的核心基础。DOTS使您的游戏可以充分利用最新的多核处理器，而不会遇到繁重的编程问题。DOTS包括以下功能：</p><ul><li>用于高效运行多线程代码<strong>的C＃作业系统</strong>。</li><li>用于编写高性能代码<strong>的实体组件系统（ECS）</strong>。</li><li><strong>Burst Compiler</strong>用于生成高度优化的本机代码。</li></ul><p>这些DOTS功能为程序员提供了方便的沙箱，可以编写具有巨大性能提升的多线程代码。DOTS目前在预览中可用。</p><p>DOTS的多线程系统使您能够创建在各种硬件上运行的游戏，通过更多元素和更复杂的模拟构建更丰富的游戏世界，甚至优化玩家移动设备上的热控制和电池寿命。通过从面向对象的设计转向面向数据的设计，您可以更轻松地重用代码，并让其他人理解和处理代码。</p><h5 id="c-作业系统">C＃作业系统</h5><p><em>新的C＃作业系统利用了当今计算机中的多核。它旨在将此方法打开到C＃用户脚本，并允许用户编写安全，快速，有效的代码，同时防止多线程的一些陷阱，如竞争条件。</em></p><h6 id="利用多个核心">利用多个核心</h6><p>C＃作业系统公开了Native C ++作业系统，允许C＃脚本与Unity内部组件一起工作。</p><h6 id="安全的环境">安全的环境</h6><p>提供对多线程的一些陷阱的保护，例如竞争条件。</p><h5 id="实体组件系统-ecs">实体组件系统（ECS）</h5><h6 id="更好的游戏设计方法">更好的游戏设计方法</h6><p>ECS是一种编写代码的方式，专注于您正在解决的实际问题：组成游戏的数据和行为。</p><p>除了出于设计原因更好地接近游戏编程之外，使用ECS使您处于利用Unity的C＃作业系统和Burst Compiler的理想位置，让您充分利用当今的多核处理器。</p><p>使用ECS，我们正在从面向对象转向数据导向设计，这意味着重用代码更容易，并且更容易让其他人掌握并做出贡献。</p><h5 id="突发编译器">突发编译器</h5><h6 id="优化的代码">优化的代码</h6><p>新的基于LLVM的后端编译器技术可以获取C＃作业并生成高度优化的机器代码。</p><h6 id="每个平台都是最好的">每个平台都是最好的</h6><p>针对您正在编译的平台的特定功能进行了优化。</p><h6 id="减少手工编码">减少手工编码</h6><p>在多个平台上获得手动调整的汇编程序代码的许多优点，而无需付出艰苦的努力。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> DOTS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>DOTS概述</title>
+      <link href="/blog/c1466196.html"/>
+      <url>/blog/c1466196.html</url>
+      
+        <content type="html"><![CDATA[<p>Unity数据导向技术栈有三个主要部分：Unity实体 - 组件 - 系统（ECS），Unity C＃作业系统和Unity Burst编译器。</p><a id="more"></a><h4 id="实体-组件-系统概述">实体 - 组件 - 系统概述</h4><p>ECS提供了一种游戏设计方法，使您可以专注于您正在解决的实际问题：组成游戏的数据和行为。ECS利用C＃作业系统和Burst编译器来充分利用当今的多核处理器。</p><p>除了更好地利用现代CPU之外，ECS背后<a href="https://en.wikipedia.org/wiki/Data-oriented_design" target="_blank" rel="noopener">的面向数据的</a>设计避免了<a href="https://simple.wikipedia.org/wiki/Object-oriented_programming" target="_blank" rel="noopener">面向对象</a>的陷阱，这些陷阱可能困扰游戏等复杂项目，尤其是在尝试寻找最后几个FPS以达到您的发布目标时。面向数据的设计还可以使您更轻松地重用和发展您的代码，并让其他人理解和处理它。有关更多信息，请参阅：</p><ul><li><a href="https://www.cnblogs.com/longsl/p/11322011.html" target="_blank" rel="noopener">什么是ECS？</a></li><li><a href="https://www.cnblogs.com/longsl/p/11323671.html" target="_blank" rel="noopener">ECS原则</a></li><li><a href="https://www.cnblogs.com/longsl/p/11323715.html" target="_blank" rel="noopener">ECS适合你吗？</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/index.html" target="_blank" rel="noopener">ECS手册和脚本参考</a></li></ul><h4 id="c-作业系统概述">C＃作业系统概述</h4><p>C＃Job System利用了当今计算机中的多核。它旨在将此方法运用到C＃用户脚本，并允许用户编写安全，快速，有效的代码，同时防止多线程的一些陷阱，如竞争条件。</p><ul><li><a href="https://docs.unity3d.com/Manual/JobSystem.html" target="_blank" rel="noopener">C＃作业系统手册</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.jobs@0.0/manual/custom_job_types.html" target="_blank" rel="noopener">低级概述 - 创建容器和自定义作业类型</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.jobs@0.0/manual/scheduling_a_job_from_a_job.html" target="_blank" rel="noopener">从工作中安排工作 - 为什么不呢？</a></li></ul><h4 id="burst概述">Burst概述</h4><p>Burst是一种新的基于<a href="https://en.wikipedia.org/wiki/LLVM" target="_blank" rel="noopener">LLVM</a>的后端编译器技术，可以让您更轻松。它需要C＃作业并利用您平台的特定功能生成高度优化的机器代码。因此，您可以在多个平台上获得手动调整的汇编程序代码的诸多好处，而无需付出艰苦的努力。Burst编译器可用于提高为C＃作业系统编写的作业的性能。</p><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.burst@1.0/manual/index.html" target="_blank" rel="noopener">Burst文档</a></li><li><a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/ECSSamples/Documentation/burst_optimization.md" target="_blank" rel="noopener">如何针对Burst编译器进行优化</a></li></ul><h4 id="更多的信息">更多的信息</h4><ul><li><a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/ECSSamples/Documentation/cheatsheet.md" target="_blank" rel="noopener">Unity Data-Oriented的备忘单</a></li><li><a href="https://www.cnblogs.com/longsl/p/11319782.html" target="_blank" rel="noopener">Unity Data-Oriented的学习资源</a></li><li><a href="https://www.cnblogs.com/longsl/p/11323845.html" target="_blank" rel="noopener">默认情况下的性能</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> DOTS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>解读GitHub EntityComponentSystemSamples</title>
+      <link href="/blog/c763759a.html"/>
+      <url>/blog/c763759a.html</url>
+      
+        <content type="html"><![CDATA[<p>出自Unity官方的ECS项目示例，该项目的第一次Commit是在2018年3月20号，距离现在一年半的时间，这期间ECS本身的生态在快速发展，稳定性也是逐步提升，期待在2020年的Unity版本中作为正式组件发布。好了，下面进入正题~ 对该项目的README做简单翻译和总结。</p><a id="more"></a><p><img src="https://longshilin.com/images/20190811214015.png" alt=""></p><h3 id="欢迎">欢迎</h3><p>欢迎来到DOTS样品资源！</p><p>在这里，您可以找到今天开始使用这些新系统构建所需的资源。</p><p>我们还提供了一个论坛，您可以在其中找到更多信息并与这些新系统分享您的经验。</p><p><a href="https://unity3d.com/performance-by-default" target="_blank" rel="noopener">点击此处访问论坛</a></p><h4 id="什么是面向unity数据的技术堆栈？">什么是面向Unity数据的技术堆栈？</h4><p>我们一直在研究一种新的<strong>高性能多线程系统</strong>，这将使<strong>游戏能够充分利用当今可用的多核处理器而不会出现繁重的编程问题</strong>。面向数据的技术栈包括以下主要系统：</p><ul><li>该<strong>实体组件系统</strong>提供了一种默认编写高性能的代码。</li><li>在<strong>C＃作业系统</strong>提供了一种方法来运行多个CPU内核并行游戏代码</li><li>该<strong>突发编译</strong>一个新的数学感知，后台编译器调整的产生高度优化的机器代码。</li></ul><p>通过这些系统，Unity可以为您正在编译的平台的特定功能生成高度优化的代码。</p><h4 id="entity-component-system">Entity Component System</h4><p>实体组件系统提供了一种更好的游戏设计方法，使您可以专注于您正在解决的实际问题：组成游戏的数据和行为。它利用C＃Job System和Burst Compiler使您能够充分利用当今的多核处理器。从面向对象的设计转向面向数据的设计使您可以更轻松地重用代码，并使其他人更容易理解和处理代码。</p><p>实体组件系统作为实验包提供，目前支持Unity 2018.3及更高版本。重要的是要强调实体组件系统不是生产就绪的。<em>（译者注：ECS目前是预览版发布，其稳定性还不能应用于生产环境~）</em></p><h4 id="c-job-system">C# Job System</h4><p>新的C＃作业系统以安全简便的方式利用多个核心。简单，因为它旨在将此方法打开到用户脚本，并允许您编写安全，快速，有效的代码，同时提供保护，以防止多线程的一些陷阱，如竞争条件。</p><p>C＃作业系统是Unity 2018.1+中包含的内置模块。</p><p><a href="https://github.com/stella3d/job-system-cookbook" target="_blank" rel="noopener">可以在此处找到有关C＃作业系统的更多示例项目</a></p><h4 id="burst">Burst</h4><p>Burst是一种新的基于LLVM的数学感知后端编译器。它将C＃作业编译为高度优化的机器代码，利用您正在编译的平台的特定功能。</p><p>Burst是一个实验包，目前支持Unity 2018.3及更高版本。重要的是要强调Burst没有准备好生产。</p><p><a href="https://youtu.be/tGmnZdY5Y-E" target="_blank" rel="noopener">观看Joachim Ante在Unite Austin展示这些新系统</a></p><h4 id="样例">样例</h4><p>为了帮助您入门，我们提供了此示例存储库，用于学习如何大规模编写系统。</p><h5 id="hellocube">HelloCube</h5><p>这是一组展示Unity ECS架构绝对基础的项目：</p><ul><li><strong>ForEach</strong> - 创建一对旋转立方体。此示例演示了使用System和Components分离数据和行为。</li><li><strong>IJobForEach</strong> - 使用基于作业的系统构建在ForEach示例上。基于IJobForEach的系统是推荐的方法，可以利用可用的CPU内核。</li><li><strong>IJobChunk</strong> - 演示如何使用IJobChunk编写系统。IJobChunk是处理组件的推荐方法，用于比简单IJobForEach可以描述的更复杂的情况。</li><li><strong>SubScene</strong> - 演示如何在Unity编辑器中使用SubScenes创建和修改实体。</li><li><strong>SpawnFromMonoBehaviour</strong> - 演示如何基于Prefab GameObject从MonoBehaviour函数中生成多个实体。</li><li><strong>SpawnFromEntity</strong> - 演示如何使用系统中的生成作业在运行时生成多个实体。</li><li><strong>FluentQuery</strong> - 演示如何使用流畅查询来选择要更新的正确实体集。</li><li><strong>SpawnAndRemove</strong> - 演示产生和从世界中删除实体。</li></ul><h5 id="boids">Boids</h5><p>Boids示例提供了包含数千个实体的更复杂场景。Boids模拟水下场景，鲨鱼和学校包含数千条鱼。（它使用经典的Boids植绒算法来教育鱼类行为。）</p><h4 id="空白ecs项目安装指南">空白ECS项目安装指南</h4><ol><li>打开Unity编辑器（<code>2019.1.0f1</code>或更高版本）</li><li>创建一个新项目。</li><li>打开包管理器（菜单：<strong>Window</strong> &gt; <strong>Package Manager</strong>）。</li><li>单击窗口顶部的“ **高级”**按钮，然后启用“ **显示预览包”**选项。</li><li>将以下包添加到项目中：</li></ol><ul><li>Entities</li><li>Hybrid.Renderer</li></ul><p>将实体包添加到项目中还会添加以下包：</p><ul><li>Burst</li><li>Collections</li><li>Jobs</li><li>Mathematics</li></ul><p>**注意：**您可以使用<a href="https://unity3d.com/get-unity/download" target="_blank" rel="noopener">Unity Hub</a>在同一台计算机上安装多个版本的Unity。</p><h4 id="文档">文档</h4><p>寻找有关如何入门或具体问题的信息？访问我们的ECS和工作系统文档。</p><p><a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/ECSSamples/Documentation/index.md" target="_blank" rel="noopener">转到ECS Samples文档</a></p><p><a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/UnityPhysicsSamples/Documentation/samples.md" target="_blank" rel="noopener">转到Unity Physics Samples文档</a></p><p>（原文链接：<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/README.md" target="_blank" rel="noopener">https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/README.md</a>）</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> DOTS </category>
           
       </categories>
       
@@ -87,7 +162,7 @@
       
       <categories>
           
-          <category> ECS </category>
+          <category> Unity </category>
           
           <category> ECS Samples </category>
           
@@ -103,18 +178,18 @@
     </entry>
     
     <entry>
-      <title>并行工作</title>
-      <link href="/blog/3c908d6c.html"/>
-      <url>/blog/3c908d6c.html</url>
+      <title>DOTS学习资源</title>
+      <link href="/blog/a6702756.html"/>
+      <url>/blog/a6702756.html</url>
       
-        <content type="html"><![CDATA[<p>当<a href="https://docs.unity3d.com/Manual/JobSystemSchedulingJobs.html" target="_blank" rel="noopener">调度工作</a>，只能有一个工作做一个任务。在游戏中，通常希望对大量对象执行相同的操作。有一个名为<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobParallelFor.html" target="_blank" rel="noopener">IJobParallelFor</a>的独立作业类型来处理这个问题。</p><p><strong>注意</strong>：“ParallelFor”作业是Unity中用于实现<code>IJobParallelFor</code>接口的任何结构的集合术语。</p><a id="more"></a><p>ParallelFor作业使用<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html" target="_blank" rel="noopener">NativeArray</a>数据作为其数据源。ParallelFor作业跨多个核心运行。每个核心有一个作业，每个作业处理一部分工作量。<code>IJobParallelFor</code>表现得像<code>IJob</code>，但它不是单个<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJob.Execute.html" target="_blank" rel="noopener">Execute</a>方法，而是<code>Execute</code>在数据源中的每个项目上调用一次方法。方法中有一个整数参数<code>Execute</code>。该索引用于访问和操作作业实现中的数据源的单个元素。</p><h4 id="parallelfor作业定义的示例：">ParallelFor作业定义的示例：</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> IncrementByDeltaTimeJob: IJobParallelFor</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; values;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> deltaTime;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span> (<span class="params"><span class="keyword">int</span> index</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">float</span> temp = values[index];</span><br><span class="line">        temp += deltaTime;</span><br><span class="line">        values[index] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="调度parallelfor作业">调度ParallelFor作业</h4><p>在调度ParallelFor作业时，必须指定<code>NativeArray</code>要拆分的数据源的长度。<code>NativeArray</code>如果结构中有多个，Unity C＃作业系统无法知道您要将哪个用作数据源。长度还告诉C＃作业系统需要多少<code>Execute</code>方法。</p><p>幕后花絮，ParallelFor作业的调度更复杂。在调度ParallelFor作业时，C＃作业系统将工作分成批处理以在核心之间分配。每批包含一组<code>Execute</code>方法。然后，C＃作业系统在每个CPU核心的Unity本机作业系统中调度最多一个作业，并将该本机作业通过一些批次来完成。</p><p><a href="https://docs.unity3d.com/uploads/Main/jobsystem_parallelfor_job_batches.svg" target="_blank" rel="noopener"><img src="https://longshilin.com/images/20190811161551.png" alt="ParallelFor在核心之间划分批次的作业"></a></p><p>当本地作业在其他作业之前完成其批处理时，它会从其他本机作业中<a href="https://en.wikipedia.org/wiki/Work_stealing" target="_blank" rel="noopener">窃取</a>剩余批处理。它一次只能窃取本机作业剩余批次的一半，以确保<a href="https://stackoverflow.com/questions/12065774/why-does-cache-locality-matter-for-array-performance" target="_blank" rel="noopener">缓存局部性</a>。</p><p>要优化过程，您需要指定批次计数。批次计数控制您获得的作业数量，以及线程之间工作重新分配的细化程度。批量计数较低（例如1）可以使线程之间的工作分布更均匀。它确实带来了一些开销，所以有时候增加批量计数会更好。从1开始并增加批次计数直到可忽略不计的性能增益是一种有效的策略。</p><h4 id="调度parallelfor作业的示例">调度ParallelFor作业的示例</h4><p><strong>工作代码</strong>：</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Job adding two floating point values together</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> MyParallelJob : IJobParallelFor</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">ReadOnly</span>]</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; a;</span><br><span class="line">    [<span class="meta">ReadOnly</span>]</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; b;</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; result;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"><span class="keyword">int</span> i</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        result[i] = a[i] + b[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>主线程代码</strong>：</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; a = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">2</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; b = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">2</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; result = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">2</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line">a[<span class="number">0</span>] = <span class="number">1.1</span>;</span><br><span class="line">b[<span class="number">0</span>] = <span class="number">2.2</span>;</span><br><span class="line">a[<span class="number">1</span>] = <span class="number">3.3</span>;</span><br><span class="line">b[<span class="number">1</span>] = <span class="number">4.4</span>;</span><br><span class="line"></span><br><span class="line">MyParallelJob jobData = <span class="keyword">new</span> MyParallelJob();</span><br><span class="line">jobData.a = a;</span><br><span class="line">jobData.b = b;</span><br><span class="line">jobData.result = result;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Schedule the job with one Execute per index in the results array and only 1 item per processing batch</span></span><br><span class="line">JobHandle handle = jobData.Schedule(result.Length, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Wait for the job to complete</span></span><br><span class="line">handle.Complete();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Free the memory allocated by the arrays</span></span><br><span class="line">a.Dispose();</span><br><span class="line">b.Dispose();</span><br><span class="line">result.Dispose();</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p>以下是一些面向数据的资源，可以是Unity或我们已经验证过的外部资源。我们将包括外部资源，我们认为这些外部资源能够很好地理解面向数据的设计并包含高质量的信息（在贡献时）。</p><a id="more"></a><blockquote><p><strong>注意</strong>：由于Unity Data-Oriented Tech Stack的性质不断变化，链接可能会过时。将检查页面以确保它包含最佳资源，但如果您发现过时或断开链接的内容，请确保在<a href="http://unity3d.com/performance-by-default" target="_blank" rel="noopener">论坛中</a>告知我们或作为存储库中的<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/issues/new" target="_blank" rel="noopener">问题</a>。</p></blockquote><h4 id="教程">教程</h4><ul><li><a href="https://www.youtube.com/watch?v=WLfhUKp2gag&amp;list=PLX2vGYjWbI0S4yHZwjDI1boIrYStpBCdN" target="_blank" rel="noopener">Mike Geig的实体组件系统和C＃作业系统简介</a>（五部分视频教程系列。）</li></ul><h4 id="活动资源">活动资源</h4><p><img src="https://longshilin.com/images/20190811211722.jpg" alt=""></p><h5 id="unity-at-unite-la-2018">Unity at Unite LA 2018</h5><ul><li>[主题演讲：Joachim Ante和MartinKümmel的MEGACITY演示<a href="https://youtu.be/alZ6wmwvck0?t=6448" target="_blank" rel="noopener">视频]</a></li><li>[ECS：Joachim Ante的欢迎和概述<a href="https://youtu.be/fZfPv-oxO7U?t=545" target="_blank" rel="noopener">视频]</a></li><li>[ECS：由Mike Acton扩展的LOD和剔除系统<a href="https://youtu.be/fZfPv-oxO7U?t=4126" target="_blank" rel="noopener">视频]</a></li><li>[ECS：Andreas Fredriksson和Lee Hammerton的基于样条的AI代理<a href="https://youtu.be/fZfPv-oxO7U?t=7725" target="_blank" rel="noopener">视频]</a></li><li>[ECS：深入探索由Alexandre Mutel创作的Burst Compiler <a href="https://www.youtube.com/watch?v=fZfPv-oxO7U&amp;feature=youtu.be&amp;t=14930" target="_blank" rel="noopener">视频]</a></li><li>[ECS：韦恩·约翰逊在ECS世界中的图形驱动音频<a href="https://youtu.be/fZfPv-oxO7U?t=18550" target="_blank" rel="noopener">视频]</a></li><li>[ECS：马丁·库默尔（MartinKümmel）在预算上建立一个充满活力的呼吸世界<a href="https://youtu.be/fZfPv-oxO7U?t=22209" target="_blank" rel="noopener">视频]</a></li><li>[ECS：使用Daniel Brauer的实体调试器<a href="https://youtu.be/fZfPv-oxO7U?t=27107" target="_blank" rel="noopener">视频]</a></li><li>[ECS：FabriceLété和Simon Mogensen的流媒体和序列化<a href="https://youtu.be/fZfPv-oxO7U?t=29353" target="_blank" rel="noopener">视频]</a></li><li>[ECS：Aria Bonczek对ECS API的演变<a href="https://youtu.be/fZfPv-oxO7U?t=32882" target="_blank" rel="noopener">视频]</a></li></ul><p><img src="https://longshilin.com/images/20190811211728.jpg" alt=""></p><h5 id="unity-at-gdc-2018">Unity at GDC 2018</h5><ul><li>[主题演讲：Joachim Ante的Unity（实体组件系统和性能）的未来<a href="https://www.youtube.com/watch?v=3Mq9EH8RT_U" target="_blank" rel="noopener">视频]</a></li><li>[由Joachim Ante演变的团结<a href="https://www.youtube.com/watch?v=aFFLEiDr3T0" target="_blank" rel="noopener">视频]</a></li><li>[Tim Johansson的Unity作业系统和实体组件系统<a href="https://www.youtube.com/watch?v=kwnb9Clh2Is" target="_blank" rel="noopener">视频]</a></li><li>[面向数据的设计民主化：Mike Acton使用组件系统的面向数据的方法<a href="https://www.youtube.com/watch?v=p65Yt20pw0g" target="_blank" rel="noopener">视频]</a></li><li>[C＃Sharp to Machine Code by Andreas Fredriksson <a href="https://www.youtube.com/watch?v=NF6kcNS6U80" target="_blank" rel="noopener">视频]</a></li><li>[Vladimir Vukicevic的小事ECS <a href="https://www.youtube.com/watch?v=EWVU6cFdmr0" target="_blank" rel="noopener">视频]</a></li><li>[独家：Unity在GDC上采取原则性步骤进行AAA级演出<a href="https://www.mcvuk.com/development/exclusive-unity-takes-a-principled-step-into-triple-a-performance-at-gdc" target="_blank" rel="noopener">文章]</a></li></ul><p><img src="https://longshilin.com/images/20190811211732.jpg" alt=""></p><h5 id="unity-at-unite-austin-2017">Unity at Unite Austin 2017</h5><ul><li>[主题演讲：性能演示ft.Nordeus by Joachim Ante <a href="http://www.youtube.com/watch?v=0969LalB7vw" target="_blank" rel="noopener">视频]</a></li><li>[Nordeus演示的Unity GitHub存储库<a href="https://github.com/Unity-Technologies/UniteAustinTechnicalPresentation" target="_blank" rel="noopener">视频]</a></li><li>[编写Joachim Ante的高性能C＃脚本<a href="http://www.youtube.com/watch?v=tGmnZdY5Y-E" target="_blank" rel="noopener">视频]</a></li></ul><p>（原文页面：<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/ECSSamples/Documentation/resources.md" target="_blank" rel="noopener">https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/ECSSamples/Documentation/resources.md</a>）</p>]]></content>
       
       
       <categories>
           
           <category> Unity </category>
           
-          <category> C＃ Job System </category>
+          <category> DOTS </category>
           
       </categories>
       
@@ -128,11 +203,36 @@
     </entry>
     
     <entry>
-      <title>创建作业</title>
-      <link href="/blog/208be653.html"/>
-      <url>/blog/208be653.html</url>
+      <title>什么是ECS？</title>
+      <link href="/blog/1bcc4240.html"/>
+      <url>/blog/1bcc4240.html</url>
       
-        <content type="html"><![CDATA[<p>要在Unity中创建作业，您需要实现<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJob.html" target="_blank" rel="noopener">IJob</a>接口。<code>IJob</code>允许您安排与正在运行的任何其他作业并行运行的单个作业。</p><p>注意：“作业”是Unity中用于实现<code>IJob</code>接口的任何结构的集合术语。</p><a id="more"></a><p>要创建工作，您需要：</p><ul><li>创建一个实现的结构<code>IJob</code>。</li><li>添加作业使用的成员变量（<a href="https://en.wikipedia.org/wiki/Blittable_types" target="_blank" rel="noopener">blittable类型</a>或<a href="https://docs.unity3d.com/Manual/JobSystemNativeContainer.html" target="_blank" rel="noopener">NativeContainer</a>类型）。</li><li>在结构中创建一个名为<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJob.Execute.html" target="_blank" rel="noopener">Execute</a>的方法，并在其中实现作业。</li></ul><p>执行作业时，该<code>Execute</code>方法在单个核心上运行一次。</p><p>注意：在设计作业时，请记住它们对数据副本进行操作，除非是<code>NativeContainer</code>。因此，从主线程中的作业访问数据的唯一方法是写入<code>NativeContainer</code>。</p><h2 id="简单作业定义的一个示例">简单作业定义的一个示例</h2><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Job adding two floating point values together</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> MyJob : IJob</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> a;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> b;</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; result;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        result[<span class="number">0</span>] = a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p><img src="https://longshilin.com/images/20190811211342.png" alt=""></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> DOTS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>C＃作业系统中的安全系统</title>
+      <link href="/blog/70ae4a2e.html"/>
+      <url>/blog/70ae4a2e.html</url>
+      
+        <content type="html"><![CDATA[<h4 id="比赛条件">比赛条件</h4><p>编写<a href="https://docs.unity3d.com/Manual/JobSystemMultithreading.html" target="_blank" rel="noopener">多线程代码时</a>，总是存在<a href="https://en.wikipedia.org/wiki/Race_condition" target="_blank" rel="noopener">竞争条件</a>的风险。当一个操作的输出取决于其控制之外的另一个过程的定时时，发生竞争条件。</p><p>竞争条件并不总是一个错误，但它是不确定行为的来源。当竞争条件确实导致错误时，可能很难找到问题的根源，因为它取决于时间，因此您只能在极少数情况下重新创建问题。调试它可能会导致问题消失，因为断点和日志记录可以改变单个线程的时间。竞争条件是编写多线程代码时最重大的挑战。</p><a id="more"></a><h4 id="安全系统">安全系统</h4><p>为了更容易编写多线程代码，Unity C＃作业系统可以检测所有潜在的竞争条件，并保护您免受可能导致的错误的影响。</p><p>例如：如果C＃作业系统将主线程中代码中的数据<a href="https://docs.microsoft.com/en-us/cpp/cpp/references-cpp" target="_blank" rel="noopener">引用</a>发送到作业，则无法验证主线程是否在作业写入数据的同时读取数据。此方案会创建竞争条件。</p><p>C＃作业系统通过向每个作业发送它需要操作的数据的副本来解决这个问题，而不是对主线程中的数据的引用。此副本隔离数据，从而消除竞争条件。</p><p>C＃作业系统复制数据的方式意味着作业只能访问<a href="https://en.wikipedia.org/wiki/Blittable_types" target="_blank" rel="noopener">blittable数据类型</a>。在<a href="https://en.wikipedia.org/wiki/Managed_code" target="_blank" rel="noopener">托管</a>代码和本机代码之间传递时，这些类型不需要转换。</p><p>C＃Job System可以使用<a href="http://www.cplusplus.com/reference/cstring/memcpy/" target="_blank" rel="noopener">memcpy</a>复制blittable类型，并在Unity的托管和本机部分之间传输数据。它用于<code>memcpy</code>在调度作业时将数据放入本机内存，并在执行作业时为受管方提供对该副本的访问权限。有关更多信息，请参阅<a href="https://docs.unity3d.com/Manual/JobSystemSchedulingJobs.html" target="_blank" rel="noopener">计划作业</a>。</p>]]></content>
       
       
       <categories>
@@ -203,56 +303,6 @@
     </entry>
     
     <entry>
-      <title>什么是多线程？</title>
-      <link href="/blog/b293e36.html"/>
-      <url>/blog/b293e36.html</url>
-      
-        <content type="html"><![CDATA[<p>在单线程计算系统中，一次进入一条指令，一次出现一条结果。加载和完成程序的时间取决于CPU需要完成的工作量。</p><p>多线程是一种编程，它利用CPU在多个内核上同时处理多个线程的能力。它们不是一个接一个地执行任务或指令，而是同时运行。</p><a id="more"></a><p>默认情况下，一个线程在程序的开头运行。这是“主线”。主线程创建新线程来处理任务。这些新线程彼此并行运行，并且通常在完成后将其结果与主线程同步。</p><p>如果您有一些运行很长时间的任务，这种多线程方法很有效。但是，游戏开发代码通常包含许多一次执行的小指令。如果为每个线程创建一个线程，最终可能会有许多线程，每个线程的生命周期都很短。这可以推动CPU和操作系统处理能力的极限。</p><p>通过拥有一个<a href="https://en.wikipedia.org/wiki/Thread_pool" target="_blank" rel="noopener">线程池</a>可以缓解线程生存期的问题。但是，即使您使用线程池，也可能同时激活大量线程。线程数多于CPU核心导致线程相互竞争CPU资源，导致频繁的<a href="https://en.wikipedia.org/wiki/Context_switch" target="_blank" rel="noopener">上下文切换</a>。上下文切换是通过执行保存线程状态，然后处理另一个线程，然后重新构建第一个线程以继续处理它的过程。上下文切换是资源密集型的，因此您应尽可能避免使用它。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Unity </category>
-          
-          <category> C＃ Job System </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> C＃ Job System </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>C＃作业系统中的安全系统</title>
-      <link href="/blog/70ae4a2e.html"/>
-      <url>/blog/70ae4a2e.html</url>
-      
-        <content type="html"><![CDATA[<h4 id="比赛条件">比赛条件</h4><p>编写<a href="https://docs.unity3d.com/Manual/JobSystemMultithreading.html" target="_blank" rel="noopener">多线程代码时</a>，总是存在<a href="https://en.wikipedia.org/wiki/Race_condition" target="_blank" rel="noopener">竞争条件</a>的风险。当一个操作的输出取决于其控制之外的另一个过程的定时时，发生竞争条件。</p><p>竞争条件并不总是一个错误，但它是不确定行为的来源。当竞争条件确实导致错误时，可能很难找到问题的根源，因为它取决于时间，因此您只能在极少数情况下重新创建问题。调试它可能会导致问题消失，因为断点和日志记录可以改变单个线程的时间。竞争条件是编写多线程代码时最重大的挑战。</p><a id="more"></a><h4 id="安全系统">安全系统</h4><p>为了更容易编写多线程代码，Unity C＃作业系统可以检测所有潜在的竞争条件，并保护您免受可能导致的错误的影响。</p><p>例如：如果C＃作业系统将主线程中代码中的数据<a href="https://docs.microsoft.com/en-us/cpp/cpp/references-cpp" target="_blank" rel="noopener">引用</a>发送到作业，则无法验证主线程是否在作业写入数据的同时读取数据。此方案会创建竞争条件。</p><p>C＃作业系统通过向每个作业发送它需要操作的数据的副本来解决这个问题，而不是对主线程中的数据的引用。此副本隔离数据，从而消除竞争条件。</p><p>C＃作业系统复制数据的方式意味着作业只能访问<a href="https://en.wikipedia.org/wiki/Blittable_types" target="_blank" rel="noopener">blittable数据类型</a>。在<a href="https://en.wikipedia.org/wiki/Managed_code" target="_blank" rel="noopener">托管</a>代码和本机代码之间传递时，这些类型不需要转换。</p><p>C＃Job System可以使用<a href="http://www.cplusplus.com/reference/cstring/memcpy/" target="_blank" rel="noopener">memcpy</a>复制blittable类型，并在Unity的托管和本机部分之间传输数据。它用于<code>memcpy</code>在调度作业时将数据放入本机内存，并在执行作业时为受管方提供对该副本的访问权限。有关更多信息，请参阅<a href="https://docs.unity3d.com/Manual/JobSystemSchedulingJobs.html" target="_blank" rel="noopener">计划作业</a>。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Unity </category>
-          
-          <category> C＃ Job System </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> C＃ Job System </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>NativeContainer</title>
       <link href="/blog/ac3c63a9.html"/>
       <url>/blog/ac3c63a9.html</url>
@@ -278,11 +328,36 @@
     </entry>
     
     <entry>
-      <title>ParallelForTransform作业</title>
-      <link href="/blog/894c6889.html"/>
-      <url>/blog/894c6889.html</url>
+      <title>DOTS原则和愿景</title>
+      <link href="/blog/5628dba2.html"/>
+      <url>/blog/5628dba2.html</url>
       
-        <content type="html"><![CDATA[<p>ParallelForTransform作业是另一种<a href="https://docs.unity3d.com/Manual/JobSystemParallelForJobs.html" target="_blank" rel="noopener">ParallelFor作业</a> ; 专为在<a href="https://docs.unity3d.com/Manual/Transforms.html" target="_blank" rel="noopener">变形上</a>操作而设计。</p><p><strong>注意</strong>：ParallelForTransform作业是Unity中用于实现<a href="https://docs.unity3d.com/ScriptReference/Jobs.IJobParallelForTransform.html" target="_blank" rel="noopener">IJobParallelForTransform</a>接口的任何作业的集合术语。</p><a id="more"></a>]]></content>
+        <content type="html"><![CDATA[<p>Unity Data Oriented Tech Stack基于一系列原则。这些原则为我们正在努力实现的目标提供了良好的背景。一些原则清楚地反映在代码中。其他则只是我们为自己设定的目标。</p><a id="more"></a><h4 id="默认情况下的性能">默认情况下的性能</h4><p>我们希望为所有平台创建高效的机器代码变得简单。</p><p>我们使用手写的高度优化的<a href="https://en.wikipedia.org/wiki/SIMD" target="_blank" rel="noopener">simd</a>内在函数来衡量C ++中可以实现的性能。</p><p>我们使用编译器技术（Burst），容器（Unity.Collections），数据布局组件（ECS）的组合，以便在默认情况下轻松编写高效代码。</p><ul><li>数据布局和迭代 - 实体组件系统在默认情况下以块的形式迭代实体时保证线性数据布局。这是面向统一数据的技术栈提供性能提升的关键部分。</li><li>C＃作业系统允许您以简单的方式编写多线程代码。这也很安全。C＃Job Debugger可以检测任何竞争条件。</li><li>Burst是我们专门针对C＃作业的编译器。C＃作业代码遵循我们可用于生成更高效的机器代码的某些模式。使用SIMD指令为每个目标平台编译和优化代码。</li></ul><p>这方面的一个例子是Instantiation的性能。与实例化具有320字节memcpy的100,000个实体需要9ms的理论限制相比，通过实体组件系统实例化这些实体需要10ms。所以我们非常接近理论极限。</p><p>在Unite Austin，我们在60 FPS的大型战斗模拟中展示了一个包含100,000个独立单元的演示。所有游戏代码都运行多核。 [参见ECS性能演示<a href="https://www.youtube.com/watch?v=0969LalB7vw" target="_blank" rel="noopener">视频]</a></p><h4 id="简单">简单</h4><p>编写<a href="https://en.wiktionary.org/wiki/performant" target="_blank" rel="noopener">高性能</a>代码必须简单。我们相信我们可以编写快速代码，就像<strong>MonoBehaviour.Update</strong>一样简单。</p><blockquote><p>注意：为了正确设定期望，我们认为我们仍有一些方法可以实现这一目标。</p></blockquote><h4 id="编写代码的一种方法">编写代码的一种方法</h4><p>我们想要定义编写游戏代码、编辑器代码、资产管道代码以及引擎代码的单一方式。我们相信这为我们的用户创造了一个更简单的工具，并且更有能力改变现状。</p><p>物理学是一个很好的例子。目前物理学是一种黑盒解决方案。在实践中，许多开发人员希望调整模拟代码以适应他们的游戏需求。如果使用ECS以与游戏代码相同的方式编写物理引擎代码，则可以轻松地在现有物理仿真阶段之间插入您自己的仿真代码或完全控制。</p><p>另一个例子，让我们想象你想制作一个可以进行大规模修改的游戏。</p><p>如果我们的导入管道是作为一组<strong>ComponentSystems实现的</strong>。我们有一些FBX导入管道代码，默认情况下在资产管道中用于导入和后处理FBX文件。（在编辑器中使用Mesh和FBX导入代码。）</p><p>然后，很容易配置程序包管理器，可以在已部署的游戏中使用相同的FBX导入和后处理代码进行修改。</p><p>我们相信，在基础层面，这将使Unity比现在更加灵活。</p><h4 id="联网">联网</h4><p>我们想要定义一种编写所有游戏代码的简单方法。遵循此方法，您的游戏可以使用三种网络架构中的一种，具体取决于您创建的游戏类型。</p><p>我们专注于为托管游戏提供最佳的网络引擎支持。使用最近收购的<a href="http://multiplay.com/" target="_blank" rel="noopener">Multiplay.com</a>服务，我们提供了一个简单的管道来托管所述游戏。</p><ul><li>FPS - 服务器上的模拟</li><li>RTS - 确定性锁步模拟</li><li>街机游戏 - GGPO</li></ul><blockquote><p>注意：为了正确设置期望，我们尚未在实体组件系统之上提供任何网络代码。它正在进行中。</p></blockquote><h4 id="确定性">确定性</h4><p>我们的构建管道必须是<a href="https://en.wikipedia.org/wiki/Deterministic_algorithm" target="_blank" rel="noopener">确定性的</a>。用户可以选择是否所有模拟代码都应该确定性地运行。</p><p>无论使用何种设备，您都应该使用相同的输入获得相同的结果。这对于网络，重放功能甚至高级调试工具都很重要。</p><p>为此，我们将利用Burst编译器在不同平台之间生成精确的浮点数学运算。想象一下，运行相同浮点数学代码的linux服务器和iOS设备。这对于许多场景非常有用，特别是对于连接的游戏，还有调试，重放等。</p><blockquote><p>注意：浮点数学差异是Unity决定解决的问题。这个问题已经有一段时间了解，但到目前为止还没有足够的需要来鼓励人们解决它。为了解决这个问题，包括避免解决问题所需的一些解决方法，请考虑阅读<a href="https://randomascii.wordpress.com/2013/07/16/floating-point-determinism/" target="_blank" rel="noopener">Bruce Dawson的浮点确定性</a>。</p></blockquote><h4 id="沙盒">沙盒</h4><p>Unity是一个沙盒，安全而简单。</p><p>当错误地使用API时，我们提供了很好的错误消息，我们从未将自己置于不正确的使用导致崩溃的位置，这是设计上的（而不是我们可以快速修复的错误）。</p><p>沙箱行为的一个很好的例子是我们的C＃作业系统保证您的C＃作业代码都没有竞争条件。我们通过静态代码分析和运行时检查的组合确定性地检查所有可能的竞争条件。我们会立即为您提供有关任何竞赛条件的错误信息。因此，您可以相信您的代码可以正常工作并且感觉安全，即使是第一次编写多线程游戏代码的开发人员也会做得很好。</p><h4 id="极小性">极小性</h4><p>我们希望Unity可用于从&lt;50kb可执行文件，到千兆字节大小的游戏的所有内容。我们希望Unity在不到1秒的时间内加载小内容。</p><h4 id="迭代时间">迭代时间</h4><p>我们的目标是在大型项目文件夹中任何常见操作的迭代时间保持500ms以下。</p><p>作为一个例子，我们正在努力将C＃编译器重写为完全增量，目标是：</p><blockquote><p>在大型项目中更改单个.cs文件时。组合的编译和热重载时间应小于500毫秒。</p></blockquote><h4 id="我们的代码提供完整的单元测试覆盖率">我们的代码提供完整的单元测试覆盖率</h4><p>我们相信从一开始就提供强大的代码。我们使用单元测试来证明我们的代码在开发人员编写和提交时正常工作。测试作为包的一部分提供。</p><h4 id="演化">演化</h4><p>我们知道我们在如何编写代码方面提出了相当大的改变。从MonoBehaviour.Update到ComponentSystem并使用作业。</p><p>我们相信，最终唯一可以说服游戏开发者的是<strong>尝试它，并亲眼看到自己的游戏结果</strong>。</p><p>因此，在现有项目中应用ECS方法应该容易且快速。我们的目标是在30分钟内，用户可以在大型项目中将一些代码从MonoBehaviour.Update更改为ComponentSystem，并拥有优化游戏代码的成功经验。</p><h4 id="包">包</h4><p>我们希望我们的大多数引擎代码都是用C＃编写的，并部署在一个Package中。所有Unity Pro客户均可使用所有源代码。</p><p>我们希望与客户建立快速反馈循环，因为我们可以推送代码并在包中快速获得反馈，而不会破坏其他部分的稳定性。</p><p>以前我们的大多数引擎代码都是用C ++编写的，这与我们的客户编写代码的方式以及Unity的程序员如何编写代码产生了脱节。由于Burst编译器技术和ECS，我们可以用C＃代码实现比C ++更好的结果，因此我们都能以完全相同的方式编写代码。</p><h4 id="合作">合作</h4><p>我们相信Unity用户和Unity开发人员都在同一个团队中。我们的目的是帮助所有Unity用户更快，更高质量和更好的性能创建最佳游戏体验。</p><p>我们相信，我们开发的每个功能都必须尽早开发真实的场景和真实的生产反馈。包管理器促进了这一点。</p><p>对于那些希望贡献引擎代码的社区用户，我们的目标是通过直接处理贡献者可以提交的相同代码存储库来实现这一目标。通过明确的原则和所有功能的全面测试覆盖，我们希望保持高贡献的质量。</p><p>源代码存储库将适用于所有Unity Pro客户。</p><h4 id="透明度">透明度</h4><p>我们相信透明度。我们公开发展我们的功能，我们在论坛和博客上积极沟通。我们保留时间，以便每个开发人员都可以花时间与客户一起了解用户的痛点。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> DOTS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>C# Job System 概述</title>
+      <link href="/blog/c28c374b.html"/>
+      <url>/blog/c28c374b.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="c-作业系统是如何工作">C# 作业系统是如何工作</h3><ul><li>允许用户编写与Unity其余部分良好交互的<a href="https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)" target="_blank" rel="noopener">多线程代码</a>，并使编写正确的代码变得更加容易。</li><li>编写多线程代码可以提供高性能的好处，其中包括<strong>帧速率的显著提高</strong>、以及将Burst编译器与C#作业一起使用<strong>可以提高代码生成质量</strong>，<strong>从而大大降低移动设备的电池消耗。</strong></li><li>一个重要方面是它与Unity内部使用的集成（Unity的本地作业系统）。用户编写的diamante和Unity共享<a href="https://docs.microsoft.com/zh-cn/cpp/parallel/multithreading-creating-worker-threads?view=vs-2019" target="_blank" rel="noopener">工作线程</a>，这种合作避免了创建比CPU核心更多的线程，从而降低对CPU资源的争用。</li></ul><a id="more"></a><p>相关资料整理：</p><ul><li>官方文档：<a href="https://docs.unity3d.com/Manual/JobSystem.html" target="_blank" rel="noopener">https://docs.unity3d.com/Manual/JobSystem.html</a></li><li>官方示例：<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/Documentation~/index.md" target="_blank" rel="noopener">https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/Documentation~/index.md</a></li><li>官方视频：<a href="https://www.youtube.com/playlist?list=PLX2vGYjWbI0RuXtGMYKqChoZC2b-H4tck" target="_blank" rel="noopener">https://www.youtube.com/playlist?list=PLX2vGYjWbI0RuXtGMYKqChoZC2b-H4tck</a></li></ul>]]></content>
       
       
       <categories>
@@ -303,11 +378,111 @@
     </entry>
     
     <entry>
-      <title>C# Job System 概述</title>
-      <link href="/blog/c28c374b.html"/>
-      <url>/blog/c28c374b.html</url>
+      <title>什么是多线程？</title>
+      <link href="/blog/b293e36.html"/>
+      <url>/blog/b293e36.html</url>
       
-        <content type="html"><![CDATA[<h3 id="c-作业系统是如何工作">C# 作业系统是如何工作</h3><ul><li>允许用户编写与Unity其余部分良好交互的<a href="https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)" target="_blank" rel="noopener">多线程代码</a>，并使编写正确的代码变得更加容易。</li><li>编写多线程代码可以提供高性能的好处，其中包括<strong>帧速率的显著提高</strong>、以及将Burst编译器与C#作业一起使用<strong>可以提高代码生成质量</strong>，<strong>从而大大降低移动设备的电池消耗。</strong></li><li>一个重要方面是它与Unity内部使用的集成（Unity的本地作业系统）。用户编写的diamante和Unity共享<a href="https://docs.microsoft.com/zh-cn/cpp/parallel/multithreading-creating-worker-threads?view=vs-2019" target="_blank" rel="noopener">工作线程</a>，这种合作避免了创建比CPU核心更多的线程，从而降低对CPU资源的争用。</li></ul><a id="more"></a><p>相关资料整理：</p><ul><li>官方文档：<a href="https://docs.unity3d.com/Manual/JobSystem.html" target="_blank" rel="noopener">https://docs.unity3d.com/Manual/JobSystem.html</a></li><li>官方示例：<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/Documentation~/index.md" target="_blank" rel="noopener">https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/Documentation~/index.md</a></li><li>官方视频：<a href="https://www.youtube.com/playlist?list=PLX2vGYjWbI0RuXtGMYKqChoZC2b-H4tck" target="_blank" rel="noopener">https://www.youtube.com/playlist?list=PLX2vGYjWbI0RuXtGMYKqChoZC2b-H4tck</a></li></ul>]]></content>
+        <content type="html"><![CDATA[<p>在单线程计算系统中，一次进入一条指令，一次出现一条结果。加载和完成程序的时间取决于CPU需要完成的工作量。</p><p>多线程是一种编程，它利用CPU在多个内核上同时处理多个线程的能力。它们不是一个接一个地执行任务或指令，而是同时运行。</p><a id="more"></a><p>默认情况下，一个线程在程序的开头运行。这是“主线”。主线程创建新线程来处理任务。这些新线程彼此并行运行，并且通常在完成后将其结果与主线程同步。</p><p>如果您有一些运行很长时间的任务，这种多线程方法很有效。但是，游戏开发代码通常包含许多一次执行的小指令。如果为每个线程创建一个线程，最终可能会有许多线程，每个线程的生命周期都很短。这可以推动CPU和操作系统处理能力的极限。</p><p>通过拥有一个<a href="https://en.wikipedia.org/wiki/Thread_pool" target="_blank" rel="noopener">线程池</a>可以缓解线程生存期的问题。但是，即使您使用线程池，也可能同时激活大量线程。线程数多于CPU核心导致线程相互竞争CPU资源，导致频繁的<a href="https://en.wikipedia.org/wiki/Context_switch" target="_blank" rel="noopener">上下文切换</a>。上下文切换是通过执行保存线程状态，然后处理另一个线程，然后重新构建第一个线程以继续处理它的过程。上下文切换是资源密集型的，因此您应尽可能避免使用它。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> C＃ Job System </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>什么是工作制度？</title>
+      <link href="/blog/2b778a74.html"/>
+      <url>/blog/2b778a74.html</url>
+      
+        <content type="html"><![CDATA[<p>作业系统通过创建<a href="https://en.wikipedia.org/wiki/Job_(computing)" target="_blank" rel="noopener">作业</a>而不是线程来管理<a href="https://docs.unity3d.com/Manual/JobSystemMultithreading.html" target="_blank" rel="noopener">多线程代码</a>。</p><p>作业系统跨多个核心管理一组<a href="https://docs.microsoft.com/en-us/cpp/parallel/multithreading-creating-worker-threads" target="_blank" rel="noopener">工作线程</a>。它通常每个<a href="https://www.howtogeek.com/194756/cpu-basics-multiple-cpus-cores-and-hyper-threading-explained/" target="_blank" rel="noopener">逻辑CPU核心</a>有一个工作线程，以避免上下文切换（尽管它可能为操作系统或其他专用应用程序保留一些核心）。</p><a id="more"></a><p>作业系统将作业放入<a href="https://en.wikipedia.org/wiki/Job_queue" target="_blank" rel="noopener">作业队列中</a>以执行。作业系统中的工作线程从作业队列中获取项目并执行它们。作业系统管理<a href="http://tutorials.jenkov.com/ood/understanding-dependencies.html" target="_blank" rel="noopener">依赖关系</a>并确保作业以适当的顺序执行。</p><h4 id="什么是工作？">什么是工作？</h4><p>工作是完成一项特定任务的一小部分工作。作业接收参数并对数据进行操作，类似于方法调用的行为方式。作业可以是自包含的，也可以依赖其他作业在运行之前完成。</p><h4 id="什么是工作依赖？">什么是工作依赖？</h4><p>在复杂的系统中，如游戏开发所需的系统，每个作业都不可能是独立的。一项工作通常是为下一份工作准备数据。工作人员知道并支持依赖关系以使其工作。如果<code>jobA</code>具有依赖性<code>jobB</code>，则作业系统确保在完成<code>jobA</code>之前不会开始执行<code>jobB</code>。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> C＃ Job System </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>创建作业</title>
+      <link href="/blog/208be653.html"/>
+      <url>/blog/208be653.html</url>
+      
+        <content type="html"><![CDATA[<p>要在Unity中创建作业，您需要实现<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJob.html" target="_blank" rel="noopener">IJob</a>接口。<code>IJob</code>允许您安排与正在运行的任何其他作业并行运行的单个作业。</p><p>注意：“作业”是Unity中用于实现<code>IJob</code>接口的任何结构的集合术语。</p><a id="more"></a><p>要创建工作，您需要：</p><ul><li>创建一个实现的结构<code>IJob</code>。</li><li>添加作业使用的成员变量（<a href="https://en.wikipedia.org/wiki/Blittable_types" target="_blank" rel="noopener">blittable类型</a>或<a href="https://docs.unity3d.com/Manual/JobSystemNativeContainer.html" target="_blank" rel="noopener">NativeContainer</a>类型）。</li><li>在结构中创建一个名为<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJob.Execute.html" target="_blank" rel="noopener">Execute</a>的方法，并在其中实现作业。</li></ul><p>执行作业时，该<code>Execute</code>方法在单个核心上运行一次。</p><p>注意：在设计作业时，请记住它们对数据副本进行操作，除非是<code>NativeContainer</code>。因此，从主线程中的作业访问数据的唯一方法是写入<code>NativeContainer</code>。</p><h2 id="简单作业定义的一个示例">简单作业定义的一个示例</h2><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Job adding two floating point values together</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> MyJob : IJob</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> a;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> b;</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; result;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        result[<span class="number">0</span>] = a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> C＃ Job System </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>安排工作</title>
+      <link href="/blog/fdd0c96a.html"/>
+      <url>/blog/fdd0c96a.html</url>
+      
+        <content type="html"><![CDATA[<p>要在主线程中安排作业，您必须：</p><ul><li>实例化作业。</li><li>填充作业的数据。</li><li>调用<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobExtensions.Schedule.html" target="_blank" rel="noopener">Schedule</a>方法。</li></ul><p>调用<code>Schedule</code>将作业放入作业队列以便在适当的时间执行。一旦安排，你就不能打断工作。</p><a id="more"></a><p><strong>注意</strong>：您只能<code>Schedule</code>从主线程调用。</p><h4 id="安排工作的一个例子">安排工作的一个例子</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Create a native array of a single float to store the result. This example waits for the job to complete for illustration purposes</span></span><br><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; result = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">1</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Set up the job data</span></span><br><span class="line">MyJob jobData = <span class="keyword">new</span> MyJob();</span><br><span class="line">jobData.a = <span class="number">10</span>;</span><br><span class="line">jobData.b = <span class="number">10</span>;</span><br><span class="line">jobData.result = result;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Schedule the job</span></span><br><span class="line">JobHandle handle = jobData.Schedule();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Wait for the job to complete</span></span><br><span class="line">handle.Complete();</span><br><span class="line"></span><br><span class="line"><span class="comment">// All copies of the NativeArray point to the same memory, you can access the result in "your" copy of the NativeArray</span></span><br><span class="line"><span class="keyword">float</span> aPlusB = result[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// Free the memory allocated by the result array</span></span><br><span class="line">result.Dispose();</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> C＃ Job System </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>并行工作</title>
+      <link href="/blog/3c908d6c.html"/>
+      <url>/blog/3c908d6c.html</url>
+      
+        <content type="html"><![CDATA[<p>当<a href="https://docs.unity3d.com/Manual/JobSystemSchedulingJobs.html" target="_blank" rel="noopener">调度工作</a>，只能有一个工作做一个任务。在游戏中，通常希望对大量对象执行相同的操作。有一个名为<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobParallelFor.html" target="_blank" rel="noopener">IJobParallelFor</a>的独立作业类型来处理这个问题。</p><p><strong>注意</strong>：“ParallelFor”作业是Unity中用于实现<code>IJobParallelFor</code>接口的任何结构的集合术语。</p><a id="more"></a><p>ParallelFor作业使用<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html" target="_blank" rel="noopener">NativeArray</a>数据作为其数据源。ParallelFor作业跨多个核心运行。每个核心有一个作业，每个作业处理一部分工作量。<code>IJobParallelFor</code>表现得像<code>IJob</code>，但它不是单个<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJob.Execute.html" target="_blank" rel="noopener">Execute</a>方法，而是<code>Execute</code>在数据源中的每个项目上调用一次方法。方法中有一个整数参数<code>Execute</code>。该索引用于访问和操作作业实现中的数据源的单个元素。</p><h4 id="parallelfor作业定义的示例：">ParallelFor作业定义的示例：</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> IncrementByDeltaTimeJob: IJobParallelFor</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; values;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> deltaTime;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span> (<span class="params"><span class="keyword">int</span> index</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">float</span> temp = values[index];</span><br><span class="line">        temp += deltaTime;</span><br><span class="line">        values[index] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="调度parallelfor作业">调度ParallelFor作业</h4><p>在调度ParallelFor作业时，必须指定<code>NativeArray</code>要拆分的数据源的长度。<code>NativeArray</code>如果结构中有多个，Unity C＃作业系统无法知道您要将哪个用作数据源。长度还告诉C＃作业系统需要多少<code>Execute</code>方法。</p><p>幕后花絮，ParallelFor作业的调度更复杂。在调度ParallelFor作业时，C＃作业系统将工作分成批处理以在核心之间分配。每批包含一组<code>Execute</code>方法。然后，C＃作业系统在每个CPU核心的Unity本机作业系统中调度最多一个作业，并将该本机作业通过一些批次来完成。</p><p><a href="https://docs.unity3d.com/uploads/Main/jobsystem_parallelfor_job_batches.svg" target="_blank" rel="noopener"><img src="https://longshilin.com/images/20190811161551.png" alt="ParallelFor在核心之间划分批次的作业"></a></p><p>当本地作业在其他作业之前完成其批处理时，它会从其他本机作业中<a href="https://en.wikipedia.org/wiki/Work_stealing" target="_blank" rel="noopener">窃取</a>剩余批处理。它一次只能窃取本机作业剩余批次的一半，以确保<a href="https://stackoverflow.com/questions/12065774/why-does-cache-locality-matter-for-array-performance" target="_blank" rel="noopener">缓存局部性</a>。</p><p>要优化过程，您需要指定批次计数。批次计数控制您获得的作业数量，以及线程之间工作重新分配的细化程度。批量计数较低（例如1）可以使线程之间的工作分布更均匀。它确实带来了一些开销，所以有时候增加批量计数会更好。从1开始并增加批次计数直到可忽略不计的性能增益是一种有效的策略。</p><h4 id="调度parallelfor作业的示例">调度ParallelFor作业的示例</h4><p><strong>工作代码</strong>：</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Job adding two floating point values together</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> MyParallelJob : IJobParallelFor</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">ReadOnly</span>]</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; a;</span><br><span class="line">    [<span class="meta">ReadOnly</span>]</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; b;</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; result;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"><span class="keyword">int</span> i</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        result[i] = a[i] + b[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>主线程代码</strong>：</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; a = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">2</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; b = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">2</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; result = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">2</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line">a[<span class="number">0</span>] = <span class="number">1.1</span>;</span><br><span class="line">b[<span class="number">0</span>] = <span class="number">2.2</span>;</span><br><span class="line">a[<span class="number">1</span>] = <span class="number">3.3</span>;</span><br><span class="line">b[<span class="number">1</span>] = <span class="number">4.4</span>;</span><br><span class="line"></span><br><span class="line">MyParallelJob jobData = <span class="keyword">new</span> MyParallelJob();</span><br><span class="line">jobData.a = a;</span><br><span class="line">jobData.b = b;</span><br><span class="line">jobData.result = result;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Schedule the job with one Execute per index in the results array and only 1 item per processing batch</span></span><br><span class="line">JobHandle handle = jobData.Schedule(result.Length, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Wait for the job to complete</span></span><br><span class="line">handle.Complete();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Free the memory allocated by the arrays</span></span><br><span class="line">a.Dispose();</span><br><span class="line">b.Dispose();</span><br><span class="line">result.Dispose();</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -783,7 +958,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX19etL/GL2NHK92WSoGwyrdaPjf4HbC2tFQ6H2dqjInIj0vi8tl6EAV1ibOpVR4qyB0Y6Pp9lq+HbS/b6VrPFExavTeiRCDWQIi7l40fq2Y5PU6akm4gGePCs6rY/S+A5XEFY97yBJfoTe2Sye0FXNPPyjpxtDiEnAMY6qMq166ojWJWisVWpyj9G4XoVulA5akJj3sVfHxPBqMZja9eb8ZQcngfPCYYgnLoV4ZGgbDx/iA6XIIcjJfyknsLoQmvT7TuoHuft42rM68i1PSM+9xAoHiKgASqcB2pCNSGdpbrBLzKQ7ghp9cXdaaXNwyZjRYza3R1QTwLxgRZu0vl9I6gdOzOFo8bG1qw70oBz75Z7QULYA33gaLGUH2l7sv4CkE6xA+bLI2o+Ml72h4Z0Efnk7QFa3glbAGei45p4uLC6BS0PFrvfokG2dGdGhppr/ItkYa980j2OqfdoC7aB9366KkP+xALIGGGuZ9Xi75D6qzgFTlIVfS8MOzKhJyFndRv724febEaXNmtNGEXSinyBtkV30DVnYXHiyKzgBrIQ9NxxWBr149DpUApB19kw45s58g2OirE5F1slLuvJyIBrLrK39KufV3C8wShAhT/R8p3F6AFO6ghsJTIYCA/yd8+nMHjT6nrCC3YINhkK2B76wxgYCnsZmq1K08ZlHz12yGgfhwldudkptUnAmW7VevWGk57RDlFwnvuF6dxT4sz47usLpgVw0ujXgxCWZpThv9i9qF8YgT08D2YH8Il9+gLjUXczme5rA==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX19uJBDnRgb/VMTpV3XgsmUHBcgaP33XfqSEgPZgv7dDgnUBfymKTMH/622eb6Hj0RNK454jfclTx9vENijgeUn+koYLnw9Y35bzekURW7kGBgyKbkALm09G9IXOlT6fL77+A9G7df4Hlo+ae6jX06BLmoo7lVXu+dOzA75mQGFTaam9tRwfR6HKXF6KxWFGTlJBN7Nm/6XJHMEm4OV60hFzDzpoocxkr+I/1vD48xtGVAF2YAk45OTeugDR84PmGVlsQ0gjUW+sNo4AUd6zI9wxfKQKyQbpVfeiAuL47USuk/AklyFUqyeK8rJYZHiBHe8igfQ7afzKt2PG2HBVFRhpj7XSnSTv1b8cAjCOYm9E6zPob83ZIXrlssjrKcyMmj5As4Vhu1FKeB2uZcqdC6pLriPSh8GEdlwugAsCGPHnc6qeJKnwzQqkz+vl+m2eA5fSOIiDAqQCnjiemF1a/L7WsFfbgiHFkmf15YwC8aWkPmbrjSp0ZzKvbzxntyNRW+EIn3k/X2DPw4wR2lIgrULii7pOWEmrqe8cjFZrtgW3tCd4jsBUmTmM6ie+feFMyeBzkFkSFDeLBpfST304VpD0MFwaTM5V/fuo/lTXWt/A+yypdGQJ/FQO5kaaTX5LGjhq6DdInXpbRG4CFC+hiLbEnn9oH/D+ppKvuEWlZYjJyjuBou8iKdIHw3EY+3T5wXLyPZySXer86Qa0wL1hQGHy9R2rRsxBP0DOgvCmTwZ5wwO7GOVpAg0RlQ2pxSxA05Rk2Yd7u2ZLXQ==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -960,31 +1135,6 @@
     </entry>
     
     <entry>
-      <title>GitLab CI/CD</title>
-      <link href="/blog/b4ccb03f.html"/>
-      <url>/blog/b4ccb03f.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/BrmSMBD.png" alt="GitLab CI/CD"></p><p>在之前的github上搭建静态资源网站的基础上有了新的提升。把原来在本地机器编译的工作，通过gitlab实现自动化编译部署及发布，我只用专注于写作及将写好的内容上传到gitlab上即可。这也是现在最流行的CI/CD理念（持续集成持续发布）。</p><a id="more"></a><blockquote><p>下面着重来说明下我在部署过程中主要过程及填的坑等等，主要是提供一个部署思路和学习路径。</p></blockquote><h2 id="注册gitlab账号">注册gitlab账号</h2><p>在进行此次迁移资源之前，我是没有接触过<a href="https://gitlab.com/" target="_blank" rel="noopener">gitlab</a>的，自己这一块也是现用现学，所以说都是自己需要才会真正去接触它和学习它，好了继续~</p><h2 id="官方pages">官方Pages</h2><p>在gitlab上，有专门的<a href="https://gitlab.com/pages" target="_blank" rel="noopener">pages页面</a>，这里目前总共有三十种不同的模板，种类还是一应俱全。下面是首页的内容<br><img src="https://i.imgur.com/pXS3DgP.png" alt="gitlab pages"></p><p>我们的目的是通过官方<a href="https://gitlab.com/pages/hexo" target="_blank" rel="noopener">hexo pages</a>来学习快速入门及部署我们自己的静态网页。</p><h2 id="学习yaml">学习YAML</h2><p>通过gitlab<a href="https://docs.gitlab.com/ce/ci/yaml/README.html" target="_blank" rel="noopener">YAML官方文档</a>来学习YAML格式，这里我展示下在我的项目中的YAML文件</p><pre><code>image: longsl/hexo2simikipages:  cache:    paths:    - blog/node_modules/  script:    - HOME=/builds/longshilin/longshilindotcom    - cd blog    - npm install    - hexo deploy    - cp -r blog $HOME/public    - cd $HOME/wiki    - simiki g    - cp -r wiki $HOME/public/  artifacts:    paths:    - public  only:  - master</code></pre><p>这里还是比较清晰，容易理解的。上面的YAML文件主要进行的操作时通过longsl/hexo2simiki镜像作为基础环境，并在上面进行项目构建，并将指定的文件目录public作为发布资源进行发布。详细说明：</p><ol><li>image是本次构建所使用的镜像，这里我使用的是包含hexo和simiki构建工具的自定义镜像，详见<a href="https://longshilin.com/blog/2018/09/22/hexo2simiki/">hexo2simiki</a></li><li>pages表示是一个默认的任务</li><li>cache表示在该任务下将指定的路径下的文件进项缓存（其实就是在构建开始的时候将上次打包并保存的文件再次拿来用），这样在每次构建并发布时，可以省去很多固定资源的构建开销。</li><li>script下面是编写shell脚本，这些脚本命令直接就是在docker容器中执行的，因此如果你的镜像时以linux为基础，可以直接执行。</li><li>artifacts是发布项，可以指定本次构建出的哪部分内容会被保留下来，并作为该pipline的发布源文件。</li><li>only指的是本次job任务只会涉及到master分支上的内容。</li></ol><p>更多信息详见 <a href="https://docs.gitlab.com/ce/ci/" target="_blank" rel="noopener">GitLab Continuous Integration</a></p><h2 id="部署及发布">部署及发布</h2><p>编写自己的.gitlab-ci.yml文件，并放在项目的根目录下，这样在每次有新的更新提交到gitlab上时，会自动触发进行项目构建。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 博客构建 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> CI/CD </tag>
-            
-            <tag> gitlab </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>给自定义博客增加totop按钮</title>
       <link href="/blog/5b764c97.html"/>
       <url>/blog/5b764c97.html</url>
@@ -1004,6 +1154,23 @@
             <tag> hexo </tag>
             
         </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>gitlab绑定域名</title>
+      <link href="/blog/57c188a8.html"/>
+      <url>/blog/57c188a8.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/rQfzXnn.png" alt=""></p><p>通过gitlab部署并发布静态网站，通过绑定自己的域名来实现自定义访问。</p><a id="more"></a><p>在项目的设置中，选择pages项，里面配置你的域名证书，这里可以使用域名的注册商提供给你的证书，或者是通过<a href="https://freessl.org/" target="_blank" rel="noopener">FreeSSL</a>提供免费证书申请，将得到的证书文件依次拷贝到Pages中，创建 <strong>New Pages Domain</strong></p><p><img src="https://i.imgur.com/vO69TtL.png" alt=""></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 博客构建 </category>
+          
+      </categories>
+      
       
     </entry>
     
@@ -1033,11 +1200,11 @@
     </entry>
     
     <entry>
-      <title>gitlab绑定域名</title>
-      <link href="/blog/57c188a8.html"/>
-      <url>/blog/57c188a8.html</url>
+      <title>GitLab CI/CD</title>
+      <link href="/blog/b4ccb03f.html"/>
+      <url>/blog/b4ccb03f.html</url>
       
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/rQfzXnn.png" alt=""></p><p>通过gitlab部署并发布静态网站，通过绑定自己的域名来实现自定义访问。</p><a id="more"></a><p>在项目的设置中，选择pages项，里面配置你的域名证书，这里可以使用域名的注册商提供给你的证书，或者是通过<a href="https://freessl.org/" target="_blank" rel="noopener">FreeSSL</a>提供免费证书申请，将得到的证书文件依次拷贝到Pages中，创建 <strong>New Pages Domain</strong></p><p><img src="https://i.imgur.com/vO69TtL.png" alt=""></p>]]></content>
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/BrmSMBD.png" alt="GitLab CI/CD"></p><p>在之前的github上搭建静态资源网站的基础上有了新的提升。把原来在本地机器编译的工作，通过gitlab实现自动化编译部署及发布，我只用专注于写作及将写好的内容上传到gitlab上即可。这也是现在最流行的CI/CD理念（持续集成持续发布）。</p><a id="more"></a><blockquote><p>下面着重来说明下我在部署过程中主要过程及填的坑等等，主要是提供一个部署思路和学习路径。</p></blockquote><h2 id="注册gitlab账号">注册gitlab账号</h2><p>在进行此次迁移资源之前，我是没有接触过<a href="https://gitlab.com/" target="_blank" rel="noopener">gitlab</a>的，自己这一块也是现用现学，所以说都是自己需要才会真正去接触它和学习它，好了继续~</p><h2 id="官方pages">官方Pages</h2><p>在gitlab上，有专门的<a href="https://gitlab.com/pages" target="_blank" rel="noopener">pages页面</a>，这里目前总共有三十种不同的模板，种类还是一应俱全。下面是首页的内容<br><img src="https://i.imgur.com/pXS3DgP.png" alt="gitlab pages"></p><p>我们的目的是通过官方<a href="https://gitlab.com/pages/hexo" target="_blank" rel="noopener">hexo pages</a>来学习快速入门及部署我们自己的静态网页。</p><h2 id="学习yaml">学习YAML</h2><p>通过gitlab<a href="https://docs.gitlab.com/ce/ci/yaml/README.html" target="_blank" rel="noopener">YAML官方文档</a>来学习YAML格式，这里我展示下在我的项目中的YAML文件</p><pre><code>image: longsl/hexo2simikipages:  cache:    paths:    - blog/node_modules/  script:    - HOME=/builds/longshilin/longshilindotcom    - cd blog    - npm install    - hexo deploy    - cp -r blog $HOME/public    - cd $HOME/wiki    - simiki g    - cp -r wiki $HOME/public/  artifacts:    paths:    - public  only:  - master</code></pre><p>这里还是比较清晰，容易理解的。上面的YAML文件主要进行的操作时通过longsl/hexo2simiki镜像作为基础环境，并在上面进行项目构建，并将指定的文件目录public作为发布资源进行发布。详细说明：</p><ol><li>image是本次构建所使用的镜像，这里我使用的是包含hexo和simiki构建工具的自定义镜像，详见<a href="https://longshilin.com/blog/2018/09/22/hexo2simiki/">hexo2simiki</a></li><li>pages表示是一个默认的任务</li><li>cache表示在该任务下将指定的路径下的文件进项缓存（其实就是在构建开始的时候将上次打包并保存的文件再次拿来用），这样在每次构建并发布时，可以省去很多固定资源的构建开销。</li><li>script下面是编写shell脚本，这些脚本命令直接就是在docker容器中执行的，因此如果你的镜像时以linux为基础，可以直接执行。</li><li>artifacts是发布项，可以指定本次构建出的哪部分内容会被保留下来，并作为该pipline的发布源文件。</li><li>only指的是本次job任务只会涉及到master分支上的内容。</li></ol><p>更多信息详见 <a href="https://docs.gitlab.com/ce/ci/" target="_blank" rel="noopener">GitLab Continuous Integration</a></p><h2 id="部署及发布">部署及发布</h2><p>编写自己的.gitlab-ci.yml文件，并放在项目的根目录下，这样在每次有新的更新提交到gitlab上时，会自动触发进行项目构建。</p>]]></content>
       
       
       <categories>
@@ -1046,6 +1213,14 @@
           
       </categories>
       
+      
+        <tags>
+            
+            <tag> CI/CD </tag>
+            
+            <tag> gitlab </tag>
+            
+        </tags>
       
     </entry>
     

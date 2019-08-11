@@ -111,7 +111,144 @@
 
 
   
-    <article id="post-Unity/ECS/C＃ Job System/NativeContainer" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-Unity/C＃ Job System/C＃作业系统提示和故障排除" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/feab267f.html">C＃作业系统提示和故障排除</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/feab267f.html" class="article-date"><time datetime="2019-08-11T00:00:00.000Z" itemprop="datePublished">2019-08-11</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Unity/">Unity</a> / <a class="article-category-link" href="/blog/categories/Unity/C＃-Job-System/">C＃ Job System</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/feab267f.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+    <!-- <span id="busuanzi_container_page_pv"><i class="fa fa-eye"></i>&nbsp;阅读次数: <span id="busuanzi_value_page_pv"></span>&nbsp;</span> -->
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用Unity C＃作业系统时，请确保遵守以下内容：</p>
+<h4 id="不要从作业访问静态数据">不要从作业访问静态数据</h4>
+<p>从作业访问静态数据会绕过所有安全系统。如果您访问错误的数据，您可能会以意想不到的方式崩溃Unity。例如，访问<a href="https://docs.unity3d.com/ScriptReference/MonoBehaviour.html" target="_blank" rel="noopener">MonoBehaviour</a>可能会导致域重新加载崩溃。</p>
+<p><strong>注意</strong>：由于存在这种风险，Unity的未来版本将阻止使用<a href="https://www.youtube.com/watch?v=VxeC7WFfg3Q" target="_blank" rel="noopener">静态分析</a>从作业进行全局变量访问。如果您确实访问作业中的静态数据，则应该期望您的代码在Unity的未来版本中中断。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/blog/feab267f.html#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/feab267f.html" data-id="cjz70tcos00160m05nwufhbwk" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C＃-Job-System/">C＃ Job System</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Unity/C＃ Job System/JobHandle和依赖项" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/9bdee974.html">JobHandle和依赖项</a>
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/9bdee974.html" class="article-date"><time datetime="2019-08-11T00:00:00.000Z" itemprop="datePublished">2019-08-11</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Unity/">Unity</a> / <a class="article-category-link" href="/blog/categories/Unity/C＃-Job-System/">C＃ Job System</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/9bdee974.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+    <!-- <span id="busuanzi_container_page_pv"><i class="fa fa-eye"></i>&nbsp;阅读次数: <span id="busuanzi_value_page_pv"></span>&nbsp;</span> -->
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="要当您调用作业的schedule方法时-它将返回jobhandle-您可以在代码中使用一个jobhandle作为其他作业的依赖项-如果作业取决于另一个作业的结果-您可以将第一个作业jobhandle作为参数传递给第二个作业的schedule方法-如下所示：">要当您调用作业的<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobExtensions.Schedule.html" target="_blank" rel="noopener">Schedule</a>方法时，它将返回<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html" target="_blank" rel="noopener">JobHandle</a>。您可以在代码中使用一个<code>JobHandle</code>作为其他作业的依赖项。如果作业取决于另一个作业的结果，您可以将第一个作业<code>JobHandle</code>作为参数传递给第二个作业的<code>Schedule</code>方法，如下所示：</h4>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/blog/9bdee974.html#more">Read More</a>
+          </p>
+        
+      
+    </div>
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/9bdee974.html" data-id="cjz70tcou00190m05xiuk1f1r" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C＃-Job-System/">C＃ Job System</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Unity/C＃ Job System/NativeContainer" class="article article-type-post" itemscope="" itemprop="blogPost">
 
   <header class="article-header">
     
@@ -162,7 +299,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/ac3c63a9.html" data-id="cjz6zctkp00ad0mxgqsv0l6h7" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/ac3c63a9.html" data-id="cjz70tcov001a0m05zw2l3kbv" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -178,13 +315,13 @@
 
 
   
-    <article id="post-Unity/ECS/C＃ Job System/ParallelForTransform作业" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-Unity/DOTS/DOTS原则和愿景" class="article article-type-post" itemscope="" itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/894c6889.html">ParallelForTransform作业</a>
+      <a class="article-title" href="/blog/5628dba2.html">DOTS原则和愿景</a>
     </h1>
   
 
@@ -194,19 +331,19 @@
   <div class="article-meta">
     
     <div class="article-datetime">
-  <a href="/blog/894c6889.html" class="article-date"><time datetime="2019-08-11T00:00:00.000Z" itemprop="datePublished">2019-08-11</time></a>
+  <a href="/blog/5628dba2.html" class="article-date"><time datetime="2019-08-11T00:00:00.000Z" itemprop="datePublished">2019-08-11</time></a>
 </div>
 
     
     
   <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/Unity/">Unity</a> / <a class="article-category-link" href="/blog/categories/Unity/C＃-Job-System/">C＃ Job System</a>
+    <a class="article-category-link" href="/blog/categories/Unity/">Unity</a> / <a class="article-category-link" href="/blog/categories/Unity/DOTS/">DOTS</a>
   </div>
 
 
     
       
-        <a href="https://longshilin.com/blog/894c6889.html#disqus_thread" class="article-comment-link">
+        <a href="https://longshilin.com/blog/5628dba2.html#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> 评论
         </a>
       
@@ -217,11 +354,10 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>ParallelForTransform作业是另一种<a href="https://docs.unity3d.com/Manual/JobSystemParallelForJobs.html" target="_blank" rel="noopener">ParallelFor作业</a> ; 专为在<a href="https://docs.unity3d.com/Manual/Transforms.html" target="_blank" rel="noopener">变形上</a>操作而设计。</p>
-<p><strong>注意</strong>：ParallelForTransform作业是Unity中用于实现<a href="https://docs.unity3d.com/ScriptReference/Jobs.IJobParallelForTransform.html" target="_blank" rel="noopener">IJobParallelForTransform</a>接口的任何作业的集合术语。</p>
+        <p>Unity Data Oriented Tech Stack基于一系列原则。这些原则为我们正在努力实现的目标提供了良好的背景。一些原则清楚地反映在代码中。其他则只是我们为自己设定的目标。</p>
         
           <p class="article-more-link">
-            <a class="btn btn-primary" href="/blog/894c6889.html#more">Read More</a>
+            <a class="btn btn-primary" href="/blog/5628dba2.html#more">Read More</a>
           </p>
         
       
@@ -230,7 +366,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/894c6889.html" data-id="cjz6zctkq00ae0mxgm5ocj3ex" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/5628dba2.html" data-id="cjz70tcp8001v0m059z022ojw" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -246,7 +382,7 @@
 
 
   
-    <article id="post-Unity/ECS/C＃ Job System/c#JobSystem" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-Unity/C＃ Job System/c#JobSystem" class="article article-type-post" itemscope="" itemprop="blogPost">
 
   <header class="article-header">
     
@@ -302,7 +438,7 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/c28c374b.html" data-id="cjz6zctks00ai0mxgahnxrce6" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/c28c374b.html" data-id="cjz70tcoy001f0m05rv83z4cz" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -318,13 +454,13 @@
 
 
   
-    <article id="post-框架/GameFramework/学习计划表" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-Unity/C＃ Job System/什么是多线程？" class="article article-type-post" itemscope="" itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/b42dd2c7.html">GameFramework框架学习流程</a>
+      <a class="article-title" href="/blog/b293e36.html">什么是多线程？</a>
     </h1>
   
 
@@ -334,19 +470,19 @@
   <div class="article-meta">
     
     <div class="article-datetime">
-  <a href="/blog/b42dd2c7.html" class="article-date"><time datetime="2019-05-29T00:00:00.000Z" itemprop="datePublished">2019-05-29</time></a>
+  <a href="/blog/b293e36.html" class="article-date"><time datetime="2019-08-11T00:00:00.000Z" itemprop="datePublished">2019-08-11</time></a>
 </div>
 
     
     
   <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/框架/">框架</a> / <a class="article-category-link" href="/blog/categories/框架/GameFramework/">GameFramework</a>
+    <a class="article-category-link" href="/blog/categories/Unity/">Unity</a> / <a class="article-category-link" href="/blog/categories/Unity/C＃-Job-System/">C＃ Job System</a>
   </div>
 
 
     
       
-        <a href="https://longshilin.com/blog/b42dd2c7.html#disqus_thread" class="article-comment-link">
+        <a href="https://longshilin.com/blog/b293e36.html#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> 评论
         </a>
       
@@ -357,25 +493,25 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <div style="padding-bottom:56.25%; position:relative; display:block; width: 100%">
- <iframe width="100%" height="100%" src="https://www.processon.com/embed/5cb99469e4b0841b84374217" frameborder="0" allowfullscreen style="position:absolute; top:0; left: 0"></iframe>
-</div>
-
+        <p>在单线程计算系统中，一次进入一条指令，一次出现一条结果。加载和完成程序的时间取决于CPU需要完成的工作量。</p>
+<p>多线程是一种编程，它利用CPU在多个内核上同时处理多个线程的能力。它们不是一个接一个地执行任务或指令，而是同时运行。</p>
+        
+          <p class="article-more-link">
+            <a class="btn btn-primary" href="/blog/b293e36.html#more">Read More</a>
+          </p>
+        
       
     </div>
 
     
-      
-
-    
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/b42dd2c7.html" data-id="cjz6zctg3001k0mxgzg9i4qar" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/b293e36.html" data-id="cjz70tcoz001h0m05ioxe5vc2" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/GameFramework/">GameFramework</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C＃-Job-System/">C＃ Job System</a></li></ul>
 
 
     </footer>
@@ -386,13 +522,13 @@
 
 
   
-    <article id="post-语言/CSharp/继承关系" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-Unity/C＃ Job System/什么是工作制度？" class="article article-type-post" itemscope="" itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/3e7c0e8a.html">virtual和override实现继承关系</a>
+      <a class="article-title" href="/blog/2b778a74.html">什么是工作制度？</a>
     </h1>
   
 
@@ -402,19 +538,19 @@
   <div class="article-meta">
     
     <div class="article-datetime">
-  <a href="/blog/3e7c0e8a.html" class="article-date"><time datetime="2019-05-24T02:25:21.000Z" itemprop="datePublished">2019-05-24</time></a>
+  <a href="/blog/2b778a74.html" class="article-date"><time datetime="2019-08-11T00:00:00.000Z" itemprop="datePublished">2019-08-11</time></a>
 </div>
 
     
     
   <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/语言/">语言</a> / <a class="article-category-link" href="/blog/categories/语言/CSharp/">CSharp</a>
+    <a class="article-category-link" href="/blog/categories/Unity/">Unity</a> / <a class="article-category-link" href="/blog/categories/Unity/C＃-Job-System/">C＃ Job System</a>
   </div>
 
 
     
       
-        <a href="https://longshilin.com/blog/3e7c0e8a.html#disqus_thread" class="article-comment-link">
+        <a href="https://longshilin.com/blog/2b778a74.html#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> 评论
         </a>
       
@@ -425,15 +561,11 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>官方文档：<a href="https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/inheritance" target="_blank" rel="noopener">https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/classes-and-structs/inheritance</a></p>
-<p>详细信息直接看官方文档，我只记录自己的一点感受。</p>
-<ol>
-<li>子类继承父类时，需要用virtual和override配合。</li>
-<li>子类重载方法中调用父类的该重载源方法，例如：<code>base.method();</code>，如果子类中没有调用，则不会执行父类该源方法的逻辑。</li>
-</ol>
+        <p>作业系统通过创建<a href="https://en.wikipedia.org/wiki/Job_(computing)" target="_blank" rel="noopener">作业</a>而不是线程来管理<a href="https://docs.unity3d.com/Manual/JobSystemMultithreading.html" target="_blank" rel="noopener">多线程代码</a>。</p>
+<p>作业系统跨多个核心管理一组<a href="https://docs.microsoft.com/en-us/cpp/parallel/multithreading-creating-worker-threads" target="_blank" rel="noopener">工作线程</a>。它通常每个<a href="https://www.howtogeek.com/194756/cpu-basics-multiple-cpus-cores-and-hyper-threading-explained/" target="_blank" rel="noopener">逻辑CPU核心</a>有一个工作线程，以避免上下文切换（尽管它可能为操作系统或其他专用应用程序保留一些核心）。</p>
         
           <p class="article-more-link">
-            <a class="btn btn-primary" href="/blog/3e7c0e8a.html#more">Read More</a>
+            <a class="btn btn-primary" href="/blog/2b778a74.html#more">Read More</a>
           </p>
         
       
@@ -442,12 +574,12 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/3e7c0e8a.html" data-id="cjz6zctga001t0mxg17ki6sej" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/2b778a74.html" data-id="cjz70tcp1001l0m05p38dycqj" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/继承/">继承</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C＃-Job-System/">C＃ Job System</a></li></ul>
 
 
     </footer>
@@ -458,13 +590,13 @@
 
 
   
-    <article id="post-工具/Atom/为Atom指定代码片段提高打字效率" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-Unity/C＃ Job System/创建作业" class="article article-type-post" itemscope="" itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/f427fb19.html">Atom自定义代码片段以提高编码效率</a>
+      <a class="article-title" href="/blog/208be653.html">创建作业</a>
     </h1>
   
 
@@ -474,19 +606,19 @@
   <div class="article-meta">
     
     <div class="article-datetime">
-  <a href="/blog/f427fb19.html" class="article-date"><time datetime="2019-05-23T10:48:03.000Z" itemprop="datePublished">2019-05-23</time></a>
+  <a href="/blog/208be653.html" class="article-date"><time datetime="2019-08-11T00:00:00.000Z" itemprop="datePublished">2019-08-11</time></a>
 </div>
 
     
     
   <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/工具/">工具</a> / <a class="article-category-link" href="/blog/categories/工具/Atom/">Atom</a>
+    <a class="article-category-link" href="/blog/categories/Unity/">Unity</a> / <a class="article-category-link" href="/blog/categories/Unity/C＃-Job-System/">C＃ Job System</a>
   </div>
 
 
     
       
-        <a href="https://longshilin.com/blog/f427fb19.html#disqus_thread" class="article-comment-link">
+        <a href="https://longshilin.com/blog/208be653.html#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> 评论
         </a>
       
@@ -497,11 +629,11 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>通过在Atom中自定义代码片段，绑定指定的文件类型，就可以在编辑该类型文件时实现快速提示功能。<br>
-<img src="https://longshilin.com/images/20190523104526.gif" alt="Atom定制快捷提示片段示例"></p>
+        <p>要在Unity中创建作业，您需要实现<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJob.html" target="_blank" rel="noopener">IJob</a>接口。<code>IJob</code>允许您安排与正在运行的任何其他作业并行运行的单个作业。</p>
+<p>注意：“作业”是Unity中用于实现<code>IJob</code>接口的任何结构的集合术语。</p>
         
           <p class="article-more-link">
-            <a class="btn btn-primary" href="/blog/f427fb19.html#more">Read More</a>
+            <a class="btn btn-primary" href="/blog/208be653.html#more">Read More</a>
           </p>
         
       
@@ -510,12 +642,12 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/f427fb19.html" data-id="cjz6zctft00160mxgblbeg8om" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/208be653.html" data-id="cjz70tcp3001n0m05a5dw5x44" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Atom-Snippets/">Atom Snippets</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/效率/">效率</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C＃-Job-System/">C＃ Job System</a></li></ul>
 
 
     </footer>
@@ -526,13 +658,13 @@
 
 
   
-    <article id="post-Unity/ECS/ECS Samples/创建ECS项目" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-Unity/C＃ Job System/安排工作" class="article article-type-post" itemscope="" itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/ac01c54a.html">创建ECS项目</a>
+      <a class="article-title" href="/blog/fdd0c96a.html">安排工作</a>
     </h1>
   
 
@@ -542,19 +674,19 @@
   <div class="article-meta">
     
     <div class="article-datetime">
-  <a href="/blog/ac01c54a.html" class="article-date"><time datetime="2019-05-22T18:00:00.000Z" itemprop="datePublished">2019-05-22</time></a>
+  <a href="/blog/fdd0c96a.html" class="article-date"><time datetime="2019-08-11T00:00:00.000Z" itemprop="datePublished">2019-08-11</time></a>
 </div>
 
     
     
   <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/Unity/">Unity</a> / <a class="article-category-link" href="/blog/categories/Unity/ECS-Samples/">ECS Samples</a>
+    <a class="article-category-link" href="/blog/categories/Unity/">Unity</a> / <a class="article-category-link" href="/blog/categories/Unity/C＃-Job-System/">C＃ Job System</a>
   </div>
 
 
     
       
-        <a href="https://longshilin.com/blog/ac01c54a.html#disqus_thread" class="article-comment-link">
+        <a href="https://longshilin.com/blog/fdd0c96a.html#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> 评论
         </a>
       
@@ -565,11 +697,16 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="选择unity版本">选择Unity版本</h3>
-<p>我这里安装的是Unity2019.2.0b1版本，通过Unity Hub直接安装的，顺便推荐下Unity Hub这个软件。它是Unity官方用来在同一电脑上管理多个Unity版本的协同工具。</p>
+        <p>要在主线程中安排作业，您必须：</p>
+<ul>
+<li>实例化作业。</li>
+<li>填充作业的数据。</li>
+<li>调用<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobExtensions.Schedule.html" target="_blank" rel="noopener">Schedule</a>方法。</li>
+</ul>
+<p>调用<code>Schedule</code>将作业放入作业队列以便在适当的时间执行。一旦安排，你就不能打断工作。</p>
         
           <p class="article-more-link">
-            <a class="btn btn-primary" href="/blog/ac01c54a.html#more">Read More</a>
+            <a class="btn btn-primary" href="/blog/fdd0c96a.html#more">Read More</a>
           </p>
         
       
@@ -578,12 +715,12 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/ac01c54a.html" data-id="cjz6zctl500b40mxg5tmr58wt" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/fdd0c96a.html" data-id="cjz70tcp6001q0m0574thh1xj" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Project/">Project</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C＃-Job-System/">C＃ Job System</a></li></ul>
 
 
     </footer>
@@ -594,13 +731,13 @@
 
 
   
-    <article id="post-Unity/脚本编程/Unity3D中使用委托" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-Unity/C＃ Job System/并行工作" class="article article-type-post" itemscope="" itemprop="blogPost">
 
   <header class="article-header">
     
   
     <h1 itemprop="name">
-      <a class="article-title" href="/blog/30526cbb.html">Unity3D中使用委托</a>
+      <a class="article-title" href="/blog/3c908d6c.html">并行工作</a>
     </h1>
   
 
@@ -610,19 +747,19 @@
   <div class="article-meta">
     
     <div class="article-datetime">
-  <a href="/blog/30526cbb.html" class="article-date"><time datetime="2019-05-14T20:00:00.000Z" itemprop="datePublished">2019-05-14</time></a>
+  <a href="/blog/3c908d6c.html" class="article-date"><time datetime="2019-08-11T00:00:00.000Z" itemprop="datePublished">2019-08-11</time></a>
 </div>
 
     
     
   <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/Unity/">Unity</a> / <a class="article-category-link" href="/blog/categories/Unity/脚本编程/">脚本编程</a>
+    <a class="article-category-link" href="/blog/categories/Unity/">Unity</a> / <a class="article-category-link" href="/blog/categories/Unity/C＃-Job-System/">C＃ Job System</a>
   </div>
 
 
     
       
-        <a href="https://longshilin.com/blog/30526cbb.html#disqus_thread" class="article-comment-link">
+        <a href="https://longshilin.com/blog/3c908d6c.html#disqus_thread" class="article-comment-link">
           <i class="fa fa-comment"></i> 评论
         </a>
       
@@ -633,11 +770,11 @@
 
     <div class="article-entry" itemprop="articleBody">
       
-        <p>首先来了解委托是什么，在《Unity3D脚本编程》一书中，指明委托要确定一个回调方法签名，包括参数以及返回类型等。在下面的例子中，MyDelegate委托定制的回调方法的参数类型是int型，同时返回类型为void。</p>
-<figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">//声明一个委托类型，它的实例引用一个方法</span></span><br><span class="line"><span class="function"><span class="keyword">internal</span> <span class="keyword">delegate</span> <span class="keyword">void</span> <span class="title">MyDelegate</span>(<span class="params"><span class="keyword">int</span> num</span>)</span>;</span><br></pre></td></tr></table></figure>
+        <p>当<a href="https://docs.unity3d.com/Manual/JobSystemSchedulingJobs.html" target="_blank" rel="noopener">调度工作</a>，只能有一个工作做一个任务。在游戏中，通常希望对大量对象执行相同的操作。有一个名为<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobParallelFor.html" target="_blank" rel="noopener">IJobParallelFor</a>的独立作业类型来处理这个问题。</p>
+<p><strong>注意</strong>：“ParallelFor”作业是Unity中用于实现<code>IJobParallelFor</code>接口的任何结构的集合术语。</p>
         
           <p class="article-more-link">
-            <a class="btn btn-primary" href="/blog/30526cbb.html#more">Read More</a>
+            <a class="btn btn-primary" href="/blog/3c908d6c.html#more">Read More</a>
           </p>
         
       
@@ -646,147 +783,12 @@
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/30526cbb.html" data-id="cjz6zctfs00150mxgkoiutwvn" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/3c908d6c.html" data-id="cjz70tcp7001s0m05ig66gz2i" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Unity/">Unity</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Unity/Unity基础入门学习笔记/Scripts/1-Scripts-as-Behaviour-Components" class="article article-type-post" itemscope="" itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/d6acd003.html">1. Scripts as Behaviour Components</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    
-    <div class="article-datetime">
-  <a href="/blog/d6acd003.html" class="article-date"><time datetime="2019-05-14T19:00:00.000Z" itemprop="datePublished">2019-05-14</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/Unity/">Unity</a> / <a class="article-category-link" href="/blog/categories/Unity/Unity基础入门学习笔记/">Unity基础入门学习笔记</a> / <a class="article-category-link" href="/blog/categories/Unity/Unity基础入门学习笔记/Scripts/">Scripts</a>
-  </div>
-
-
-    
-      
-        <a href="https://longshilin.com/blog/d6acd003.html#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> 评论
-        </a>
-      
-    
-    <!-- <span id="busuanzi_container_page_pv"><i class="fa fa-eye"></i>&nbsp;阅读次数: <span id="busuanzi_value_page_pv"></span>&nbsp;</span> -->
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这是本栏目的开篇文章，从一开始就了解游戏开发的编程。</p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/blog/d6acd003.html#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/d6acd003.html" data-id="cjz6zctl600b90mxgafeyb035" class="article-share-link">
-        <i class="fa fa-share"></i> 分享
-      </a>
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Unity/">Unity</a></li></ul>
-
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-工具/版本控制/windows和mac上安装Tower破解版" class="article article-type-post" itemscope="" itemprop="blogPost">
-
-  <header class="article-header">
-    
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/b5410c9.html">windows和mac上安装Tower破解版</a>
-    </h1>
-  
-
-
-  </header>
-
-  <div class="article-meta">
-    
-    <div class="article-datetime">
-  <a href="/blog/b5410c9.html" class="article-date"><time datetime="2019-02-02T14:42:24.000Z" itemprop="datePublished">2019-02-02</time></a>
-</div>
-
-    
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/工具/">工具</a> / <a class="article-category-link" href="/blog/categories/工具/版本控制/">版本控制</a>
-  </div>
-
-
-    
-      
-        <a href="https://longshilin.com/blog/b5410c9.html#disqus_thread" class="article-comment-link">
-          <i class="fa fa-comment"></i> 评论
-        </a>
-      
-    
-    <!-- <span id="busuanzi_container_page_pv"><i class="fa fa-eye"></i>&nbsp;阅读次数: <span id="busuanzi_value_page_pv"></span>&nbsp;</span> -->
-  </div>
-  <div class="article-inner">
-
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Tower确实蛮好用的，才试用了几天就爱上了它。在<a href="https://www.git-tower.com" target="_blank" rel="noopener">Tower官网</a>这里有关它的介绍，以及有专门的<a href="https://www.git-tower.com/learn/" target="_blank" rel="noopener">电子书和视频</a>来让你快速上手Tower和git。</p>
-<p><img src="https://ws1.sinaimg.cn/large/005EsThygy1fzs24oey0aj31z413ztdg.jpg" alt=""></p>
-        
-          <p class="article-more-link">
-            <a class="btn btn-primary" href="/blog/b5410c9.html#more">Read More</a>
-          </p>
-        
-      
-    </div>
-
-    
-
-    <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/b5410c9.html" data-id="cjz6zctfy001e0mxgwxpk4od8" class="article-share-link">
-        <i class="fa fa-share"></i> 分享
-      </a>
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/tower/">tower</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/git/">git</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C＃-Job-System/">C＃ Job System</a></li></ul>
 
 
     </footer>
@@ -800,7 +802,7 @@
 
 
   <div id="page-nav">
-    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/blog/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/blog/">1</a></li><li class="active"><span class="page-number">2</span></li><li><a class="page-number" href="/blog/page/3/">3</a></li><li><a class="page-number" href="/blog/page/4/">4</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/blog/page/6/">6</a></li><li><a class="page-next" rel="next" href="/blog/page/3/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
+    <nav><ul class="pagination"><li><a class="page-prev" rel="prev" href="/blog/"><i class="fa fa-chevron-left"></i> Prev</a></li><li><a class="page-number" href="/blog/">1</a></li><li class="active"><span class="page-number">2</span></li><li><a class="page-number" href="/blog/page/3/">3</a></li><li><a class="page-number" href="/blog/page/4/">4</a></li><li class="disabled"><span class="page-space">&hellip;</span></li><li><a class="page-number" href="/blog/page/7/">7</a></li><li><a class="page-next" rel="next" href="/blog/page/3/">Next <i class="fa fa-chevron-right"></i></a></li></ul></nav>
   </div>
 
 
@@ -826,7 +828,7 @@
   
   <div class="sidebar-module">
     <h4>Categories</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Docker/">Docker</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/ECS/">ECS</a><span class="sidebar-module-list-count">1</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/ECS/ECS-Samples/">ECS Samples</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/">Unity</a><span class="sidebar-module-list-count">14</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/C＃-Job-System/">C＃ Job System</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/ECS-Samples/">ECS Samples</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Unity基础入门学习笔记/">Unity基础入门学习笔记</a><span class="sidebar-module-list-count">1</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Unity基础入门学习笔记/Scripts/">Scripts</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/脚本编程/">脚本编程</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/博客构建/">博客构建</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/">工具</a><span class="sidebar-module-list-count">7</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/Atom/">Atom</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/写作/">写作</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/版本控制/">版本控制</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/电脑管理/">电脑管理</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/旅游/">旅游</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/框架/">框架</a><span class="sidebar-module-list-count">1</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/框架/GameFramework/">GameFramework</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/解决方案/">解决方案</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/">认证</a><span class="sidebar-module-list-count">2</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/AWS认证/">AWS认证</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/">语言</a><span class="sidebar-module-list-count">9</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/CSharp/">CSharp</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/Java/">Java</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/mybatis/">mybatis</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/资源/">资源</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/项目/">项目</a><span class="sidebar-module-list-count">9</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/项目/Hadoop基因测序/">Hadoop基因测序</a><span class="sidebar-module-list-count">9</span></li></ul></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Docker/">Docker</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/">Unity</a><span class="sidebar-module-list-count">22</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/C＃-Job-System/">C＃ Job System</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/DOTS/">DOTS</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/ECS-Samples/">ECS Samples</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Unity基础入门学习笔记/">Unity基础入门学习笔记</a><span class="sidebar-module-list-count">1</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Unity基础入门学习笔记/Scripts/">Scripts</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/脚本编程/">脚本编程</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/博客构建/">博客构建</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/">工具</a><span class="sidebar-module-list-count">7</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/Atom/">Atom</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/写作/">写作</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/版本控制/">版本控制</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/电脑管理/">电脑管理</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/旅游/">旅游</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/框架/">框架</a><span class="sidebar-module-list-count">1</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/框架/GameFramework/">GameFramework</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/解决方案/">解决方案</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/">认证</a><span class="sidebar-module-list-count">2</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/AWS认证/">AWS认证</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/">语言</a><span class="sidebar-module-list-count">9</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/CSharp/">CSharp</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/Java/">Java</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/mybatis/">mybatis</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/资源/">资源</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/项目/">项目</a><span class="sidebar-module-list-count">9</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/项目/Hadoop基因测序/">Hadoop基因测序</a><span class="sidebar-module-list-count">9</span></li></ul></li></ul>
   </div>
 
 
@@ -835,7 +837,7 @@
   <div class="sidebar-module">
     <h4>Tag Cloud</h4>
     <p class="tagcloud">
-      <a href="/blog/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/blog/tags/Visual-Studio/" style="font-size: 10px;">Visual Studio</a> <a href="/blog/tags/highlightjs/" style="font-size: 10px;">highlightjs</a> <a href="/blog/tags/异常/" style="font-size: 10px;">异常</a> <a href="/blog/tags/笔试/" style="font-size: 10px;">笔试</a> <a href="/blog/tags/效率/" style="font-size: 10px;">效率</a> <a href="/blog/tags/simiki/" style="font-size: 10px;">simiki</a> <a href="/blog/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/aws/" style="font-size: 12.5px;">aws</a> <a href="/blog/tags/Hadoop/" style="font-size: 17.5px;">Hadoop</a> <a href="/blog/tags/90km/" style="font-size: 10px;">90km</a> <a href="/blog/tags/毕业设计/" style="font-size: 17.5px;">毕业设计</a> <a href="/blog/tags/markdown/" style="font-size: 12.5px;">markdown</a> <a href="/blog/tags/大数据/" style="font-size: 17.5px;">大数据</a> <a href="/blog/tags/write/" style="font-size: 12.5px;">write</a> <a href="/blog/tags/aws-soa/" style="font-size: 10px;">aws-soa</a> <a href="/blog/tags/wordpress/" style="font-size: 10px;">wordpress</a> <a href="/blog/tags/longshilindotcom/" style="font-size: 10px;">longshilindotcom</a> <a href="/blog/tags/sysops/" style="font-size: 10px;">sysops</a> <a href="/blog/tags/ECS/" style="font-size: 10px;">ECS</a> <a href="/blog/tags/C＃-Job-System/" style="font-size: 20px;">C＃ Job System</a> <a href="/blog/tags/tower/" style="font-size: 10px;">tower</a> <a href="/blog/tags/类对象/" style="font-size: 10px;">类对象</a> <a href="/blog/tags/迭代器/" style="font-size: 10px;">迭代器</a> <a href="/blog/tags/memreduct/" style="font-size: 10px;">memreduct</a> <a href="/blog/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/blog/tags/Unity/" style="font-size: 15px;">Unity</a> <a href="/blog/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/blog/tags/Project/" style="font-size: 10px;">Project</a> <a href="/blog/tags/代理/" style="font-size: 10px;">代理</a> <a href="/blog/tags/极客时间/" style="font-size: 10px;">极客时间</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/线程/" style="font-size: 10px;">线程</a> <a href="/blog/tags/集合/" style="font-size: 10px;">集合</a> <a href="/blog/tags/tools/" style="font-size: 15px;">tools</a> <a href="/blog/tags/GameFramework/" style="font-size: 10px;">GameFramework</a> <a href="/blog/tags/SEO/" style="font-size: 10px;">SEO</a> <a href="/blog/tags/java/" style="font-size: 12.5px;">java</a> <a href="/blog/tags/Atom-Snippets/" style="font-size: 10px;">Atom Snippets</a> <a href="/blog/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/blog/tags/优秀文章/" style="font-size: 10px;">优秀文章</a> <a href="/blog/tags/继承/" style="font-size: 10px;">继承</a> <a href="/blog/tags/Class/" style="font-size: 10px;">Class</a> <a href="/blog/tags/基因测序/" style="font-size: 17.5px;">基因测序</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/blog/tags/CI-CD/" style="font-size: 12.5px;">CI/CD</a>
+      <a href="/blog/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/blog/tags/C＃-Job-System/" style="font-size: 20px;">C＃ Job System</a> <a href="/blog/tags/write/" style="font-size: 12.5px;">write</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/ECS/" style="font-size: 10px;">ECS</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/sysops/" style="font-size: 10px;">sysops</a> <a href="/blog/tags/极客时间/" style="font-size: 10px;">极客时间</a> <a href="/blog/tags/大数据/" style="font-size: 17.5px;">大数据</a> <a href="/blog/tags/Unity/" style="font-size: 15px;">Unity</a> <a href="/blog/tags/highlightjs/" style="font-size: 10px;">highlightjs</a> <a href="/blog/tags/aws-soa/" style="font-size: 10px;">aws-soa</a> <a href="/blog/tags/代理/" style="font-size: 10px;">代理</a> <a href="/blog/tags/hexo/" style="font-size: 12.5px;">hexo</a> <a href="/blog/tags/线程/" style="font-size: 10px;">线程</a> <a href="/blog/tags/simiki/" style="font-size: 10px;">simiki</a> <a href="/blog/tags/90km/" style="font-size: 10px;">90km</a> <a href="/blog/tags/tools/" style="font-size: 15px;">tools</a> <a href="/blog/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/blog/tags/memreduct/" style="font-size: 10px;">memreduct</a> <a href="/blog/tags/java/" style="font-size: 12.5px;">java</a> <a href="/blog/tags/Class/" style="font-size: 10px;">Class</a> <a href="/blog/tags/优秀文章/" style="font-size: 10px;">优秀文章</a> <a href="/blog/tags/markdown/" style="font-size: 12.5px;">markdown</a> <a href="/blog/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/blog/tags/毕业设计/" style="font-size: 17.5px;">毕业设计</a> <a href="/blog/tags/SEO/" style="font-size: 10px;">SEO</a> <a href="/blog/tags/aws/" style="font-size: 12.5px;">aws</a> <a href="/blog/tags/CI-CD/" style="font-size: 12.5px;">CI/CD</a> <a href="/blog/tags/异常/" style="font-size: 10px;">异常</a> <a href="/blog/tags/Visual-Studio/" style="font-size: 10px;">Visual Studio</a> <a href="/blog/tags/longshilindotcom/" style="font-size: 10px;">longshilindotcom</a> <a href="/blog/tags/Atom-Snippets/" style="font-size: 10px;">Atom Snippets</a> <a href="/blog/tags/类对象/" style="font-size: 10px;">类对象</a> <a href="/blog/tags/tower/" style="font-size: 10px;">tower</a> <a href="/blog/tags/Hadoop/" style="font-size: 17.5px;">Hadoop</a> <a href="/blog/tags/继承/" style="font-size: 10px;">继承</a> <a href="/blog/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/blog/tags/效率/" style="font-size: 10px;">效率</a> <a href="/blog/tags/GameFramework/" style="font-size: 10px;">GameFramework</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/blog/tags/集合/" style="font-size: 10px;">集合</a> <a href="/blog/tags/Project/" style="font-size: 10px;">Project</a> <a href="/blog/tags/基因测序/" style="font-size: 17.5px;">基因测序</a> <a href="/blog/tags/迭代器/" style="font-size: 10px;">迭代器</a> <a href="/blog/tags/笔试/" style="font-size: 10px;">笔试</a> <a href="/blog/tags/wordpress/" style="font-size: 10px;">wordpress</a>
     </p>
   </div>
 
@@ -843,7 +845,7 @@
   
   <div class="sidebar-module">
     <h4>Archives</h4>
-    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/08/">八月 2019</a><span class="sidebar-module-list-count">13</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/05/">五月 2019</a><span class="sidebar-module-list-count">6</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/02/">二月 2019</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/12/">十二月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/11/">十一月 2018</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/09/">九月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/07/">七月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2017/11/">十一月 2017</a><span class="sidebar-module-list-count">7</span></li></ul>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/08/">八月 2019</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/05/">五月 2019</a><span class="sidebar-module-list-count">6</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/02/">二月 2019</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/12/">十二月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/11/">十一月 2018</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/09/">九月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/07/">七月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2017/11/">十一月 2017</a><span class="sidebar-module-list-count">7</span></li></ul>
   </div>
 
 
@@ -858,7 +860,19 @@
         </li>
       
         <li>
-          <a href="/blog/fdd0c96a.html">安排工作</a>
+          <a href="/blog/894c6889.html">ParallelForTransform作业</a>
+        </li>
+      
+        <li>
+          <a href="/blog/9c7fc9b9.html">DOTS默认情况下的性能</a>
+        </li>
+      
+        <li>
+          <a href="/blog/c1466196.html">DOTS概述</a>
+        </li>
+      
+        <li>
+          <a href="/blog/c763759a.html">解读GitHub EntityComponentSystemSamples</a>
         </li>
       
         <li>
@@ -866,23 +880,11 @@
         </li>
       
         <li>
-          <a href="/blog/3c908d6c.html">并行工作</a>
+          <a href="/blog/a6702756.html">DOTS学习资源</a>
         </li>
       
         <li>
-          <a href="/blog/208be653.html">创建作业</a>
-        </li>
-      
-        <li>
-          <a href="/blog/feab267f.html">C＃作业系统提示和故障排除</a>
-        </li>
-      
-        <li>
-          <a href="/blog/9bdee974.html">JobHandle和依赖项</a>
-        </li>
-      
-        <li>
-          <a href="/blog/b293e36.html">什么是多线程？</a>
+          <a href="/blog/1bcc4240.html">什么是ECS？</a>
         </li>
       
     </ul>
@@ -923,7 +925,7 @@
     <div id="footer-info" class="inner">
       <!-- Copyright &copy; 2014 - 2019 longshilin&nbsp;<br> -->
       <!-- For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><br/> -->
-      Site Generated 2019-08-11 13:08:04&nbsp;&nbsp;
+      Site Generated 2019-08-11 13:08:41&nbsp;&nbsp;
       <!-- CNZZ统计 -->
       <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script><br>
       Create with <a href="https://hexo.io">Hexo</a>&nbsp; |&nbsp;

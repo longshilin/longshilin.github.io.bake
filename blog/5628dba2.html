@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <!-- 新增github的关注样式 - ->
+  <a href="https://github.com/longshilin"><img style="position: absolute; top: 35px; right: 0; border: 0;" src="https://longshilin.com/blog/images/forkme_right_green_007200.png" alt="Fork me on GitHab"></a>-->
+  <title>DOTS原则和愿景 — </title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Unity Data Oriented Tech Stack基于一系列原则。这些原则为我们正在努力实现的目标提供了良好的背景。一些原则清楚地反映在代码中。其他则只是我们为自己设定的目标。">
+<meta name="keywords" content="C＃ Job System">
+<meta property="og:type" content="article">
+<meta property="og:title" content="DOTS原则和愿景">
+<meta property="og:url" content="https://longshilin.com/blog/5628dba2.html">
+<meta property="og:site_name">
+<meta property="og:description" content="Unity Data Oriented Tech Stack基于一系列原则。这些原则为我们正在努力实现的目标提供了良好的背景。一些原则清楚地反映在代码中。其他则只是我们为自己设定的目标。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-08-11T13:45:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="DOTS原则和愿景">
+<meta name="twitter:description" content="Unity Data Oriented Tech Stack基于一系列原则。这些原则为我们正在努力实现的目标提供了良好的背景。一些原则清楚地反映在代码中。其他则只是我们为自己设定的目标。">
+<meta name="twitter:creator" content="@yilong0722">
+<link rel="publisher" href="106698639613319710000">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/blog/css/styles.css">
+  
+
+  <script src="/blog/js/baidutongji.js"></script>
+</head>
+</html>
+<body>
+  <nav class="navbar navbar-inverse navbar-wrapper">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class="" href="/blog/">Home</a></li>
+        
+          <li><a class="" href="/blog/../wiki/">Wiki</a></li>
+        
+          <li><a class="" href="/blog/archives/">Archives</a></li>
+        
+          <li><a class="" href="/blog/books">Books</a></li>
+        
+          <li><a class="" href="/blog/movies">Movies</a></li>
+        
+      </ul>
+
+
+      <ul class="nav navbar-nav navbar-right" id="sub-menu-navbar">
+        
+          <li><a href="/blog/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+        
+          <li><a href="https://github.com/longshilin" title="Github"><i class="fa fa-github"></i></a></li>
+        
+        
+          <li><a href="https://gitlab.com/longshilin" title="Gitlab"><i class="fa fa-gitlab"></i></a></li>
+        
+        
+          <li><a href="https://stackoverflow.com/users/7739839" title="StackOverFlow"><i class="fa fa-stack-overflow"></i></a></li>
+        
+        
+      </ul>
+
+<!-- add google translate - ->
+      <div id="google_translate_element" style="position:absolute; right:0; margin-top: 8px; margin-right: 1px;"></div>
+
+      <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
+        }
+      </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!- - /add google translate -->
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <div class="container">
+    <!-- 隐藏header头 -->
+    
+    <div class="row">
+        <div class="col-sm-8 blog-main" id="main-body">
+          <article id="post-Unity/DOTS/DOTS原则和愿景" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      DOTS原则和愿景
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/5628dba2.html" class="article-date"><time datetime="2019-08-11T00:00:00.000Z" itemprop="datePublished">2019-08-11</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Unity/">Unity</a> / <a class="article-category-link" href="/blog/categories/Unity/DOTS/">DOTS</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/5628dba2.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+    <!-- <span id="busuanzi_container_page_pv"><i class="fa fa-eye"></i>&nbsp;阅读次数: <span id="busuanzi_value_page_pv"></span>&nbsp;</span> -->
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Unity Data Oriented Tech Stack基于一系列原则。这些原则为我们正在努力实现的目标提供了良好的背景。一些原则清楚地反映在代码中。其他则只是我们为自己设定的目标。</p>
+<a id="more"></a>
+<h4 id="默认情况下的性能">默认情况下的性能</h4>
+<p>我们希望为所有平台创建高效的机器代码变得简单。</p>
+<p>我们使用手写的高度优化的<a href="https://en.wikipedia.org/wiki/SIMD" target="_blank" rel="noopener">simd</a>内在函数来衡量C ++中可以实现的性能。</p>
+<p>我们使用编译器技术（Burst），容器（Unity.Collections），数据布局组件（ECS）的组合，以便在默认情况下轻松编写高效代码。</p>
+<ul>
+<li>数据布局和迭代 - 实体组件系统在默认情况下以块的形式迭代实体时保证线性数据布局。这是面向统一数据的技术栈提供性能提升的关键部分。</li>
+<li>C＃作业系统允许您以简单的方式编写多线程代码。这也很安全。C＃Job Debugger可以检测任何竞争条件。</li>
+<li>Burst是我们专门针对C＃作业的编译器。C＃作业代码遵循我们可用于生成更高效的机器代码的某些模式。使用SIMD指令为每个目标平台编译和优化代码。</li>
+</ul>
+<p>这方面的一个例子是Instantiation的性能。与实例化具有320字节memcpy的100,000个实体需要9ms的理论限制相比，通过实体组件系统实例化这些实体需要10ms。所以我们非常接近理论极限。</p>
+<p>在Unite Austin，我们在60 FPS的大型战斗模拟中展示了一个包含100,000个独立单元的演示。所有游戏代码都运行多核。 [参见ECS性能演示<a href="https://www.youtube.com/watch?v=0969LalB7vw" target="_blank" rel="noopener">视频]</a></p>
+<h4 id="简单">简单</h4>
+<p>编写<a href="https://en.wiktionary.org/wiki/performant" target="_blank" rel="noopener">高性能</a>代码必须简单。我们相信我们可以编写快速代码，就像<strong>MonoBehaviour.Update</strong>一样简单。</p>
+<blockquote>
+<p>注意：为了正确设定期望，我们认为我们仍有一些方法可以实现这一目标。</p>
+</blockquote>
+<h4 id="编写代码的一种方法">编写代码的一种方法</h4>
+<p>我们想要定义编写游戏代码、编辑器代码、资产管道代码以及引擎代码的单一方式。我们相信这为我们的用户创造了一个更简单的工具，并且更有能力改变现状。</p>
+<p>物理学是一个很好的例子。目前物理学是一种黑盒解决方案。在实践中，许多开发人员希望调整模拟代码以适应他们的游戏需求。如果使用ECS以与游戏代码相同的方式编写物理引擎代码，则可以轻松地在现有物理仿真阶段之间插入您自己的仿真代码或完全控制。</p>
+<p>另一个例子，让我们想象你想制作一个可以进行大规模修改的游戏。</p>
+<p>如果我们的导入管道是作为一组<strong>ComponentSystems实现的</strong>。我们有一些FBX导入管道代码，默认情况下在资产管道中用于导入和后处理FBX文件。（在编辑器中使用Mesh和FBX导入代码。）</p>
+<p>然后，很容易配置程序包管理器，可以在已部署的游戏中使用相同的FBX导入和后处理代码进行修改。</p>
+<p>我们相信，在基础层面，这将使Unity比现在更加灵活。</p>
+<h4 id="联网">联网</h4>
+<p>我们想要定义一种编写所有游戏代码的简单方法。遵循此方法，您的游戏可以使用三种网络架构中的一种，具体取决于您创建的游戏类型。</p>
+<p>我们专注于为托管游戏提供最佳的网络引擎支持。使用最近收购的<a href="http://multiplay.com/" target="_blank" rel="noopener">Multiplay.com</a>服务，我们提供了一个简单的管道来托管所述游戏。</p>
+<ul>
+<li>FPS - 服务器上的模拟</li>
+<li>RTS - 确定性锁步模拟</li>
+<li>街机游戏 - GGPO</li>
+</ul>
+<blockquote>
+<p>注意：为了正确设置期望，我们尚未在实体组件系统之上提供任何网络代码。它正在进行中。</p>
+</blockquote>
+<h4 id="确定性">确定性</h4>
+<p>我们的构建管道必须是<a href="https://en.wikipedia.org/wiki/Deterministic_algorithm" target="_blank" rel="noopener">确定性的</a>。用户可以选择是否所有模拟代码都应该确定性地运行。</p>
+<p>无论使用何种设备，您都应该使用相同的输入获得相同的结果。这对于网络，重放功能甚至高级调试工具都很重要。</p>
+<p>为此，我们将利用Burst编译器在不同平台之间生成精确的浮点数学运算。想象一下，运行相同浮点数学代码的linux服务器和iOS设备。这对于许多场景非常有用，特别是对于连接的游戏，还有调试，重放等。</p>
+<blockquote>
+<p>注意：浮点数学差异是Unity决定解决的问题。这个问题已经有一段时间了解，但到目前为止还没有足够的需要来鼓励人们解决它。为了解决这个问题，包括避免解决问题所需的一些解决方法，请考虑阅读<a href="https://randomascii.wordpress.com/2013/07/16/floating-point-determinism/" target="_blank" rel="noopener">Bruce Dawson的浮点确定性</a>。</p>
+</blockquote>
+<h4 id="沙盒">沙盒</h4>
+<p>Unity是一个沙盒，安全而简单。</p>
+<p>当错误地使用API时，我们提供了很好的错误消息，我们从未将自己置于不正确的使用导致崩溃的位置，这是设计上的（而不是我们可以快速修复的错误）。</p>
+<p>沙箱行为的一个很好的例子是我们的C＃作业系统保证您的C＃作业代码都没有竞争条件。我们通过静态代码分析和运行时检查的组合确定性地检查所有可能的竞争条件。我们会立即为您提供有关任何竞赛条件的错误信息。因此，您可以相信您的代码可以正常工作并且感觉安全，即使是第一次编写多线程游戏代码的开发人员也会做得很好。</p>
+<h4 id="极小性">极小性</h4>
+<p>我们希望Unity可用于从&lt;50kb可执行文件，到千兆字节大小的游戏的所有内容。我们希望Unity在不到1秒的时间内加载小内容。</p>
+<h4 id="迭代时间">迭代时间</h4>
+<p>我们的目标是在大型项目文件夹中任何常见操作的迭代时间保持500ms以下。</p>
+<p>作为一个例子，我们正在努力将C＃编译器重写为完全增量，目标是：</p>
+<blockquote>
+<p>在大型项目中更改单个.cs文件时。组合的编译和热重载时间应小于500毫秒。</p>
+</blockquote>
+<h4 id="我们的代码提供完整的单元测试覆盖率">我们的代码提供完整的单元测试覆盖率</h4>
+<p>我们相信从一开始就提供强大的代码。我们使用单元测试来证明我们的代码在开发人员编写和提交时正常工作。测试作为包的一部分提供。</p>
+<h4 id="演化">演化</h4>
+<p>我们知道我们在如何编写代码方面提出了相当大的改变。从MonoBehaviour.Update到ComponentSystem并使用作业。</p>
+<p>我们相信，最终唯一可以说服游戏开发者的是<strong>尝试它，并亲眼看到自己的游戏结果</strong>。</p>
+<p>因此，在现有项目中应用ECS方法应该容易且快速。我们的目标是在30分钟内，用户可以在大型项目中将一些代码从MonoBehaviour.Update更改为ComponentSystem，并拥有优化游戏代码的成功经验。</p>
+<h4 id="包">包</h4>
+<p>我们希望我们的大多数引擎代码都是用C＃编写的，并部署在一个Package中。所有Unity Pro客户均可使用所有源代码。</p>
+<p>我们希望与客户建立快速反馈循环，因为我们可以推送代码并在包中快速获得反馈，而不会破坏其他部分的稳定性。</p>
+<p>以前我们的大多数引擎代码都是用C ++编写的，这与我们的客户编写代码的方式以及Unity的程序员如何编写代码产生了脱节。由于Burst编译器技术和ECS，我们可以用C＃代码实现比C ++更好的结果，因此我们都能以完全相同的方式编写代码。</p>
+<h4 id="合作">合作</h4>
+<p>我们相信Unity用户和Unity开发人员都在同一个团队中。我们的目的是帮助所有Unity用户更快，更高质量和更好的性能创建最佳游戏体验。</p>
+<p>我们相信，我们开发的每个功能都必须尽早开发真实的场景和真实的生产反馈。包管理器促进了这一点。</p>
+<p>对于那些希望贡献引擎代码的社区用户，我们的目标是通过直接处理贡献者可以提交的相同代码存储库来实现这一目标。通过明确的原则和所有功能的全面测试覆盖，我们希望保持高贡献的质量。</p>
+<p>源代码存储库将适用于所有Unity Pro客户。</p>
+<h4 id="透明度">透明度</h4>
+<p>我们相信透明度。我们公开发展我们的功能，我们在论坛和博客上积极沟通。我们保留时间，以便每个开发人员都可以花时间与客户一起了解用户的痛点。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/5628dba2.html" data-id="cjz70tcp8001v0m059z022ojw" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/C＃-Job-System/">C＃ Job System</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/blog/c28c374b.html" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">C# Job System 概述</span>
+    </a>
+  </li>
+  
+  
+  <li role="presentation">
+    <a href="/blog/ac3c63a9.html" id="article-nav-newer" class="article-nav-link-wrap">
+      <span class="article-nav-link-title">NativeContainer</span>
+      <i class="fa fa-chevron-right pull-right"></i>
+    </a>
+  </li>
+  
+</ul>
+
+
+  
+</article>
+
+
+<section id="comments" class="post-comments">
+  
+      <div class="body-container">
+        <div id="disqus_thread" class="valine">
+        </div>
+      </div>
+  
+</section>
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar" id="sidebar">
+          
+  <div class="sidebar-module sidebar-toc" id="toc">
+    
+  </div>
+
+
+
+  
+<div class="sidebar-module sidebar-tags">
+  <h4>Search</h4>
+  <form id="search-form"> <!-- 搜索框相关 -->
+    <input type="text" id="local-search-input" name="q" placeholder=" 搜本站..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false">
+    <i class="fa fa-times" onclick="resetSearch()"></i> <!-- 清空/重置搜索框 -->
+  </form>
+  <div id="local-search-result"></div> <!-- 搜索结果区 -->
+  <p class="no-result">No results found </p> <!-- 无匹配时显示，注意请在 CSS 中设置默认隐藏 -->
+</div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Docker/">Docker</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/">Unity</a><span class="sidebar-module-list-count">22</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/C＃-Job-System/">C＃ Job System</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/DOTS/">DOTS</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/ECS-Samples/">ECS Samples</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Unity基础入门学习笔记/">Unity基础入门学习笔记</a><span class="sidebar-module-list-count">1</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Unity基础入门学习笔记/Scripts/">Scripts</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/脚本编程/">脚本编程</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/博客构建/">博客构建</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/">工具</a><span class="sidebar-module-list-count">7</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/Atom/">Atom</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/写作/">写作</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/版本控制/">版本控制</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/电脑管理/">电脑管理</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/旅游/">旅游</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/框架/">框架</a><span class="sidebar-module-list-count">1</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/框架/GameFramework/">GameFramework</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/解决方案/">解决方案</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/">认证</a><span class="sidebar-module-list-count">2</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/AWS认证/">AWS认证</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/">语言</a><span class="sidebar-module-list-count">9</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/CSharp/">CSharp</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/Java/">Java</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/mybatis/">mybatis</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/资源/">资源</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/项目/">项目</a><span class="sidebar-module-list-count">9</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/项目/Hadoop基因测序/">Hadoop基因测序</a><span class="sidebar-module-list-count">9</span></li></ul></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/blog/tags/wordpress/" style="font-size: 10px;">wordpress</a> <a href="/blog/tags/代理/" style="font-size: 10px;">代理</a> <a href="/blog/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/blog/tags/longshilindotcom/" style="font-size: 10px;">longshilindotcom</a> <a href="/blog/tags/C＃-Job-System/" style="font-size: 20px;">C＃ Job System</a> <a href="/blog/tags/memreduct/" style="font-size: 10px;">memreduct</a> <a href="/blog/tags/集合/" style="font-size: 10px;">集合</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/blog/tags/Unity/" style="font-size: 15px;">Unity</a> <a href="/blog/tags/aws/" style="font-size: 12.5px;">aws</a> <a href="/blog/tags/大数据/" style="font-size: 17.5px;">大数据</a> <a href="/blog/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/blog/tags/类对象/" style="font-size: 10px;">类对象</a> <a href="/blog/tags/线程/" style="font-size: 10px;">线程</a> <a href="/blog/tags/sysops/" style="font-size: 10px;">sysops</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/迭代器/" style="font-size: 10px;">迭代器</a> <a href="/blog/tags/ECS/" style="font-size: 10px;">ECS</a> <a href="/blog/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/blog/tags/毕业设计/" style="font-size: 17.5px;">毕业设计</a> <a href="/blog/tags/tools/" style="font-size: 15px;">tools</a> <a href="/blog/tags/效率/" style="font-size: 10px;">效率</a> <a href="/blog/tags/基因测序/" style="font-size: 17.5px;">基因测序</a> <a href="/blog/tags/docker/" style="font-size: 12.5px;">docker</a> <a href="/blog/tags/继承/" style="font-size: 10px;">继承</a> <a href="/blog/tags/极客时间/" style="font-size: 10px;">极客时间</a> <a href="/blog/tags/优秀文章/" style="font-size: 10px;">优秀文章</a> <a href="/blog/tags/Atom-Snippets/" style="font-size: 10px;">Atom Snippets</a> <a href="/blog/tags/SEO/" style="font-size: 10px;">SEO</a> <a href="/blog/tags/Visual-Studio/" style="font-size: 10px;">Visual Studio</a> <a href="/blog/tags/markdown/" style="font-size: 12.5px;">markdown</a> <a href="/blog/tags/write/" style="font-size: 12.5px;">write</a> <a href="/blog/tags/highlightjs/" style="font-size: 10px;">highlightjs</a> <a href="/blog/tags/tower/" style="font-size: 10px;">tower</a> <a href="/blog/tags/笔试/" style="font-size: 10px;">笔试</a> <a href="/blog/tags/java/" style="font-size: 12.5px;">java</a> <a href="/blog/tags/Class/" style="font-size: 10px;">Class</a> <a href="/blog/tags/GameFramework/" style="font-size: 10px;">GameFramework</a> <a href="/blog/tags/90km/" style="font-size: 10px;">90km</a> <a href="/blog/tags/Project/" style="font-size: 10px;">Project</a> <a href="/blog/tags/simiki/" style="font-size: 10px;">simiki</a> <a href="/blog/tags/CI-CD/" style="font-size: 12.5px;">CI/CD</a> <a href="/blog/tags/异常/" style="font-size: 10px;">异常</a> <a href="/blog/tags/Hadoop/" style="font-size: 17.5px;">Hadoop</a> <a href="/blog/tags/aws-soa/" style="font-size: 10px;">aws-soa</a> <a href="/blog/tags/hexo/" style="font-size: 12.5px;">hexo</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/08/">八月 2019</a><span class="sidebar-module-list-count">20</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/05/">五月 2019</a><span class="sidebar-module-list-count">6</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/02/">二月 2019</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/12/">十二月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/11/">十一月 2018</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/09/">九月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/07/">七月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2017/11/">十一月 2017</a><span class="sidebar-module-list-count">7</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module sidebar-recents">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/blog/f243dbe9.html">Unity双击脚本不会自动跳转到vs中的解决方案</a>
+        </li>
+      
+        <li>
+          <a href="/blog/894c6889.html">ParallelForTransform作业</a>
+        </li>
+      
+        <li>
+          <a href="/blog/9c7fc9b9.html">DOTS默认情况下的性能</a>
+        </li>
+      
+        <li>
+          <a href="/blog/c1466196.html">DOTS概述</a>
+        </li>
+      
+        <li>
+          <a href="/blog/c763759a.html">解读GitHub EntityComponentSystemSamples</a>
+        </li>
+      
+        <li>
+          <a href="/blog/8282d3d8.html">HelloCube</a>
+        </li>
+      
+        <li>
+          <a href="/blog/a6702756.html">DOTS学习资源</a>
+        </li>
+      
+        <li>
+          <a href="/blog/1bcc4240.html">什么是ECS？</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9145047272014077",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!- blog-general-responsive-sidebar ->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4721191851305300"
+     data-ad-slot="5846920073"
+     data-ad-format="auto"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+        </div>
+    </div>
+  </div>
+  <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      <!-- Copyright &copy; 2014 - 2019 longshilin&nbsp;<br> -->
+      <!-- For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><br/> -->
+      Site Generated 2019-08-11 13:08:41&nbsp;&nbsp;
+      <!-- CNZZ统计 -->
+      <script type="text/javascript">var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script><br>
+      Create with <a href="https://hexo.io">Hexo</a>&nbsp; |&nbsp;
+      CI/CD by <a href="https://about.gitlab.com/2015/12/14/getting-started-with-gitlab-and-gitlab-ci/" target="_blank">Gitlab</a>&nbsp; |&nbsp;
+      Host on <a href="https://pages.github.com/" target="_blank">Github</a>&nbsp; |&nbsp;
+      <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u>
+      <!-- <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"  target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a><br> -->
+      <!-- <a href="http://www.miitbeian.gov.cn">湘ICP备18009099号</a>&nbsp; |&nbsp;<img src="/images/beian.png" /> <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43060202000297">湘公网安备 43060202000297号</a> -->
+    </div>
+  </div>
+</footer>
+
+  
+
+<!-- changyan comment -->
+
+
+<!-- gitment comment -->
+
+
+<!-- Valine comment -->
+
+  <script src="//longshilin.com/assets/js/prism-default.js"></script>
+  <script src="//longshilin.com/assets/js/jquery.min.js"></script>
+  <script src="//longshilin.com/assets/js/av-min.js"></script>
+  <script src="//longshilin.com/assets/js/Valine.min.js"></script>
+  <script src="//longshilin.com/assets/js/jquery.fitvids.js"></script>
+  <script>
+    new Valine({
+      av: AV,
+      el: '#disqus_thread',
+      emoticon_url: 'https://longshilin.com/emojs',
+      emoticon_list: ["吐.png","喷血.png","狂汗.png","不说话.png","汗.png","坐等.png","献花.png","不高兴.png","中刀.png","害羞.png","皱眉.png","小眼睛.png","中指.png","尴尬.png","瞅你.png","想一想.png","中枪.png","得意.png","肿包.png","扇耳光.png","亲亲.png","惊喜.png","脸红.png","无所谓.png","便便.png","愤怒.png","蜡烛.png","献黄瓜.png","内伤.png","投降.png","观察.png","看不见.png","击掌.png","抠鼻.png","邪恶.png","看热闹.png","口水.png","抽烟.png","锁眉.png","装大款.png","吐舌.png","无奈.png","长草.png","赞一个.png","呲牙.png","无语.png","阴暗.png","不出所料.png","咽气.png","期待.png","高兴.png","吐血倒地.png","哭泣.png","欢呼.png","黑线.png","喜极而泣.png","喷水.png","深思.png","鼓掌.png","暗地观察.png"],
+      appId: 'pMgClbOyqp0K4AQxpMUJuskE-9Nh9j0Va',
+      appKey: 'CzXcgRguvCJa0EkILaN5F4HX',
+      placeholder: 'Write a Comment...',
+    });
+  </script>
+
+
+<script src="/assets/js/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+  <!-- 注释掉本地取js代码块
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/github.min.css" integrity="sha384-WtUWHyk39lfUpZQVgokNfSKCJaKAeD6adgLduBLrKTMUuPzFhLtL23y1guFy6lZn" crossorigin="anonymous">-->
+  <script src="/blog/highlight/highlight.pack.js"></script>
+
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+<script src="/blog/js/search.js"></script>
+
+  
+	<div id="totop">
+	<a title="totop"><img src="/blog/images/scrollup.png"></a>
+	</div>
+	<script src="/blog/js/totop.js"></script>
+
+  <script src="/blog/js/sidebar.js"></script>
+  <script src="/blog/js/baidu_js_push.js"></script>
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <script id="__bs_script__">
+    if(location.hostname == "localhost")
+        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.0'><\/script>".replace("HOST", location.hostname));
+  </script>
+</body>
+</html>
