@@ -984,8 +984,12 @@ code {
 #totop {
   position: fixed;
   bottom: 2em;
-  right: 2em;
+  right: 1em;
   cursor: pointer;
+}
+
+#totop > img{
+  width: 30px;
 }
 
 /* 以下都是博客本地搜索相关的CSS样式 */
@@ -1086,6 +1090,42 @@ p.no-result {
   color: #808080;
   font-family: font-serif serif;
   border-bottom: 2px solid #d3d3d3;
+}
+
+/* 侧边栏隐藏按钮样式 */
+.blog-main {
+  width: 100%;
+}
+
+.blog-sidebar {
+  display: none;
+}
+
+.r-hide > a {
+  position: fixed;
+  top: 5em;
+  right: 1em;
+  cursor: pointer;
+  color: #999;
+  width: 22px;
+  margin: auto;
+  padding: 5px 0px 5px 3px;
+  display: block;
+  border: 1px solid #ddd;
+  border-radius: 2px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
+.r-hide a:hover {
+    background: #568abc;
+    color: #fff;
+    border: 1px solid #568abc;
+}
+
+#scroll {
+  position: fixed;
+  bottom: 10em;
+  right: 1em;
+  cursor: pointer;
 }
 
 /*!
