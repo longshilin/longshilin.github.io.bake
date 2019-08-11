@@ -32,6 +32,7 @@ h3, .h3,
 h4, .h4,
 h5, .h5,
 h6, .h6 {
+  font-size: 14pt;
   margin-top: 1em;
   margin-bottom: 20px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -245,7 +246,7 @@ code {
  */
 
 .blog-main {
-  font-size: 15px;
+  font-size: 11pt;
   line-height: 1.5;
   font-family: 'Microsoft Yahei';
 
@@ -254,13 +255,13 @@ code {
   margin-bottom: 30px;
 }
 
-.blog-main >
-h1, .h1,
-h2, .h2,
-h3, .h3,
-h4, .h4,
-h5, .h5,
-h6, .h6 {
+.article-title,
+.article-inner h1, .article-inner .h1,
+.article-inner h2, .article-inner .h2,
+.article-inner h3, .article-inner .h3,
+.article-inner h4, .article-inner .h4,
+.article-inner h5, .article-inner .h5,
+.article-inner h6, .article-inner .h6 {
   font-weight: bold;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
