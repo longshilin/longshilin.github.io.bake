@@ -28,11 +28,11 @@
     </entry>
     
     <entry>
-      <title>ParallelForTransform作业</title>
-      <link href="/blog/894c6889.html"/>
-      <url>/blog/894c6889.html</url>
+      <title>什么是多线程？</title>
+      <link href="/blog/b293e36.html"/>
+      <url>/blog/b293e36.html</url>
       
-        <content type="html"><![CDATA[<p>ParallelForTransform作业是另一种<a href="https://docs.unity3d.com/Manual/JobSystemParallelForJobs.html" target="_blank" rel="noopener">ParallelFor作业</a> ; 专为在<a href="https://docs.unity3d.com/Manual/Transforms.html" target="_blank" rel="noopener">变形上</a>操作而设计。</p><p><strong>注意</strong>：ParallelForTransform作业是Unity中用于实现<a href="https://docs.unity3d.com/ScriptReference/Jobs.IJobParallelForTransform.html" target="_blank" rel="noopener">IJobParallelForTransform</a>接口的任何作业的集合术语。</p><a id="more"></a>]]></content>
+        <content type="html"><![CDATA[<p>在单线程计算系统中，一次进入一条指令，一次出现一条结果。加载和完成程序的时间取决于CPU需要完成的工作量。</p><p>多线程是一种编程，它利用CPU在多个内核上同时处理多个线程的能力。它们不是一个接一个地执行任务或指令，而是同时运行。</p><a id="more"></a><p>默认情况下，一个线程在程序的开头运行。这是“主线”。主线程创建新线程来处理任务。这些新线程彼此并行运行，并且通常在完成后将其结果与主线程同步。</p><p>如果您有一些运行很长时间的任务，这种多线程方法很有效。但是，游戏开发代码通常包含许多一次执行的小指令。如果为每个线程创建一个线程，最终可能会有许多线程，每个线程的生命周期都很短。这可以推动CPU和操作系统处理能力的极限。</p><p>通过拥有一个<a href="https://en.wikipedia.org/wiki/Thread_pool" target="_blank" rel="noopener">线程池</a>可以缓解线程生存期的问题。但是，即使您使用线程池，也可能同时激活大量线程。线程数多于CPU核心导致线程相互竞争CPU资源，导致频繁的<a href="https://en.wikipedia.org/wiki/Context_switch" target="_blank" rel="noopener">上下文切换</a>。上下文切换是通过执行保存线程状态，然后处理另一个线程，然后重新构建第一个线程以继续处理它的过程。上下文切换是资源密集型的，因此您应尽可能避免使用它。</p>]]></content>
       
       
       <categories>
@@ -40,81 +40,6 @@
           <category> Unity </category>
           
           <category> C＃ Job System </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> C＃ Job System </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>ECS适合你吗？</title>
-      <link href="/blog/43b8c1c3.html"/>
-      <url>/blog/43b8c1c3.html</url>
-      
-        <content type="html"><![CDATA[<p>实体组件系统处于预览状态。不建议用于生产。</p><p>目前有两个很好的理由使用它。</p><a id="more"></a><h5 id="你想试验">你想试验</h5><p>这是令人兴奋的新技术，并且大规模性能提升的承诺正在引诱。试试看。给我们您的反馈。我们很乐意在论坛上与您交谈。</p><h5 id="您正在尝试构建一个在没有实体组件系统的情况下无法完成的游戏">您正在尝试构建一个在没有实体组件系统的情况下无法完成的游戏</h5><p>我们很想知道您的游戏。请随时在论坛上发布您正在尝试实现的内容以及您认为实体组件系统为您提供的无法实现的内容。</p><h4 id="尝试实体组件系统">尝试实体组件系统</h4><p>您已经听说过ECS不仅可以提高性能，还可以帮助您编写更清晰，更清晰，更易于维护的代码。你想看看它在实践中是如何运作的。这是一个有趣的场景，因为您可以从头开始编写简单的代码。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Unity </category>
-          
-          <category> DOTS </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> C＃ Job System </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>DOTS默认情况下的性能</title>
-      <link href="/blog/9c7fc9b9.html"/>
-      <url>/blog/9c7fc9b9.html</url>
-      
-        <content type="html"><![CDATA[<p>利用Unity全新的高性能多线程数据导向技术堆栈（DOTS），充分利用当今的多核处理器。您的游戏运行速度更快，您的代码更易于在其他项目中阅读和重用。</p><a id="more"></a><h4 id="重建unity的核心">重建Unity的核心</h4><p>我们正在使用高性能多线程数据导向技术堆栈重建Unity的核心基础。DOTS使您的游戏可以充分利用最新的多核处理器，而不会遇到繁重的编程问题。DOTS包括以下功能：</p><ul><li>用于高效运行多线程代码<strong>的C＃作业系统</strong>。</li><li>用于编写高性能代码<strong>的实体组件系统（ECS）</strong>。</li><li><strong>Burst Compiler</strong>用于生成高度优化的本机代码。</li></ul><p>这些DOTS功能为程序员提供了方便的沙箱，可以编写具有巨大性能提升的多线程代码。DOTS目前在预览中可用。</p><p>DOTS的多线程系统使您能够创建在各种硬件上运行的游戏，通过更多元素和更复杂的模拟构建更丰富的游戏世界，甚至优化玩家移动设备上的热控制和电池寿命。通过从面向对象的设计转向面向数据的设计，您可以更轻松地重用代码，并让其他人理解和处理代码。</p><h5 id="c-作业系统">C＃作业系统</h5><p><em>新的C＃作业系统利用了当今计算机中的多核。它旨在将此方法打开到C＃用户脚本，并允许用户编写安全，快速，有效的代码，同时防止多线程的一些陷阱，如竞争条件。</em></p><h6 id="利用多个核心">利用多个核心</h6><p>C＃作业系统公开了Native C ++作业系统，允许C＃脚本与Unity内部组件一起工作。</p><h6 id="安全的环境">安全的环境</h6><p>提供对多线程的一些陷阱的保护，例如竞争条件。</p><h5 id="实体组件系统-ecs">实体组件系统（ECS）</h5><h6 id="更好的游戏设计方法">更好的游戏设计方法</h6><p>ECS是一种编写代码的方式，专注于您正在解决的实际问题：组成游戏的数据和行为。</p><p>除了出于设计原因更好地接近游戏编程之外，使用ECS使您处于利用Unity的C＃作业系统和Burst Compiler的理想位置，让您充分利用当今的多核处理器。</p><p>使用ECS，我们正在从面向对象转向数据导向设计，这意味着重用代码更容易，并且更容易让其他人掌握并做出贡献。</p><h5 id="突发编译器">突发编译器</h5><h6 id="优化的代码">优化的代码</h6><p>新的基于LLVM的后端编译器技术可以获取C＃作业并生成高度优化的机器代码。</p><h6 id="每个平台都是最好的">每个平台都是最好的</h6><p>针对您正在编译的平台的特定功能进行了优化。</p><h6 id="减少手工编码">减少手工编码</h6><p>在多个平台上获得手动调整的汇编程序代码的许多优点，而无需付出艰苦的努力。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Unity </category>
-          
-          <category> DOTS </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> C＃ Job System </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>DOTS概述</title>
-      <link href="/blog/c1466196.html"/>
-      <url>/blog/c1466196.html</url>
-      
-        <content type="html"><![CDATA[<p>Unity数据导向技术栈有三个主要部分：Unity实体 - 组件 - 系统（ECS），Unity C＃作业系统和Unity Burst编译器。</p><a id="more"></a><h4 id="实体-组件-系统概述">实体 - 组件 - 系统概述</h4><p>ECS提供了一种游戏设计方法，使您可以专注于您正在解决的实际问题：组成游戏的数据和行为。ECS利用C＃作业系统和Burst编译器来充分利用当今的多核处理器。</p><p>除了更好地利用现代CPU之外，ECS背后<a href="https://en.wikipedia.org/wiki/Data-oriented_design" target="_blank" rel="noopener">的面向数据的</a>设计避免了<a href="https://simple.wikipedia.org/wiki/Object-oriented_programming" target="_blank" rel="noopener">面向对象</a>的陷阱，这些陷阱可能困扰游戏等复杂项目，尤其是在尝试寻找最后几个FPS以达到您的发布目标时。面向数据的设计还可以使您更轻松地重用和发展您的代码，并让其他人理解和处理它。有关更多信息，请参阅：</p><ul><li><a href="https://www.cnblogs.com/longsl/p/11322011.html" target="_blank" rel="noopener">什么是ECS？</a></li><li><a href="https://www.cnblogs.com/longsl/p/11323671.html" target="_blank" rel="noopener">ECS原则</a></li><li><a href="https://www.cnblogs.com/longsl/p/11323715.html" target="_blank" rel="noopener">ECS适合你吗？</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/index.html" target="_blank" rel="noopener">ECS手册和脚本参考</a></li></ul><h4 id="c-作业系统概述">C＃作业系统概述</h4><p>C＃Job System利用了当今计算机中的多核。它旨在将此方法运用到C＃用户脚本，并允许用户编写安全，快速，有效的代码，同时防止多线程的一些陷阱，如竞争条件。</p><ul><li><a href="https://docs.unity3d.com/Manual/JobSystem.html" target="_blank" rel="noopener">C＃作业系统手册</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.jobs@0.0/manual/custom_job_types.html" target="_blank" rel="noopener">低级概述 - 创建容器和自定义作业类型</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.jobs@0.0/manual/scheduling_a_job_from_a_job.html" target="_blank" rel="noopener">从工作中安排工作 - 为什么不呢？</a></li></ul><h4 id="burst概述">Burst概述</h4><p>Burst是一种新的基于<a href="https://en.wikipedia.org/wiki/LLVM" target="_blank" rel="noopener">LLVM</a>的后端编译器技术，可以让您更轻松。它需要C＃作业并利用您平台的特定功能生成高度优化的机器代码。因此，您可以在多个平台上获得手动调整的汇编程序代码的诸多好处，而无需付出艰苦的努力。Burst编译器可用于提高为C＃作业系统编写的作业的性能。</p><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.burst@1.0/manual/index.html" target="_blank" rel="noopener">Burst文档</a></li><li><a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/ECSSamples/Documentation/burst_optimization.md" target="_blank" rel="noopener">如何针对Burst编译器进行优化</a></li></ul><h4 id="更多的信息">更多的信息</h4><ul><li><a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/ECSSamples/Documentation/cheatsheet.md" target="_blank" rel="noopener">Unity Data-Oriented的备忘单</a></li><li><a href="https://www.cnblogs.com/longsl/p/11319782.html" target="_blank" rel="noopener">Unity Data-Oriented的学习资源</a></li><li><a href="https://www.cnblogs.com/longsl/p/11323845.html" target="_blank" rel="noopener">默认情况下的性能</a></li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Unity </category>
-          
-          <category> DOTS </category>
           
       </categories>
       
@@ -153,50 +78,25 @@
     </entry>
     
     <entry>
-      <title>HelloCube</title>
-      <link href="/blog/8282d3d8.html"/>
-      <url>/blog/8282d3d8.html</url>
+      <title>组件</title>
+      <link href="/blog/34778b46.html"/>
+      <url>/blog/34778b46.html</url>
       
-        <content type="html"><![CDATA[<p>此示例演示了一个简单的ECS系统，它可以旋转一对立方体。</p><a id="more"></a><h4 id="它显示了什么？">它显示了什么？</h4><p>此示例演示了ECS中数据和功能的分离。<br>数据存储在组件中，如下RadiansPerSecond属性存储在RotationSpeed_ForEach组件中， 该结构体数据组件有[Serializable]修饰符，表示实例化属性。</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> Unity.Entities;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Serializable attribute is for editor support.</span></span><br><span class="line"> [<span class="meta">Serializable</span>]</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">struct</span> RotationSpeed_ForEach : IComponentData</span><br><span class="line"> &#123;</span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">float</span> RadiansPerSecond;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><p>而功能则写入系统，如下<strong>RotationSpeedSystem_ForEach</strong> 使用存储在 <strong>RotationSpeed_ForEach</strong> 组件中的<em>data</em>更新对象的旋转。</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> Unity.Entities;</span><br><span class="line"><span class="keyword">using</span> Unity.Mathematics;</span><br><span class="line"><span class="keyword">using</span> Unity.Transforms;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This system updates all entities in the scene with both a RotationSpeed_ForEach and Rotation component.</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">RotationSpeedSystem_ForEach</span> : <span class="title">ComponentSystem</span></span><br><span class="line"> &#123;</span><br><span class="line">     <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnUpdate</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>     &#123;</span><br><span class="line">         <span class="comment">// Entities.ForEach processes each set of ComponentData on the main thread. This is not the recommended</span></span><br><span class="line">         <span class="comment">// method for best performance. However, we start with it here to demonstrate the clearer separation</span></span><br><span class="line">         <span class="comment">// between ComponentSystem Update (logic) and ComponentData (data).</span></span><br><span class="line">         <span class="comment">// There is no update logic on the individual ComponentData.</span></span><br><span class="line">         Entities.ForEach((<span class="keyword">ref</span> RotationSpeed_ForEach rotationSpeed, <span class="keyword">ref</span> Rotation rotation) =&gt;</span><br><span class="line">         &#123;</span><br><span class="line">             <span class="keyword">var</span> deltaTime = Time.deltaTime;</span><br><span class="line">             rotation.Value = math.mul(math.normalize(rotation.Value),</span><br><span class="line">                 quaternion.AxisAngle(math.up(), rotationSpeed.RadiansPerSecond * deltaTime));</span><br><span class="line">         &#125;);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><h4 id="componentsystems和entities-foreach">ComponentSystems和Entities.ForEach</h4><p>RotationSpeedSystem_ForEach是一个ComponentSystem，它使用Entities.ForEach委托来遍历实体。<br>此示例仅创建单个实体，但如果向场景添加了更多实体，则RotationSpeedSystem_ForEach会更新所有实体 - 只要它们具有RotationSpeed_ForEach组件（并且在将GameObject的Transform转换为ECS组件时添加了旋转组件）。<br>请注意，使用Entities.ForEach的ComponentSystems在主线程上运行。<br>要利用多个内核，可以使用JobComponentSystem（如下一个HelloCube示例所示）。</p><h4 id="从gameobject转换为entity">从GameObject转换为Entity</h4><p><strong>ConvertToEntity</strong> MonoBehaviour在Awake时将GameObject及其子节点转换为实体和ECS组件。<br>目前，ConvertToEntity可以转换的内置Unity MonoBehaviours集包括Transform和MeshRenderer。<br>您可以使用<strong>实体调试器</strong>（菜单：<strong>窗口</strong>&gt; <strong>分析</strong>&gt; <strong>实体调试器</strong>）来检查转换创建的ECS实体和组件。<br>您可以在自己的MonoBehaviours上实现IConvertGameObjectEntity接口，以提供ConvertToEntity用于将存储在MonoBehavi中的数据转换为ECS组件的转换函数。<br>在此示例中， <strong>RotationSpeedAuthoring_ForEach</strong> MonoBehaviour使用IConvertGameObjectEntity在转换时将RotationSpeed_ForEach组件添加到实体。</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"> <span class="keyword">using</span> Unity.Entities;</span><br><span class="line"> <span class="keyword">using</span> Unity.Mathematics;</span><br><span class="line"> <span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"> [<span class="meta">RequiresEntityConversion</span>]</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">RotationSpeedAuthoring_ForEach</span> : <span class="title">MonoBehaviour</span>, <span class="title">IConvertGameObjectToEntity</span></span><br><span class="line"> &#123;</span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">float</span> DegreesPerSecond;</span><br><span class="line"></span><br><span class="line">​    <span class="comment">// The MonoBehaviour data is converted to ComponentData on the entity.</span></span><br><span class="line">​     <span class="comment">// We are specifically transforming from a good editor representation of the data (Represented in degrees)</span></span><br><span class="line">​     <span class="comment">// To a good runtime representation (Represented in radians)</span></span><br><span class="line">​     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Convert</span>(<span class="params">Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem</span>)</span></span><br><span class="line"><span class="function">​</span>     &#123;</span><br><span class="line">​         <span class="keyword">var</span> data = <span class="keyword">new</span> RotationSpeed_ForEach &#123; RadiansPerSecond = math.radians(DegreesPerSecond) &#125;;</span><br><span class="line">​         dstManager.AddComponentData(entity, data);</span><br><span class="line">​     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><hr><h3 id="hellocube-1b-foreachwithentitychanges">HelloCube_1b_ForEachWithEntityChanges</h3><p>此示例演示了一个简单的ECS系统，该系统使用查询来选择要更新的正确实体集。然后它在ForEach lambda函数内部修改这些实体。</p><p>该示例定义了两个标记组件，名为MovingCube_ForEachWithEntityChanges和MoveUp_ForEachWithEntityChanges。</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> Unity.Entities;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Samples.HelloCube_1b</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Serializable attribute is for editor support.</span></span><br><span class="line">    [<span class="meta">Serializable</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">struct</span> MoveUp_ForEachWithEntityChanges : IComponentData</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// MoveUp is a "tag" component and contains no data. Tag components can be used to mark entities that a system should process.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> Unity.Entities;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Samples.HelloCube_1b</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Serializable attribute is for editor support.</span></span><br><span class="line">    [<span class="meta">Serializable</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">struct</span> MovingCube_ForEachWithEntityChanges : IComponentData</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// MovingCube_ForEachWithEntityChanges is a "tag" component and contains no data.</span></span><br><span class="line">        <span class="comment">// Tag components can be used to mark entities that a system should process.</span></span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><p>系统中的一个查询选择同时具有MoveUp_ForEachWithEntityChanges组件和Translation组件的所有实体。与此查询关联的ForEach lambda函数向上移动每个选定的实体，直到达到某个高度时，该函数将删除MoveUp_ForEachWithEntityChanges组件，以便下次系统更新时，将不会选择该实体，因此它不会向上移动任何更远的位置。</p><p>第二个查询选择具有Translation组件但没有MoveUp_ForEachWithEntityChanges组件的所有实体。与第二个查询关联的ForEach函数将实体向下移动到其起始位置，并添加新的MoveUp_ForEachWithEntityChanges组件。由于实体再次具有MoveUp_ForEachWithEntityChanges组件，因此下次系统更新时，实体将被第一个ForEach函数向上移动并被第二个查询跳过。</p><p>MovingCube_ForEachWithEntityChanges是一个标记组件，用于确保系统仅适用于为此示例标记的组件。示例中的两个查询都需要MovingCube_ForEachWithEntityChanges组件。</p><h4 id="它显示了什么？-v2">它显示了什么？</h4><p>此示例演示了一个简单的ECS系统，该系统使用查询来选择要向上移动的一组实体。当它们达到一定高度时，系统会删除一个组件并使用另一个查询在较低的高度重新生成它们。它还演示了使用“标签”组件来提供选择具有待处理标记组件的特定entite组的方法。最后，此示例演示了如何在ForEach lambda函数内修改实体。</p><h4 id="组件系统和实体-foreach">组件系统和实体.ForEach</h4><p>MovementSystem_ForEachWithEntityChanges是一个ComponentSystem，它使用Entities.ForEach lambda函数迭代实体。此示例使用WithAll和WithNone约束来选择要处理的特定实体集。</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">using</span> Unity.Entities;</span><br><span class="line"> <span class="keyword">using</span> Unity.Mathematics;</span><br><span class="line"> <span class="keyword">using</span> Unity.Transforms;</span><br><span class="line"> <span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Samples.HelloCube_1b</span></span><br><span class="line"> &#123;</span><br><span class="line">     <span class="comment">// This system updates all entities in the scene with Translation components.</span></span><br><span class="line">     <span class="comment">// It treats entities differently depending on whether or not they also have a MoveUp component.</span></span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MovementSystem_ForEachWithEntityChanges</span> : <span class="title">ComponentSystem</span></span><br><span class="line">     &#123;</span><br><span class="line">         <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnUpdate</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>         &#123;</span><br><span class="line">             <span class="comment">// If a MoveUp component is present, then the system updates the Translation component to move the entity upwards.</span></span><br><span class="line">             <span class="comment">// Once the entity reaches a predetermined height, the function removes the MoveUp component.</span></span><br><span class="line">             Entities.WithAllReadOnly&lt;MovingCube_ForEachWithEntityChanges, MoveUp_ForEachWithEntityChanges&gt;().ForEach(</span><br><span class="line">                 (Entity id, <span class="keyword">ref</span> Translation translation) =&gt;</span><br><span class="line">                 &#123;</span><br><span class="line">                     <span class="keyword">var</span> deltaTime = Time.deltaTime;</span><br><span class="line">                     translation = <span class="keyword">new</span> Translation()</span><br><span class="line">                     &#123;</span><br><span class="line">                         Value = <span class="keyword">new</span> float3(translation.Value.x, translation.Value.y + deltaTime, translation.Value.z)</span><br><span class="line">                     &#125;;</span><br><span class="line"></span><br><span class="line">​                    <span class="keyword">if</span> (translation.Value.y &gt; <span class="number">10.0f</span>)</span><br><span class="line">​                         EntityManager.RemoveComponent&lt;MoveUp_ForEachWithEntityChanges&gt;(id);</span><br><span class="line">​                 &#125;</span><br><span class="line">​             );</span><br><span class="line"></span><br><span class="line">​            <span class="comment">// If an entity does not have a MoveUp component (but does have a Translation component),</span></span><br><span class="line">​             <span class="comment">// then the system moves the entity down to its starting point and adds a MoveUp component.</span></span><br><span class="line">​             Entities.WithAllReadOnly&lt;MovingCube_ForEachWithEntityChanges&gt;().WithNone&lt;MoveUp_ForEachWithEntityChanges&gt;().ForEach(</span><br><span class="line">​                 (Entity id, <span class="keyword">ref</span> Translation translation) =&gt;</span><br><span class="line">​                 &#123;</span><br><span class="line">​                     translation = <span class="keyword">new</span> Translation()</span><br><span class="line">​                     &#123;</span><br><span class="line">​                         Value = <span class="keyword">new</span> float3(translation.Value.x, <span class="number">-10.0f</span>, translation.Value.z)</span><br><span class="line">​                     &#125;;</span><br><span class="line"></span><br><span class="line">​                    EntityManager.AddComponentData(id, <span class="keyword">new</span> MoveUp_ForEachWithEntityChanges());</span><br><span class="line">​                 &#125;</span><br><span class="line">​             );</span><br><span class="line">​         &#125;</span><br><span class="line">​     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><p>注意：使用Entities.ForEach的组件系统在主线程上运行。要利用多个内核，可以使用JobComponentSystem（如其他HelloCube示例所示）。这也允许更改ForEach lambda函数内的实体。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Unity </category>
-          
-          <category> ECS Samples </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> ECS </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>DOTS学习资源</title>
-      <link href="/blog/a6702756.html"/>
-      <url>/blog/a6702756.html</url>
-      
-        <content type="html"><![CDATA[<p>以下是一些面向数据的资源，可以是Unity或我们已经验证过的外部资源。我们将包括外部资源，我们认为这些外部资源能够很好地理解面向数据的设计并包含高质量的信息（在贡献时）。</p><a id="more"></a><blockquote><p><strong>注意</strong>：由于Unity Data-Oriented Tech Stack的性质不断变化，链接可能会过时。将检查页面以确保它包含最佳资源，但如果您发现过时或断开链接的内容，请确保在<a href="http://unity3d.com/performance-by-default" target="_blank" rel="noopener">论坛中</a>告知我们或作为存储库中的<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/issues/new" target="_blank" rel="noopener">问题</a>。</p></blockquote><h4 id="教程">教程</h4><ul><li><a href="https://www.youtube.com/watch?v=WLfhUKp2gag&amp;list=PLX2vGYjWbI0S4yHZwjDI1boIrYStpBCdN" target="_blank" rel="noopener">Mike Geig的实体组件系统和C＃作业系统简介</a>（五部分视频教程系列。）</li></ul><h4 id="活动资源">活动资源</h4><p><img src="https://longshilin.com/images/20190811211722.jpg" alt=""></p><h5 id="unity-at-unite-la-2018">Unity at Unite LA 2018</h5><ul><li>[主题演讲：Joachim Ante和MartinKümmel的MEGACITY演示<a href="https://youtu.be/alZ6wmwvck0?t=6448" target="_blank" rel="noopener">视频]</a></li><li>[ECS：Joachim Ante的欢迎和概述<a href="https://youtu.be/fZfPv-oxO7U?t=545" target="_blank" rel="noopener">视频]</a></li><li>[ECS：由Mike Acton扩展的LOD和剔除系统<a href="https://youtu.be/fZfPv-oxO7U?t=4126" target="_blank" rel="noopener">视频]</a></li><li>[ECS：Andreas Fredriksson和Lee Hammerton的基于样条的AI代理<a href="https://youtu.be/fZfPv-oxO7U?t=7725" target="_blank" rel="noopener">视频]</a></li><li>[ECS：深入探索由Alexandre Mutel创作的Burst Compiler <a href="https://www.youtube.com/watch?v=fZfPv-oxO7U&amp;feature=youtu.be&amp;t=14930" target="_blank" rel="noopener">视频]</a></li><li>[ECS：韦恩·约翰逊在ECS世界中的图形驱动音频<a href="https://youtu.be/fZfPv-oxO7U?t=18550" target="_blank" rel="noopener">视频]</a></li><li>[ECS：马丁·库默尔（MartinKümmel）在预算上建立一个充满活力的呼吸世界<a href="https://youtu.be/fZfPv-oxO7U?t=22209" target="_blank" rel="noopener">视频]</a></li><li>[ECS：使用Daniel Brauer的实体调试器<a href="https://youtu.be/fZfPv-oxO7U?t=27107" target="_blank" rel="noopener">视频]</a></li><li>[ECS：FabriceLété和Simon Mogensen的流媒体和序列化<a href="https://youtu.be/fZfPv-oxO7U?t=29353" target="_blank" rel="noopener">视频]</a></li><li>[ECS：Aria Bonczek对ECS API的演变<a href="https://youtu.be/fZfPv-oxO7U?t=32882" target="_blank" rel="noopener">视频]</a></li></ul><p><img src="https://longshilin.com/images/20190811211728.jpg" alt=""></p><h5 id="unity-at-gdc-2018">Unity at GDC 2018</h5><ul><li>[主题演讲：Joachim Ante的Unity（实体组件系统和性能）的未来<a href="https://www.youtube.com/watch?v=3Mq9EH8RT_U" target="_blank" rel="noopener">视频]</a></li><li>[由Joachim Ante演变的团结<a href="https://www.youtube.com/watch?v=aFFLEiDr3T0" target="_blank" rel="noopener">视频]</a></li><li>[Tim Johansson的Unity作业系统和实体组件系统<a href="https://www.youtube.com/watch?v=kwnb9Clh2Is" target="_blank" rel="noopener">视频]</a></li><li>[面向数据的设计民主化：Mike Acton使用组件系统的面向数据的方法<a href="https://www.youtube.com/watch?v=p65Yt20pw0g" target="_blank" rel="noopener">视频]</a></li><li>[C＃Sharp to Machine Code by Andreas Fredriksson <a href="https://www.youtube.com/watch?v=NF6kcNS6U80" target="_blank" rel="noopener">视频]</a></li><li>[Vladimir Vukicevic的小事ECS <a href="https://www.youtube.com/watch?v=EWVU6cFdmr0" target="_blank" rel="noopener">视频]</a></li><li>[独家：Unity在GDC上采取原则性步骤进行AAA级演出<a href="https://www.mcvuk.com/development/exclusive-unity-takes-a-principled-step-into-triple-a-performance-at-gdc" target="_blank" rel="noopener">文章]</a></li></ul><p><img src="https://longshilin.com/images/20190811211732.jpg" alt=""></p><h5 id="unity-at-unite-austin-2017">Unity at Unite Austin 2017</h5><ul><li>[主题演讲：性能演示ft.Nordeus by Joachim Ante <a href="http://www.youtube.com/watch?v=0969LalB7vw" target="_blank" rel="noopener">视频]</a></li><li>[Nordeus演示的Unity GitHub存储库<a href="https://github.com/Unity-Technologies/UniteAustinTechnicalPresentation" target="_blank" rel="noopener">视频]</a></li><li>[编写Joachim Ante的高性能C＃脚本<a href="http://www.youtube.com/watch?v=tGmnZdY5Y-E" target="_blank" rel="noopener">视频]</a></li></ul><p>（原文页面：<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/ECSSamples/Documentation/resources.md" target="_blank" rel="noopener">https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/ECSSamples/Documentation/resources.md</a>）</p>]]></content>
+        <content type="html"><![CDATA[<p>组件是实体组件系统体系结构的三个主要元素之一。它们代表您的游戏或程序的数据。实体本质上是标识符，用于索引组件集合。系统提供行为。</p><a id="more"></a><p>具体地说，ECS中的组件是具有以下“标记接口”之一的结构：</p><p>IComponentData<br>ISharedComponentData<br>ISystemStateComponentData<br>ISharedSystemStateComponentData<br>EntityManager将实体上出现的组件的唯一组合组织到Archetypes中。它将具有相同原型的所有实体的组件一起存储在名为Chunks的内存块中。给定Chunk中的实体都具有相同的组件原型。</p><p>共享组件是一种特殊的数据组件，您可以使用它来根据共享组件中的特定值（除了它们的原型之外）细分实体。将共享组件添加到实体时，EntityManager将具有相同共享数据值的所有实体放入同一块中。共享组件允许您的系统一起处理类似的实体。例如，共享组件Rendering.RenderMesh是Hybrid.rendering包的一部分，它定义了几个字段，包括mesh，material，receiveShadows等。渲染时，最有效的是处理所有具有相同值的3D对象。由于这些属性是在共享组件中指定的，因此EntityManager将匹配的实体放在内存中，以便呈现系统可以有效地迭代它们。</p><p>注意：过度使用共享组件会导致较差的块利用率，因为它涉及基于原型和每个共享组件字段的每个唯一值组合扩展所需的内存块数。避免向共享组件添加不必要的字段，使用Entity Debugger查看当前的Chunk利用率。</p><p>如果从实体添加或删除组件，或更改SharedComponent的值，EntityManager会将实体移动到其他Chunk，必要时创建新Chunk。</p><p>系统状态组件的行为类似于普通组件或共享组件，但在销毁实体时，EntityManager不会删除任何系统状态组件，也不会在删除实体ID之前回收它们。这种行为差异允许系统在销毁实体时清理其内部状态或释放资源。</p>]]></content>
       
       
       <categories>
           
           <category> Unity </category>
           
-          <category> DOTS </category>
+          <category> ECS手册和脚本参考 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> C＃ Job System </tag>
+            <tag> ECS手册和脚本参考 </tag>
             
         </tags>
       
@@ -222,6 +122,81 @@
         <tags>
             
             <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>并行工作</title>
+      <link href="/blog/3c908d6c.html"/>
+      <url>/blog/3c908d6c.html</url>
+      
+        <content type="html"><![CDATA[<p>当<a href="https://docs.unity3d.com/Manual/JobSystemSchedulingJobs.html" target="_blank" rel="noopener">调度工作</a>，只能有一个工作做一个任务。在游戏中，通常希望对大量对象执行相同的操作。有一个名为<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobParallelFor.html" target="_blank" rel="noopener">IJobParallelFor</a>的独立作业类型来处理这个问题。</p><p><strong>注意</strong>：“ParallelFor”作业是Unity中用于实现<code>IJobParallelFor</code>接口的任何结构的集合术语。</p><a id="more"></a><p>ParallelFor作业使用<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html" target="_blank" rel="noopener">NativeArray</a>数据作为其数据源。ParallelFor作业跨多个核心运行。每个核心有一个作业，每个作业处理一部分工作量。<code>IJobParallelFor</code>表现得像<code>IJob</code>，但它不是单个<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJob.Execute.html" target="_blank" rel="noopener">Execute</a>方法，而是<code>Execute</code>在数据源中的每个项目上调用一次方法。方法中有一个整数参数<code>Execute</code>。该索引用于访问和操作作业实现中的数据源的单个元素。</p><h4 id="parallelfor作业定义的示例：">ParallelFor作业定义的示例：</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> IncrementByDeltaTimeJob: IJobParallelFor</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; values;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> deltaTime;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span> (<span class="params"><span class="keyword">int</span> index</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">float</span> temp = values[index];</span><br><span class="line">        temp += deltaTime;</span><br><span class="line">        values[index] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="调度parallelfor作业">调度ParallelFor作业</h4><p>在调度ParallelFor作业时，必须指定<code>NativeArray</code>要拆分的数据源的长度。<code>NativeArray</code>如果结构中有多个，Unity C＃作业系统无法知道您要将哪个用作数据源。长度还告诉C＃作业系统需要多少<code>Execute</code>方法。</p><p>幕后花絮，ParallelFor作业的调度更复杂。在调度ParallelFor作业时，C＃作业系统将工作分成批处理以在核心之间分配。每批包含一组<code>Execute</code>方法。然后，C＃作业系统在每个CPU核心的Unity本机作业系统中调度最多一个作业，并将该本机作业通过一些批次来完成。</p><p><a href="https://docs.unity3d.com/uploads/Main/jobsystem_parallelfor_job_batches.svg" target="_blank" rel="noopener"><img src="https://longshilin.com/images/20190811161551.png" alt="ParallelFor在核心之间划分批次的作业"></a></p><p>当本地作业在其他作业之前完成其批处理时，它会从其他本机作业中<a href="https://en.wikipedia.org/wiki/Work_stealing" target="_blank" rel="noopener">窃取</a>剩余批处理。它一次只能窃取本机作业剩余批次的一半，以确保<a href="https://stackoverflow.com/questions/12065774/why-does-cache-locality-matter-for-array-performance" target="_blank" rel="noopener">缓存局部性</a>。</p><p>要优化过程，您需要指定批次计数。批次计数控制您获得的作业数量，以及线程之间工作重新分配的细化程度。批量计数较低（例如1）可以使线程之间的工作分布更均匀。它确实带来了一些开销，所以有时候增加批量计数会更好。从1开始并增加批次计数直到可忽略不计的性能增益是一种有效的策略。</p><h4 id="调度parallelfor作业的示例">调度ParallelFor作业的示例</h4><p><strong>工作代码</strong>：</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Job adding two floating point values together</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> MyParallelJob : IJobParallelFor</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">ReadOnly</span>]</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; a;</span><br><span class="line">    [<span class="meta">ReadOnly</span>]</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; b;</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; result;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"><span class="keyword">int</span> i</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        result[i] = a[i] + b[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>主线程代码</strong>：</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; a = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">2</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; b = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">2</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; result = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">2</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line">a[<span class="number">0</span>] = <span class="number">1.1</span>;</span><br><span class="line">b[<span class="number">0</span>] = <span class="number">2.2</span>;</span><br><span class="line">a[<span class="number">1</span>] = <span class="number">3.3</span>;</span><br><span class="line">b[<span class="number">1</span>] = <span class="number">4.4</span>;</span><br><span class="line"></span><br><span class="line">MyParallelJob jobData = <span class="keyword">new</span> MyParallelJob();</span><br><span class="line">jobData.a = a;</span><br><span class="line">jobData.b = b;</span><br><span class="line">jobData.result = result;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Schedule the job with one Execute per index in the results array and only 1 item per processing batch</span></span><br><span class="line">JobHandle handle = jobData.Schedule(result.Length, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Wait for the job to complete</span></span><br><span class="line">handle.Complete();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Free the memory allocated by the arrays</span></span><br><span class="line">a.Dispose();</span><br><span class="line">b.Dispose();</span><br><span class="line">result.Dispose();</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> C＃ Job System </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>实体组件系统</title>
+      <link href="/blog/68fc35ba.html"/>
+      <url>/blog/68fc35ba.html</url>
+      
+        <content type="html"><![CDATA[<p><strong>栏目概述</strong></p><a id="more"></a><ul><li>Core ECS<ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_entities.html" target="_blank" rel="noopener">Entities</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/world.html" target="_blank" rel="noopener">Worlds</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">Components</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/component_data.html" target="_blank" rel="noopener">General Purpose Components</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/shared_component_data.html" target="_blank" rel="noopener">Shared Components</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/system_state_components.html" target="_blank" rel="noopener">System State Components</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/dynamic_buffers.html" target="_blank" rel="noopener">Dynamic Buffer Components</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_systems.html" target="_blank" rel="noopener">System</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/component_system.html" target="_blank" rel="noopener">Component Systems</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/job_component_system.html" target="_blank" rel="noopener">Job Component Systems</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/entity_command_buffer.html" target="_blank" rel="noopener">Entity Command Buffers</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/system_update_order.html" target="_blank" rel="noopener">System Update Order</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/chunk_iteration.html" target="_blank" rel="noopener">Accessing Entity Data</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/entity_iteration_job.html" target="_blank" rel="noopener">Using IJobForEach</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/chunk_iteration_job.html" target="_blank" rel="noopener">Using IJobChunk</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/entity_iteration_foreach.html" target="_blank" rel="noopener">Using ComponentSystem and ForEach</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/manual_iteration.html" target="_blank" rel="noopener">Manual iteration</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/component_group.html" target="_blank" rel="noopener">Component Groups</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_write_groups.html" target="_blank" rel="noopener">Component WriteGroups</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/version_numbers.html" target="_blank" rel="noopener">Versions and Generations</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_job_overview.html" target="_blank" rel="noopener">Jobs in ECS</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_job_extensions.html" target="_blank" rel="noopener">ECS Job System extensions</a></li></ul></li></ul></li><li>Creating Gameplay<ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/transform_system.html" target="_blank" rel="noopener">Transforms</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/gp_rendering.html" target="_blank" rel="noopener">Rendering</a></li></ul></li></ul><p>实体组件系统（ECS）是Unity数据导向技术堆栈的核心。顾名思义，ECS有三个主要部分：</p><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_entities.html" target="_blank" rel="noopener">实体</a> - 填充您的游戏或程序的实体或事物</li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">组件</a> - 与您的实体关联的数据，但由数据本身而不是按实体组织。（这种组织差异是面向对象和面向数据的设计之间的关键差异之一。）</li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_systems.html" target="_blank" rel="noopener">系统</a> - 将组件数据从其当前状态转换到其下一状态的逻辑 - 例如，系统可以通过其速度乘以自前一帧以来的时间间隔来更新所有移动实体的位置。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> ECS手册和脚本参考 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ECS手册和脚本参考 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>HelloCube</title>
+      <link href="/blog/8282d3d8.html"/>
+      <url>/blog/8282d3d8.html</url>
+      
+        <content type="html"><![CDATA[<p>此示例演示了一个简单的ECS系统，它可以旋转一对立方体。</p><a id="more"></a><h4 id="它显示了什么？">它显示了什么？</h4><p>此示例演示了ECS中数据和功能的分离。<br>数据存储在组件中，如下RadiansPerSecond属性存储在RotationSpeed_ForEach组件中， 该结构体数据组件有[Serializable]修饰符，表示实例化属性。</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> Unity.Entities;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Serializable attribute is for editor support.</span></span><br><span class="line"> [<span class="meta">Serializable</span>]</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">struct</span> RotationSpeed_ForEach : IComponentData</span><br><span class="line"> &#123;</span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">float</span> RadiansPerSecond;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><p>而功能则写入系统，如下<strong>RotationSpeedSystem_ForEach</strong> 使用存储在 <strong>RotationSpeed_ForEach</strong> 组件中的<em>data</em>更新对象的旋转。</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> Unity.Entities;</span><br><span class="line"><span class="keyword">using</span> Unity.Mathematics;</span><br><span class="line"><span class="keyword">using</span> Unity.Transforms;</span><br><span class="line"><span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="comment">// This system updates all entities in the scene with both a RotationSpeed_ForEach and Rotation component.</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">RotationSpeedSystem_ForEach</span> : <span class="title">ComponentSystem</span></span><br><span class="line"> &#123;</span><br><span class="line">     <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnUpdate</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>     &#123;</span><br><span class="line">         <span class="comment">// Entities.ForEach processes each set of ComponentData on the main thread. This is not the recommended</span></span><br><span class="line">         <span class="comment">// method for best performance. However, we start with it here to demonstrate the clearer separation</span></span><br><span class="line">         <span class="comment">// between ComponentSystem Update (logic) and ComponentData (data).</span></span><br><span class="line">         <span class="comment">// There is no update logic on the individual ComponentData.</span></span><br><span class="line">         Entities.ForEach((<span class="keyword">ref</span> RotationSpeed_ForEach rotationSpeed, <span class="keyword">ref</span> Rotation rotation) =&gt;</span><br><span class="line">         &#123;</span><br><span class="line">             <span class="keyword">var</span> deltaTime = Time.deltaTime;</span><br><span class="line">             rotation.Value = math.mul(math.normalize(rotation.Value),</span><br><span class="line">                 quaternion.AxisAngle(math.up(), rotationSpeed.RadiansPerSecond * deltaTime));</span><br><span class="line">         &#125;);</span><br><span class="line">     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><h4 id="componentsystems和entities-foreach">ComponentSystems和Entities.ForEach</h4><p>RotationSpeedSystem_ForEach是一个ComponentSystem，它使用Entities.ForEach委托来遍历实体。<br>此示例仅创建单个实体，但如果向场景添加了更多实体，则RotationSpeedSystem_ForEach会更新所有实体 - 只要它们具有RotationSpeed_ForEach组件（并且在将GameObject的Transform转换为ECS组件时添加了旋转组件）。<br>请注意，使用Entities.ForEach的ComponentSystems在主线程上运行。<br>要利用多个内核，可以使用JobComponentSystem（如下一个HelloCube示例所示）。</p><h4 id="从gameobject转换为entity">从GameObject转换为Entity</h4><p><strong>ConvertToEntity</strong> MonoBehaviour在Awake时将GameObject及其子节点转换为实体和ECS组件。<br>目前，ConvertToEntity可以转换的内置Unity MonoBehaviours集包括Transform和MeshRenderer。<br>您可以使用<strong>实体调试器</strong>（菜单：<strong>窗口</strong>&gt; <strong>分析</strong>&gt; <strong>实体调试器</strong>）来检查转换创建的ECS实体和组件。<br>您可以在自己的MonoBehaviours上实现IConvertGameObjectEntity接口，以提供ConvertToEntity用于将存储在MonoBehavi中的数据转换为ECS组件的转换函数。<br>在此示例中， <strong>RotationSpeedAuthoring_ForEach</strong> MonoBehaviour使用IConvertGameObjectEntity在转换时将RotationSpeed_ForEach组件添加到实体。</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"> <span class="keyword">using</span> Unity.Entities;</span><br><span class="line"> <span class="keyword">using</span> Unity.Mathematics;</span><br><span class="line"> <span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"> [<span class="meta">RequiresEntityConversion</span>]</span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">RotationSpeedAuthoring_ForEach</span> : <span class="title">MonoBehaviour</span>, <span class="title">IConvertGameObjectToEntity</span></span><br><span class="line"> &#123;</span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">float</span> DegreesPerSecond;</span><br><span class="line"></span><br><span class="line">​    <span class="comment">// The MonoBehaviour data is converted to ComponentData on the entity.</span></span><br><span class="line">​     <span class="comment">// We are specifically transforming from a good editor representation of the data (Represented in degrees)</span></span><br><span class="line">​     <span class="comment">// To a good runtime representation (Represented in radians)</span></span><br><span class="line">​     <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Convert</span>(<span class="params">Entity entity, EntityManager dstManager, GameObjectConversionSystem conversionSystem</span>)</span></span><br><span class="line"><span class="function">​</span>     &#123;</span><br><span class="line">​         <span class="keyword">var</span> data = <span class="keyword">new</span> RotationSpeed_ForEach &#123; RadiansPerSecond = math.radians(DegreesPerSecond) &#125;;</span><br><span class="line">​         dstManager.AddComponentData(entity, data);</span><br><span class="line">​     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><hr><h3 id="hellocube-1b-foreachwithentitychanges">HelloCube_1b_ForEachWithEntityChanges</h3><p>此示例演示了一个简单的ECS系统，该系统使用查询来选择要更新的正确实体集。然后它在ForEach lambda函数内部修改这些实体。</p><p>该示例定义了两个标记组件，名为MovingCube_ForEachWithEntityChanges和MoveUp_ForEachWithEntityChanges。</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> Unity.Entities;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Samples.HelloCube_1b</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Serializable attribute is for editor support.</span></span><br><span class="line">    [<span class="meta">Serializable</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">struct</span> MoveUp_ForEachWithEntityChanges : IComponentData</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// MoveUp is a "tag" component and contains no data. Tag components can be used to mark entities that a system should process.</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> Unity.Entities;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Samples.HelloCube_1b</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// Serializable attribute is for editor support.</span></span><br><span class="line">    [<span class="meta">Serializable</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">struct</span> MovingCube_ForEachWithEntityChanges : IComponentData</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">// MovingCube_ForEachWithEntityChanges is a "tag" component and contains no data.</span></span><br><span class="line">        <span class="comment">// Tag components can be used to mark entities that a system should process.</span></span><br><span class="line">    &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><p>系统中的一个查询选择同时具有MoveUp_ForEachWithEntityChanges组件和Translation组件的所有实体。与此查询关联的ForEach lambda函数向上移动每个选定的实体，直到达到某个高度时，该函数将删除MoveUp_ForEachWithEntityChanges组件，以便下次系统更新时，将不会选择该实体，因此它不会向上移动任何更远的位置。</p><p>第二个查询选择具有Translation组件但没有MoveUp_ForEachWithEntityChanges组件的所有实体。与第二个查询关联的ForEach函数将实体向下移动到其起始位置，并添加新的MoveUp_ForEachWithEntityChanges组件。由于实体再次具有MoveUp_ForEachWithEntityChanges组件，因此下次系统更新时，实体将被第一个ForEach函数向上移动并被第二个查询跳过。</p><p>MovingCube_ForEachWithEntityChanges是一个标记组件，用于确保系统仅适用于为此示例标记的组件。示例中的两个查询都需要MovingCube_ForEachWithEntityChanges组件。</p><h4 id="它显示了什么？-v2">它显示了什么？</h4><p>此示例演示了一个简单的ECS系统，该系统使用查询来选择要向上移动的一组实体。当它们达到一定高度时，系统会删除一个组件并使用另一个查询在较低的高度重新生成它们。它还演示了使用“标签”组件来提供选择具有待处理标记组件的特定entite组的方法。最后，此示例演示了如何在ForEach lambda函数内修改实体。</p><h4 id="组件系统和实体-foreach">组件系统和实体.ForEach</h4><p>MovementSystem_ForEachWithEntityChanges是一个ComponentSystem，它使用Entities.ForEach lambda函数迭代实体。此示例使用WithAll和WithNone约束来选择要处理的特定实体集。</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"> <span class="keyword">using</span> Unity.Entities;</span><br><span class="line"> <span class="keyword">using</span> Unity.Mathematics;</span><br><span class="line"> <span class="keyword">using</span> Unity.Transforms;</span><br><span class="line"> <span class="keyword">using</span> UnityEngine;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Samples.HelloCube_1b</span></span><br><span class="line"> &#123;</span><br><span class="line">     <span class="comment">// This system updates all entities in the scene with Translation components.</span></span><br><span class="line">     <span class="comment">// It treats entities differently depending on whether or not they also have a MoveUp component.</span></span><br><span class="line">     <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">MovementSystem_ForEachWithEntityChanges</span> : <span class="title">ComponentSystem</span></span><br><span class="line">     &#123;</span><br><span class="line">         <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnUpdate</span>(<span class="params"></span>)</span></span><br><span class="line"><span class="function"></span>         &#123;</span><br><span class="line">             <span class="comment">// If a MoveUp component is present, then the system updates the Translation component to move the entity upwards.</span></span><br><span class="line">             <span class="comment">// Once the entity reaches a predetermined height, the function removes the MoveUp component.</span></span><br><span class="line">             Entities.WithAllReadOnly&lt;MovingCube_ForEachWithEntityChanges, MoveUp_ForEachWithEntityChanges&gt;().ForEach(</span><br><span class="line">                 (Entity id, <span class="keyword">ref</span> Translation translation) =&gt;</span><br><span class="line">                 &#123;</span><br><span class="line">                     <span class="keyword">var</span> deltaTime = Time.deltaTime;</span><br><span class="line">                     translation = <span class="keyword">new</span> Translation()</span><br><span class="line">                     &#123;</span><br><span class="line">                         Value = <span class="keyword">new</span> float3(translation.Value.x, translation.Value.y + deltaTime, translation.Value.z)</span><br><span class="line">                     &#125;;</span><br><span class="line"></span><br><span class="line">​                    <span class="keyword">if</span> (translation.Value.y &gt; <span class="number">10.0f</span>)</span><br><span class="line">​                         EntityManager.RemoveComponent&lt;MoveUp_ForEachWithEntityChanges&gt;(id);</span><br><span class="line">​                 &#125;</span><br><span class="line">​             );</span><br><span class="line"></span><br><span class="line">​            <span class="comment">// If an entity does not have a MoveUp component (but does have a Translation component),</span></span><br><span class="line">​             <span class="comment">// then the system moves the entity down to its starting point and adds a MoveUp component.</span></span><br><span class="line">​             Entities.WithAllReadOnly&lt;MovingCube_ForEachWithEntityChanges&gt;().WithNone&lt;MoveUp_ForEachWithEntityChanges&gt;().ForEach(</span><br><span class="line">​                 (Entity id, <span class="keyword">ref</span> Translation translation) =&gt;</span><br><span class="line">​                 &#123;</span><br><span class="line">​                     translation = <span class="keyword">new</span> Translation()</span><br><span class="line">​                     &#123;</span><br><span class="line">​                         Value = <span class="keyword">new</span> float3(translation.Value.x, <span class="number">-10.0f</span>, translation.Value.z)</span><br><span class="line">​                     &#125;;</span><br><span class="line"></span><br><span class="line">​                    EntityManager.AddComponentData(id, <span class="keyword">new</span> MoveUp_ForEachWithEntityChanges());</span><br><span class="line">​                 &#125;</span><br><span class="line">​             );</span><br><span class="line">​         &#125;</span><br><span class="line">​     &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure><p>注意：使用Entities.ForEach的组件系统在主线程上运行。要利用多个内核，可以使用JobComponentSystem（如其他HelloCube示例所示）。这也允许更改ForEach lambda函数内的实体。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> ECS Samples </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ECS </tag>
             
         </tags>
       
@@ -328,18 +303,18 @@
     </entry>
     
     <entry>
-      <title>DOTS原则和愿景</title>
-      <link href="/blog/5628dba2.html"/>
-      <url>/blog/5628dba2.html</url>
+      <title>ParallelForTransform作业</title>
+      <link href="/blog/894c6889.html"/>
+      <url>/blog/894c6889.html</url>
       
-        <content type="html"><![CDATA[<p>Unity Data Oriented Tech Stack基于一系列原则。这些原则为我们正在努力实现的目标提供了良好的背景。一些原则清楚地反映在代码中。其他则只是我们为自己设定的目标。</p><a id="more"></a><h4 id="默认情况下的性能">默认情况下的性能</h4><p>我们希望为所有平台创建高效的机器代码变得简单。</p><p>我们使用手写的高度优化的<a href="https://en.wikipedia.org/wiki/SIMD" target="_blank" rel="noopener">simd</a>内在函数来衡量C ++中可以实现的性能。</p><p>我们使用编译器技术（Burst），容器（Unity.Collections），数据布局组件（ECS）的组合，以便在默认情况下轻松编写高效代码。</p><ul><li>数据布局和迭代 - 实体组件系统在默认情况下以块的形式迭代实体时保证线性数据布局。这是面向统一数据的技术栈提供性能提升的关键部分。</li><li>C＃作业系统允许您以简单的方式编写多线程代码。这也很安全。C＃Job Debugger可以检测任何竞争条件。</li><li>Burst是我们专门针对C＃作业的编译器。C＃作业代码遵循我们可用于生成更高效的机器代码的某些模式。使用SIMD指令为每个目标平台编译和优化代码。</li></ul><p>这方面的一个例子是Instantiation的性能。与实例化具有320字节memcpy的100,000个实体需要9ms的理论限制相比，通过实体组件系统实例化这些实体需要10ms。所以我们非常接近理论极限。</p><p>在Unite Austin，我们在60 FPS的大型战斗模拟中展示了一个包含100,000个独立单元的演示。所有游戏代码都运行多核。 [参见ECS性能演示<a href="https://www.youtube.com/watch?v=0969LalB7vw" target="_blank" rel="noopener">视频]</a></p><h4 id="简单">简单</h4><p>编写<a href="https://en.wiktionary.org/wiki/performant" target="_blank" rel="noopener">高性能</a>代码必须简单。我们相信我们可以编写快速代码，就像<strong>MonoBehaviour.Update</strong>一样简单。</p><blockquote><p>注意：为了正确设定期望，我们认为我们仍有一些方法可以实现这一目标。</p></blockquote><h4 id="编写代码的一种方法">编写代码的一种方法</h4><p>我们想要定义编写游戏代码、编辑器代码、资产管道代码以及引擎代码的单一方式。我们相信这为我们的用户创造了一个更简单的工具，并且更有能力改变现状。</p><p>物理学是一个很好的例子。目前物理学是一种黑盒解决方案。在实践中，许多开发人员希望调整模拟代码以适应他们的游戏需求。如果使用ECS以与游戏代码相同的方式编写物理引擎代码，则可以轻松地在现有物理仿真阶段之间插入您自己的仿真代码或完全控制。</p><p>另一个例子，让我们想象你想制作一个可以进行大规模修改的游戏。</p><p>如果我们的导入管道是作为一组<strong>ComponentSystems实现的</strong>。我们有一些FBX导入管道代码，默认情况下在资产管道中用于导入和后处理FBX文件。（在编辑器中使用Mesh和FBX导入代码。）</p><p>然后，很容易配置程序包管理器，可以在已部署的游戏中使用相同的FBX导入和后处理代码进行修改。</p><p>我们相信，在基础层面，这将使Unity比现在更加灵活。</p><h4 id="联网">联网</h4><p>我们想要定义一种编写所有游戏代码的简单方法。遵循此方法，您的游戏可以使用三种网络架构中的一种，具体取决于您创建的游戏类型。</p><p>我们专注于为托管游戏提供最佳的网络引擎支持。使用最近收购的<a href="http://multiplay.com/" target="_blank" rel="noopener">Multiplay.com</a>服务，我们提供了一个简单的管道来托管所述游戏。</p><ul><li>FPS - 服务器上的模拟</li><li>RTS - 确定性锁步模拟</li><li>街机游戏 - GGPO</li></ul><blockquote><p>注意：为了正确设置期望，我们尚未在实体组件系统之上提供任何网络代码。它正在进行中。</p></blockquote><h4 id="确定性">确定性</h4><p>我们的构建管道必须是<a href="https://en.wikipedia.org/wiki/Deterministic_algorithm" target="_blank" rel="noopener">确定性的</a>。用户可以选择是否所有模拟代码都应该确定性地运行。</p><p>无论使用何种设备，您都应该使用相同的输入获得相同的结果。这对于网络，重放功能甚至高级调试工具都很重要。</p><p>为此，我们将利用Burst编译器在不同平台之间生成精确的浮点数学运算。想象一下，运行相同浮点数学代码的linux服务器和iOS设备。这对于许多场景非常有用，特别是对于连接的游戏，还有调试，重放等。</p><blockquote><p>注意：浮点数学差异是Unity决定解决的问题。这个问题已经有一段时间了解，但到目前为止还没有足够的需要来鼓励人们解决它。为了解决这个问题，包括避免解决问题所需的一些解决方法，请考虑阅读<a href="https://randomascii.wordpress.com/2013/07/16/floating-point-determinism/" target="_blank" rel="noopener">Bruce Dawson的浮点确定性</a>。</p></blockquote><h4 id="沙盒">沙盒</h4><p>Unity是一个沙盒，安全而简单。</p><p>当错误地使用API时，我们提供了很好的错误消息，我们从未将自己置于不正确的使用导致崩溃的位置，这是设计上的（而不是我们可以快速修复的错误）。</p><p>沙箱行为的一个很好的例子是我们的C＃作业系统保证您的C＃作业代码都没有竞争条件。我们通过静态代码分析和运行时检查的组合确定性地检查所有可能的竞争条件。我们会立即为您提供有关任何竞赛条件的错误信息。因此，您可以相信您的代码可以正常工作并且感觉安全，即使是第一次编写多线程游戏代码的开发人员也会做得很好。</p><h4 id="极小性">极小性</h4><p>我们希望Unity可用于从&lt;50kb可执行文件，到千兆字节大小的游戏的所有内容。我们希望Unity在不到1秒的时间内加载小内容。</p><h4 id="迭代时间">迭代时间</h4><p>我们的目标是在大型项目文件夹中任何常见操作的迭代时间保持500ms以下。</p><p>作为一个例子，我们正在努力将C＃编译器重写为完全增量，目标是：</p><blockquote><p>在大型项目中更改单个.cs文件时。组合的编译和热重载时间应小于500毫秒。</p></blockquote><h4 id="我们的代码提供完整的单元测试覆盖率">我们的代码提供完整的单元测试覆盖率</h4><p>我们相信从一开始就提供强大的代码。我们使用单元测试来证明我们的代码在开发人员编写和提交时正常工作。测试作为包的一部分提供。</p><h4 id="演化">演化</h4><p>我们知道我们在如何编写代码方面提出了相当大的改变。从MonoBehaviour.Update到ComponentSystem并使用作业。</p><p>我们相信，最终唯一可以说服游戏开发者的是<strong>尝试它，并亲眼看到自己的游戏结果</strong>。</p><p>因此，在现有项目中应用ECS方法应该容易且快速。我们的目标是在30分钟内，用户可以在大型项目中将一些代码从MonoBehaviour.Update更改为ComponentSystem，并拥有优化游戏代码的成功经验。</p><h4 id="包">包</h4><p>我们希望我们的大多数引擎代码都是用C＃编写的，并部署在一个Package中。所有Unity Pro客户均可使用所有源代码。</p><p>我们希望与客户建立快速反馈循环，因为我们可以推送代码并在包中快速获得反馈，而不会破坏其他部分的稳定性。</p><p>以前我们的大多数引擎代码都是用C ++编写的，这与我们的客户编写代码的方式以及Unity的程序员如何编写代码产生了脱节。由于Burst编译器技术和ECS，我们可以用C＃代码实现比C ++更好的结果，因此我们都能以完全相同的方式编写代码。</p><h4 id="合作">合作</h4><p>我们相信Unity用户和Unity开发人员都在同一个团队中。我们的目的是帮助所有Unity用户更快，更高质量和更好的性能创建最佳游戏体验。</p><p>我们相信，我们开发的每个功能都必须尽早开发真实的场景和真实的生产反馈。包管理器促进了这一点。</p><p>对于那些希望贡献引擎代码的社区用户，我们的目标是通过直接处理贡献者可以提交的相同代码存储库来实现这一目标。通过明确的原则和所有功能的全面测试覆盖，我们希望保持高贡献的质量。</p><p>源代码存储库将适用于所有Unity Pro客户。</p><h4 id="透明度">透明度</h4><p>我们相信透明度。我们公开发展我们的功能，我们在论坛和博客上积极沟通。我们保留时间，以便每个开发人员都可以花时间与客户一起了解用户的痛点。</p>]]></content>
+        <content type="html"><![CDATA[<p>ParallelForTransform作业是另一种<a href="https://docs.unity3d.com/Manual/JobSystemParallelForJobs.html" target="_blank" rel="noopener">ParallelFor作业</a> ; 专为在<a href="https://docs.unity3d.com/Manual/Transforms.html" target="_blank" rel="noopener">变形上</a>操作而设计。</p><p><strong>注意</strong>：ParallelForTransform作业是Unity中用于实现<a href="https://docs.unity3d.com/ScriptReference/Jobs.IJobParallelForTransform.html" target="_blank" rel="noopener">IJobParallelForTransform</a>接口的任何作业的集合术语。</p><a id="more"></a>]]></content>
       
       
       <categories>
           
           <category> Unity </category>
           
-          <category> DOTS </category>
+          <category> C＃ Job System </category>
           
       </categories>
       
@@ -378,18 +353,18 @@
     </entry>
     
     <entry>
-      <title>什么是多线程？</title>
-      <link href="/blog/b293e36.html"/>
-      <url>/blog/b293e36.html</url>
+      <title>ECS适合你吗？</title>
+      <link href="/blog/43b8c1c3.html"/>
+      <url>/blog/43b8c1c3.html</url>
       
-        <content type="html"><![CDATA[<p>在单线程计算系统中，一次进入一条指令，一次出现一条结果。加载和完成程序的时间取决于CPU需要完成的工作量。</p><p>多线程是一种编程，它利用CPU在多个内核上同时处理多个线程的能力。它们不是一个接一个地执行任务或指令，而是同时运行。</p><a id="more"></a><p>默认情况下，一个线程在程序的开头运行。这是“主线”。主线程创建新线程来处理任务。这些新线程彼此并行运行，并且通常在完成后将其结果与主线程同步。</p><p>如果您有一些运行很长时间的任务，这种多线程方法很有效。但是，游戏开发代码通常包含许多一次执行的小指令。如果为每个线程创建一个线程，最终可能会有许多线程，每个线程的生命周期都很短。这可以推动CPU和操作系统处理能力的极限。</p><p>通过拥有一个<a href="https://en.wikipedia.org/wiki/Thread_pool" target="_blank" rel="noopener">线程池</a>可以缓解线程生存期的问题。但是，即使您使用线程池，也可能同时激活大量线程。线程数多于CPU核心导致线程相互竞争CPU资源，导致频繁的<a href="https://en.wikipedia.org/wiki/Context_switch" target="_blank" rel="noopener">上下文切换</a>。上下文切换是通过执行保存线程状态，然后处理另一个线程，然后重新构建第一个线程以继续处理它的过程。上下文切换是资源密集型的，因此您应尽可能避免使用它。</p>]]></content>
+        <content type="html"><![CDATA[<p>实体组件系统处于预览状态。不建议用于生产。</p><p>目前有两个很好的理由使用它。</p><a id="more"></a><h5 id="你想试验">你想试验</h5><p>这是令人兴奋的新技术，并且大规模性能提升的承诺正在引诱。试试看。给我们您的反馈。我们很乐意在论坛上与您交谈。</p><h5 id="您正在尝试构建一个在没有实体组件系统的情况下无法完成的游戏">您正在尝试构建一个在没有实体组件系统的情况下无法完成的游戏</h5><p>我们很想知道您的游戏。请随时在论坛上发布您正在尝试实现的内容以及您认为实体组件系统为您提供的无法实现的内容。</p><h4 id="尝试实体组件系统">尝试实体组件系统</h4><p>您已经听说过ECS不仅可以提高性能，还可以帮助您编写更清晰，更清晰，更易于维护的代码。你想看看它在实践中是如何运作的。这是一个有趣的场景，因为您可以从头开始编写简单的代码。</p>]]></content>
       
       
       <categories>
           
           <category> Unity </category>
           
-          <category> C＃ Job System </category>
+          <category> DOTS </category>
           
       </categories>
       
@@ -478,18 +453,43 @@
     </entry>
     
     <entry>
-      <title>并行工作</title>
-      <link href="/blog/3c908d6c.html"/>
-      <url>/blog/3c908d6c.html</url>
+      <title>实体</title>
+      <link href="/blog/f345f685.html"/>
+      <url>/blog/f345f685.html</url>
       
-        <content type="html"><![CDATA[<p>当<a href="https://docs.unity3d.com/Manual/JobSystemSchedulingJobs.html" target="_blank" rel="noopener">调度工作</a>，只能有一个工作做一个任务。在游戏中，通常希望对大量对象执行相同的操作。有一个名为<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobParallelFor.html" target="_blank" rel="noopener">IJobParallelFor</a>的独立作业类型来处理这个问题。</p><p><strong>注意</strong>：“ParallelFor”作业是Unity中用于实现<code>IJobParallelFor</code>接口的任何结构的集合术语。</p><a id="more"></a><p>ParallelFor作业使用<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html" target="_blank" rel="noopener">NativeArray</a>数据作为其数据源。ParallelFor作业跨多个核心运行。每个核心有一个作业，每个作业处理一部分工作量。<code>IJobParallelFor</code>表现得像<code>IJob</code>，但它不是单个<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJob.Execute.html" target="_blank" rel="noopener">Execute</a>方法，而是<code>Execute</code>在数据源中的每个项目上调用一次方法。方法中有一个整数参数<code>Execute</code>。该索引用于访问和操作作业实现中的数据源的单个元素。</p><h4 id="parallelfor作业定义的示例：">ParallelFor作业定义的示例：</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> IncrementByDeltaTimeJob: IJobParallelFor</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; values;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> deltaTime;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span> (<span class="params"><span class="keyword">int</span> index</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">float</span> temp = values[index];</span><br><span class="line">        temp += deltaTime;</span><br><span class="line">        values[index] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="调度parallelfor作业">调度ParallelFor作业</h4><p>在调度ParallelFor作业时，必须指定<code>NativeArray</code>要拆分的数据源的长度。<code>NativeArray</code>如果结构中有多个，Unity C＃作业系统无法知道您要将哪个用作数据源。长度还告诉C＃作业系统需要多少<code>Execute</code>方法。</p><p>幕后花絮，ParallelFor作业的调度更复杂。在调度ParallelFor作业时，C＃作业系统将工作分成批处理以在核心之间分配。每批包含一组<code>Execute</code>方法。然后，C＃作业系统在每个CPU核心的Unity本机作业系统中调度最多一个作业，并将该本机作业通过一些批次来完成。</p><p><a href="https://docs.unity3d.com/uploads/Main/jobsystem_parallelfor_job_batches.svg" target="_blank" rel="noopener"><img src="https://longshilin.com/images/20190811161551.png" alt="ParallelFor在核心之间划分批次的作业"></a></p><p>当本地作业在其他作业之前完成其批处理时，它会从其他本机作业中<a href="https://en.wikipedia.org/wiki/Work_stealing" target="_blank" rel="noopener">窃取</a>剩余批处理。它一次只能窃取本机作业剩余批次的一半，以确保<a href="https://stackoverflow.com/questions/12065774/why-does-cache-locality-matter-for-array-performance" target="_blank" rel="noopener">缓存局部性</a>。</p><p>要优化过程，您需要指定批次计数。批次计数控制您获得的作业数量，以及线程之间工作重新分配的细化程度。批量计数较低（例如1）可以使线程之间的工作分布更均匀。它确实带来了一些开销，所以有时候增加批量计数会更好。从1开始并增加批次计数直到可忽略不计的性能增益是一种有效的策略。</p><h4 id="调度parallelfor作业的示例">调度ParallelFor作业的示例</h4><p><strong>工作代码</strong>：</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Job adding two floating point values together</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> MyParallelJob : IJobParallelFor</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">ReadOnly</span>]</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; a;</span><br><span class="line">    [<span class="meta">ReadOnly</span>]</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; b;</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; result;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"><span class="keyword">int</span> i</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        result[i] = a[i] + b[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>主线程代码</strong>：</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; a = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">2</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; b = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">2</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; result = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">2</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line">a[<span class="number">0</span>] = <span class="number">1.1</span>;</span><br><span class="line">b[<span class="number">0</span>] = <span class="number">2.2</span>;</span><br><span class="line">a[<span class="number">1</span>] = <span class="number">3.3</span>;</span><br><span class="line">b[<span class="number">1</span>] = <span class="number">4.4</span>;</span><br><span class="line"></span><br><span class="line">MyParallelJob jobData = <span class="keyword">new</span> MyParallelJob();</span><br><span class="line">jobData.a = a;</span><br><span class="line">jobData.b = b;</span><br><span class="line">jobData.result = result;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Schedule the job with one Execute per index in the results array and only 1 item per processing batch</span></span><br><span class="line">JobHandle handle = jobData.Schedule(result.Length, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Wait for the job to complete</span></span><br><span class="line">handle.Complete();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Free the memory allocated by the arrays</span></span><br><span class="line">a.Dispose();</span><br><span class="line">b.Dispose();</span><br><span class="line">result.Dispose();</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p>实体是实体组件系统体系结构的三个主要元素之一。它们代表游戏或程序中的个人“事物”。一个实体既没有行为也没有数据; 相反，它识别哪些数据属于一起。<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_systems.html" target="_blank" rel="noopener">系统</a>提供行为，<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">组件</a>存储数据。</p><a id="more"></a><p>实体本质上是一个ID。您可以将其视为一个超级轻量级<a href="https://docs.unity3d.com/Manual/class-GameObject.html" target="_blank" rel="noopener">GameObject</a>，默认情况下甚至没有名称。实体ID是稳定的。它们是存储对另一个组件或实体的引用的唯一稳定方式。</p><p>一个<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html" target="_blank" rel="noopener">EntityManager</a>管理一个<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.World.html" target="_blank" rel="noopener">世界</a>中的所有实体。EntityManager维护实体列表并组织与实体关联的数据以获得最佳性能。</p><p>虽然实体没有类型，但实体组可以根据与它们相关联的数据组件的类型进行分类。在创建实体并向其添加组件时，EntityManager会跟踪现有实体上组件的唯一组合。这种独特的组合称为<em>原型</em>。在向实体添加组件时，EntityManager会创建<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityArchetype.html" target="_blank" rel="noopener">EntityArchetype</a>结构。您可以使用现有的EntityArchetypes来创建符合该原型的新实体。您还可以提前创建EntityArchetype并使用它来创建实体。</p><h4 id="创建实体">创建实体</h4><p>创建实体的最简单方法是使用Unity编辑器。您可以设置放置在场景中的游戏对象和要在运行时转换为实体的预制件。对于游戏或程序的更多动态部分，您可以创建在作业中创建多个实体的衍生系统。最后，您可以使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateEntity" target="_blank" rel="noopener">EntityManager.CreateEntity</a>函数之一一次创建一个实体。</p><h5 id="使用entitymanager创建实体">使用EntityManager创建实体</h5><p>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateEntity" target="_blank" rel="noopener">EntityManager.CreateEntity</a>函数之一来创建实体。实体在与EntityManager相同的World中创建。</p><p>您可以通过以下方式逐个创建实体：</p><ul><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.ComponentType.html" target="_blank" rel="noopener">ComponentType</a>对象数组创建包含组件的实体。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityArchetype.html" target="_blank" rel="noopener">EntityArchetype</a>创建包含组件的实体。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_Instantiate_Unity_Entities_Entity_" target="_blank" rel="noopener">Instantiate</a>复制现有实体（包括其当前数据）</li><li>创建一个没有组件的实体，然后向其中添加组件。（您可以立即添加组件，也可以添加其他组件。）</li></ul><p>您也可以一次创建多个实体：</p><ul><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateEntity" target="_blank" rel="noopener">CreateEntity</a>使用具有相同原型的新实体填充NativeArray 。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_Instantiate_Unity_Entities_Entity_" target="_blank" rel="noopener">Instantiate</a>向NativeArray填充现有实体的副本，包括其当前数据。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateChunk_" target="_blank" rel="noopener">CreateChunk</a>显式创建使用给定原型填充指定数量的实体的块。</li></ul><h4 id="添加和删除组件">添加和删除组件</h4><p>创建实体后，可以添加或删除组件执行此操作时，受影响实体的原型会发生变化，EntityManager必须将更改的数据移动到新的内存块，并在原始块中压缩组件数组。</p><p>导致结构更改的实体的更改（即添加或删除更改SharedComponentData的值的组件以及销毁实体）无法在Job内部完成，因为这些操作可能会使Job正在处理的数据无效。而是添加命令以对<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityCommandBuffer.html" target="_blank" rel="noopener">EntityCommandBuffer</a>进行这些类型的更改，并在Job完成后执行此命令缓冲区。</p><p>EntityManager提供了从单个实体以及NativeArray中的所有实体中删除组件的功能。有关更多信息，请参阅<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">组件</a></p><h4 id="迭代实体">迭代实体</h4><p>迭代具有匹配组件集的所有实体，是ECS体系结构的核心。请参阅<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/chunk_iteration.html" target="_blank" rel="noopener">访问实体数据</a>。</p>]]></content>
       
       
       <categories>
           
           <category> Unity </category>
           
-          <category> C＃ Job System </category>
+          <category> ECS手册和脚本参考 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ECS手册和脚本参考 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>DOTS原则和愿景</title>
+      <link href="/blog/5628dba2.html"/>
+      <url>/blog/5628dba2.html</url>
+      
+        <content type="html"><![CDATA[<p>Unity Data Oriented Tech Stack基于一系列原则。这些原则为我们正在努力实现的目标提供了良好的背景。一些原则清楚地反映在代码中。其他则只是我们为自己设定的目标。</p><a id="more"></a><h4 id="默认情况下的性能">默认情况下的性能</h4><p>我们希望为所有平台创建高效的机器代码变得简单。</p><p>我们使用手写的高度优化的<a href="https://en.wikipedia.org/wiki/SIMD" target="_blank" rel="noopener">simd</a>内在函数来衡量C ++中可以实现的性能。</p><p>我们使用编译器技术（Burst），容器（Unity.Collections），数据布局组件（ECS）的组合，以便在默认情况下轻松编写高效代码。</p><ul><li>数据布局和迭代 - 实体组件系统在默认情况下以块的形式迭代实体时保证线性数据布局。这是面向统一数据的技术栈提供性能提升的关键部分。</li><li>C＃作业系统允许您以简单的方式编写多线程代码。这也很安全。C＃Job Debugger可以检测任何竞争条件。</li><li>Burst是我们专门针对C＃作业的编译器。C＃作业代码遵循我们可用于生成更高效的机器代码的某些模式。使用SIMD指令为每个目标平台编译和优化代码。</li></ul><p>这方面的一个例子是Instantiation的性能。与实例化具有320字节memcpy的100,000个实体需要9ms的理论限制相比，通过实体组件系统实例化这些实体需要10ms。所以我们非常接近理论极限。</p><p>在Unite Austin，我们在60 FPS的大型战斗模拟中展示了一个包含100,000个独立单元的演示。所有游戏代码都运行多核。 [参见ECS性能演示<a href="https://www.youtube.com/watch?v=0969LalB7vw" target="_blank" rel="noopener">视频]</a></p><h4 id="简单">简单</h4><p>编写<a href="https://en.wiktionary.org/wiki/performant" target="_blank" rel="noopener">高性能</a>代码必须简单。我们相信我们可以编写快速代码，就像<strong>MonoBehaviour.Update</strong>一样简单。</p><blockquote><p>注意：为了正确设定期望，我们认为我们仍有一些方法可以实现这一目标。</p></blockquote><h4 id="编写代码的一种方法">编写代码的一种方法</h4><p>我们想要定义编写游戏代码、编辑器代码、资产管道代码以及引擎代码的单一方式。我们相信这为我们的用户创造了一个更简单的工具，并且更有能力改变现状。</p><p>物理学是一个很好的例子。目前物理学是一种黑盒解决方案。在实践中，许多开发人员希望调整模拟代码以适应他们的游戏需求。如果使用ECS以与游戏代码相同的方式编写物理引擎代码，则可以轻松地在现有物理仿真阶段之间插入您自己的仿真代码或完全控制。</p><p>另一个例子，让我们想象你想制作一个可以进行大规模修改的游戏。</p><p>如果我们的导入管道是作为一组<strong>ComponentSystems实现的</strong>。我们有一些FBX导入管道代码，默认情况下在资产管道中用于导入和后处理FBX文件。（在编辑器中使用Mesh和FBX导入代码。）</p><p>然后，很容易配置程序包管理器，可以在已部署的游戏中使用相同的FBX导入和后处理代码进行修改。</p><p>我们相信，在基础层面，这将使Unity比现在更加灵活。</p><h4 id="联网">联网</h4><p>我们想要定义一种编写所有游戏代码的简单方法。遵循此方法，您的游戏可以使用三种网络架构中的一种，具体取决于您创建的游戏类型。</p><p>我们专注于为托管游戏提供最佳的网络引擎支持。使用最近收购的<a href="http://multiplay.com/" target="_blank" rel="noopener">Multiplay.com</a>服务，我们提供了一个简单的管道来托管所述游戏。</p><ul><li>FPS - 服务器上的模拟</li><li>RTS - 确定性锁步模拟</li><li>街机游戏 - GGPO</li></ul><blockquote><p>注意：为了正确设置期望，我们尚未在实体组件系统之上提供任何网络代码。它正在进行中。</p></blockquote><h4 id="确定性">确定性</h4><p>我们的构建管道必须是<a href="https://en.wikipedia.org/wiki/Deterministic_algorithm" target="_blank" rel="noopener">确定性的</a>。用户可以选择是否所有模拟代码都应该确定性地运行。</p><p>无论使用何种设备，您都应该使用相同的输入获得相同的结果。这对于网络，重放功能甚至高级调试工具都很重要。</p><p>为此，我们将利用Burst编译器在不同平台之间生成精确的浮点数学运算。想象一下，运行相同浮点数学代码的linux服务器和iOS设备。这对于许多场景非常有用，特别是对于连接的游戏，还有调试，重放等。</p><blockquote><p>注意：浮点数学差异是Unity决定解决的问题。这个问题已经有一段时间了解，但到目前为止还没有足够的需要来鼓励人们解决它。为了解决这个问题，包括避免解决问题所需的一些解决方法，请考虑阅读<a href="https://randomascii.wordpress.com/2013/07/16/floating-point-determinism/" target="_blank" rel="noopener">Bruce Dawson的浮点确定性</a>。</p></blockquote><h4 id="沙盒">沙盒</h4><p>Unity是一个沙盒，安全而简单。</p><p>当错误地使用API时，我们提供了很好的错误消息，我们从未将自己置于不正确的使用导致崩溃的位置，这是设计上的（而不是我们可以快速修复的错误）。</p><p>沙箱行为的一个很好的例子是我们的C＃作业系统保证您的C＃作业代码都没有竞争条件。我们通过静态代码分析和运行时检查的组合确定性地检查所有可能的竞争条件。我们会立即为您提供有关任何竞赛条件的错误信息。因此，您可以相信您的代码可以正常工作并且感觉安全，即使是第一次编写多线程游戏代码的开发人员也会做得很好。</p><h4 id="极小性">极小性</h4><p>我们希望Unity可用于从&lt;50kb可执行文件，到千兆字节大小的游戏的所有内容。我们希望Unity在不到1秒的时间内加载小内容。</p><h4 id="迭代时间">迭代时间</h4><p>我们的目标是在大型项目文件夹中任何常见操作的迭代时间保持500ms以下。</p><p>作为一个例子，我们正在努力将C＃编译器重写为完全增量，目标是：</p><blockquote><p>在大型项目中更改单个.cs文件时。组合的编译和热重载时间应小于500毫秒。</p></blockquote><h4 id="我们的代码提供完整的单元测试覆盖率">我们的代码提供完整的单元测试覆盖率</h4><p>我们相信从一开始就提供强大的代码。我们使用单元测试来证明我们的代码在开发人员编写和提交时正常工作。测试作为包的一部分提供。</p><h4 id="演化">演化</h4><p>我们知道我们在如何编写代码方面提出了相当大的改变。从MonoBehaviour.Update到ComponentSystem并使用作业。</p><p>我们相信，最终唯一可以说服游戏开发者的是<strong>尝试它，并亲眼看到自己的游戏结果</strong>。</p><p>因此，在现有项目中应用ECS方法应该容易且快速。我们的目标是在30分钟内，用户可以在大型项目中将一些代码从MonoBehaviour.Update更改为ComponentSystem，并拥有优化游戏代码的成功经验。</p><h4 id="包">包</h4><p>我们希望我们的大多数引擎代码都是用C＃编写的，并部署在一个Package中。所有Unity Pro客户均可使用所有源代码。</p><p>我们希望与客户建立快速反馈循环，因为我们可以推送代码并在包中快速获得反馈，而不会破坏其他部分的稳定性。</p><p>以前我们的大多数引擎代码都是用C ++编写的，这与我们的客户编写代码的方式以及Unity的程序员如何编写代码产生了脱节。由于Burst编译器技术和ECS，我们可以用C＃代码实现比C ++更好的结果，因此我们都能以完全相同的方式编写代码。</p><h4 id="合作">合作</h4><p>我们相信Unity用户和Unity开发人员都在同一个团队中。我们的目的是帮助所有Unity用户更快，更高质量和更好的性能创建最佳游戏体验。</p><p>我们相信，我们开发的每个功能都必须尽早开发真实的场景和真实的生产反馈。包管理器促进了这一点。</p><p>对于那些希望贡献引擎代码的社区用户，我们的目标是通过直接处理贡献者可以提交的相同代码存储库来实现这一目标。通过明确的原则和所有功能的全面测试覆盖，我们希望保持高贡献的质量。</p><p>源代码存储库将适用于所有Unity Pro客户。</p><h4 id="透明度">透明度</h4><p>我们相信透明度。我们公开发展我们的功能，我们在论坛和博客上积极沟通。我们保留时间，以便每个开发人员都可以花时间与客户一起了解用户的痛点。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> DOTS </category>
           
       </categories>
       
@@ -497,6 +497,106 @@
         <tags>
             
             <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>DOTS学习资源</title>
+      <link href="/blog/a6702756.html"/>
+      <url>/blog/a6702756.html</url>
+      
+        <content type="html"><![CDATA[<p>以下是一些面向数据的资源，可以是Unity或我们已经验证过的外部资源。我们将包括外部资源，我们认为这些外部资源能够很好地理解面向数据的设计并包含高质量的信息（在贡献时）。</p><a id="more"></a><blockquote><p><strong>注意</strong>：由于Unity Data-Oriented Tech Stack的性质不断变化，链接可能会过时。将检查页面以确保它包含最佳资源，但如果您发现过时或断开链接的内容，请确保在<a href="http://unity3d.com/performance-by-default" target="_blank" rel="noopener">论坛中</a>告知我们或作为存储库中的<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/issues/new" target="_blank" rel="noopener">问题</a>。</p></blockquote><h4 id="教程">教程</h4><ul><li><a href="https://www.youtube.com/watch?v=WLfhUKp2gag&amp;list=PLX2vGYjWbI0S4yHZwjDI1boIrYStpBCdN" target="_blank" rel="noopener">Mike Geig的实体组件系统和C＃作业系统简介</a>（五部分视频教程系列。）</li></ul><h4 id="活动资源">活动资源</h4><p><img src="https://longshilin.com/images/20190811211722.jpg" alt=""></p><h5 id="unity-at-unite-la-2018">Unity at Unite LA 2018</h5><ul><li>[主题演讲：Joachim Ante和MartinKümmel的MEGACITY演示<a href="https://youtu.be/alZ6wmwvck0?t=6448" target="_blank" rel="noopener">视频]</a></li><li>[ECS：Joachim Ante的欢迎和概述<a href="https://youtu.be/fZfPv-oxO7U?t=545" target="_blank" rel="noopener">视频]</a></li><li>[ECS：由Mike Acton扩展的LOD和剔除系统<a href="https://youtu.be/fZfPv-oxO7U?t=4126" target="_blank" rel="noopener">视频]</a></li><li>[ECS：Andreas Fredriksson和Lee Hammerton的基于样条的AI代理<a href="https://youtu.be/fZfPv-oxO7U?t=7725" target="_blank" rel="noopener">视频]</a></li><li>[ECS：深入探索由Alexandre Mutel创作的Burst Compiler <a href="https://www.youtube.com/watch?v=fZfPv-oxO7U&amp;feature=youtu.be&amp;t=14930" target="_blank" rel="noopener">视频]</a></li><li>[ECS：韦恩·约翰逊在ECS世界中的图形驱动音频<a href="https://youtu.be/fZfPv-oxO7U?t=18550" target="_blank" rel="noopener">视频]</a></li><li>[ECS：马丁·库默尔（MartinKümmel）在预算上建立一个充满活力的呼吸世界<a href="https://youtu.be/fZfPv-oxO7U?t=22209" target="_blank" rel="noopener">视频]</a></li><li>[ECS：使用Daniel Brauer的实体调试器<a href="https://youtu.be/fZfPv-oxO7U?t=27107" target="_blank" rel="noopener">视频]</a></li><li>[ECS：FabriceLété和Simon Mogensen的流媒体和序列化<a href="https://youtu.be/fZfPv-oxO7U?t=29353" target="_blank" rel="noopener">视频]</a></li><li>[ECS：Aria Bonczek对ECS API的演变<a href="https://youtu.be/fZfPv-oxO7U?t=32882" target="_blank" rel="noopener">视频]</a></li></ul><p><img src="https://longshilin.com/images/20190811211728.jpg" alt=""></p><h5 id="unity-at-gdc-2018">Unity at GDC 2018</h5><ul><li>[主题演讲：Joachim Ante的Unity（实体组件系统和性能）的未来<a href="https://www.youtube.com/watch?v=3Mq9EH8RT_U" target="_blank" rel="noopener">视频]</a></li><li>[由Joachim Ante演变的团结<a href="https://www.youtube.com/watch?v=aFFLEiDr3T0" target="_blank" rel="noopener">视频]</a></li><li>[Tim Johansson的Unity作业系统和实体组件系统<a href="https://www.youtube.com/watch?v=kwnb9Clh2Is" target="_blank" rel="noopener">视频]</a></li><li>[面向数据的设计民主化：Mike Acton使用组件系统的面向数据的方法<a href="https://www.youtube.com/watch?v=p65Yt20pw0g" target="_blank" rel="noopener">视频]</a></li><li>[C＃Sharp to Machine Code by Andreas Fredriksson <a href="https://www.youtube.com/watch?v=NF6kcNS6U80" target="_blank" rel="noopener">视频]</a></li><li>[Vladimir Vukicevic的小事ECS <a href="https://www.youtube.com/watch?v=EWVU6cFdmr0" target="_blank" rel="noopener">视频]</a></li><li>[独家：Unity在GDC上采取原则性步骤进行AAA级演出<a href="https://www.mcvuk.com/development/exclusive-unity-takes-a-principled-step-into-triple-a-performance-at-gdc" target="_blank" rel="noopener">文章]</a></li></ul><p><img src="https://longshilin.com/images/20190811211732.jpg" alt=""></p><h5 id="unity-at-unite-austin-2017">Unity at Unite Austin 2017</h5><ul><li>[主题演讲：性能演示ft.Nordeus by Joachim Ante <a href="http://www.youtube.com/watch?v=0969LalB7vw" target="_blank" rel="noopener">视频]</a></li><li>[Nordeus演示的Unity GitHub存储库<a href="https://github.com/Unity-Technologies/UniteAustinTechnicalPresentation" target="_blank" rel="noopener">视频]</a></li><li>[编写Joachim Ante的高性能C＃脚本<a href="http://www.youtube.com/watch?v=tGmnZdY5Y-E" target="_blank" rel="noopener">视频]</a></li></ul><p>（原文页面：<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/ECSSamples/Documentation/resources.md" target="_blank" rel="noopener">https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/ECSSamples/Documentation/resources.md</a>）</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> DOTS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>DOTS概述</title>
+      <link href="/blog/c1466196.html"/>
+      <url>/blog/c1466196.html</url>
+      
+        <content type="html"><![CDATA[<p>Unity数据导向技术栈有三个主要部分：Unity实体 - 组件 - 系统（ECS），Unity C＃作业系统和Unity Burst编译器。</p><a id="more"></a><h4 id="实体-组件-系统概述">实体 - 组件 - 系统概述</h4><p>ECS提供了一种游戏设计方法，使您可以专注于您正在解决的实际问题：组成游戏的数据和行为。ECS利用C＃作业系统和Burst编译器来充分利用当今的多核处理器。</p><p>除了更好地利用现代CPU之外，ECS背后<a href="https://en.wikipedia.org/wiki/Data-oriented_design" target="_blank" rel="noopener">的面向数据的</a>设计避免了<a href="https://simple.wikipedia.org/wiki/Object-oriented_programming" target="_blank" rel="noopener">面向对象</a>的陷阱，这些陷阱可能困扰游戏等复杂项目，尤其是在尝试寻找最后几个FPS以达到您的发布目标时。面向数据的设计还可以使您更轻松地重用和发展您的代码，并让其他人理解和处理它。有关更多信息，请参阅：</p><ul><li><a href="https://www.cnblogs.com/longsl/p/11322011.html" target="_blank" rel="noopener">什么是ECS？</a></li><li><a href="https://www.cnblogs.com/longsl/p/11323671.html" target="_blank" rel="noopener">ECS原则</a></li><li><a href="https://www.cnblogs.com/longsl/p/11323715.html" target="_blank" rel="noopener">ECS适合你吗？</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/index.html" target="_blank" rel="noopener">ECS手册和脚本参考</a></li></ul><h4 id="c-作业系统概述">C＃作业系统概述</h4><p>C＃Job System利用了当今计算机中的多核。它旨在将此方法运用到C＃用户脚本，并允许用户编写安全，快速，有效的代码，同时防止多线程的一些陷阱，如竞争条件。</p><ul><li><a href="https://docs.unity3d.com/Manual/JobSystem.html" target="_blank" rel="noopener">C＃作业系统手册</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.jobs@0.0/manual/custom_job_types.html" target="_blank" rel="noopener">低级概述 - 创建容器和自定义作业类型</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.jobs@0.0/manual/scheduling_a_job_from_a_job.html" target="_blank" rel="noopener">从工作中安排工作 - 为什么不呢？</a></li></ul><h4 id="burst概述">Burst概述</h4><p>Burst是一种新的基于<a href="https://en.wikipedia.org/wiki/LLVM" target="_blank" rel="noopener">LLVM</a>的后端编译器技术，可以让您更轻松。它需要C＃作业并利用您平台的特定功能生成高度优化的机器代码。因此，您可以在多个平台上获得手动调整的汇编程序代码的诸多好处，而无需付出艰苦的努力。Burst编译器可用于提高为C＃作业系统编写的作业的性能。</p><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.burst@1.0/manual/index.html" target="_blank" rel="noopener">Burst文档</a></li><li><a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/ECSSamples/Documentation/burst_optimization.md" target="_blank" rel="noopener">如何针对Burst编译器进行优化</a></li></ul><h4 id="更多的信息">更多的信息</h4><ul><li><a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/ECSSamples/Documentation/cheatsheet.md" target="_blank" rel="noopener">Unity Data-Oriented的备忘单</a></li><li><a href="https://www.cnblogs.com/longsl/p/11319782.html" target="_blank" rel="noopener">Unity Data-Oriented的学习资源</a></li><li><a href="https://www.cnblogs.com/longsl/p/11323845.html" target="_blank" rel="noopener">默认情况下的性能</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> DOTS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>DOTS默认情况下的性能</title>
+      <link href="/blog/9c7fc9b9.html"/>
+      <url>/blog/9c7fc9b9.html</url>
+      
+        <content type="html"><![CDATA[<p>利用Unity全新的高性能多线程数据导向技术堆栈（DOTS），充分利用当今的多核处理器。您的游戏运行速度更快，您的代码更易于在其他项目中阅读和重用。</p><a id="more"></a><h4 id="重建unity的核心">重建Unity的核心</h4><p>我们正在使用高性能多线程数据导向技术堆栈重建Unity的核心基础。DOTS使您的游戏可以充分利用最新的多核处理器，而不会遇到繁重的编程问题。DOTS包括以下功能：</p><ul><li>用于高效运行多线程代码<strong>的C＃作业系统</strong>。</li><li>用于编写高性能代码<strong>的实体组件系统（ECS）</strong>。</li><li><strong>Burst Compiler</strong>用于生成高度优化的本机代码。</li></ul><p>这些DOTS功能为程序员提供了方便的沙箱，可以编写具有巨大性能提升的多线程代码。DOTS目前在预览中可用。</p><p>DOTS的多线程系统使您能够创建在各种硬件上运行的游戏，通过更多元素和更复杂的模拟构建更丰富的游戏世界，甚至优化玩家移动设备上的热控制和电池寿命。通过从面向对象的设计转向面向数据的设计，您可以更轻松地重用代码，并让其他人理解和处理代码。</p><h5 id="c-作业系统">C＃作业系统</h5><p><em>新的C＃作业系统利用了当今计算机中的多核。它旨在将此方法打开到C＃用户脚本，并允许用户编写安全，快速，有效的代码，同时防止多线程的一些陷阱，如竞争条件。</em></p><h6 id="利用多个核心">利用多个核心</h6><p>C＃作业系统公开了Native C ++作业系统，允许C＃脚本与Unity内部组件一起工作。</p><h6 id="安全的环境">安全的环境</h6><p>提供对多线程的一些陷阱的保护，例如竞争条件。</p><h5 id="实体组件系统-ecs">实体组件系统（ECS）</h5><h6 id="更好的游戏设计方法">更好的游戏设计方法</h6><p>ECS是一种编写代码的方式，专注于您正在解决的实际问题：组成游戏的数据和行为。</p><p>除了出于设计原因更好地接近游戏编程之外，使用ECS使您处于利用Unity的C＃作业系统和Burst Compiler的理想位置，让您充分利用当今的多核处理器。</p><p>使用ECS，我们正在从面向对象转向数据导向设计，这意味着重用代码更容易，并且更容易让其他人掌握并做出贡献。</p><h5 id="突发编译器">突发编译器</h5><h6 id="优化的代码">优化的代码</h6><p>新的基于LLVM的后端编译器技术可以获取C＃作业并生成高度优化的机器代码。</p><h6 id="每个平台都是最好的">每个平台都是最好的</h6><p>针对您正在编译的平台的特定功能进行了优化。</p><h6 id="减少手工编码">减少手工编码</h6><p>在多个平台上获得手动调整的汇编程序代码的许多优点，而无需付出艰苦的努力。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> DOTS </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>世界</title>
+      <link href="/blog/c01e72eb.html"/>
+      <url>/blog/c01e72eb.html</url>
+      
+        <content type="html"><![CDATA[<p>A <code>World</code>拥有<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html" target="_blank" rel="noopener">EntityManager</a>和一组<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/component_system.html" target="_blank" rel="noopener">ComponentSystems</a>。您可以根据需要创建任意数量的<code>World</code>对象。通常，您将创建模拟<code>World</code>和渲染或演示<code>World</code>。</p><a id="more"></a><p>默认情况下，我们<code>World</code>在进入“ **播放模式”**时创建单个，并使用<code>ComponentSystem</code>项目中的所有可用对象填充它，但您可以禁用默认<code>World</code>创建并通过全局定义将其替换为您自己的代码。</p><ul><li><strong>默认世界创建代码</strong>（参见文件：<em>Packages / com.unity.entities / Unity.Entities.Hybrid / Injection / DefaultWorldInitialization.cs</em>）</li><li><strong>自动引导入口点</strong>（参见文件： <em>Packages / com.unity.entities / Unity.Entities.Hybrid / Injection / AutomaticWorldBootstrap.cs</em>）</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> ECS手册和脚本参考 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ECS手册和脚本参考 </tag>
             
         </tags>
       
@@ -958,7 +1058,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX19uJBDnRgb/VMTpV3XgsmUHBcgaP33XfqSEgPZgv7dDgnUBfymKTMH/622eb6Hj0RNK454jfclTx9vENijgeUn+koYLnw9Y35bzekURW7kGBgyKbkALm09G9IXOlT6fL77+A9G7df4Hlo+ae6jX06BLmoo7lVXu+dOzA75mQGFTaam9tRwfR6HKXF6KxWFGTlJBN7Nm/6XJHMEm4OV60hFzDzpoocxkr+I/1vD48xtGVAF2YAk45OTeugDR84PmGVlsQ0gjUW+sNo4AUd6zI9wxfKQKyQbpVfeiAuL47USuk/AklyFUqyeK8rJYZHiBHe8igfQ7afzKt2PG2HBVFRhpj7XSnSTv1b8cAjCOYm9E6zPob83ZIXrlssjrKcyMmj5As4Vhu1FKeB2uZcqdC6pLriPSh8GEdlwugAsCGPHnc6qeJKnwzQqkz+vl+m2eA5fSOIiDAqQCnjiemF1a/L7WsFfbgiHFkmf15YwC8aWkPmbrjSp0ZzKvbzxntyNRW+EIn3k/X2DPw4wR2lIgrULii7pOWEmrqe8cjFZrtgW3tCd4jsBUmTmM6ie+feFMyeBzkFkSFDeLBpfST304VpD0MFwaTM5V/fuo/lTXWt/A+yypdGQJ/FQO5kaaTX5LGjhq6DdInXpbRG4CFC+hiLbEnn9oH/D+ppKvuEWlZYjJyjuBou8iKdIHw3EY+3T5wXLyPZySXer86Qa0wL1hQGHy9R2rRsxBP0DOgvCmTwZ5wwO7GOVpAg0RlQ2pxSxA05Rk2Yd7u2ZLXQ==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+zQHTCV2acC1NywN5MnubaeKDz3+GDaydclvxoRVRPwHQR6QAL3qMnY1I9v3NQrym8eaQo0vprggOdEPWB/ak6gC+qnToo+g1kBxQdyvc95MAV7PsrITWEKjKo95Chwfaj+bNI4ZBecQD2iPTjCmSU7ioYTK+5BGljVWAvFmmSvtrG8F3/oIchXrgzhsZBcat0gvic1Dc7HFQYdIttwMzIIlz721JsoX1n8dSwmuTPdZ9HoK05UdKE1pRZgSHh5EByDKfHIKpf9d8NyBwqXCh3v1SxYY6sBGMJs1ZWMxmipk6OpnW/ykcy8JuF444YUTBVGORvzQRk+RKEnjOmiPeujjUccJrgjfDYgV14cUpTCW8YlYmPnQ4RL5sjN2NiRVLB7R1BnAjHLrNPKszbvph9AAEdhmCZymDLE3ESrvGWoYYxPY6TE/4t169rKfSpnZnZy1yxiDz6JkELcxD49H5tFCW11BhQ81I5kl4usNMA8fvWpIvju2HxYrGT0ytcUY/mhjFkk3+TwS/9XQXrpdQP1HmeBCdF3YgVpf4QuFIXV8aHB7JbhEzGSDV3jf0uOtVkOS39nkxlfoKmtsvo12/GUV7RBr4bjh70pxUepWbNyB+fWkJmFp++eQYto8Ts46UmD9pHHYISiRFLa139Hwr3inecrv2VtuuQqsJ7dVTzR0IPsWt82IXgCu809rTeAYTxv/GSEea8tFopAqUuMAoYQlBWuD2BdACScWwOcScFS0SOJKZaxm78bMCZe/rlxffMoDdG2Tzjzg==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -1135,6 +1235,56 @@
     </entry>
     
     <entry>
+      <title>GitLab CI/CD</title>
+      <link href="/blog/b4ccb03f.html"/>
+      <url>/blog/b4ccb03f.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/BrmSMBD.png" alt="GitLab CI/CD"></p><p>在之前的github上搭建静态资源网站的基础上有了新的提升。把原来在本地机器编译的工作，通过gitlab实现自动化编译部署及发布，我只用专注于写作及将写好的内容上传到gitlab上即可。这也是现在最流行的CI/CD理念（持续集成持续发布）。</p><a id="more"></a><blockquote><p>下面着重来说明下我在部署过程中主要过程及填的坑等等，主要是提供一个部署思路和学习路径。</p></blockquote><h2 id="注册gitlab账号">注册gitlab账号</h2><p>在进行此次迁移资源之前，我是没有接触过<a href="https://gitlab.com/" target="_blank" rel="noopener">gitlab</a>的，自己这一块也是现用现学，所以说都是自己需要才会真正去接触它和学习它，好了继续~</p><h2 id="官方pages">官方Pages</h2><p>在gitlab上，有专门的<a href="https://gitlab.com/pages" target="_blank" rel="noopener">pages页面</a>，这里目前总共有三十种不同的模板，种类还是一应俱全。下面是首页的内容<br><img src="https://i.imgur.com/pXS3DgP.png" alt="gitlab pages"></p><p>我们的目的是通过官方<a href="https://gitlab.com/pages/hexo" target="_blank" rel="noopener">hexo pages</a>来学习快速入门及部署我们自己的静态网页。</p><h2 id="学习yaml">学习YAML</h2><p>通过gitlab<a href="https://docs.gitlab.com/ce/ci/yaml/README.html" target="_blank" rel="noopener">YAML官方文档</a>来学习YAML格式，这里我展示下在我的项目中的YAML文件</p><pre><code>image: longsl/hexo2simikipages:  cache:    paths:    - blog/node_modules/  script:    - HOME=/builds/longshilin/longshilindotcom    - cd blog    - npm install    - hexo deploy    - cp -r blog $HOME/public    - cd $HOME/wiki    - simiki g    - cp -r wiki $HOME/public/  artifacts:    paths:    - public  only:  - master</code></pre><p>这里还是比较清晰，容易理解的。上面的YAML文件主要进行的操作时通过longsl/hexo2simiki镜像作为基础环境，并在上面进行项目构建，并将指定的文件目录public作为发布资源进行发布。详细说明：</p><ol><li>image是本次构建所使用的镜像，这里我使用的是包含hexo和simiki构建工具的自定义镜像，详见<a href="https://longshilin.com/blog/2018/09/22/hexo2simiki/">hexo2simiki</a></li><li>pages表示是一个默认的任务</li><li>cache表示在该任务下将指定的路径下的文件进项缓存（其实就是在构建开始的时候将上次打包并保存的文件再次拿来用），这样在每次构建并发布时，可以省去很多固定资源的构建开销。</li><li>script下面是编写shell脚本，这些脚本命令直接就是在docker容器中执行的，因此如果你的镜像时以linux为基础，可以直接执行。</li><li>artifacts是发布项，可以指定本次构建出的哪部分内容会被保留下来，并作为该pipline的发布源文件。</li><li>only指的是本次job任务只会涉及到master分支上的内容。</li></ol><p>更多信息详见 <a href="https://docs.gitlab.com/ce/ci/" target="_blank" rel="noopener">GitLab Continuous Integration</a></p><h2 id="部署及发布">部署及发布</h2><p>编写自己的.gitlab-ci.yml文件，并放在项目的根目录下，这样在每次有新的更新提交到gitlab上时，会自动触发进行项目构建。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 博客构建 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CI/CD </tag>
+            
+            <tag> gitlab </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>构建hexo和simiki工具的docker镜像</title>
+      <link href="/blog/fd401cf5.html"/>
+      <url>/blog/fd401cf5.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/flxHs0r.png" alt=""><br>基于<a href="https://hexo.io" target="_blank" rel="noopener">hexo</a>和<a href="http://simiki.org/" target="_blank" rel="noopener">simiki</a>工具构建基础镜像环境，用作我website项目中<a href="https://longshilin.com/blog/2018/09/22/website-on-gitlab/">website-on-gitlab CI/CD</a>的基础镜像。并将其发布到Docker Hub的<br><a href="https://hub.docker.com/r/longsl/hexo2simiki/" target="_blank" rel="noopener">PUBLIC REPOSITORY</a></p><a id="more"></a><h1>DockerFile</h1><p>通过官方centos7镜像为基础来构建包含构建website的构建环境。具体的环境包括：hexo, python3.6, nodejs, simiki, pip3.6</p><pre><code>FROM centos#安装EPEL依赖 Python3.6 pip3 nodejs npm hexo simikiRUN yum install -y epel-release; yum install -y https://centos7.iuscommunity.org/ius-release.rpm; yum install -y python36u; yum install -y python36u-pip; pip3.6 install --upgrade pip; curl -sL https://rpm.nodesource.com/setup_8.x | bash -; yum install -y nodejs; npm install hexo-cli -g; pip3.6 install simiki</code></pre><h1>Docker Build</h1><pre><code>docker build -t longsl/hexo2simiki .</code></pre><h1>Docker Container</h1><pre><code>docker run -it --rm longsl/hexo2simki /bin/sh</code></pre><h1>Supply</h1><p>关于下载最新版本的nodejs费了笔者一些功夫，因为通过<code>yum install -y nodejs</code>直接下载的包不是最新的版本，在hexo构建时，会提示npm版本过低的报错，因此我通过参考 <a href="https://linuxize.com/post/how-to-install-node-js-on-centos-7/" target="_blank" rel="noopener">How to install Node.js on CentOS 7</a>，更新yum源来下载node 8.x的版本。</p><pre><code>curl -sL https://rpm.nodesource.com/setup_8.x | sudo bash -sudo yum install nodejs</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> 博客构建 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+            <tag> simiki </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>给自定义博客增加totop按钮</title>
       <link href="/blog/5b764c97.html"/>
       <url>/blog/5b764c97.html</url>
@@ -1171,56 +1321,6 @@
           
       </categories>
       
-      
-    </entry>
-    
-    <entry>
-      <title>构建hexo和simiki工具的docker镜像</title>
-      <link href="/blog/fd401cf5.html"/>
-      <url>/blog/fd401cf5.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/flxHs0r.png" alt=""><br>基于<a href="https://hexo.io" target="_blank" rel="noopener">hexo</a>和<a href="http://simiki.org/" target="_blank" rel="noopener">simiki</a>工具构建基础镜像环境，用作我website项目中<a href="https://longshilin.com/blog/2018/09/22/website-on-gitlab/">website-on-gitlab CI/CD</a>的基础镜像。并将其发布到Docker Hub的<br><a href="https://hub.docker.com/r/longsl/hexo2simiki/" target="_blank" rel="noopener">PUBLIC REPOSITORY</a></p><a id="more"></a><h1>DockerFile</h1><p>通过官方centos7镜像为基础来构建包含构建website的构建环境。具体的环境包括：hexo, python3.6, nodejs, simiki, pip3.6</p><pre><code>FROM centos#安装EPEL依赖 Python3.6 pip3 nodejs npm hexo simikiRUN yum install -y epel-release; yum install -y https://centos7.iuscommunity.org/ius-release.rpm; yum install -y python36u; yum install -y python36u-pip; pip3.6 install --upgrade pip; curl -sL https://rpm.nodesource.com/setup_8.x | bash -; yum install -y nodejs; npm install hexo-cli -g; pip3.6 install simiki</code></pre><h1>Docker Build</h1><pre><code>docker build -t longsl/hexo2simiki .</code></pre><h1>Docker Container</h1><pre><code>docker run -it --rm longsl/hexo2simki /bin/sh</code></pre><h1>Supply</h1><p>关于下载最新版本的nodejs费了笔者一些功夫，因为通过<code>yum install -y nodejs</code>直接下载的包不是最新的版本，在hexo构建时，会提示npm版本过低的报错，因此我通过参考 <a href="https://linuxize.com/post/how-to-install-node-js-on-centos-7/" target="_blank" rel="noopener">How to install Node.js on CentOS 7</a>，更新yum源来下载node 8.x的版本。</p><pre><code>curl -sL https://rpm.nodesource.com/setup_8.x | sudo bash -sudo yum install nodejs</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> 博客构建 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
-            
-            <tag> simiki </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>GitLab CI/CD</title>
-      <link href="/blog/b4ccb03f.html"/>
-      <url>/blog/b4ccb03f.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/BrmSMBD.png" alt="GitLab CI/CD"></p><p>在之前的github上搭建静态资源网站的基础上有了新的提升。把原来在本地机器编译的工作，通过gitlab实现自动化编译部署及发布，我只用专注于写作及将写好的内容上传到gitlab上即可。这也是现在最流行的CI/CD理念（持续集成持续发布）。</p><a id="more"></a><blockquote><p>下面着重来说明下我在部署过程中主要过程及填的坑等等，主要是提供一个部署思路和学习路径。</p></blockquote><h2 id="注册gitlab账号">注册gitlab账号</h2><p>在进行此次迁移资源之前，我是没有接触过<a href="https://gitlab.com/" target="_blank" rel="noopener">gitlab</a>的，自己这一块也是现用现学，所以说都是自己需要才会真正去接触它和学习它，好了继续~</p><h2 id="官方pages">官方Pages</h2><p>在gitlab上，有专门的<a href="https://gitlab.com/pages" target="_blank" rel="noopener">pages页面</a>，这里目前总共有三十种不同的模板，种类还是一应俱全。下面是首页的内容<br><img src="https://i.imgur.com/pXS3DgP.png" alt="gitlab pages"></p><p>我们的目的是通过官方<a href="https://gitlab.com/pages/hexo" target="_blank" rel="noopener">hexo pages</a>来学习快速入门及部署我们自己的静态网页。</p><h2 id="学习yaml">学习YAML</h2><p>通过gitlab<a href="https://docs.gitlab.com/ce/ci/yaml/README.html" target="_blank" rel="noopener">YAML官方文档</a>来学习YAML格式，这里我展示下在我的项目中的YAML文件</p><pre><code>image: longsl/hexo2simikipages:  cache:    paths:    - blog/node_modules/  script:    - HOME=/builds/longshilin/longshilindotcom    - cd blog    - npm install    - hexo deploy    - cp -r blog $HOME/public    - cd $HOME/wiki    - simiki g    - cp -r wiki $HOME/public/  artifacts:    paths:    - public  only:  - master</code></pre><p>这里还是比较清晰，容易理解的。上面的YAML文件主要进行的操作时通过longsl/hexo2simiki镜像作为基础环境，并在上面进行项目构建，并将指定的文件目录public作为发布资源进行发布。详细说明：</p><ol><li>image是本次构建所使用的镜像，这里我使用的是包含hexo和simiki构建工具的自定义镜像，详见<a href="https://longshilin.com/blog/2018/09/22/hexo2simiki/">hexo2simiki</a></li><li>pages表示是一个默认的任务</li><li>cache表示在该任务下将指定的路径下的文件进项缓存（其实就是在构建开始的时候将上次打包并保存的文件再次拿来用），这样在每次构建并发布时，可以省去很多固定资源的构建开销。</li><li>script下面是编写shell脚本，这些脚本命令直接就是在docker容器中执行的，因此如果你的镜像时以linux为基础，可以直接执行。</li><li>artifacts是发布项，可以指定本次构建出的哪部分内容会被保留下来，并作为该pipline的发布源文件。</li><li>only指的是本次job任务只会涉及到master分支上的内容。</li></ol><p>更多信息详见 <a href="https://docs.gitlab.com/ce/ci/" target="_blank" rel="noopener">GitLab Continuous Integration</a></p><h2 id="部署及发布">部署及发布</h2><p>编写自己的.gitlab-ci.yml文件，并放在项目的根目录下，这样在每次有新的更新提交到gitlab上时，会自动触发进行项目构建。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 博客构建 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> CI/CD </tag>
-            
-            <tag> gitlab </tag>
-            
-        </tags>
       
     </entry>
     
