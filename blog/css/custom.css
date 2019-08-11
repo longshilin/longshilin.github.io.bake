@@ -13,7 +13,11 @@
 /* body {
   font-family: Georgia, "Times New Roman", Times, serif;
   color: #555;
-} */
+}
+
+备注： 在blog根目录使用`hexo server`开启边改边调试模式
+
+*/
 
 @font-face {
     font-family: satisfy;
@@ -58,10 +62,11 @@ code {
   border-radius: 30px;
 }
 
-/* Override Bootstrap's default container width
-    width: 970px;
-*/
 /*
+  Override Bootstrap's default container width
+  屏幕尺寸适配设置
+*/
+
 @media (min-width: 1200px) {
   .container {
     width: 970px;
@@ -73,16 +78,66 @@ code {
     width: 1200px;
   }
 }
- */
-@media (min-width: 1400px) {
+
+@media (min-width: 1500px) {
   .container {
     width: 1400px;
   }
 }
-
+@media (min-width: 1600px) {
+  .container {
+    width: 1500px;
+  }
+}
+@media (min-width: 1700px) {
+  .container {
+    width: 1600px;
+  }
+}
+@media (min-width: 1800px) {
+  .container {
+    width: 1700px;
+  }
+}
+@media (min-width: 1900px) {
+  .container {
+    width: 1800px;
+  }
+}
+@media (min-width: 2000px) {
+  .container {
+    width: 1900px;
+  }
+}
+@media (min-width: 2100px) {
+  .container {
+    width: 2000px;
+  }
+}
+@media (min-width: 2200px) {
+  .container {
+    width: 2100px;
+  }
+}
+@media (min-width: 2300px) {
+  .container {
+    width: 2200px;
+  }
+}
+@media (min-width: 2400px) {
+  .container {
+    width: 2300px;
+  }
+}
+@media (min-width: 2500px) {
+  .container {
+    width: 2400px;
+  }
+}
 
 /*
  * Masthead for nav
+ * 导航的标头
  */
 
 .navbar {
@@ -185,15 +240,29 @@ code {
 
 /*
  * Main column and sidebar layout
+ * 主栏和侧栏布局
  * font-size: 修改博客文章的字体大小
  */
 
 .blog-main {
-  font-size: 19px;
+  font-size: 15px;
   line-height: 1.5;
+  font-family: 'Microsoft Yahei';
+
 }
 .blog-main > article:last-of-type {
   margin-bottom: 30px;
+}
+
+.blog-main >
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5,
+h6, .h6 {
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* Sidebar modules for boxing content */
@@ -401,6 +470,9 @@ code {
   margin-bottom: 0;
 }
 
+/*
+ * 置顶
+ */
 #totop {
   position: fixed;
   bottom: 2em;
