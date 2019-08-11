@@ -35,7 +35,7 @@ h6, .h6 {
   font-size: 14pt;
   margin-top: 1em;
   margin-bottom: 20px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "verdana","宋体","Arial";
   font-weight: normal;
   color: #333;
 }
@@ -246,9 +246,9 @@ code {
  */
 
 .blog-main {
-  font-size: 11pt;
+  font-size: 10pt;
   line-height: 1.5;
-  font-family: 'Microsoft Yahei';
+  font-family: "verdana","宋体","Arial";
 
 }
 .blog-main > article:last-of-type {
