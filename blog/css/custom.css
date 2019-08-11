@@ -255,7 +255,6 @@ code {
   margin-bottom: 30px;
 }
 
-.article-title,
 .article-inner h1, .article-inner .h1,
 .article-inner h2, .article-inner .h2,
 .article-inner h3, .article-inner .h3,
@@ -263,7 +262,6 @@ code {
 .article-inner h5, .article-inner .h5,
 .article-inner h6, .article-inner .h6 {
   font-weight: bold;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 /* Sidebar modules for boxing content */
