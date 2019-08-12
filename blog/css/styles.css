@@ -1103,6 +1103,10 @@ p.no-result {
   display: none;
 }
 
+.r-hide {
+  display: none;
+}
+
 .r-hide > span > i {
   padding: 0px 0px 0px 1px;
 }
