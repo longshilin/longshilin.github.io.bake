@@ -555,8 +555,8 @@ code {
   font-size: 7px;
 }
 .btn-primary {
-  background-color: #b0b9c1ad;
-  border-color: #e9f5ff;
+  background-color: #428bca;
+  border-color: #428bca;
 }
 .nav-pills>li>a {
   border-radius: 30px;
@@ -1126,7 +1126,7 @@ p.no-result {
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
 }
 .r-hide a:hover {
-    background: #568abc;
+    background: #428bca;
     color: #fff;
     border: 1px solid #568abc;
 }
