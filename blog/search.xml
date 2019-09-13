@@ -3,11 +3,22 @@
   
     
     <entry>
-      <title>什么是多线程？</title>
-      <link href="/blog/b293e36.html"/>
-      <url>/blog/b293e36.html</url>
+      <title>该想想奋斗的方向啦</title>
+      <link href="/blog/493fd4d4.html"/>
+      <url>/blog/493fd4d4.html</url>
       
-        <content type="html"><![CDATA[<p>在单线程计算系统中，一次进入一条指令，一次出现一条结果。加载和完成程序的时间取决于CPU需要完成的工作量。</p><p>多线程是一种编程，它利用CPU在多个内核上同时处理多个线程的能力。它们不是一个接一个地执行任务或指令，而是同时运行。</p><a id="more"></a><p>默认情况下，一个线程在程序的开头运行。这是“主线”。主线程创建新线程来处理任务。这些新线程彼此并行运行，并且通常在完成后将其结果与主线程同步。</p><p>如果您有一些运行很长时间的任务，这种多线程方法很有效。但是，游戏开发代码通常包含许多一次执行的小指令。如果为每个线程创建一个线程，最终可能会有许多线程，每个线程的生命周期都很短。这可以推动CPU和操作系统处理能力的极限。</p><p>通过拥有一个<a href="https://en.wikipedia.org/wiki/Thread_pool" target="_blank" rel="noopener">线程池</a>可以缓解线程生存期的问题。但是，即使您使用线程池，也可能同时激活大量线程。线程数多于CPU核心导致线程相互竞争CPU资源，导致频繁的<a href="https://en.wikipedia.org/wiki/Context_switch" target="_blank" rel="noopener">上下文切换</a>。上下文切换是通过执行保存线程状态，然后处理另一个线程，然后重新构建第一个线程以继续处理它的过程。上下文切换是资源密集型的，因此您应尽可能避免使用它。</p>]]></content>
+        <content type="html"><![CDATA[<p>今天是2019年中秋节，就在昨晚我在网上搜寻了一些关于游戏开发的资料，发现能学习到的和应该要学习的东西还有好多好多，但是我现在最需要做的事情是熟悉整个Unity的基础开发流程。</p><p>这其中就包括游戏动画，游戏特效，shader，材质等等。有关于unity本身开发的知识面，需要尽快扩展和熟悉。</p><p>在这之后才是框架层面的东西和服务器相关的东西。</p><p>加油吧骚年！！</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    <entry>
+      <title>什么是工作制度？</title>
+      <link href="/blog/2b778a74.html"/>
+      <url>/blog/2b778a74.html</url>
+      
+        <content type="html"><![CDATA[<p>作业系统通过创建<a href="https://en.wikipedia.org/wiki/Job_(computing)" target="_blank" rel="noopener">作业</a>而不是线程来管理<a href="https://docs.unity3d.com/Manual/JobSystemMultithreading.html" target="_blank" rel="noopener">多线程代码</a>。</p><p>作业系统跨多个核心管理一组<a href="https://docs.microsoft.com/en-us/cpp/parallel/multithreading-creating-worker-threads" target="_blank" rel="noopener">工作线程</a>。它通常每个<a href="https://www.howtogeek.com/194756/cpu-basics-multiple-cpus-cores-and-hyper-threading-explained/" target="_blank" rel="noopener">逻辑CPU核心</a>有一个工作线程，以避免上下文切换（尽管它可能为操作系统或其他专用应用程序保留一些核心）。</p><a id="more"></a><p>作业系统将作业放入<a href="https://en.wikipedia.org/wiki/Job_queue" target="_blank" rel="noopener">作业队列中</a>以执行。作业系统中的工作线程从作业队列中获取项目并执行它们。作业系统管理<a href="http://tutorials.jenkov.com/ood/understanding-dependencies.html" target="_blank" rel="noopener">依赖关系</a>并确保作业以适当的顺序执行。</p><h4 id="什么是工作？">什么是工作？</h4><p>工作是完成一项特定任务的一小部分工作。作业接收参数并对数据进行操作，类似于方法调用的行为方式。作业可以是自包含的，也可以依赖其他作业在运行之前完成。</p><h4 id="什么是工作依赖？">什么是工作依赖？</h4><p>在复杂的系统中，如游戏开发所需的系统，每个作业都不可能是独立的。一项工作通常是为下一份工作准备数据。工作人员知道并支持依赖关系以使其工作。如果<code>jobA</code>具有依赖性<code>jobB</code>，则作业系统确保在完成<code>jobA</code>之前不会开始执行<code>jobB</code>。</p>]]></content>
       
       
       <categories>
@@ -28,25 +39,75 @@
     </entry>
     
     <entry>
-      <title>并行工作</title>
-      <link href="/blog/3c908d6c.html"/>
-      <url>/blog/3c908d6c.html</url>
+      <title>实体组件系统</title>
+      <link href="/blog/68fc35ba.html"/>
+      <url>/blog/68fc35ba.html</url>
       
-        <content type="html"><![CDATA[<p>当<a href="https://docs.unity3d.com/Manual/JobSystemSchedulingJobs.html" target="_blank" rel="noopener">调度工作</a>，只能有一个工作做一个任务。在游戏中，通常希望对大量对象执行相同的操作。有一个名为<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobParallelFor.html" target="_blank" rel="noopener">IJobParallelFor</a>的独立作业类型来处理这个问题。</p><p><strong>注意</strong>：“ParallelFor”作业是Unity中用于实现<code>IJobParallelFor</code>接口的任何结构的集合术语。</p><a id="more"></a><p>ParallelFor作业使用<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html" target="_blank" rel="noopener">NativeArray</a>数据作为其数据源。ParallelFor作业跨多个核心运行。每个核心有一个作业，每个作业处理一部分工作量。<code>IJobParallelFor</code>表现得像<code>IJob</code>，但它不是单个<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJob.Execute.html" target="_blank" rel="noopener">Execute</a>方法，而是<code>Execute</code>在数据源中的每个项目上调用一次方法。方法中有一个整数参数<code>Execute</code>。该索引用于访问和操作作业实现中的数据源的单个元素。</p><h4 id="parallelfor作业定义的示例：">ParallelFor作业定义的示例：</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> IncrementByDeltaTimeJob: IJobParallelFor</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; values;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> deltaTime;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span> (<span class="params"><span class="keyword">int</span> index</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">float</span> temp = values[index];</span><br><span class="line">        temp += deltaTime;</span><br><span class="line">        values[index] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="调度parallelfor作业">调度ParallelFor作业</h4><p>在调度ParallelFor作业时，必须指定<code>NativeArray</code>要拆分的数据源的长度。<code>NativeArray</code>如果结构中有多个，Unity C＃作业系统无法知道您要将哪个用作数据源。长度还告诉C＃作业系统需要多少<code>Execute</code>方法。</p><p>幕后花絮，ParallelFor作业的调度更复杂。在调度ParallelFor作业时，C＃作业系统将工作分成批处理以在核心之间分配。每批包含一组<code>Execute</code>方法。然后，C＃作业系统在每个CPU核心的Unity本机作业系统中调度最多一个作业，并将该本机作业通过一些批次来完成。</p><p><a href="https://docs.unity3d.com/uploads/Main/jobsystem_parallelfor_job_batches.svg" target="_blank" rel="noopener"><img src="https://longshilin.com/images/20190811161551.png" alt="ParallelFor在核心之间划分批次的作业"></a></p><p>当本地作业在其他作业之前完成其批处理时，它会从其他本机作业中<a href="https://en.wikipedia.org/wiki/Work_stealing" target="_blank" rel="noopener">窃取</a>剩余批处理。它一次只能窃取本机作业剩余批次的一半，以确保<a href="https://stackoverflow.com/questions/12065774/why-does-cache-locality-matter-for-array-performance" target="_blank" rel="noopener">缓存局部性</a>。</p><p>要优化过程，您需要指定批次计数。批次计数控制您获得的作业数量，以及线程之间工作重新分配的细化程度。批量计数较低（例如1）可以使线程之间的工作分布更均匀。它确实带来了一些开销，所以有时候增加批量计数会更好。从1开始并增加批次计数直到可忽略不计的性能增益是一种有效的策略。</p><h4 id="调度parallelfor作业的示例">调度ParallelFor作业的示例</h4><p><strong>工作代码</strong>：</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Job adding two floating point values together</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> MyParallelJob : IJobParallelFor</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">ReadOnly</span>]</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; a;</span><br><span class="line">    [<span class="meta">ReadOnly</span>]</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; b;</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; result;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"><span class="keyword">int</span> i</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        result[i] = a[i] + b[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>主线程代码</strong>：</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; a = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">2</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; b = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">2</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; result = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">2</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line">a[<span class="number">0</span>] = <span class="number">1.1</span>;</span><br><span class="line">b[<span class="number">0</span>] = <span class="number">2.2</span>;</span><br><span class="line">a[<span class="number">1</span>] = <span class="number">3.3</span>;</span><br><span class="line">b[<span class="number">1</span>] = <span class="number">4.4</span>;</span><br><span class="line"></span><br><span class="line">MyParallelJob jobData = <span class="keyword">new</span> MyParallelJob();</span><br><span class="line">jobData.a = a;</span><br><span class="line">jobData.b = b;</span><br><span class="line">jobData.result = result;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Schedule the job with one Execute per index in the results array and only 1 item per processing batch</span></span><br><span class="line">JobHandle handle = jobData.Schedule(result.Length, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Wait for the job to complete</span></span><br><span class="line">handle.Complete();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Free the memory allocated by the arrays</span></span><br><span class="line">a.Dispose();</span><br><span class="line">b.Dispose();</span><br><span class="line">result.Dispose();</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p><strong>栏目概述</strong></p><a id="more"></a><ul><li>Core ECS<ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_entities.html" target="_blank" rel="noopener">Entities</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/world.html" target="_blank" rel="noopener">Worlds</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">Components</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/component_data.html" target="_blank" rel="noopener">General Purpose Components</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/shared_component_data.html" target="_blank" rel="noopener">Shared Components</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/system_state_components.html" target="_blank" rel="noopener">System State Components</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/dynamic_buffers.html" target="_blank" rel="noopener">Dynamic Buffer Components</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_systems.html" target="_blank" rel="noopener">System</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/component_system.html" target="_blank" rel="noopener">Component Systems</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/job_component_system.html" target="_blank" rel="noopener">Job Component Systems</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/entity_command_buffer.html" target="_blank" rel="noopener">Entity Command Buffers</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/system_update_order.html" target="_blank" rel="noopener">System Update Order</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/chunk_iteration.html" target="_blank" rel="noopener">Accessing Entity Data</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/entity_iteration_job.html" target="_blank" rel="noopener">Using IJobForEach</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/chunk_iteration_job.html" target="_blank" rel="noopener">Using IJobChunk</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/entity_iteration_foreach.html" target="_blank" rel="noopener">Using ComponentSystem and ForEach</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/manual_iteration.html" target="_blank" rel="noopener">Manual iteration</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/component_group.html" target="_blank" rel="noopener">Component Groups</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_write_groups.html" target="_blank" rel="noopener">Component WriteGroups</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/version_numbers.html" target="_blank" rel="noopener">Versions and Generations</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_job_overview.html" target="_blank" rel="noopener">Jobs in ECS</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_job_extensions.html" target="_blank" rel="noopener">ECS Job System extensions</a></li></ul></li></ul></li><li>Creating Gameplay<ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/transform_system.html" target="_blank" rel="noopener">Transforms</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/gp_rendering.html" target="_blank" rel="noopener">Rendering</a></li></ul></li></ul><p>实体组件系统（ECS）是Unity数据导向技术堆栈的核心。顾名思义，ECS有三个主要部分：</p><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_entities.html" target="_blank" rel="noopener">实体</a> - 填充您的游戏或程序的实体或事物</li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">组件</a> - 与您的实体关联的数据，但由数据本身而不是按实体组织。（这种组织差异是面向对象和面向数据的设计之间的关键差异之一。）</li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_systems.html" target="_blank" rel="noopener">系统</a> - 将组件数据从其当前状态转换到其下一状态的逻辑 - 例如，系统可以通过其速度乘以自前一帧以来的时间间隔来更新所有移动实体的位置。</li></ul>]]></content>
       
       
       <categories>
           
           <category> Unity </category>
           
-          <category> C＃ Job System </category>
+          <category> ECS手册和脚本参考 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> C＃ Job System </tag>
+            <tag> ECS手册和脚本参考 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>实体</title>
+      <link href="/blog/f345f685.html"/>
+      <url>/blog/f345f685.html</url>
+      
+        <content type="html"><![CDATA[<p>实体是实体组件系统体系结构的三个主要元素之一。它们代表游戏或程序中的个人“事物”。一个实体既没有行为也没有数据; 相反，它识别哪些数据属于一起。<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_systems.html" target="_blank" rel="noopener">系统</a>提供行为，<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">组件</a>存储数据。</p><a id="more"></a><p>实体本质上是一个ID。您可以将其视为一个超级轻量级<a href="https://docs.unity3d.com/Manual/class-GameObject.html" target="_blank" rel="noopener">GameObject</a>，默认情况下甚至没有名称。实体ID是稳定的。它们是存储对另一个组件或实体的引用的唯一稳定方式。</p><p>一个<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html" target="_blank" rel="noopener">EntityManager</a>管理一个<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.World.html" target="_blank" rel="noopener">世界</a>中的所有实体。EntityManager维护实体列表并组织与实体关联的数据以获得最佳性能。</p><p>虽然实体没有类型，但实体组可以根据与它们相关联的数据组件的类型进行分类。在创建实体并向其添加组件时，EntityManager会跟踪现有实体上组件的唯一组合。这种独特的组合称为<em>原型</em>。在向实体添加组件时，EntityManager会创建<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityArchetype.html" target="_blank" rel="noopener">EntityArchetype</a>结构。您可以使用现有的EntityArchetypes来创建符合该原型的新实体。您还可以提前创建EntityArchetype并使用它来创建实体。</p><h4 id="创建实体">创建实体</h4><p>创建实体的最简单方法是使用Unity编辑器。您可以设置放置在场景中的游戏对象和要在运行时转换为实体的预制件。对于游戏或程序的更多动态部分，您可以创建在作业中创建多个实体的衍生系统。最后，您可以使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateEntity" target="_blank" rel="noopener">EntityManager.CreateEntity</a>函数之一一次创建一个实体。</p><h5 id="使用entitymanager创建实体">使用EntityManager创建实体</h5><p>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateEntity" target="_blank" rel="noopener">EntityManager.CreateEntity</a>函数之一来创建实体。实体在与EntityManager相同的World中创建。</p><p>您可以通过以下方式逐个创建实体：</p><ul><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.ComponentType.html" target="_blank" rel="noopener">ComponentType</a>对象数组创建包含组件的实体。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityArchetype.html" target="_blank" rel="noopener">EntityArchetype</a>创建包含组件的实体。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_Instantiate_Unity_Entities_Entity_" target="_blank" rel="noopener">Instantiate</a>复制现有实体（包括其当前数据）</li><li>创建一个没有组件的实体，然后向其中添加组件。（您可以立即添加组件，也可以添加其他组件。）</li></ul><p>您也可以一次创建多个实体：</p><ul><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateEntity" target="_blank" rel="noopener">CreateEntity</a>使用具有相同原型的新实体填充NativeArray 。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_Instantiate_Unity_Entities_Entity_" target="_blank" rel="noopener">Instantiate</a>向NativeArray填充现有实体的副本，包括其当前数据。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateChunk_" target="_blank" rel="noopener">CreateChunk</a>显式创建使用给定原型填充指定数量的实体的块。</li></ul><h4 id="添加和删除组件">添加和删除组件</h4><p>创建实体后，可以添加或删除组件执行此操作时，受影响实体的原型会发生变化，EntityManager必须将更改的数据移动到新的内存块，并在原始块中压缩组件数组。</p><p>导致结构更改的实体的更改（即添加或删除更改SharedComponentData的值的组件以及销毁实体）无法在Job内部完成，因为这些操作可能会使Job正在处理的数据无效。而是添加命令以对<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityCommandBuffer.html" target="_blank" rel="noopener">EntityCommandBuffer</a>进行这些类型的更改，并在Job完成后执行此命令缓冲区。</p><p>EntityManager提供了从单个实体以及NativeArray中的所有实体中删除组件的功能。有关更多信息，请参阅<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">组件</a></p><h4 id="迭代实体">迭代实体</h4><p>迭代具有匹配组件集的所有实体，是ECS体系结构的核心。请参阅<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/chunk_iteration.html" target="_blank" rel="noopener">访问实体数据</a>。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> ECS手册和脚本参考 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ECS手册和脚本参考 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>世界</title>
+      <link href="/blog/c01e72eb.html"/>
+      <url>/blog/c01e72eb.html</url>
+      
+        <content type="html"><![CDATA[<p>A <code>World</code>拥有<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html" target="_blank" rel="noopener">EntityManager</a>和一组<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/component_system.html" target="_blank" rel="noopener">ComponentSystems</a>。您可以根据需要创建任意数量的<code>World</code>对象。通常，您将创建模拟<code>World</code>和渲染或演示<code>World</code>。</p><a id="more"></a><p>默认情况下，我们<code>World</code>在进入“ **播放模式”**时创建单个，并使用<code>ComponentSystem</code>项目中的所有可用对象填充它，但您可以禁用默认<code>World</code>创建并通过全局定义将其替换为您自己的代码。</p><ul><li><strong>默认世界创建代码</strong>（参见文件：<em>Packages / com.unity.entities / Unity.Entities.Hybrid / Injection / DefaultWorldInitialization.cs</em>）</li><li><strong>自动引导入口点</strong>（参见文件： <em>Packages / com.unity.entities / Unity.Entities.Hybrid / Injection / AutomaticWorldBootstrap.cs</em>）</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> ECS手册和脚本参考 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ECS手册和脚本参考 </tag>
             
         </tags>
       
@@ -147,31 +208,6 @@
         <tags>
             
             <tag> ECS Samples </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>实体组件系统</title>
-      <link href="/blog/68fc35ba.html"/>
-      <url>/blog/68fc35ba.html</url>
-      
-        <content type="html"><![CDATA[<p><strong>栏目概述</strong></p><a id="more"></a><ul><li>Core ECS<ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_entities.html" target="_blank" rel="noopener">Entities</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/world.html" target="_blank" rel="noopener">Worlds</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">Components</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/component_data.html" target="_blank" rel="noopener">General Purpose Components</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/shared_component_data.html" target="_blank" rel="noopener">Shared Components</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/system_state_components.html" target="_blank" rel="noopener">System State Components</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/dynamic_buffers.html" target="_blank" rel="noopener">Dynamic Buffer Components</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_systems.html" target="_blank" rel="noopener">System</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/component_system.html" target="_blank" rel="noopener">Component Systems</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/job_component_system.html" target="_blank" rel="noopener">Job Component Systems</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/entity_command_buffer.html" target="_blank" rel="noopener">Entity Command Buffers</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/system_update_order.html" target="_blank" rel="noopener">System Update Order</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/chunk_iteration.html" target="_blank" rel="noopener">Accessing Entity Data</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/entity_iteration_job.html" target="_blank" rel="noopener">Using IJobForEach</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/chunk_iteration_job.html" target="_blank" rel="noopener">Using IJobChunk</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/entity_iteration_foreach.html" target="_blank" rel="noopener">Using ComponentSystem and ForEach</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/manual_iteration.html" target="_blank" rel="noopener">Manual iteration</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/component_group.html" target="_blank" rel="noopener">Component Groups</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_write_groups.html" target="_blank" rel="noopener">Component WriteGroups</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/version_numbers.html" target="_blank" rel="noopener">Versions and Generations</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_job_overview.html" target="_blank" rel="noopener">Jobs in ECS</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_job_extensions.html" target="_blank" rel="noopener">ECS Job System extensions</a></li></ul></li></ul></li><li>Creating Gameplay<ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/transform_system.html" target="_blank" rel="noopener">Transforms</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/gp_rendering.html" target="_blank" rel="noopener">Rendering</a></li></ul></li></ul><p>实体组件系统（ECS）是Unity数据导向技术堆栈的核心。顾名思义，ECS有三个主要部分：</p><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_entities.html" target="_blank" rel="noopener">实体</a> - 填充您的游戏或程序的实体或事物</li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">组件</a> - 与您的实体关联的数据，但由数据本身而不是按实体组织。（这种组织差异是面向对象和面向数据的设计之间的关键差异之一。）</li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_systems.html" target="_blank" rel="noopener">系统</a> - 将组件数据从其当前状态转换到其下一状态的逻辑 - 例如，系统可以通过其速度乘以自前一帧以来的时间间隔来更新所有移动实体的位置。</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Unity </category>
-          
-          <category> ECS手册和脚本参考 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> ECS手册和脚本参考 </tag>
             
         </tags>
       
@@ -353,18 +389,18 @@
     </entry>
     
     <entry>
-      <title>DOTS默认情况下的性能</title>
-      <link href="/blog/9c7fc9b9.html"/>
-      <url>/blog/9c7fc9b9.html</url>
+      <title>什么是多线程？</title>
+      <link href="/blog/b293e36.html"/>
+      <url>/blog/b293e36.html</url>
       
-        <content type="html"><![CDATA[<p>利用Unity全新的高性能多线程数据导向技术堆栈（DOTS），充分利用当今的多核处理器。您的游戏运行速度更快，您的代码更易于在其他项目中阅读和重用。</p><a id="more"></a><h4 id="重建unity的核心">重建Unity的核心</h4><p>我们正在使用高性能多线程数据导向技术堆栈重建Unity的核心基础。DOTS使您的游戏可以充分利用最新的多核处理器，而不会遇到繁重的编程问题。DOTS包括以下功能：</p><ul><li>用于高效运行多线程代码<strong>的C＃作业系统</strong>。</li><li>用于编写高性能代码<strong>的实体组件系统（ECS）</strong>。</li><li><strong>Burst Compiler</strong>用于生成高度优化的本机代码。</li></ul><p>这些DOTS功能为程序员提供了方便的沙箱，可以编写具有巨大性能提升的多线程代码。DOTS目前在预览中可用。</p><p>DOTS的多线程系统使您能够创建在各种硬件上运行的游戏，通过更多元素和更复杂的模拟构建更丰富的游戏世界，甚至优化玩家移动设备上的热控制和电池寿命。通过从面向对象的设计转向面向数据的设计，您可以更轻松地重用代码，并让其他人理解和处理代码。</p><h5 id="c-作业系统">C＃作业系统</h5><p><em>新的C＃作业系统利用了当今计算机中的多核。它旨在将此方法打开到C＃用户脚本，并允许用户编写安全，快速，有效的代码，同时防止多线程的一些陷阱，如竞争条件。</em></p><h6 id="利用多个核心">利用多个核心</h6><p>C＃作业系统公开了Native C ++作业系统，允许C＃脚本与Unity内部组件一起工作。</p><h6 id="安全的环境">安全的环境</h6><p>提供对多线程的一些陷阱的保护，例如竞争条件。</p><h5 id="实体组件系统-ecs">实体组件系统（ECS）</h5><h6 id="更好的游戏设计方法">更好的游戏设计方法</h6><p>ECS是一种编写代码的方式，专注于您正在解决的实际问题：组成游戏的数据和行为。</p><p>除了出于设计原因更好地接近游戏编程之外，使用ECS使您处于利用Unity的C＃作业系统和Burst Compiler的理想位置，让您充分利用当今的多核处理器。</p><p>使用ECS，我们正在从面向对象转向数据导向设计，这意味着重用代码更容易，并且更容易让其他人掌握并做出贡献。</p><h5 id="突发编译器">突发编译器</h5><h6 id="优化的代码">优化的代码</h6><p>新的基于LLVM的后端编译器技术可以获取C＃作业并生成高度优化的机器代码。</p><h6 id="每个平台都是最好的">每个平台都是最好的</h6><p>针对您正在编译的平台的特定功能进行了优化。</p><h6 id="减少手工编码">减少手工编码</h6><p>在多个平台上获得手动调整的汇编程序代码的许多优点，而无需付出艰苦的努力。</p>]]></content>
+        <content type="html"><![CDATA[<p>在单线程计算系统中，一次进入一条指令，一次出现一条结果。加载和完成程序的时间取决于CPU需要完成的工作量。</p><p>多线程是一种编程，它利用CPU在多个内核上同时处理多个线程的能力。它们不是一个接一个地执行任务或指令，而是同时运行。</p><a id="more"></a><p>默认情况下，一个线程在程序的开头运行。这是“主线”。主线程创建新线程来处理任务。这些新线程彼此并行运行，并且通常在完成后将其结果与主线程同步。</p><p>如果您有一些运行很长时间的任务，这种多线程方法很有效。但是，游戏开发代码通常包含许多一次执行的小指令。如果为每个线程创建一个线程，最终可能会有许多线程，每个线程的生命周期都很短。这可以推动CPU和操作系统处理能力的极限。</p><p>通过拥有一个<a href="https://en.wikipedia.org/wiki/Thread_pool" target="_blank" rel="noopener">线程池</a>可以缓解线程生存期的问题。但是，即使您使用线程池，也可能同时激活大量线程。线程数多于CPU核心导致线程相互竞争CPU资源，导致频繁的<a href="https://en.wikipedia.org/wiki/Context_switch" target="_blank" rel="noopener">上下文切换</a>。上下文切换是通过执行保存线程状态，然后处理另一个线程，然后重新构建第一个线程以继续处理它的过程。上下文切换是资源密集型的，因此您应尽可能避免使用它。</p>]]></content>
       
       
       <categories>
           
           <category> Unity </category>
           
-          <category> DOTS </category>
+          <category> C＃ Job System </category>
           
       </categories>
       
@@ -378,18 +414,18 @@
     </entry>
     
     <entry>
-      <title>什么是工作制度？</title>
-      <link href="/blog/2b778a74.html"/>
-      <url>/blog/2b778a74.html</url>
+      <title>DOTS默认情况下的性能</title>
+      <link href="/blog/9c7fc9b9.html"/>
+      <url>/blog/9c7fc9b9.html</url>
       
-        <content type="html"><![CDATA[<p>作业系统通过创建<a href="https://en.wikipedia.org/wiki/Job_(computing)" target="_blank" rel="noopener">作业</a>而不是线程来管理<a href="https://docs.unity3d.com/Manual/JobSystemMultithreading.html" target="_blank" rel="noopener">多线程代码</a>。</p><p>作业系统跨多个核心管理一组<a href="https://docs.microsoft.com/en-us/cpp/parallel/multithreading-creating-worker-threads" target="_blank" rel="noopener">工作线程</a>。它通常每个<a href="https://www.howtogeek.com/194756/cpu-basics-multiple-cpus-cores-and-hyper-threading-explained/" target="_blank" rel="noopener">逻辑CPU核心</a>有一个工作线程，以避免上下文切换（尽管它可能为操作系统或其他专用应用程序保留一些核心）。</p><a id="more"></a><p>作业系统将作业放入<a href="https://en.wikipedia.org/wiki/Job_queue" target="_blank" rel="noopener">作业队列中</a>以执行。作业系统中的工作线程从作业队列中获取项目并执行它们。作业系统管理<a href="http://tutorials.jenkov.com/ood/understanding-dependencies.html" target="_blank" rel="noopener">依赖关系</a>并确保作业以适当的顺序执行。</p><h4 id="什么是工作？">什么是工作？</h4><p>工作是完成一项特定任务的一小部分工作。作业接收参数并对数据进行操作，类似于方法调用的行为方式。作业可以是自包含的，也可以依赖其他作业在运行之前完成。</p><h4 id="什么是工作依赖？">什么是工作依赖？</h4><p>在复杂的系统中，如游戏开发所需的系统，每个作业都不可能是独立的。一项工作通常是为下一份工作准备数据。工作人员知道并支持依赖关系以使其工作。如果<code>jobA</code>具有依赖性<code>jobB</code>，则作业系统确保在完成<code>jobA</code>之前不会开始执行<code>jobB</code>。</p>]]></content>
+        <content type="html"><![CDATA[<p>利用Unity全新的高性能多线程数据导向技术堆栈（DOTS），充分利用当今的多核处理器。您的游戏运行速度更快，您的代码更易于在其他项目中阅读和重用。</p><a id="more"></a><h4 id="重建unity的核心">重建Unity的核心</h4><p>我们正在使用高性能多线程数据导向技术堆栈重建Unity的核心基础。DOTS使您的游戏可以充分利用最新的多核处理器，而不会遇到繁重的编程问题。DOTS包括以下功能：</p><ul><li>用于高效运行多线程代码<strong>的C＃作业系统</strong>。</li><li>用于编写高性能代码<strong>的实体组件系统（ECS）</strong>。</li><li><strong>Burst Compiler</strong>用于生成高度优化的本机代码。</li></ul><p>这些DOTS功能为程序员提供了方便的沙箱，可以编写具有巨大性能提升的多线程代码。DOTS目前在预览中可用。</p><p>DOTS的多线程系统使您能够创建在各种硬件上运行的游戏，通过更多元素和更复杂的模拟构建更丰富的游戏世界，甚至优化玩家移动设备上的热控制和电池寿命。通过从面向对象的设计转向面向数据的设计，您可以更轻松地重用代码，并让其他人理解和处理代码。</p><h5 id="c-作业系统">C＃作业系统</h5><p><em>新的C＃作业系统利用了当今计算机中的多核。它旨在将此方法打开到C＃用户脚本，并允许用户编写安全，快速，有效的代码，同时防止多线程的一些陷阱，如竞争条件。</em></p><h6 id="利用多个核心">利用多个核心</h6><p>C＃作业系统公开了Native C ++作业系统，允许C＃脚本与Unity内部组件一起工作。</p><h6 id="安全的环境">安全的环境</h6><p>提供对多线程的一些陷阱的保护，例如竞争条件。</p><h5 id="实体组件系统-ecs">实体组件系统（ECS）</h5><h6 id="更好的游戏设计方法">更好的游戏设计方法</h6><p>ECS是一种编写代码的方式，专注于您正在解决的实际问题：组成游戏的数据和行为。</p><p>除了出于设计原因更好地接近游戏编程之外，使用ECS使您处于利用Unity的C＃作业系统和Burst Compiler的理想位置，让您充分利用当今的多核处理器。</p><p>使用ECS，我们正在从面向对象转向数据导向设计，这意味着重用代码更容易，并且更容易让其他人掌握并做出贡献。</p><h5 id="突发编译器">突发编译器</h5><h6 id="优化的代码">优化的代码</h6><p>新的基于LLVM的后端编译器技术可以获取C＃作业并生成高度优化的机器代码。</p><h6 id="每个平台都是最好的">每个平台都是最好的</h6><p>针对您正在编译的平台的特定功能进行了优化。</p><h6 id="减少手工编码">减少手工编码</h6><p>在多个平台上获得手动调整的汇编程序代码的许多优点，而无需付出艰苦的努力。</p>]]></content>
       
       
       <categories>
           
           <category> Unity </category>
           
-          <category> C＃ Job System </category>
+          <category> DOTS </category>
           
       </categories>
       
@@ -453,25 +489,25 @@
     </entry>
     
     <entry>
-      <title>实体</title>
-      <link href="/blog/f345f685.html"/>
-      <url>/blog/f345f685.html</url>
+      <title>并行工作</title>
+      <link href="/blog/3c908d6c.html"/>
+      <url>/blog/3c908d6c.html</url>
       
-        <content type="html"><![CDATA[<p>实体是实体组件系统体系结构的三个主要元素之一。它们代表游戏或程序中的个人“事物”。一个实体既没有行为也没有数据; 相反，它识别哪些数据属于一起。<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_systems.html" target="_blank" rel="noopener">系统</a>提供行为，<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">组件</a>存储数据。</p><a id="more"></a><p>实体本质上是一个ID。您可以将其视为一个超级轻量级<a href="https://docs.unity3d.com/Manual/class-GameObject.html" target="_blank" rel="noopener">GameObject</a>，默认情况下甚至没有名称。实体ID是稳定的。它们是存储对另一个组件或实体的引用的唯一稳定方式。</p><p>一个<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html" target="_blank" rel="noopener">EntityManager</a>管理一个<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.World.html" target="_blank" rel="noopener">世界</a>中的所有实体。EntityManager维护实体列表并组织与实体关联的数据以获得最佳性能。</p><p>虽然实体没有类型，但实体组可以根据与它们相关联的数据组件的类型进行分类。在创建实体并向其添加组件时，EntityManager会跟踪现有实体上组件的唯一组合。这种独特的组合称为<em>原型</em>。在向实体添加组件时，EntityManager会创建<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityArchetype.html" target="_blank" rel="noopener">EntityArchetype</a>结构。您可以使用现有的EntityArchetypes来创建符合该原型的新实体。您还可以提前创建EntityArchetype并使用它来创建实体。</p><h4 id="创建实体">创建实体</h4><p>创建实体的最简单方法是使用Unity编辑器。您可以设置放置在场景中的游戏对象和要在运行时转换为实体的预制件。对于游戏或程序的更多动态部分，您可以创建在作业中创建多个实体的衍生系统。最后，您可以使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateEntity" target="_blank" rel="noopener">EntityManager.CreateEntity</a>函数之一一次创建一个实体。</p><h5 id="使用entitymanager创建实体">使用EntityManager创建实体</h5><p>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateEntity" target="_blank" rel="noopener">EntityManager.CreateEntity</a>函数之一来创建实体。实体在与EntityManager相同的World中创建。</p><p>您可以通过以下方式逐个创建实体：</p><ul><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.ComponentType.html" target="_blank" rel="noopener">ComponentType</a>对象数组创建包含组件的实体。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityArchetype.html" target="_blank" rel="noopener">EntityArchetype</a>创建包含组件的实体。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_Instantiate_Unity_Entities_Entity_" target="_blank" rel="noopener">Instantiate</a>复制现有实体（包括其当前数据）</li><li>创建一个没有组件的实体，然后向其中添加组件。（您可以立即添加组件，也可以添加其他组件。）</li></ul><p>您也可以一次创建多个实体：</p><ul><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateEntity" target="_blank" rel="noopener">CreateEntity</a>使用具有相同原型的新实体填充NativeArray 。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_Instantiate_Unity_Entities_Entity_" target="_blank" rel="noopener">Instantiate</a>向NativeArray填充现有实体的副本，包括其当前数据。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateChunk_" target="_blank" rel="noopener">CreateChunk</a>显式创建使用给定原型填充指定数量的实体的块。</li></ul><h4 id="添加和删除组件">添加和删除组件</h4><p>创建实体后，可以添加或删除组件执行此操作时，受影响实体的原型会发生变化，EntityManager必须将更改的数据移动到新的内存块，并在原始块中压缩组件数组。</p><p>导致结构更改的实体的更改（即添加或删除更改SharedComponentData的值的组件以及销毁实体）无法在Job内部完成，因为这些操作可能会使Job正在处理的数据无效。而是添加命令以对<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityCommandBuffer.html" target="_blank" rel="noopener">EntityCommandBuffer</a>进行这些类型的更改，并在Job完成后执行此命令缓冲区。</p><p>EntityManager提供了从单个实体以及NativeArray中的所有实体中删除组件的功能。有关更多信息，请参阅<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">组件</a></p><h4 id="迭代实体">迭代实体</h4><p>迭代具有匹配组件集的所有实体，是ECS体系结构的核心。请参阅<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/chunk_iteration.html" target="_blank" rel="noopener">访问实体数据</a>。</p>]]></content>
+        <content type="html"><![CDATA[<p>当<a href="https://docs.unity3d.com/Manual/JobSystemSchedulingJobs.html" target="_blank" rel="noopener">调度工作</a>，只能有一个工作做一个任务。在游戏中，通常希望对大量对象执行相同的操作。有一个名为<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobParallelFor.html" target="_blank" rel="noopener">IJobParallelFor</a>的独立作业类型来处理这个问题。</p><p><strong>注意</strong>：“ParallelFor”作业是Unity中用于实现<code>IJobParallelFor</code>接口的任何结构的集合术语。</p><a id="more"></a><p>ParallelFor作业使用<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html" target="_blank" rel="noopener">NativeArray</a>数据作为其数据源。ParallelFor作业跨多个核心运行。每个核心有一个作业，每个作业处理一部分工作量。<code>IJobParallelFor</code>表现得像<code>IJob</code>，但它不是单个<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJob.Execute.html" target="_blank" rel="noopener">Execute</a>方法，而是<code>Execute</code>在数据源中的每个项目上调用一次方法。方法中有一个整数参数<code>Execute</code>。该索引用于访问和操作作业实现中的数据源的单个元素。</p><h4 id="parallelfor作业定义的示例：">ParallelFor作业定义的示例：</h4><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> IncrementByDeltaTimeJob: IJobParallelFor</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; values;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">float</span> deltaTime;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span> (<span class="params"><span class="keyword">int</span> index</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        <span class="keyword">float</span> temp = values[index];</span><br><span class="line">        temp += deltaTime;</span><br><span class="line">        values[index] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h4 id="调度parallelfor作业">调度ParallelFor作业</h4><p>在调度ParallelFor作业时，必须指定<code>NativeArray</code>要拆分的数据源的长度。<code>NativeArray</code>如果结构中有多个，Unity C＃作业系统无法知道您要将哪个用作数据源。长度还告诉C＃作业系统需要多少<code>Execute</code>方法。</p><p>幕后花絮，ParallelFor作业的调度更复杂。在调度ParallelFor作业时，C＃作业系统将工作分成批处理以在核心之间分配。每批包含一组<code>Execute</code>方法。然后，C＃作业系统在每个CPU核心的Unity本机作业系统中调度最多一个作业，并将该本机作业通过一些批次来完成。</p><p><a href="https://docs.unity3d.com/uploads/Main/jobsystem_parallelfor_job_batches.svg" target="_blank" rel="noopener"><img src="https://longshilin.com/images/20190811161551.png" alt="ParallelFor在核心之间划分批次的作业"></a></p><p>当本地作业在其他作业之前完成其批处理时，它会从其他本机作业中<a href="https://en.wikipedia.org/wiki/Work_stealing" target="_blank" rel="noopener">窃取</a>剩余批处理。它一次只能窃取本机作业剩余批次的一半，以确保<a href="https://stackoverflow.com/questions/12065774/why-does-cache-locality-matter-for-array-performance" target="_blank" rel="noopener">缓存局部性</a>。</p><p>要优化过程，您需要指定批次计数。批次计数控制您获得的作业数量，以及线程之间工作重新分配的细化程度。批量计数较低（例如1）可以使线程之间的工作分布更均匀。它确实带来了一些开销，所以有时候增加批量计数会更好。从1开始并增加批次计数直到可忽略不计的性能增益是一种有效的策略。</p><h4 id="调度parallelfor作业的示例">调度ParallelFor作业的示例</h4><p><strong>工作代码</strong>：</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Job adding two floating point values together</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">struct</span> MyParallelJob : IJobParallelFor</span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">ReadOnly</span>]</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; a;</span><br><span class="line">    [<span class="meta">ReadOnly</span>]</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; b;</span><br><span class="line">    <span class="keyword">public</span> NativeArray&lt;<span class="keyword">float</span>&gt; result;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Execute</span>(<span class="params"><span class="keyword">int</span> i</span>)</span></span><br><span class="line"><span class="function"></span>    &#123;</span><br><span class="line">        result[i] = a[i] + b[i];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><strong>主线程代码</strong>：</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; a = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">2</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; b = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">2</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; result = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">2</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line">a[<span class="number">0</span>] = <span class="number">1.1</span>;</span><br><span class="line">b[<span class="number">0</span>] = <span class="number">2.2</span>;</span><br><span class="line">a[<span class="number">1</span>] = <span class="number">3.3</span>;</span><br><span class="line">b[<span class="number">1</span>] = <span class="number">4.4</span>;</span><br><span class="line"></span><br><span class="line">MyParallelJob jobData = <span class="keyword">new</span> MyParallelJob();</span><br><span class="line">jobData.a = a;</span><br><span class="line">jobData.b = b;</span><br><span class="line">jobData.result = result;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Schedule the job with one Execute per index in the results array and only 1 item per processing batch</span></span><br><span class="line">JobHandle handle = jobData.Schedule(result.Length, <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Wait for the job to complete</span></span><br><span class="line">handle.Complete();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Free the memory allocated by the arrays</span></span><br><span class="line">a.Dispose();</span><br><span class="line">b.Dispose();</span><br><span class="line">result.Dispose();</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
           
           <category> Unity </category>
           
-          <category> ECS手册和脚本参考 </category>
+          <category> C＃ Job System </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> ECS手册和脚本参考 </tag>
+            <tag> C＃ Job System </tag>
             
         </tags>
       
@@ -547,31 +583,6 @@
         <tags>
             
             <tag> C＃ Job System </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>世界</title>
-      <link href="/blog/c01e72eb.html"/>
-      <url>/blog/c01e72eb.html</url>
-      
-        <content type="html"><![CDATA[<p>A <code>World</code>拥有<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html" target="_blank" rel="noopener">EntityManager</a>和一组<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/component_system.html" target="_blank" rel="noopener">ComponentSystems</a>。您可以根据需要创建任意数量的<code>World</code>对象。通常，您将创建模拟<code>World</code>和渲染或演示<code>World</code>。</p><a id="more"></a><p>默认情况下，我们<code>World</code>在进入“ **播放模式”**时创建单个，并使用<code>ComponentSystem</code>项目中的所有可用对象填充它，但您可以禁用默认<code>World</code>创建并通过全局定义将其替换为您自己的代码。</p><ul><li><strong>默认世界创建代码</strong>（参见文件：<em>Packages / com.unity.entities / Unity.Entities.Hybrid / Injection / DefaultWorldInitialization.cs</em>）</li><li><strong>自动引导入口点</strong>（参见文件： <em>Packages / com.unity.entities / Unity.Entities.Hybrid / Injection / AutomaticWorldBootstrap.cs</em>）</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Unity </category>
-          
-          <category> ECS手册和脚本参考 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> ECS手册和脚本参考 </tag>
             
         </tags>
       
@@ -1058,7 +1069,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+4mHZztsn4ueZGuUiFzLY3aNkTv56FBqziHO4XAJt68v1ffIpVH11DwaE4m0d075k+p/KTQy5LDW1/PYyYaooPuJ/pnzg9Albl1NqT3Jql1jO/LPkIISSUDn+bqdjUGSulboUSc1uw8x10XxJoEqc9J6hV0QzLbzArQ2MMVwn9mp6cG77nayGpkbUl8fkixOUHEXRnt8jGGjVYf0j7HOM6625Z4zqOQhcVXmIu7h5mhrmBuwmEpsRHx1uiXTMypIxAQoWSiGdaN0TZj2v0DysAtZhA2SS5ScUdDWYnbckYCNsV3ap3iqnx5Vv6D/1irz3v4PMD7XWSlbD4jxhY5KQ6sb4+Ne8vGB/l6A35uqjGp6u5X0eiFEU6Irwh74WJmmKjw38JA8lTDrG49X40Qe136NVCYqCzuaM6BKRFvQAdCAN85sbcjsRJsL6aCpWrDEWCMOUbKX12yUGZcmu2H+6ydaVwsJfyT4wi3uRNm+ISSNzdayWWf2V1nQ7snTOcXKxmJ4/1QiAZSrz7+//L8wuH+qjAaiV+ZMQd0WKZ9/vDN7ucB+7XrGPfGfOviE2uiOQiZj3kTmF+84iuFrKBW1W9+bQAg4UPDxc2g14xVRvSxkjkowa/S2YhyEZg6FuMyoZTZkXcbPXLhgevM71Bv0vpSyIKzruppV5lcdE6DgQqCd4Nz4KzOfbRNFaccZ42eW1u+ls1BRS0QDt3DukLlcojuid8QdrroaYevmqg07znRvmlR0TFurbntqhScZRY8awa1pD7Y8DW8w==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1/NpDGKnEksvKLCs3OHKAXpg8bFPyB8fFJBhErU/6NtploJTCpSYT9iJ9w8sqX7E2/0uiFZian870wB7mJ+fqy4H0OtWQIBTrk3JRP3ppKdf1aGEUfEDLtPd8lUjnJvTlDrdyfH4FS+/aGoP6LJDNUPDLTZiSzj2mtaLKPtLdaWIP7SvPvFh1oxdS81V2DpQJOwNTvIGBQNniDn993KWorELAqkzy6ZXyiNxb5NZ6u5t4dZHp9LNC2GR+R1GIKJiGtFWCk5HE2oWlhaDMePWvtyZRA/bI1qSaRMHl4ouLt6vtbA3zgvz12HJiSPNBLgiyRyJ9ZXHVRMQMVimNLuKnjRmfKhkyYJz+YC2aguhKAnzTxs1mdVEp1EzdVszhGZdxQEPmwEkbnoL1dBIw9r+zV4i+5xr0RnUEjtYp8Tht83lVTcse0Ewvs+tEkscw8OESyMxfLMsASlrqiiKzBWI99fGRkeHIC6uT5y2bV76IgVbTVbh3BXDUfHHYKQ8R6D/8JE47/+R3RLUWX0sLOOf/uIiNxiy6w8XRd/FucIbxkyEhvmprqoody59jB2OXL+GF93lFH0PgSQAcCGexLvja2JD0MyAmo7HqL1C/ZGDEIp+GQOGveX+y2MnUjwnF4DGQ/PWp950pMvll+TcxdBfYJfUnrxIPGQ9W0bgD7QmBhcdBX9Y1gv1V9bPYMQeX786YsAEKGZBa+DLSTIrys0D4XwP2znfrw2xRDcpi6BlfCEQW/CI49t/YCtwudHS7ijikto26q2SDD5Jg==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -1235,6 +1246,29 @@
     </entry>
     
     <entry>
+      <title>给自定义博客增加totop按钮</title>
+      <link href="/blog/5b764c97.html"/>
+      <url>/blog/5b764c97.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://longshilin.com/images/20190507102321.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 博客构建 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>GitLab CI/CD</title>
       <link href="/blog/b4ccb03f.html"/>
       <url>/blog/b4ccb03f.html</url>
@@ -1260,6 +1294,23 @@
     </entry>
     
     <entry>
+      <title>gitlab绑定域名</title>
+      <link href="/blog/57c188a8.html"/>
+      <url>/blog/57c188a8.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/rQfzXnn.png" alt=""></p><p>通过gitlab部署并发布静态网站，通过绑定自己的域名来实现自定义访问。</p><a id="more"></a><p>在项目的设置中，选择pages项，里面配置你的域名证书，这里可以使用域名的注册商提供给你的证书，或者是通过<a href="https://freessl.org/" target="_blank" rel="noopener">FreeSSL</a>提供免费证书申请，将得到的证书文件依次拷贝到Pages中，创建 <strong>New Pages Domain</strong></p><p><img src="https://i.imgur.com/vO69TtL.png" alt=""></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 博客构建 </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    <entry>
       <title>构建hexo和simiki工具的docker镜像</title>
       <link href="/blog/fd401cf5.html"/>
       <url>/blog/fd401cf5.html</url>
@@ -1281,46 +1332,6 @@
             <tag> simiki </tag>
             
         </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>给自定义博客增加totop按钮</title>
-      <link href="/blog/5b764c97.html"/>
-      <url>/blog/5b764c97.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://longshilin.com/images/20190507102321.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> 博客构建 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>gitlab绑定域名</title>
-      <link href="/blog/57c188a8.html"/>
-      <url>/blog/57c188a8.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/rQfzXnn.png" alt=""></p><p>通过gitlab部署并发布静态网站，通过绑定自己的域名来实现自定义访问。</p><a id="more"></a><p>在项目的设置中，选择pages项，里面配置你的域名证书，这里可以使用域名的注册商提供给你的证书，或者是通过<a href="https://freessl.org/" target="_blank" rel="noopener">FreeSSL</a>提供免费证书申请，将得到的证书文件依次拷贝到Pages中，创建 <strong>New Pages Domain</strong></p><p><img src="https://i.imgur.com/vO69TtL.png" alt=""></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 博客构建 </category>
-          
-      </categories>
-      
       
     </entry>
     
