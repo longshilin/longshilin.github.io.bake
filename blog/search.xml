@@ -3,6 +3,17 @@
   
     
     <entry>
+      <title>刚刚上路</title>
+      <link href="/blog/6e1546d4.html"/>
+      <url>/blog/6e1546d4.html</url>
+      
+        <content type="html"><![CDATA[<p>今天上路还在找资料，不过确实收获了几个优质网站，有专门记录开源游戏的，以及学习网站等等。</p><a id="more"></a><p>等到中午睡一觉起来，开始真的看官方文档了，喜欢这个英文 <strong>Unity Documentation</strong></p><p>并且使用chrome插件diigo来记录笔记📒，日后用滴答清单布置任务和打卡。</p><p><a href="https://longshilin.com/images/20190916012317.png">https://longshilin.com/images/20190916012317.png</a></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    <entry>
       <title>Unity完全新手指南</title>
       <link href="/blog/74df0377.html"/>
       <url>/blog/74df0377.html</url>
@@ -96,11 +107,11 @@
     </entry>
     
     <entry>
-      <title>C# Job System 概述</title>
-      <link href="/blog/c28c374b.html"/>
-      <url>/blog/c28c374b.html</url>
+      <title>ParallelForTransform作业</title>
+      <link href="/blog/894c6889.html"/>
+      <url>/blog/894c6889.html</url>
       
-        <content type="html"><![CDATA[<h3 id="c-作业系统是如何工作">C# 作业系统是如何工作</h3><ul><li>允许用户编写与Unity其余部分良好交互的<a href="https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)" target="_blank" rel="noopener">多线程代码</a>，并使编写正确的代码变得更加容易。</li><li>编写多线程代码可以提供高性能的好处，其中包括<strong>帧速率的显著提高</strong>、以及将Burst编译器与C#作业一起使用<strong>可以提高代码生成质量</strong>，<strong>从而大大降低移动设备的电池消耗。</strong></li><li>一个重要方面是它与Unity内部使用的集成（Unity的本地作业系统）。用户编写的diamante和Unity共享<a href="https://docs.microsoft.com/zh-cn/cpp/parallel/multithreading-creating-worker-threads?view=vs-2019" target="_blank" rel="noopener">工作线程</a>，这种合作避免了创建比CPU核心更多的线程，从而降低对CPU资源的争用。</li></ul><a id="more"></a><p>相关资料整理：</p><ul><li>官方文档：<a href="https://docs.unity3d.com/Manual/JobSystem.html" target="_blank" rel="noopener">https://docs.unity3d.com/Manual/JobSystem.html</a></li><li>官方示例：<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/Documentation~/index.md" target="_blank" rel="noopener">https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/Documentation~/index.md</a></li><li>官方视频：<a href="https://www.youtube.com/playlist?list=PLX2vGYjWbI0RuXtGMYKqChoZC2b-H4tck" target="_blank" rel="noopener">https://www.youtube.com/playlist?list=PLX2vGYjWbI0RuXtGMYKqChoZC2b-H4tck</a></li></ul>]]></content>
+        <content type="html"><![CDATA[<p>ParallelForTransform作业是另一种<a href="https://docs.unity3d.com/Manual/JobSystemParallelForJobs.html" target="_blank" rel="noopener">ParallelFor作业</a> ; 专为在<a href="https://docs.unity3d.com/Manual/Transforms.html" target="_blank" rel="noopener">变形上</a>操作而设计。</p><p><strong>注意</strong>：ParallelForTransform作业是Unity中用于实现<a href="https://docs.unity3d.com/ScriptReference/Jobs.IJobParallelForTransform.html" target="_blank" rel="noopener">IJobParallelForTransform</a>接口的任何作业的集合术语。</p><a id="more"></a>]]></content>
       
       
       <categories>
@@ -108,31 +119,6 @@
           <category> Unity </category>
           
           <category> C＃ Job System </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> C＃ Job System </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>解读GitHub EntityComponentSystemSamples</title>
-      <link href="/blog/c763759a.html"/>
-      <url>/blog/c763759a.html</url>
-      
-        <content type="html"><![CDATA[<p>出自Unity官方的ECS项目示例，该项目的第一次Commit是在2018年3月20号，距离现在一年半的时间，这期间ECS本身的生态在快速发展，稳定性也是逐步提升，期待在2020年的Unity版本中作为正式组件发布。好了，下面进入正题~ 对该项目的README做简单翻译和总结。</p><a id="more"></a><p><img src="https://longshilin.com/images/20190811214015.png" alt=""></p><h3 id="欢迎">欢迎</h3><p>欢迎来到DOTS样品资源！</p><p>在这里，您可以找到今天开始使用这些新系统构建所需的资源。</p><p>我们还提供了一个论坛，您可以在其中找到更多信息并与这些新系统分享您的经验。</p><p><a href="https://unity3d.com/performance-by-default" target="_blank" rel="noopener">点击此处访问论坛</a></p><h4 id="什么是面向unity数据的技术堆栈？">什么是面向Unity数据的技术堆栈？</h4><p>我们一直在研究一种新的<strong>高性能多线程系统</strong>，这将使<strong>游戏能够充分利用当今可用的多核处理器而不会出现繁重的编程问题</strong>。面向数据的技术栈包括以下主要系统：</p><ul><li>该<strong>实体组件系统</strong>提供了一种默认编写高性能的代码。</li><li>在<strong>C＃作业系统</strong>提供了一种方法来运行多个CPU内核并行游戏代码</li><li>该<strong>突发编译</strong>一个新的数学感知，后台编译器调整的产生高度优化的机器代码。</li></ul><p>通过这些系统，Unity可以为您正在编译的平台的特定功能生成高度优化的代码。</p><h4 id="entity-component-system">Entity Component System</h4><p>实体组件系统提供了一种更好的游戏设计方法，使您可以专注于您正在解决的实际问题：组成游戏的数据和行为。它利用C＃Job System和Burst Compiler使您能够充分利用当今的多核处理器。从面向对象的设计转向面向数据的设计使您可以更轻松地重用代码，并使其他人更容易理解和处理代码。</p><p>实体组件系统作为实验包提供，目前支持Unity 2018.3及更高版本。重要的是要强调实体组件系统不是生产就绪的。<em>（译者注：ECS目前是预览版发布，其稳定性还不能应用于生产环境~）</em></p><h4 id="c-job-system">C# Job System</h4><p>新的C＃作业系统以安全简便的方式利用多个核心。简单，因为它旨在将此方法打开到用户脚本，并允许您编写安全，快速，有效的代码，同时提供保护，以防止多线程的一些陷阱，如竞争条件。</p><p>C＃作业系统是Unity 2018.1+中包含的内置模块。</p><p><a href="https://github.com/stella3d/job-system-cookbook" target="_blank" rel="noopener">可以在此处找到有关C＃作业系统的更多示例项目</a></p><h4 id="burst">Burst</h4><p>Burst是一种新的基于LLVM的数学感知后端编译器。它将C＃作业编译为高度优化的机器代码，利用您正在编译的平台的特定功能。</p><p>Burst是一个实验包，目前支持Unity 2018.3及更高版本。重要的是要强调Burst没有准备好生产。</p><p><a href="https://youtu.be/tGmnZdY5Y-E" target="_blank" rel="noopener">观看Joachim Ante在Unite Austin展示这些新系统</a></p><h4 id="样例">样例</h4><p>为了帮助您入门，我们提供了此示例存储库，用于学习如何大规模编写系统。</p><h5 id="hellocube">HelloCube</h5><p>这是一组展示Unity ECS架构绝对基础的项目：</p><ul><li><strong>ForEach</strong> - 创建一对旋转立方体。此示例演示了使用System和Components分离数据和行为。</li><li><strong>IJobForEach</strong> - 使用基于作业的系统构建在ForEach示例上。基于IJobForEach的系统是推荐的方法，可以利用可用的CPU内核。</li><li><strong>IJobChunk</strong> - 演示如何使用IJobChunk编写系统。IJobChunk是处理组件的推荐方法，用于比简单IJobForEach可以描述的更复杂的情况。</li><li><strong>SubScene</strong> - 演示如何在Unity编辑器中使用SubScenes创建和修改实体。</li><li><strong>SpawnFromMonoBehaviour</strong> - 演示如何基于Prefab GameObject从MonoBehaviour函数中生成多个实体。</li><li><strong>SpawnFromEntity</strong> - 演示如何使用系统中的生成作业在运行时生成多个实体。</li><li><strong>FluentQuery</strong> - 演示如何使用流畅查询来选择要更新的正确实体集。</li><li><strong>SpawnAndRemove</strong> - 演示产生和从世界中删除实体。</li></ul><h5 id="boids">Boids</h5><p>Boids示例提供了包含数千个实体的更复杂场景。Boids模拟水下场景，鲨鱼和学校包含数千条鱼。（它使用经典的Boids植绒算法来教育鱼类行为。）</p><h4 id="空白ecs项目安装指南">空白ECS项目安装指南</h4><ol><li>打开Unity编辑器（<code>2019.1.0f1</code>或更高版本）</li><li>创建一个新项目。</li><li>打开包管理器（菜单：<strong>Window</strong> &gt; <strong>Package Manager</strong>）。</li><li>单击窗口顶部的“ **高级”**按钮，然后启用“ **显示预览包”**选项。</li><li>将以下包添加到项目中：</li></ol><ul><li>Entities</li><li>Hybrid.Renderer</li></ul><p>将实体包添加到项目中还会添加以下包：</p><ul><li>Burst</li><li>Collections</li><li>Jobs</li><li>Mathematics</li></ul><p>**注意：**您可以使用<a href="https://unity3d.com/get-unity/download" target="_blank" rel="noopener">Unity Hub</a>在同一台计算机上安装多个版本的Unity。</p><h4 id="文档">文档</h4><p>寻找有关如何入门或具体问题的信息？访问我们的ECS和工作系统文档。</p><p><a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/ECSSamples/Documentation/index.md" target="_blank" rel="noopener">转到ECS Samples文档</a></p><p><a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/UnityPhysicsSamples/Documentation/samples.md" target="_blank" rel="noopener">转到Unity Physics Samples文档</a></p><p>（原文链接：<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/README.md" target="_blank" rel="noopener">https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/README.md</a>）</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Unity </category>
-          
-          <category> ECS Samples </category>
           
       </categories>
       
@@ -190,6 +176,31 @@
         <tags>
             
             <tag> ECS手册和脚本参考 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>解读GitHub EntityComponentSystemSamples</title>
+      <link href="/blog/c763759a.html"/>
+      <url>/blog/c763759a.html</url>
+      
+        <content type="html"><![CDATA[<p>出自Unity官方的ECS项目示例，该项目的第一次Commit是在2018年3月20号，距离现在一年半的时间，这期间ECS本身的生态在快速发展，稳定性也是逐步提升，期待在2020年的Unity版本中作为正式组件发布。好了，下面进入正题~ 对该项目的README做简单翻译和总结。</p><a id="more"></a><p><img src="https://longshilin.com/images/20190811214015.png" alt=""></p><h3 id="欢迎">欢迎</h3><p>欢迎来到DOTS样品资源！</p><p>在这里，您可以找到今天开始使用这些新系统构建所需的资源。</p><p>我们还提供了一个论坛，您可以在其中找到更多信息并与这些新系统分享您的经验。</p><p><a href="https://unity3d.com/performance-by-default" target="_blank" rel="noopener">点击此处访问论坛</a></p><h4 id="什么是面向unity数据的技术堆栈？">什么是面向Unity数据的技术堆栈？</h4><p>我们一直在研究一种新的<strong>高性能多线程系统</strong>，这将使<strong>游戏能够充分利用当今可用的多核处理器而不会出现繁重的编程问题</strong>。面向数据的技术栈包括以下主要系统：</p><ul><li>该<strong>实体组件系统</strong>提供了一种默认编写高性能的代码。</li><li>在<strong>C＃作业系统</strong>提供了一种方法来运行多个CPU内核并行游戏代码</li><li>该<strong>突发编译</strong>一个新的数学感知，后台编译器调整的产生高度优化的机器代码。</li></ul><p>通过这些系统，Unity可以为您正在编译的平台的特定功能生成高度优化的代码。</p><h4 id="entity-component-system">Entity Component System</h4><p>实体组件系统提供了一种更好的游戏设计方法，使您可以专注于您正在解决的实际问题：组成游戏的数据和行为。它利用C＃Job System和Burst Compiler使您能够充分利用当今的多核处理器。从面向对象的设计转向面向数据的设计使您可以更轻松地重用代码，并使其他人更容易理解和处理代码。</p><p>实体组件系统作为实验包提供，目前支持Unity 2018.3及更高版本。重要的是要强调实体组件系统不是生产就绪的。<em>（译者注：ECS目前是预览版发布，其稳定性还不能应用于生产环境~）</em></p><h4 id="c-job-system">C# Job System</h4><p>新的C＃作业系统以安全简便的方式利用多个核心。简单，因为它旨在将此方法打开到用户脚本，并允许您编写安全，快速，有效的代码，同时提供保护，以防止多线程的一些陷阱，如竞争条件。</p><p>C＃作业系统是Unity 2018.1+中包含的内置模块。</p><p><a href="https://github.com/stella3d/job-system-cookbook" target="_blank" rel="noopener">可以在此处找到有关C＃作业系统的更多示例项目</a></p><h4 id="burst">Burst</h4><p>Burst是一种新的基于LLVM的数学感知后端编译器。它将C＃作业编译为高度优化的机器代码，利用您正在编译的平台的特定功能。</p><p>Burst是一个实验包，目前支持Unity 2018.3及更高版本。重要的是要强调Burst没有准备好生产。</p><p><a href="https://youtu.be/tGmnZdY5Y-E" target="_blank" rel="noopener">观看Joachim Ante在Unite Austin展示这些新系统</a></p><h4 id="样例">样例</h4><p>为了帮助您入门，我们提供了此示例存储库，用于学习如何大规模编写系统。</p><h5 id="hellocube">HelloCube</h5><p>这是一组展示Unity ECS架构绝对基础的项目：</p><ul><li><strong>ForEach</strong> - 创建一对旋转立方体。此示例演示了使用System和Components分离数据和行为。</li><li><strong>IJobForEach</strong> - 使用基于作业的系统构建在ForEach示例上。基于IJobForEach的系统是推荐的方法，可以利用可用的CPU内核。</li><li><strong>IJobChunk</strong> - 演示如何使用IJobChunk编写系统。IJobChunk是处理组件的推荐方法，用于比简单IJobForEach可以描述的更复杂的情况。</li><li><strong>SubScene</strong> - 演示如何在Unity编辑器中使用SubScenes创建和修改实体。</li><li><strong>SpawnFromMonoBehaviour</strong> - 演示如何基于Prefab GameObject从MonoBehaviour函数中生成多个实体。</li><li><strong>SpawnFromEntity</strong> - 演示如何使用系统中的生成作业在运行时生成多个实体。</li><li><strong>FluentQuery</strong> - 演示如何使用流畅查询来选择要更新的正确实体集。</li><li><strong>SpawnAndRemove</strong> - 演示产生和从世界中删除实体。</li></ul><h5 id="boids">Boids</h5><p>Boids示例提供了包含数千个实体的更复杂场景。Boids模拟水下场景，鲨鱼和学校包含数千条鱼。（它使用经典的Boids植绒算法来教育鱼类行为。）</p><h4 id="空白ecs项目安装指南">空白ECS项目安装指南</h4><ol><li>打开Unity编辑器（<code>2019.1.0f1</code>或更高版本）</li><li>创建一个新项目。</li><li>打开包管理器（菜单：<strong>Window</strong> &gt; <strong>Package Manager</strong>）。</li><li>单击窗口顶部的“ **高级”**按钮，然后启用“ **显示预览包”**选项。</li><li>将以下包添加到项目中：</li></ol><ul><li>Entities</li><li>Hybrid.Renderer</li></ul><p>将实体包添加到项目中还会添加以下包：</p><ul><li>Burst</li><li>Collections</li><li>Jobs</li><li>Mathematics</li></ul><p>**注意：**您可以使用<a href="https://unity3d.com/get-unity/download" target="_blank" rel="noopener">Unity Hub</a>在同一台计算机上安装多个版本的Unity。</p><h4 id="文档">文档</h4><p>寻找有关如何入门或具体问题的信息？访问我们的ECS和工作系统文档。</p><p><a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/ECSSamples/Documentation/index.md" target="_blank" rel="noopener">转到ECS Samples文档</a></p><p><a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/UnityPhysicsSamples/Documentation/samples.md" target="_blank" rel="noopener">转到Unity Physics Samples文档</a></p><p>（原文链接：<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/README.md" target="_blank" rel="noopener">https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/README.md</a>）</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> ECS Samples </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C＃ Job System </tag>
             
         </tags>
       
@@ -371,31 +382,6 @@
     </entry>
     
     <entry>
-      <title>ParallelForTransform作业</title>
-      <link href="/blog/894c6889.html"/>
-      <url>/blog/894c6889.html</url>
-      
-        <content type="html"><![CDATA[<p>ParallelForTransform作业是另一种<a href="https://docs.unity3d.com/Manual/JobSystemParallelForJobs.html" target="_blank" rel="noopener">ParallelFor作业</a> ; 专为在<a href="https://docs.unity3d.com/Manual/Transforms.html" target="_blank" rel="noopener">变形上</a>操作而设计。</p><p><strong>注意</strong>：ParallelForTransform作业是Unity中用于实现<a href="https://docs.unity3d.com/ScriptReference/Jobs.IJobParallelForTransform.html" target="_blank" rel="noopener">IJobParallelForTransform</a>接口的任何作业的集合术语。</p><a id="more"></a>]]></content>
-      
-      
-      <categories>
-          
-          <category> Unity </category>
-          
-          <category> C＃ Job System </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> C＃ Job System </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>HelloCube</title>
       <link href="/blog/8282d3d8.html"/>
       <url>/blog/8282d3d8.html</url>
@@ -415,6 +401,31 @@
         <tags>
             
             <tag> ECS Samples </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>C# Job System 概述</title>
+      <link href="/blog/c28c374b.html"/>
+      <url>/blog/c28c374b.html</url>
+      
+        <content type="html"><![CDATA[<h3 id="c-作业系统是如何工作">C# 作业系统是如何工作</h3><ul><li>允许用户编写与Unity其余部分良好交互的<a href="https://en.wikipedia.org/wiki/Multithreading_(computer_architecture)" target="_blank" rel="noopener">多线程代码</a>，并使编写正确的代码变得更加容易。</li><li>编写多线程代码可以提供高性能的好处，其中包括<strong>帧速率的显著提高</strong>、以及将Burst编译器与C#作业一起使用<strong>可以提高代码生成质量</strong>，<strong>从而大大降低移动设备的电池消耗。</strong></li><li>一个重要方面是它与Unity内部使用的集成（Unity的本地作业系统）。用户编写的diamante和Unity共享<a href="https://docs.microsoft.com/zh-cn/cpp/parallel/multithreading-creating-worker-threads?view=vs-2019" target="_blank" rel="noopener">工作线程</a>，这种合作避免了创建比CPU核心更多的线程，从而降低对CPU资源的争用。</li></ul><a id="more"></a><p>相关资料整理：</p><ul><li>官方文档：<a href="https://docs.unity3d.com/Manual/JobSystem.html" target="_blank" rel="noopener">https://docs.unity3d.com/Manual/JobSystem.html</a></li><li>官方示例：<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/Documentation~/index.md" target="_blank" rel="noopener">https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/Documentation~/index.md</a></li><li>官方视频：<a href="https://www.youtube.com/playlist?list=PLX2vGYjWbI0RuXtGMYKqChoZC2b-H4tck" target="_blank" rel="noopener">https://www.youtube.com/playlist?list=PLX2vGYjWbI0RuXtGMYKqChoZC2b-H4tck</a></li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> C＃ Job System </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C＃ Job System </tag>
             
         </tags>
       
@@ -1178,7 +1189,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+xFBYbS31NNZtMKI4uvWey2X+o40KhXmfBFxyV42Tc8QAD9kSH8nkg0IANOjQm5n4807HFaOgtO8tfLm3/+qbfZ5khaDCAyjE95j0gmZwCz1dTS8s/5QE6cAc0RB2lVXPGACHAUGbYUV6WDzpP0wjuamyna8EwW2ejiRJwpgdCCSzJ+O3761p8KoU27O5F9FvkgR+7in85MPgdqqnDfzBjn5/D4ZxbQGT1wDC/TYihayK6tUZDTdtzqmy+Rjj7C+DO2MhSO3cG7C/Lj8EDO6lXxOIotuCRmcAg2c3cQBfJUkQLLGdLCd6vrcPPS171/CQwSCXVTFbytOE0KH5Q7ZhZwta0V7hC6FPPU+kOeRMm1ng3l+XRcS0dLbxKxKwbZUyvpUM1wM/gzDRMQ4YZQKr33puapjHIyg0fGOhhsOt9tda/85S/7aoi8QYlyvxn2EqFl68h5CvD1S91SK/qPvLL5zr9bz91Cw3G7ZIhLEHlc61V0GFU2FO6UAnoehzOakX6Bek1PHULDGwhnrqfCHr5HaH+QXcULu71m4oHG3ZnzKY//a7B20vibsjXTPTp1w1YZinIeotakMRhGv4byhPKLLP4HDgZhApMJBt3l2A6CNR5O8zvx8xn3wneeXrkZ/c8Q4UKBzmUNQVwkW0N/PEXi9JXBq5+Gewb1M2Y1Kn8i4DadLGAVycVYdhRhd0FjioJzBOtwamaQO9dKtyCjLfac07XYEsunRj7ojyzfB2i+oUYJKb2LbIEAkPj2fLFZZCnLNKp8hhAsQ==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1/FsPX2S9I0A1RDXN9Cof22dww7vGLVRxKmkJwQSeR7tgahl44fYKbi/psh56xEmbiHDXdU/joVkBl3TdGVmrYk4Rh4yH1c5LiXlodTInp1BphyqB2rugSP9lrfNRmCarAeLBTrkx/D133dEL0isvprlcM6It32seEYKB6jQ4mpLjgtrXmmlXuiWt2FZ/qQbV2xplIoxvBHCIWFtGz9XroRY9eFaczr3XzyKADhQcMjo+8jnFFdum3b9PTMO2yhoXdNHgBi7kNp/IgQ9ZJTMZ310t/3rrsbTbGpATDdRkgWQl97CzX+WGuWoSL/IzgKkHXzAGNoTXpWz+00IgZYwKD7A7US+Pc9o7NTNHxUW8yOUE5WyubAMbs+RNojoU9AqIIwlCObx5uWhHem3gxAbYlEDGJFmOA3mTdA+3GavB0bUwhaXv87i2ZRbbpu2i1l4a/qKLbsP75ZnPjwYsrZ6B9Xxl6RRajHS+MzCICXRr82R4X6PxAnLpsxcdhtaQYoC++WErnC/oNYiRInTLKsSEwg3P4Kn+3uKlJw7UlS+kJwPjCxmuKP1vifcUvzzz7F+IuONTA+H0GIG6F/R/fNRuP0ODlcziIePWimQXnCqDVVk1ZnBROf+J5XVgORaUpDV5TSn1b5QetnuQPfvqxahlIASwSgW6/xL0OWBFDNhcysoJxExjxprIt2VSLU0QCUdBHp4YLkMU+uEnOTSnoEOSOY73yUfrmauHr97kfRAcOER0zwTVO/jZpkOPx0X0vqEwGQBxFDvzE/uQ==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -1355,6 +1366,29 @@
     </entry>
     
     <entry>
+      <title>给自定义博客增加totop按钮</title>
+      <link href="/blog/5b764c97.html"/>
+      <url>/blog/5b764c97.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://longshilin.com/images/20190507102321.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 博客构建 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>gitlab绑定域名</title>
       <link href="/blog/57c188a8.html"/>
       <url>/blog/57c188a8.html</url>
@@ -1416,29 +1450,6 @@
             <tag> CI/CD </tag>
             
             <tag> gitlab </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>给自定义博客增加totop按钮</title>
-      <link href="/blog/5b764c97.html"/>
-      <url>/blog/5b764c97.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://longshilin.com/images/20190507102321.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> 博客构建 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
             
         </tags>
       
