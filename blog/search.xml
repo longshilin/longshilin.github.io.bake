@@ -3,6 +3,17 @@
   
     
     <entry>
+      <title>继续保持</title>
+      <link href="/blog/73cf67d1.html"/>
+      <url>/blog/73cf67d1.html</url>
+      
+        <content type="html"><![CDATA[<p>今天是中秋节过后的第一天上班，虽然中秋节这几天都在忙自己的东西，但是总感觉效率不高，可能是因为没看到什么成果吧。</p><a id="more"></a><p>今天将我需要看的文档用滴答清单罗列了，并且今天看了一部分，明天接着继续，我相信每天看一点，每天进一步点，最终我们会把这个Document啃下来的，因为它实在是太重要了。。。</p><p>:-）</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    <entry>
       <title>刚刚上路</title>
       <link href="/blog/6e1546d4.html"/>
       <url>/blog/6e1546d4.html</url>
@@ -132,31 +143,6 @@
     </entry>
     
     <entry>
-      <title>实体</title>
-      <link href="/blog/f345f685.html"/>
-      <url>/blog/f345f685.html</url>
-      
-        <content type="html"><![CDATA[<p>实体是实体组件系统体系结构的三个主要元素之一。它们代表游戏或程序中的个人“事物”。一个实体既没有行为也没有数据; 相反，它识别哪些数据属于一起。<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_systems.html" target="_blank" rel="noopener">系统</a>提供行为，<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">组件</a>存储数据。</p><a id="more"></a><p>实体本质上是一个ID。您可以将其视为一个超级轻量级<a href="https://docs.unity3d.com/Manual/class-GameObject.html" target="_blank" rel="noopener">GameObject</a>，默认情况下甚至没有名称。实体ID是稳定的。它们是存储对另一个组件或实体的引用的唯一稳定方式。</p><p>一个<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html" target="_blank" rel="noopener">EntityManager</a>管理一个<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.World.html" target="_blank" rel="noopener">世界</a>中的所有实体。EntityManager维护实体列表并组织与实体关联的数据以获得最佳性能。</p><p>虽然实体没有类型，但实体组可以根据与它们相关联的数据组件的类型进行分类。在创建实体并向其添加组件时，EntityManager会跟踪现有实体上组件的唯一组合。这种独特的组合称为<em>原型</em>。在向实体添加组件时，EntityManager会创建<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityArchetype.html" target="_blank" rel="noopener">EntityArchetype</a>结构。您可以使用现有的EntityArchetypes来创建符合该原型的新实体。您还可以提前创建EntityArchetype并使用它来创建实体。</p><h4 id="创建实体">创建实体</h4><p>创建实体的最简单方法是使用Unity编辑器。您可以设置放置在场景中的游戏对象和要在运行时转换为实体的预制件。对于游戏或程序的更多动态部分，您可以创建在作业中创建多个实体的衍生系统。最后，您可以使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateEntity" target="_blank" rel="noopener">EntityManager.CreateEntity</a>函数之一一次创建一个实体。</p><h5 id="使用entitymanager创建实体">使用EntityManager创建实体</h5><p>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateEntity" target="_blank" rel="noopener">EntityManager.CreateEntity</a>函数之一来创建实体。实体在与EntityManager相同的World中创建。</p><p>您可以通过以下方式逐个创建实体：</p><ul><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.ComponentType.html" target="_blank" rel="noopener">ComponentType</a>对象数组创建包含组件的实体。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityArchetype.html" target="_blank" rel="noopener">EntityArchetype</a>创建包含组件的实体。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_Instantiate_Unity_Entities_Entity_" target="_blank" rel="noopener">Instantiate</a>复制现有实体（包括其当前数据）</li><li>创建一个没有组件的实体，然后向其中添加组件。（您可以立即添加组件，也可以添加其他组件。）</li></ul><p>您也可以一次创建多个实体：</p><ul><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateEntity" target="_blank" rel="noopener">CreateEntity</a>使用具有相同原型的新实体填充NativeArray 。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_Instantiate_Unity_Entities_Entity_" target="_blank" rel="noopener">Instantiate</a>向NativeArray填充现有实体的副本，包括其当前数据。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateChunk_" target="_blank" rel="noopener">CreateChunk</a>显式创建使用给定原型填充指定数量的实体的块。</li></ul><h4 id="添加和删除组件">添加和删除组件</h4><p>创建实体后，可以添加或删除组件执行此操作时，受影响实体的原型会发生变化，EntityManager必须将更改的数据移动到新的内存块，并在原始块中压缩组件数组。</p><p>导致结构更改的实体的更改（即添加或删除更改SharedComponentData的值的组件以及销毁实体）无法在Job内部完成，因为这些操作可能会使Job正在处理的数据无效。而是添加命令以对<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityCommandBuffer.html" target="_blank" rel="noopener">EntityCommandBuffer</a>进行这些类型的更改，并在Job完成后执行此命令缓冲区。</p><p>EntityManager提供了从单个实体以及NativeArray中的所有实体中删除组件的功能。有关更多信息，请参阅<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">组件</a></p><h4 id="迭代实体">迭代实体</h4><p>迭代具有匹配组件集的所有实体，是ECS体系结构的核心。请参阅<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/chunk_iteration.html" target="_blank" rel="noopener">访问实体数据</a>。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Unity </category>
-          
-          <category> ECS手册和脚本参考 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> ECS手册和脚本参考 </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>世界</title>
       <link href="/blog/c01e72eb.html"/>
       <url>/blog/c01e72eb.html</url>
@@ -201,6 +187,31 @@
         <tags>
             
             <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>实体</title>
+      <link href="/blog/f345f685.html"/>
+      <url>/blog/f345f685.html</url>
+      
+        <content type="html"><![CDATA[<p>实体是实体组件系统体系结构的三个主要元素之一。它们代表游戏或程序中的个人“事物”。一个实体既没有行为也没有数据; 相反，它识别哪些数据属于一起。<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_systems.html" target="_blank" rel="noopener">系统</a>提供行为，<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">组件</a>存储数据。</p><a id="more"></a><p>实体本质上是一个ID。您可以将其视为一个超级轻量级<a href="https://docs.unity3d.com/Manual/class-GameObject.html" target="_blank" rel="noopener">GameObject</a>，默认情况下甚至没有名称。实体ID是稳定的。它们是存储对另一个组件或实体的引用的唯一稳定方式。</p><p>一个<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html" target="_blank" rel="noopener">EntityManager</a>管理一个<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.World.html" target="_blank" rel="noopener">世界</a>中的所有实体。EntityManager维护实体列表并组织与实体关联的数据以获得最佳性能。</p><p>虽然实体没有类型，但实体组可以根据与它们相关联的数据组件的类型进行分类。在创建实体并向其添加组件时，EntityManager会跟踪现有实体上组件的唯一组合。这种独特的组合称为<em>原型</em>。在向实体添加组件时，EntityManager会创建<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityArchetype.html" target="_blank" rel="noopener">EntityArchetype</a>结构。您可以使用现有的EntityArchetypes来创建符合该原型的新实体。您还可以提前创建EntityArchetype并使用它来创建实体。</p><h4 id="创建实体">创建实体</h4><p>创建实体的最简单方法是使用Unity编辑器。您可以设置放置在场景中的游戏对象和要在运行时转换为实体的预制件。对于游戏或程序的更多动态部分，您可以创建在作业中创建多个实体的衍生系统。最后，您可以使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateEntity" target="_blank" rel="noopener">EntityManager.CreateEntity</a>函数之一一次创建一个实体。</p><h5 id="使用entitymanager创建实体">使用EntityManager创建实体</h5><p>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateEntity" target="_blank" rel="noopener">EntityManager.CreateEntity</a>函数之一来创建实体。实体在与EntityManager相同的World中创建。</p><p>您可以通过以下方式逐个创建实体：</p><ul><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.ComponentType.html" target="_blank" rel="noopener">ComponentType</a>对象数组创建包含组件的实体。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityArchetype.html" target="_blank" rel="noopener">EntityArchetype</a>创建包含组件的实体。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_Instantiate_Unity_Entities_Entity_" target="_blank" rel="noopener">Instantiate</a>复制现有实体（包括其当前数据）</li><li>创建一个没有组件的实体，然后向其中添加组件。（您可以立即添加组件，也可以添加其他组件。）</li></ul><p>您也可以一次创建多个实体：</p><ul><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateEntity" target="_blank" rel="noopener">CreateEntity</a>使用具有相同原型的新实体填充NativeArray 。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_Instantiate_Unity_Entities_Entity_" target="_blank" rel="noopener">Instantiate</a>向NativeArray填充现有实体的副本，包括其当前数据。</li><li>使用<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityManager.html#Unity_Entities_EntityManager_CreateChunk_" target="_blank" rel="noopener">CreateChunk</a>显式创建使用给定原型填充指定数量的实体的块。</li></ul><h4 id="添加和删除组件">添加和删除组件</h4><p>创建实体后，可以添加或删除组件执行此操作时，受影响实体的原型会发生变化，EntityManager必须将更改的数据移动到新的内存块，并在原始块中压缩组件数组。</p><p>导致结构更改的实体的更改（即添加或删除更改SharedComponentData的值的组件以及销毁实体）无法在Job内部完成，因为这些操作可能会使Job正在处理的数据无效。而是添加命令以对<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/api/Unity.Entities.EntityCommandBuffer.html" target="_blank" rel="noopener">EntityCommandBuffer</a>进行这些类型的更改，并在Job完成后执行此命令缓冲区。</p><p>EntityManager提供了从单个实体以及NativeArray中的所有实体中删除组件的功能。有关更多信息，请参阅<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">组件</a></p><h4 id="迭代实体">迭代实体</h4><p>迭代具有匹配组件集的所有实体，是ECS体系结构的核心。请参阅<a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/chunk_iteration.html" target="_blank" rel="noopener">访问实体数据</a>。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> ECS手册和脚本参考 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ECS手册和脚本参考 </tag>
             
         </tags>
       
@@ -1189,7 +1200,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX19BUEb+Y0lKT84YwKuMjepXx2fxnPlRt1P2KoWKJeao3C3vApUiHjBt6Re+J0Hq8L2DKgpErSMzFA1S6r6fyC2MfAhq0DgHm3jdjd7BbetSs5psuMnzEFYUYydO1E75KZ+OLCb10IATRPBfmtrNUb58/7IDPfzlmvLaxqqzti170UY5ujmhtDDn5+9Ml9toG/OdXKYBpzty2f/x9sjbyvkX2uUZExDNjX0Wt/3K+QqCo9nj55TWF6MIjTX9zfXgImyVj7GIwvPVDbcysux8NVPp7KUrx/wdy9j+YFN4iEUYrKOXKHHYpBAcUNrVTftEVrLKop/D1ftcwL93J89zFMm6DS0+98f1uexPrxB6n9xpwvOw5GyN2I20AX3fLJxR9oI87AIPh2n22ZKi5qOwnx9mACIbHRrrZKWQH7MJ7oxpH+33T1Dfn14hMN+jw3x+WgV+mnCTUUv85tK9b3fgwaG6fLAl/w8WTE+VbbbnJw8hu5SEYLUijj73aKfsbxYRH5HOgBDRYu9//mvEzP0x9sI/v0V7WpkADKQjYNqNpCLrQygOy8rzNkcHxrBq4HltzPttq+E9iY/wt2WMptyJRN6XjNSjZESKpdvJXxjlx1Dds96bvYAd9xJoRRngpsQpXp5BXLWnMv68hZ96JxIy338K+PNiVKOvt5zl9In2Tf2KnjYtj273H3SKOfQp0ciEIyx9d/bIMQ5jBUeqiFXtsgCPS0bkXquDY+6zy9kUiT1F0vopf8GVaEFavIoxLeGvvTLxpfADmp46EA==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+WQ4qIqCFqCEbLhH0LTCWNQTDDG28uo70sKeeEIgizAwrCWvekUItUoUJWfO695QJNSnI6kTRviBvScUAotxXASbXBX0hH+SHo7VmAzOO1j3WX3qiih61Rkt+TFiII8CyA0FWdbDq0DYlF9TZhGS9ChXsFvtBI2fK9FmMhfwFuoHaKUUnGispufbPlh2OD3o6qJGsQITq+fD/c28VA0GOe/blU4rvbGld+EUUwepOQbjHYx6HCks7IkIQYPzzwTsdjOSiJimOvpRrvyod9PC4ybC5tNQ1ZpnLmoI5AEiEG7K0xl/535hQiRaap3QjSdhOwzFDqkX3sMYGuIeLpyuk6KCNhJIwNR0xtDU1d9WlS9ymGl73pTAc0sIPMl2uQyKBKApgYRZc7oIwpkSRur8Y2UNqWgKvj8shKE1y5/IcZUYuD04Kj0vEVvN/dw3DNlPn71W7Dh0eeEMsGV2GjhRqWrenRdXREAb0emW6I/hwa5SEPDfxu5W9P0P2Ha8XjnswwUhvBKvYTUacPO7K9C0lJJ2O4hRNxJH2aH47m666GZC73Mt4mZNsxBCblSz9k6VCkhE+BCeUtBKai8dQP9+0d2R2VRTIbRFERpdPo0hhSaasXRrk2JDgJbuqrLrPOGm4ZG6w3EaPCZ6quX9esKmqUJ6ih8vQuI5xcZ48Maj7AUidYpdnjgCqMrzHveYoMLdtv9rvmpVX14aV2oAIylnkTalENc/l+e0lIM7Cx8lUwdxaHrLecq6KPNcD0OtWyXt1r16SQnGj5xw==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
