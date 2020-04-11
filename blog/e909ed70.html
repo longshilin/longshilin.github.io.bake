@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <!-- 新增github的关注样式 - ->
+  <a href="https://github.com/longshilin"><img style="position: absolute; top: 35px; right: 0; border: 0;" src="https://longshilin.com/blog/images/forkme_right_green_007200.png" alt="Fork me on GitHab"></a>-->
+  <title>Asset Bundle介绍 - gamedev</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Unity Asset Bundle模块是与主游戏或应用程序分开存储并在运行时加载（或下载的，对于移动和在线应用程序而言）的内容。">
+<meta name="keywords" content="UnityDoc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Asset Bundle介绍">
+<meta property="og:url" content="https://longshilin.com/blog/e909ed70.html">
+<meta property="og:site_name" content="gamedev">
+<meta property="og:description" content="Unity Asset Bundle模块是与主游戏或应用程序分开存储并在运行时加载（或下载的，对于移动和在线应用程序而言）的内容。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://longshilin.com/images/c033e07b-8bb3-4c9c-b668-cf8968323791_Introduction_to_Asset_Bundles___Figure_01A___Click_here_to_assign.png">
+<meta property="og:image" content="https://longshilin.com/images/37d2fe36-0fd5-41d8-a33e-c43b9dd44b0e_Introduction_to_Asset_Bundles___Figure_01B___Click_here_to_assign.png">
+<meta property="og:image" content="https://longshilin.com/images/20200412002438.png">
+<meta property="og:image" content="https://longshilin.com/images/20200412010248.png">
+<meta property="og:updated_time" content="2020-04-11T18:05:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Asset Bundle介绍">
+<meta name="twitter:description" content="Unity Asset Bundle模块是与主游戏或应用程序分开存储并在运行时加载（或下载的，对于移动和在线应用程序而言）的内容。">
+<meta name="twitter:image" content="https://longshilin.com/images/c033e07b-8bb3-4c9c-b668-cf8968323791_Introduction_to_Asset_Bundles___Figure_01A___Click_here_to_assign.png">
+<meta name="twitter:creator" content="@yilong0722">
+<link rel="publisher" href="106698639613319710000">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="gamedev" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/blog/css/styles.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-125053144-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  <script src="/blog/js/baidutongji.js"></script>
+</head>
+</html>
+<body>
+  <nav class="navbar navbar-inverse navbar-wrapper">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class="" href="/blog/">Home</a></li>
+        
+          <li><a class="" href="/blog/../wiki/">Wiki</a></li>
+        
+          <li><a class="" href="/blog/archives/">Archives</a></li>
+        
+          <li><a class="" href="/blog/diary">日记</a></li>
+        
+      </ul>
+
+
+      <ul class="nav navbar-nav navbar-right" id="sub-menu-navbar">
+        
+          <li><a href="/blog/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+        
+          <li><a href="https://github.com/longshilin" title="Github"><i class="fa fa-github"></i></a></li>
+        
+        
+          <li><a href="https://gitlab.com/longshilin" title="Gitlab"><i class="fa fa-gitlab"></i></a></li>
+        
+        
+          <li><a href="https://stackoverflow.com/users/7739839" title="StackOverFlow"><i class="fa fa-stack-overflow"></i></a></li>
+        
+        
+      </ul>
+
+<!-- add google translate - ->
+      <div id="google_translate_element" style="position:absolute; right:0; margin-top: 8px; margin-right: 1px;"></div>
+
+      <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
+        }
+      </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!- - /add google translate -->
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <div class="container">
+    <!-- 隐藏header头 -->
+    
+    <div class="row">
+        <div class="col-sm-8 blog-main" id="main-body">
+          <article id="post-Unity/官方文档学习（2019.3）/Asset Bundles介绍" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      Asset Bundle介绍
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/e909ed70.html" class="article-date"><time datetime="2020-04-11T00:00:00.000Z" itemprop="datePublished">2020-04-11</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Unity/">Unity</a> / <a class="article-category-link" href="/blog/categories/Unity/UnityDoc/">UnityDoc</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/e909ed70.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+    <!-- <span id="busuanzi_container_page_pv"><i class="fa fa-eye"></i>&nbsp;阅读次数: <span id="busuanzi_value_page_pv"></span>&nbsp;</span> -->
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Unity Asset Bundle模块是与主游戏或应用程序分开存储并在运行时加载（或下载的，对于移动和在线应用程序而言）的内容。</p>
+<a id="more"></a>
+<h1>介绍</h1>
+<p>AssetBundle是与主游戏或应用程序分开存储并在运行时加载（或下载的，对于移动和在线应用程序而言）的内容。<br>
+通过允许客户仅下载和安装所需的部件，这有助于最大程度地减少对网络和系统资源的影响。<br>
+例如，一家汽车制造商拥有一个VR应用程序，该应用程序允许客户“试驾”车辆，而不希望将所有车辆都包含在应用程序中，<br>
+这会导致下载和安装的体积过大。<br>
+资产捆绑包允许客户仅下载他想测试驾驶的车辆，并且其平台可以处理的质量级别。</p>
+<h1>AssetBundles的优点</h1>
+<p>AssetBundles也可以用于在发布后更新或添加到内容。<br>
+这可能包括可下载的内容，限时促销活动或主题内容，例如与假期相关的模型。<br>
+AssetBundles还允许自动更新，并且可以在项目之间重复使用内容。<br>
+例如，对于已连接的应用程序，您可以将品牌（例如徽标或介绍性视频）存储为在线AssetBundle。<br>
+品牌变更时，您只需要更新服务器上的相关AssetBundle。<br>
+通过远程AssetBundle加载这些资产的应用程序会自动显示更新的内容，而不需要更新。<br>
+可以对下载这些图形的应用进行预编程，以检查在线AssetBundle中的更改并根据需要更新本地存储的包。</p>
+<h1>变体</h1>
+<p>AssetBundle可以进一步分为多个变体。变体是与其一起存储的AssetBundle的选项或子类。<br>
+如果您有一个名为Vehicles的AssetBundle，则可能有一个针对汽车的变体，另一个针对卡车的变体。<br>
+如果将捆绑资产分配给变量，则必须将该捆绑中的所有资产分配给变量。<br>
+您不能在bundlename.variant中拥有资产，而在bundlename（没有变体）中拥有另一资产，其中bundlename两者相同。</p>
+<p>为了说明使用变体来协助AssetBundle组织的一种用法，假设我们正在为多控制台视频游戏创建教程级别。<br>
+下表列出了一些说明中可能使用的图形，以向播放器显示要按下的按钮。<br>
+Controller布局是现代控制台所共有的，但是操作按钮上的标签随平台而异。<br>
+在此示例中，尽管标签不同，但顶部动作按钮在两个版本的游戏上都执行相同的动作。<br>
+在我们的代码中，我们将为定向图形加载通用变体，但在运行时将加载包含特定系统按钮或键盘图形的变体。</p>
+<p>资产捆绑包ControlImage的内容<br>
+<img src="https://longshilin.com/images/c033e07b-8bb3-4c9c-b668-cf8968323791_Introduction_to_Asset_Bundles___Figure_01A___Click_here_to_assign.png" alt=""></p>
+<p>或者，假设我们捆绑了按键图片，以用于在跨平台桌面应用程序上训练用户。<br>
+ConsoleA和ConsoleB可以分别成为Windows和macOS，而TopActionButton可能类似于Ctrl和Cmd。</p>
+<h1>创建一个AssetBundle</h1>
+<p>当前，构建AssetBundles的唯一方法是通过脚本编写。<br>
+以下脚本将此功能添加到Unity Editor。<br>
+BuildAssetBundles有三个参数：应在其中创建AssetBundles的目录，<br>
+非标准构建模式的BuildAssetBundleOption（可选）和AssetBundle的构建目标。<br>
+<em>在Assets文件夹内创建一个名为</em><em>Editor</em>*的文件夹。<br>
+*在编辑器中，创建一个名为CreateAssetBundles的新C＃脚本。<br>
+*双击CreateAssetBundles在Visual Studio中将其打开，然后删除所有内容。<br>
+*输入以下内容：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">using UnityEditor;</span><br><span class="line">using System.IO;</span><br><span class="line">using UnityEngine;</span><br><span class="line"></span><br><span class="line">public class CreateAssetBundles</span><br><span class="line">&#123;</span><br><span class="line">    [MenuItem(&quot;Assets/Build AssetBundles&quot;)]</span><br><span class="line">    static void BuildAllAssetBundles()</span><br><span class="line">    &#123;</span><br><span class="line">        string assetBundleDirectory = &quot;Assets/StreamingAssets&quot;;</span><br><span class="line">        if (!Directory.Exists(Application.streamingAssetsPath))</span><br><span class="line">        &#123;</span><br><span class="line">            Directory.CreateDirectory(assetBundleDirectory);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        BuildPipeline.BuildAssetBundles(assetBundleDirectory, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>CreateAssetBundles已完成。<br>
+保存更改并关闭Visual Studio。</li>
+<li>在Unity编辑器中，您可以在Asset下拉列表的底部找到一个新选项：Build AssetBundles。</li>
+</ul>
+<h1>CreateAssetBundles 参数</h1>
+<p>在构建AssetBundle之前，必须存在指定的AssetBundle目录。<br>
+BuildAssetBundleOptions参数是可选的，如果未指定任何内容，则默认为None。<br>
+一些关键选项是：<br>
+<img src="https://longshilin.com/images/37d2fe36-0fd5-41d8-a33e-c43b9dd44b0e_Introduction_to_Asset_Bundles___Figure_01B___Click_here_to_assign.png" alt=""></p>
+<h1>目标平台选项</h1>
+<p>由于AssetBundles所需的格式和处理方式因平台而异，因此必须使用以下选项之一指定目标平台：<br>
+<img src="https://longshilin.com/images/20200412002438.png" alt=""></p>
+<h1>创建一个简单的AssetBundle</h1>
+<p>为了测试加载AssetBundle，我们将使用单个GameObject创建一个AssetBundle。<br>
+此工作流程假定您已完成前面的CreateAssetBundles脚本。<br>
+在项目的文件夹结构中镜像您的AssetBundle组织，可以更轻松地根据需要查找和更新捆绑的资产。</p>
+<ul>
+<li>将一个Sprite拖到您的Assets文件夹中。</li>
+<li>在一个新场景中，创建一个名为BundledSpriteObject的GameObject。</li>
+<li>附加一个Sprite Renderer组件，并从步骤1开始分配您的Sprite。*在Assets中创建一个名为BundledAssets的文件夹。<br>
+在BundledAssets内，创建一个名为testbundle的文件夹。</li>
+<li>将BundledSpriteObject拖入testbundle并将其从层次结构中删除。</li>
+<li>在“项目”视图中单击BundledSpriteObject以打开其检查器。<br>
+请特别注意检查器的底部。</li>
+<li>单击AssetBundle旁边的None将BundledSpriteObject分配给AssetBundle。<br>
+<img src="https://longshilin.com/images/20200412010248.png" alt=""></li>
+</ul>
+<h1>加载本地存储的AssetBundle</h1>
+<p>假设没有发生错误，我们准备从本地存储加载AssetBundle。<br>
+为了方便演示，我们正在Start中加载软件包。<br>
+在生产中，仅在必要时才加载AssetBundle。<br>
+*在X和Y中将主摄像机的变换位置设置为0。*创建一个名为Loader的新GameObject。<br>
+*创建一个名为BundledObjectLoader的新C＃脚本，并将其附加到Loader。<br>
+*双击BundledObjectLoader在Visual Studio中将其打开。使用下面的代码：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line">using System.IO;</span><br><span class="line"></span><br><span class="line">public class BundleObjectLoader : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    public string assetName = &quot;BundledSpriteObject&quot;;</span><br><span class="line">    public string bundleName = &quot;testbundle&quot;;</span><br><span class="line"></span><br><span class="line">    private void Start()</span><br><span class="line">    &#123;</span><br><span class="line">        AssetBundle localAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, bundleName));</span><br><span class="line">        if (localAssetBundle == null)</span><br><span class="line">        &#123;</span><br><span class="line">            Debug.LogError(&quot;Failed to load AssetBundle!&quot;);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        GameObject asset = localAssetBundle.LoadAsset&lt;GameObject&gt;(assetName);</span><br><span class="line">        Instantiate(asset);</span><br><span class="line">        localAssetBundle.Unload(false);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">``` </span><br><span class="line"></span><br><span class="line">运行当前场景，会看到之前生成的Bundle文件被实例化到场景中。</span><br><span class="line">![](https://longshilin.com/images/20200412010533.png)</span><br><span class="line"></span><br><span class="line">退出播放模式。 </span><br><span class="line">从Loader中删除BundledObjectLoader组件。</span><br><span class="line"></span><br><span class="line">用于加载AssetBundle的命令AssetBundle.LoadFromFile是同步的。</span><br><span class="line">这意味着直到命令完成其任务（AssetBundle已完全加载）后，它才会返回。</span><br><span class="line">对于像我们的示例这样的小捆绑包来说，这很好，但对于更大的东西（如我们在汽车或建筑预可视化程序或AAA视频游戏中可能看到的），</span><br><span class="line">这可能会导致帧速率或响应速度下降到不可接受的程度。</span><br><span class="line">更好的选择是LoadFromFileAsync，它可以作为协程运行，以使项目在加载AssetBundle时继续运行。</span><br><span class="line"></span><br><span class="line">```c#</span><br><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.IO;</span><br><span class="line">using UnityEngine;</span><br><span class="line"></span><br><span class="line">public class BundleLoaderAsync : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    public string bundleName = &quot;testbundle&quot;;</span><br><span class="line">    public string assetName = &quot;BundledSpriteObject&quot;;</span><br><span class="line"></span><br><span class="line">    IEnumerator Start()</span><br><span class="line">    &#123;</span><br><span class="line">        AssetBundleCreateRequest asyncBundleRequest = AssetBundle.LoadFromFileAsync(Path.Combine(Application.streamingAssetsPath, bundleName));</span><br><span class="line">        yield return asyncBundleRequest;</span><br><span class="line">        AssetBundle localAssetBundle = asyncBundleRequest.assetBundle;</span><br><span class="line">        if (localAssetBundle == null)</span><br><span class="line">        &#123;</span><br><span class="line">            Debug.LogError(&quot;Failed to load AssetBundle!&quot;);</span><br><span class="line">            yield break;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        AssetBundleRequest assetRequest = localAssetBundle.LoadAssetAsync&lt;GameObject&gt;(assetName);</span><br><span class="line">        yield return assetRequest;</span><br><span class="line">        GameObject prefab = assetRequest.asset as GameObject;</span><br><span class="line">        Instantiate(prefab);</span><br><span class="line">        localAssetBundle.Unload(false);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>BundleLoaderAsync已完成。<br>
+保存更改并返回到Unity Editor。<br>
+*按播放。<br>
+*和以前一样，捆绑对象应加载。<br>
+*退出播放模式，并从Loader中删除BundleLoaderAsync。</li>
+</ul>
+<p>从网络下载AssetBundle与从本地存储加载资产非常相似。<br>
+出于我们的目的，该文件托管在本地Web服务器上的一个名为assetbundles的目录中。<br>
+*创建一个名为BundleWebLoader的C＃脚本，并将其附加到Loader。<br>
+*双击BundleWebLoader在Visual Studio中打开。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line"></span><br><span class="line">public class BundleWebLoader : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    public string bundleUrl = &quot;http://127.0.0.1:8887/testbundle&quot;;</span><br><span class="line">    public string assetName = &quot;BundledSpriteObject&quot;;</span><br><span class="line"></span><br><span class="line">    IEnumerator Start()</span><br><span class="line">    &#123;</span><br><span class="line">        using (WWW web = new WWW(bundleUrl))</span><br><span class="line">        &#123;</span><br><span class="line">            yield return web;</span><br><span class="line">            AssetBundle remoteAssetBundle = web.assetBundle;</span><br><span class="line">            if (remoteAssetBundle == null)</span><br><span class="line">            &#123;</span><br><span class="line">                Debug.LogError(&quot;Failed to download AssetBundle!&quot;);</span><br><span class="line">                yield break;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Instantiate(remoteAssetBundle.LoadAsset(assetName));</span><br><span class="line">            remoteAssetBundle.Unload(false);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>有一个简单的Chrome扩展名<a href="https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb/related?hl=en" target="_blank" rel="noopener">&quot;200 OK&quot;</a>。<br>
+它在本地主机上运行Web服务器。</p>
+<p>BundleWebLoader完成。<br>
+保存更改并返回到Unity Editor。<br>
+按播放。<br>
+除非出现任何Web连接问题，否则您应该看到与前两个示例相同的结果。<br>
+退出播放模式。</p>
+
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/e909ed70.html" data-id="ck8vxk70200430m056ha8zsz2" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/UnityDoc/">UnityDoc</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/blog/f56fc823.html" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">日子很长，但几十年很短</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+<section id="comments" class="post-comments">
+  
+      <div class="body-container">
+        <div id="disqus_thread" class="valine">
+        </div>
+      </div>
+  
+</section>
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar" id="sidebar">
+          
+  <div class="sidebar-module sidebar-toc" id="toc">
+    
+      <h4>Table of Contents</h4>
+      <ol class="sidebar-module-list"><li class="sidebar-module-list-item sidebar-module-list-level-1"><a class="sidebar-module-list-link" href="#undefined"><span class="sidebar-module-list-number">1.</span> <span class="sidebar-module-list-text">介绍</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-1"><a class="sidebar-module-list-link" href="#undefined"><span class="sidebar-module-list-number">2.</span> <span class="sidebar-module-list-text">AssetBundles的优点</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-1"><a class="sidebar-module-list-link" href="#undefined"><span class="sidebar-module-list-number">3.</span> <span class="sidebar-module-list-text">变体</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-1"><a class="sidebar-module-list-link" href="#undefined"><span class="sidebar-module-list-number">4.</span> <span class="sidebar-module-list-text">创建一个AssetBundle</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-1"><a class="sidebar-module-list-link" href="#undefined"><span class="sidebar-module-list-number">5.</span> <span class="sidebar-module-list-text">CreateAssetBundles 参数</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-1"><a class="sidebar-module-list-link" href="#undefined"><span class="sidebar-module-list-number">6.</span> <span class="sidebar-module-list-text">目标平台选项</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-1"><a class="sidebar-module-list-link" href="#undefined"><span class="sidebar-module-list-number">7.</span> <span class="sidebar-module-list-text">创建一个简单的AssetBundle</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-1"><a class="sidebar-module-list-link" href="#undefined"><span class="sidebar-module-list-number">8.</span> <span class="sidebar-module-list-text">加载本地存储的AssetBundle</span></a></li></ol>
+    
+  </div>
+
+
+
+  
+<div class="sidebar-module sidebar-tags">
+  <h4>Search</h4>
+  <form id="search-form"> <!-- 搜索框相关 -->
+    <input type="text" id="local-search-input" name="q" placeholder=" 搜本站..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false">
+    <i class="fa fa-times" onclick="resetSearch()"></i> <!-- 清空/重置搜索框 -->
+  </form>
+  <div id="local-search-result"></div> <!-- 搜索结果区 -->
+  <p class="no-result">No results found </p> <!-- 无匹配时显示，注意请在 CSS 中设置默认隐藏 -->
+</div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Docker/">Docker</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Guide-to-Unity/">Guide to Unity</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/">Unity</a><span class="sidebar-module-list-count">30</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/C＃-Job-System/">C＃ Job System</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/DOTS/">DOTS</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/ECS-Samples/">ECS Samples</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/ECS手册和脚本参考/">ECS手册和脚本参考</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/UnityDoc/">UnityDoc</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Unity基础入门学习笔记/">Unity基础入门学习笔记</a><span class="sidebar-module-list-count">3</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Unity基础入门学习笔记/Scripts/">Scripts</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/脚本编程/">脚本编程</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/博客构建/">博客构建</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/好文章/">好文章</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/">工具</a><span class="sidebar-module-list-count">7</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/Atom/">Atom</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/写作/">写作</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/版本控制/">版本控制</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/电脑管理/">电脑管理</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/旅游/">旅游</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/框架/">框架</a><span class="sidebar-module-list-count">2</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/框架/ET/">ET</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/框架/GameFramework/">GameFramework</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/解决方案/">解决方案</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/">认证</a><span class="sidebar-module-list-count">2</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/AWS认证/">AWS认证</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/">语言</a><span class="sidebar-module-list-count">9</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/CSharp/">CSharp</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/Java/">Java</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/mybatis/">mybatis</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/资源/">资源</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/项目/">项目</a><span class="sidebar-module-list-count">9</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/项目/Hadoop基因测序/">Hadoop基因测序</a><span class="sidebar-module-list-count">9</span></li></ul></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/blog/tags/aws-soa/" style="font-size: 10px;">aws-soa</a> <a href="/blog/tags/人生/" style="font-size: 10px;">人生</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/highlightjs/" style="font-size: 10px;">highlightjs</a> <a href="/blog/tags/GameFramework/" style="font-size: 10px;">GameFramework</a> <a href="/blog/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/blog/tags/EventSystem/" style="font-size: 10px;">EventSystem</a> <a href="/blog/tags/SEO/" style="font-size: 10px;">SEO</a> <a href="/blog/tags/Unity-DLL/" style="font-size: 10px;">Unity DLL</a> <a href="/blog/tags/wordpress/" style="font-size: 10px;">wordpress</a> <a href="/blog/tags/tools/" style="font-size: 13.33px;">tools</a> <a href="/blog/tags/C＃-Job-System/" style="font-size: 20px;">C＃ Job System</a> <a href="/blog/tags/异常/" style="font-size: 10px;">异常</a> <a href="/blog/tags/基因测序/" style="font-size: 18.33px;">基因测序</a> <a href="/blog/tags/极客时间/" style="font-size: 10px;">极客时间</a> <a href="/blog/tags/markdown/" style="font-size: 11.67px;">markdown</a> <a href="/blog/tags/simiki/" style="font-size: 10px;">simiki</a> <a href="/blog/tags/毕业设计/" style="font-size: 18.33px;">毕业设计</a> <a href="/blog/tags/大数据/" style="font-size: 18.33px;">大数据</a> <a href="/blog/tags/ET/" style="font-size: 10px;">ET</a> <a href="/blog/tags/迭代器/" style="font-size: 10px;">迭代器</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/blog/tags/CI-CD/" style="font-size: 11.67px;">CI/CD</a> <a href="/blog/tags/ECS-Samples/" style="font-size: 10px;">ECS Samples</a> <a href="/blog/tags/longshilindotcom/" style="font-size: 10px;">longshilindotcom</a> <a href="/blog/tags/Unity-Beginner-Guide/" style="font-size: 10px;">Unity Beginner Guide</a> <a href="/blog/tags/效率/" style="font-size: 10px;">效率</a> <a href="/blog/tags/线程/" style="font-size: 10px;">线程</a> <a href="/blog/tags/笔试/" style="font-size: 10px;">笔试</a> <a href="/blog/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/blog/tags/Visual-Studio/" style="font-size: 10px;">Visual Studio</a> <a href="/blog/tags/继承/" style="font-size: 10px;">继承</a> <a href="/blog/tags/aws/" style="font-size: 11.67px;">aws</a> <a href="/blog/tags/类对象/" style="font-size: 10px;">类对象</a> <a href="/blog/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/blog/tags/Atom-Snippets/" style="font-size: 10px;">Atom Snippets</a> <a href="/blog/tags/Project/" style="font-size: 10px;">Project</a> <a href="/blog/tags/优秀文章/" style="font-size: 10px;">优秀文章</a> <a href="/blog/tags/UnityDoc/" style="font-size: 10px;">UnityDoc</a> <a href="/blog/tags/Unity/" style="font-size: 16.67px;">Unity</a> <a href="/blog/tags/ECS手册和脚本参考/" style="font-size: 15px;">ECS手册和脚本参考</a> <a href="/blog/tags/Class/" style="font-size: 10px;">Class</a> <a href="/blog/tags/sysops/" style="font-size: 10px;">sysops</a> <a href="/blog/tags/提问的智慧/" style="font-size: 10px;">提问的智慧</a> <a href="/blog/tags/java/" style="font-size: 11.67px;">java</a> <a href="/blog/tags/tower/" style="font-size: 10px;">tower</a> <a href="/blog/tags/docker/" style="font-size: 11.67px;">docker</a> <a href="/blog/tags/集合/" style="font-size: 10px;">集合</a> <a href="/blog/tags/Hadoop/" style="font-size: 18.33px;">Hadoop</a> <a href="/blog/tags/代理/" style="font-size: 10px;">代理</a> <a href="/blog/tags/memreduct/" style="font-size: 10px;">memreduct</a> <a href="/blog/tags/write/" style="font-size: 11.67px;">write</a> <a href="/blog/tags/90km/" style="font-size: 10px;">90km</a> <a href="/blog/tags/泛型/" style="font-size: 10px;">泛型</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2020/04/">四月 2020</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/10/">十月 2019</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/09/">九月 2019</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/08/">八月 2019</a><span class="sidebar-module-list-count">23</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/07/">七月 2019</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/05/">五月 2019</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/02/">二月 2019</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/12/">十二月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/11/">十一月 2018</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/09/">九月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/07/">七月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2017/11/">十一月 2017</a><span class="sidebar-module-list-count">7</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module sidebar-recents">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/blog/e909ed70.html">Asset Bundle介绍</a>
+        </li>
+      
+        <li>
+          <a href="/blog/f56fc823.html">日子很长，但几十年很短</a>
+        </li>
+      
+        <li>
+          <a href="/blog/b42dd2c7.html">GameFramework框架学习流程</a>
+        </li>
+      
+        <li>
+          <a href="/blog/2fc7a0ec.html">2019-09-16 -- 09-20 工作日周记</a>
+        </li>
+      
+        <li>
+          <a href="/blog/1dbc6beb.html">使用Rider构建和集成简单的DLL示例</a>
+        </li>
+      
+        <li>
+          <a href="/blog/73cf67d1.html">继续保持</a>
+        </li>
+      
+        <li>
+          <a href="/blog/6e1546d4.html">刚刚上路</a>
+        </li>
+      
+        <li>
+          <a href="/blog/74df0377.html">Unity完全新手指南</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9145047272014077",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!- blog-general-responsive-sidebar ->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4721191851305300"
+     data-ad-slot="5846920073"
+     data-ad-format="auto"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+        </div>
+    </div>
+  </div>
+      <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      <!-- Copyright &copy; 2014 - 2020 Shilin Long&nbsp;<br> -->
+      <!-- For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><br/> -->
+      <!-- Site Generated 2020-04-11 18:04:09&nbsp;&nbsp; -->
+      
+      <span>
+        <p>Copyright © 2018 - 2020 Shilin Long.<br>
+        <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='https://s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+        Site Generated 2020-04-11 &nbsp;|&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
+      </span>
+      
+      <!--  Create with <a href="https://hexo.io">Hexo</a>&nbsp; |&nbsp; -->
+      <!--  CI/CD by <a href="https://about.gitlab.com/2015/12/14/getting-started-with-gitlab-and-gitlab-ci/" target="_blank">Gitlab</a>&nbsp; |&nbsp; -->
+      <!--  Host on <a href="https://pages.github.com/"  target="_blank">Github</a>&nbsp; |&nbsp; -->
+      <!--  <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u> -->
+      <!-- <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"  target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a><br> -->
+      <!-- <a href="http://www.miitbeian.gov.cn">湘ICP备18009099号</a>&nbsp; |&nbsp;<img src="/images/beian.png" /> <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43060202000297">湘公网安备 43060202000297号</a> -->
+    </div>
+  </div>
+</footer>
+
+  
+<script>
+  var disqus_shortname = 'longshilin-com';
+  
+  var disqus_url = 'https://longshilin.com/blog/e909ed70.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<!-- changyan comment -->
+
+
+<!-- gitment comment -->
+
+
+<!-- Valine comment -->
+
+
+<script src="/assets/js/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+  <!-- 注释掉本地取js代码块
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/github.min.css" integrity="sha384-WtUWHyk39lfUpZQVgokNfSKCJaKAeD6adgLduBLrKTMUuPzFhLtL23y1guFy6lZn" crossorigin="anonymous">-->
+  <script src="/blog/highlight/highlight.pack.js"></script>
+
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+<script src="/blog/js/search.js"></script>
+
+  
+	<div id="totop">
+	<a title="totop">
+		<img src="/blog/images/scrollup.png" height="35px" width="35px">
+	</a>
+	</div>
+	<script src="/blog/js/totop.js"></script>
+
+
+  <div class="r-hide" id="r-hide">
+<span><i class="fa fa-bars"></i> <a href="javascript:pr()" onclick="javascript:this.innerHTML=(this.innerHTML=='显示边栏'?'隐藏边栏':'显示边栏');">显示边栏</a></span>
+</div>
+
+<!-- 自动隐藏侧边栏脚本 -->
+<script>
+function pr() {
+	var R=document.getElementById("sidebar");
+	var L=document.getElementById("main-body");
+	var Button=document.getElementById("r-hide");
+	if(document.body.clientWidth < 768) {
+			R.className="col-sm-3 col-sm-offset-1 sidebar";
+			L.className="col-sm-8 main-body";
+	} else {
+			Button.style.display="block";
+			if (R.className=="blog-sidebar") {
+					R.className="col-sm-3 col-sm-offset-1 sidebar";
+					L.className="col-sm-8 main-body";
+		  } else {
+					R.className="blog-sidebar";
+					L.className="blog-main";
+		  }
+	}
+}
+window.onload = pr;
+</script>
+
+  <script src="/blog/js/sidebar.js"></script>
+  <script src="/blog/js/baidu_js_push.js"></script>
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <script id="__bs_script__">
+    if(location.hostname == "localhost")
+        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.0'><\/script>".replace("HOST", location.hostname));
+  </script>
+</body>
+</html>
