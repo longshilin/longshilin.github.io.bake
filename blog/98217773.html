@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <!-- 新增github的关注样式 - ->
+  <a href="https://github.com/longshilin"><img style="position: absolute; top: 35px; right: 0; border: 0;" src="https://longshilin.com/blog/images/forkme_right_green_007200.png" alt="Fork me on GitHab"></a>-->
+  <title>添加随机游戏元素 - gamedev</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="随机选择的项或值在许多游戏中都很重要。本部分将介绍如何使用 Unity 的内置随机函数来实现一些常见的游戏机制。">
+<meta name="keywords" content="随机游戏元素">
+<meta property="og:type" content="article">
+<meta property="og:title" content="添加随机游戏元素">
+<meta property="og:url" content="https://longshilin.com/blog/98217773.html">
+<meta property="og:site_name" content="gamedev">
+<meta property="og:description" content="随机选择的项或值在许多游戏中都很重要。本部分将介绍如何使用 Unity 的内置随机函数来实现一些常见的游戏机制。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://longshilin.com/UnityDoc2019.3/uploads/Main/ProbStrip.png">
+<meta property="og:image" content="https://longshilin.com/UnityDoc2019.3/uploads/Main/WeightedRandomCurve-linear.png">
+<meta property="og:image" content="https://longshilin.com/UnityDoc2019.3/uploads/Main/WeightedRandomCurve-bias-low.png">
+<meta property="og:image" content="https://longshilin.com/UnityDoc2019.3/uploads/Main/WeightedRandomCurve-bias-lowhigh.png">
+<meta property="og:updated_time" content="2020-04-18T14:43:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="添加随机游戏元素">
+<meta name="twitter:description" content="随机选择的项或值在许多游戏中都很重要。本部分将介绍如何使用 Unity 的内置随机函数来实现一些常见的游戏机制。">
+<meta name="twitter:image" content="https://longshilin.com/UnityDoc2019.3/uploads/Main/ProbStrip.png">
+<meta name="twitter:creator" content="@yilong0722">
+<link rel="publisher" href="106698639613319710000">
+  
+    <link rel="alternate" href="/blog/atom.xml" title="gamedev" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/images/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
+
+  <link rel="stylesheet" href="/blog/css/styles.css">
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-125053144-2', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  <script src="/blog/js/baidutongji.js"></script>
+</head>
+</html>
+<body>
+  <nav class="navbar navbar-inverse navbar-wrapper">
+  <div class="container">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#main-menu-navbar" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="main-menu-navbar">
+      <ul class="nav navbar-nav">
+        
+          <li><a class="" href="/blog/">Home</a></li>
+        
+          <li><a class="" href="/blog/../wiki/">Wiki</a></li>
+        
+          <li><a class="" href="/blog/archives/">Archives</a></li>
+        
+          <li><a class="" href="/blog/diary">日记</a></li>
+        
+      </ul>
+
+
+      <ul class="nav navbar-nav navbar-right" id="sub-menu-navbar">
+        
+          <li><a href="/blog/atom.xml" title="RSS Feed"><i class="fa fa-rss"></i></a></li>
+        
+        
+          <li><a href="https://github.com/longshilin" title="Github"><i class="fa fa-github"></i></a></li>
+        
+        
+          <li><a href="https://gitlab.com/longshilin" title="Gitlab"><i class="fa fa-gitlab"></i></a></li>
+        
+        
+          <li><a href="https://stackoverflow.com/users/7739839" title="StackOverFlow"><i class="fa fa-stack-overflow"></i></a></li>
+        
+        
+      </ul>
+
+<!-- add google translate - ->
+      <div id="google_translate_element" style="position:absolute; right:0; margin-top: 8px; margin-right: 1px;"></div>
+
+      <script type="text/javascript">
+        function googleTranslateElementInit() {
+          new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
+        }
+      </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+<!- - /add google translate -->
+
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+</nav>
+
+  <div class="container">
+    <!-- 隐藏header头 -->
+    
+    <div class="row">
+        <div class="col-sm-8 blog-main" id="main-body">
+          <article id="post-Unity/官方文档学习（2019.3）/工具集/添加随机游戏元素" class="article article-type-post" itemscope="" itemprop="blogPost">
+
+  <header class="article-header">
+    
+  
+    <h1 class="article-title" itemprop="name">
+      添加随机游戏元素
+    </h1>
+  
+
+
+  </header>
+
+  <div class="article-meta">
+    
+    <div class="article-datetime">
+  <a href="/blog/98217773.html" class="article-date"><time datetime="2020-04-18T00:00:00.000Z" itemprop="datePublished">2020-04-18</time></a>
+</div>
+
+    
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/blog/categories/Unity/">Unity</a> / <a class="article-category-link" href="/blog/categories/Unity/工具集/">工具集</a>
+  </div>
+
+
+    
+      
+        <a href="https://longshilin.com/blog/98217773.html#disqus_thread" class="article-comment-link">
+          <i class="fa fa-comment"></i> 评论
+        </a>
+      
+    
+    <!-- <span id="busuanzi_container_page_pv"><i class="fa fa-eye"></i>&nbsp;阅读次数: <span id="busuanzi_value_page_pv"></span>&nbsp;</span> -->
+  </div>
+  <div class="article-inner">
+
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>随机选择的项或值在许多游戏中都很重要。本部分将介绍如何使用 Unity 的内置随机函数来实现一些常见的游戏机制。</p>
+<a id="more"></a>
+<h2 id="从数组中选择一个随机项">从数组中选择一个随机项</h2>
+<p>随机选取一个数组元素归结为选择零和数组最大索引值（等于数组的长度减去 1）之间的一个随机整数。使用内置的 Random.Range 函数可以轻松实现：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var element = myArray[Random.Range(0, myArray.Length)];</span><br></pre></td></tr></table></figure>
+<p>请注意，Random.Range 从包含第一个参数但不包含第二个参数的范围内返回一个值，因此在此处使用 myArray.Length 会得到正确的结果。</p>
+<h2 id="选择具有不同概率的项">选择具有不同概率的项</h2>
+<p>有时需要随机选择项，但有些项比其他项被选中的几率更高。例如，NPC 在遇到玩家时可能会以几种不同的方式做出反应：</p>
+<ul>
+<li>友好问候的几率为 50%</li>
+<li>逃跑的几率为 25%</li>
+<li>立即攻击的几率为 20%</li>
+<li>提供金钱作为礼物的几率为 5%</li>
+</ul>
+<p>可将这些不同的结果可视化为一张纸条，该纸条分成几个部分，每个部分占据纸条总长度的一个比例。占据的比例等于选择结果的概率。选择行为相当于沿着纸条的长度选择一个随机点（例如通过投掷飞镖），然后查看该点处于哪个部分。</p>
+<p><img src="https://longshilin.com/UnityDoc2019.3/uploads/Main/ProbStrip.png" alt="img"></p>
+<p>在脚本中，纸条实际上是一个浮点数组，其中的浮点数按顺序包含项的不同概率。随机点是通过将 Random.value 乘以数组中所有浮点数的总和得到的（这些数值不需要加起来等于 1；重点是不同值的相对大小）。要找到该点“位于”哪个数组元素，首先要检查它是否小于第一个元素中的值。如果是，则第一个元素便是选中的元素。否则，从该点值中减去第一个元素的值，然后将其与第二个元素进行比较，依此类推，直到找到正确的元素。在代码中表示为以下所示的内容：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">float Choose (float[] probs) &#123;</span><br><span class="line"></span><br><span class="line">    float total = 0;</span><br><span class="line"></span><br><span class="line">    foreach (float elem in probs) &#123;</span><br><span class="line">        total += elem;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    float randomPoint = Random.value * total;</span><br><span class="line"></span><br><span class="line">    for (int i= 0; i &lt; probs.Length; i++) &#123;</span><br><span class="line">        if (randomPoint &lt; probs[i]) &#123;</span><br><span class="line">            return i;</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            randomPoint -= probs[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return probs.Length - 1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>请注意，最后的 return 语句是必要的，因为 Random.value 可以返回 1 的结果。在这种情况下，搜索将无法在任何地方找到随机点。将以下行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">if (randomPoint &lt; probs[i])</span><br></pre></td></tr></table></figure>
+<p>…更改为“小于或等于”测试将避免额外的 return 语句，但也会允许偶尔选择某个项，即使其概率为零也是如此。</p>
+<h2 id="加权连续随机值">加权连续随机值</h2>
+<p>如果结果是不连续的，那么浮点数组方法会很有效，但在某些情况下希望产生更连续的结果；比如说，希望随机化一个宝箱中发现的金块数量，并希望能够出现 1 到 100 之间的任何数字，但让更小数字的概率更高。使用浮点数组方法来执行此算法将需要设置一个包含 100 个浮点数（即纸条上的部分）的数组，这是很不实用的方法；如果不局限于整数而是想要在该范围内的任何数字，则不可能使用这种方法。</p>
+<p>一种适用于连续结果的更好方法是使用 AnimationCurve 将“原始”随机值转换为“加权”值；通过绘制不同的曲线形状，可产生不同的权重。代码编写起来也更简单：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">float CurveWeightedRandom(AnimationCurve curve) &#123;</span><br><span class="line">    return curve.Evaluate(Random.value);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此算法从 <code>Random.value</code> 读取值来选择 0 到 1 之间的“原始”随机值。然后，该值传递给 <code>curve.Evaluate()</code>，在此处将其视为水平坐标，并返回曲线在该水平位置处的相应垂直坐标。曲线较平缓的部分被选取的几率较高，而较陡峭的部分被选取的几率较低。</p>
+<p><img src="https://longshilin.com/UnityDoc2019.3/uploads/Main/WeightedRandomCurve-linear.png" alt="线性曲线根本不对值进行加权；曲线上每个点的水平坐标等于垂直坐标。">线性曲线根本不对值进行加权；曲线上每个点的水平坐标等于垂直坐标。</p>
+<p><img src="https://longshilin.com/UnityDoc2019.3/uploads/Main/WeightedRandomCurve-bias-low.png" alt="这条曲线在开始时较平缓，然后在结束时变得越来越陡峭，因此较低值的几率较高，而较高值的几率较低。此处可以看到 x=0.5 时曲线的高度约为 0.25，这意味着有 50% 的几率得到 0 到 0.25 之间的值。">这条曲线在开始时较平缓，然后在结束时变得越来越陡峭，因此较低值的几率较高，而较高值的几率较低。此处可以看到 x=0.5 时曲线的高度约为 0.25，这意味着有 50% 的几率得到 0 到 0.25 之间的值。</p>
+<p><img src="https://longshilin.com/UnityDoc2019.3/uploads/Main/WeightedRandomCurve-bias-lowhigh.png" alt="这条曲线在开始和结束时都很平缓，因此这些值接近极值的几率较高，而中间的陡峭部分表示得到这些值的几率较低。另外请注意，使用此曲线时，高度值已向上移动：曲线底部为 1，曲线顶部为 10，这意味着曲线产生的值将在 1-10 范围内，而不是像以前的曲线那样在 0-1 范围内。">这条曲线在开始和结束时都很平缓，因此这些值接近极值的几率较高，而中间的陡峭部分表示得到这些值的几率较低。另外请注意，使用此曲线时，高度值已向上移动：曲线底部为 1，曲线顶部为 10，这意味着曲线产生的值将在 1–10 范围内，而不是像以前的曲线那样在 0–1 范围内。</p>
+<p>请注意，这些曲线并非概率论指南中可能介绍的概率分布曲线，而更像是反向累积概率曲线。</p>
+<p>通过在一个脚本上定义 AnimationCurve 公共变量，可使用 Inspector 窗口直观查看和编辑曲线，而无需计算值。</p>
+<p>这种方法会产生浮点数。如果要计算整数结果（例如，需要 82 个金块，而不是 82.1214 个金块），可将计算值传递给 Mathf.RoundToInt() 之类的函数。</p>
+<h2 id="列表洗牌">列表洗牌</h2>
+<p>一种常见的游戏机制是从一组已知的项中进行选择，但让这些项以随机顺序到达。例如，一副纸牌通常需要洗牌，因此不会以可预测的顺序绘制。为了对数组中的项进行随机洗牌，可访问每个元素，然后将其与数组中位于随机索引处的另一个元素进行交换：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">void Shuffle (int[] deck) &#123;</span><br><span class="line">    for (int i = 0; i &lt; deck.Length; i++) &#123;</span><br><span class="line">        int temp = deck[i];</span><br><span class="line">        int randomIndex = Random.Range(0, deck.Length);</span><br><span class="line">        deck[i] = deck[randomIndex];</span><br><span class="line">        deck[randomIndex] = temp;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="从一组无重复的项中选择">从一组无重复的项中选择</h2>
+<p>一种常见的任务是从一组中随机选取一些项，但不可多次选取同一项。例如，可能希望在一些随机生成点生成多个 NPC，但要确保每个点只生成一个 NPC。为实现此目的，可按顺序遍历这些项，随机决定是否将每一项添加到所选集合中。当访问每一项时，该项被选取的概率等于仍然需要的项数除以仍然可供选择的项数。</p>
+<p>例如，假设有 10 个可用的生成点，但只能选择其中 5 个。选择第一项的概率为 5/10，即 0.5。如果选择了该项，那么第二项的概率将是 4/9，即 0.44（即仍然需要 4 项，还剩下 9 项可供选择）。但是，如果未选择第一项，那么第二项的概率将是 5/9，即 0.56（即仍然需要 5 项，还剩下 9 项可供选择）。这一直持续到该集合包含所需的 5 项为止。可使用如下所示的代码实现此算法：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Transform[] spawnPoints;</span><br><span class="line"></span><br><span class="line">Transform[] ChooseSet (int numRequired) &#123;</span><br><span class="line">    Transform[] result = new Transform[numRequired];</span><br><span class="line"></span><br><span class="line">    int numToChoose = numRequired;</span><br><span class="line"></span><br><span class="line">    for (int numLeft = spawnPoints.Length; numLeft &gt; 0; numLeft--) &#123;</span><br><span class="line"></span><br><span class="line">        float prob = (float)numToChoose/(float)numLeft;</span><br><span class="line"></span><br><span class="line">        if (Random.value &lt;= prob) &#123;</span><br><span class="line">            numToChoose--;</span><br><span class="line">            result[numToChoose] = spawnPoints[numLeft - 1];</span><br><span class="line"></span><br><span class="line">            if (numToChoose == 0) &#123;</span><br><span class="line">                break;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>请注意，虽然选择是随机的，但所选集合中的项与原始数组中的项具有相同的顺序。如果要按顺序一次使用一项，那么这种排序可能使它们在一定程度上可预测，因此在使用之前可能需要对数组进行洗牌。</p>
+<h2 id="空间中的随机点">空间中的随机点</h2>
+<p>通过将 Vector3 的每个分量设置为 Random.value 返回的值可以选择立方体中的随机点：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var randVec = Vector3(Random.value, Random.value, Random.value);</span><br></pre></td></tr></table></figure>
+<p>这种算法可在边长为一个单位的立方体内部给出一个点。只需将矢量的 X、Y 和 Z 分量乘以期望的边长即可缩放该立方体。如果其中一个轴设置为零，则该点将始终位于单个平面内。例如，在“地面”上选取随机点通常需要随机设置 X 和 Z 分量并将 Y 分量设置为零。</p>
+<p>当体积为球体时（即，希望从原点开始的给定半径内选取随机点时），可使用 Random.insideUnitSphere 乘以所需的半径：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var randWithinRadius = Random.insideUnitSphere * radius;</span><br></pre></td></tr></table></figure>
+<p>请注意，如果将结果矢量的某个分量设置为零，则<em>不能</em>在圆内获得正确的随机点。尽管该点确实是随机点并且位于正确的半径内，但是概率严重偏向于圆的边缘，因此点分布将非常不均匀。对于此任务，应改用 Random.insideUnitCircle：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">var randWithinCircle = Random.insideUnitCircle * radius;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+      
+
+    
+
+    <footer class="article-footer">
+      <a data-url="https://longshilin.com/blog/98217773.html" data-id="ck95qf5ir00fj0mxg62wq9s18" class="article-share-link">
+        <i class="fa fa-share"></i> 分享
+      </a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/随机游戏元素/">随机游戏元素</a></li></ul>
+
+
+    </footer>
+  </div>
+  
+    
+<ul id="article-nav" class="nav nav-pills nav-justified">
+  
+  <li role="presentation">
+    <a href="/blog/4063a140.html" id="article-nav-older" class="article-nav-link-wrap">
+      <i class="fa fa-chevron-left pull-left"></i>
+      <span class="article-nav-link-title">Unity Asset Bundle Browser tool(中文翻译版)</span>
+    </a>
+  </li>
+  
+  
+</ul>
+
+
+  
+</article>
+
+
+<section id="comments" class="post-comments">
+  
+      <div class="body-container">
+        <div id="disqus_thread" class="valine">
+        </div>
+      </div>
+  
+</section>
+
+
+
+        </div>
+        <div class="col-sm-3 col-sm-offset-1 blog-sidebar" id="sidebar">
+          
+  <div class="sidebar-module sidebar-toc" id="toc">
+    
+      <h4>Table of Contents</h4>
+      <ol class="sidebar-module-list"><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#从数组中选择一个随机项"><span class="sidebar-module-list-number">1.</span> <span class="sidebar-module-list-text">从数组中选择一个随机项</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#选择具有不同概率的项"><span class="sidebar-module-list-number">2.</span> <span class="sidebar-module-list-text">选择具有不同概率的项</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#加权连续随机值"><span class="sidebar-module-list-number">3.</span> <span class="sidebar-module-list-text">加权连续随机值</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#列表洗牌"><span class="sidebar-module-list-number">4.</span> <span class="sidebar-module-list-text">列表洗牌</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#从一组无重复的项中选择"><span class="sidebar-module-list-number">5.</span> <span class="sidebar-module-list-text">从一组无重复的项中选择</span></a></li><li class="sidebar-module-list-item sidebar-module-list-level-2"><a class="sidebar-module-list-link" href="#空间中的随机点"><span class="sidebar-module-list-number">6.</span> <span class="sidebar-module-list-text">空间中的随机点</span></a></li></ol>
+    
+  </div>
+
+
+
+  
+<div class="sidebar-module sidebar-tags">
+  <h4>Search</h4>
+  <form id="search-form"> <!-- 搜索框相关 -->
+    <input type="text" id="local-search-input" name="q" placeholder=" 搜本站..." class="search form-control" autocomplete="off" autocorrect="off" searchonload="false">
+    <i class="fa fa-times" onclick="resetSearch()"></i> <!-- 清空/重置搜索框 -->
+  </form>
+  <div id="local-search-result"></div> <!-- 搜索结果区 -->
+  <p class="no-result">No results found </p> <!-- 无匹配时显示，注意请在 CSS 中设置默认隐藏 -->
+</div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Categories</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Docker/">Docker</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/IDE/">IDE</a><span class="sidebar-module-list-count">1</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/IDE/JetBrains/">JetBrains</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/">Unity</a><span class="sidebar-module-list-count">35</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Asset-Bundle/">Asset Bundle</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/C＃-Job-System/">C＃ Job System</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/DOTS/">DOTS</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/ECS-Samples/">ECS Samples</a><span class="sidebar-module-list-count">5</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/ECS手册和脚本参考/">ECS手册和脚本参考</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Editor/">Editor</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Unity-Wiki/">Unity Wiki</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/UnityDoc/">UnityDoc</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Unity基础入门学习笔记/">Unity基础入门学习笔记</a><span class="sidebar-module-list-count">3</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/Unity基础入门学习笔记/Scripts/">Scripts</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/工具集/">工具集</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/脚本编程/">脚本编程</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/Unity/问题解决纪录/">问题解决纪录</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/好文章/">好文章</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/">工具</a><span class="sidebar-module-list-count">7</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/Atom/">Atom</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/写作/">写作</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/版本控制/">版本控制</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/工具/电脑管理/">电脑管理</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/我的项目/">我的项目</a><span class="sidebar-module-list-count">9</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/我的项目/Hadoop基因测序/">Hadoop基因测序</a><span class="sidebar-module-list-count">9</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/搭建个人博客/">搭建个人博客</a><span class="sidebar-module-list-count">10</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/旅游/">旅游</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/框架/">框架</a><span class="sidebar-module-list-count">2</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/框架/ET/">ET</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/框架/GameFramework/">GameFramework</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/">认证</a><span class="sidebar-module-list-count">2</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/认证/AWS认证/">AWS认证</a><span class="sidebar-module-list-count">2</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/">语言</a><span class="sidebar-module-list-count">9</span><ul class="sidebar-module-list-child"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/CSharp/">CSharp</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/Java/">Java</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/语言/mybatis/">mybatis</a><span class="sidebar-module-list-count">1</span></li></ul></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/categories/资源/">资源</a><span class="sidebar-module-list-count">2</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module">
+    <h4>Tag Cloud</h4>
+    <p class="tagcloud">
+      <a href="/blog/tags/tools/" style="font-size: 13.33px;">tools</a> <a href="/blog/tags/90km/" style="font-size: 10px;">90km</a> <a href="/blog/tags/SEO/" style="font-size: 10px;">SEO</a> <a href="/blog/tags/集合/" style="font-size: 10px;">集合</a> <a href="/blog/tags/提问的智慧/" style="font-size: 10px;">提问的智慧</a> <a href="/blog/tags/线程/" style="font-size: 10px;">线程</a> <a href="/blog/tags/write/" style="font-size: 11.67px;">write</a> <a href="/blog/tags/java/" style="font-size: 11.67px;">java</a> <a href="/blog/tags/Editor/" style="font-size: 10px;">Editor</a> <a href="/blog/tags/longshilindotcom/" style="font-size: 10px;">longshilindotcom</a> <a href="/blog/tags/Project/" style="font-size: 10px;">Project</a> <a href="/blog/tags/GameFramework/" style="font-size: 10px;">GameFramework</a> <a href="/blog/tags/代理/" style="font-size: 10px;">代理</a> <a href="/blog/tags/极客时间/" style="font-size: 10px;">极客时间</a> <a href="/blog/tags/Unity-Asset/" style="font-size: 10px;">Unity Asset</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/Atom-Snippets/" style="font-size: 10px;">Atom Snippets</a> <a href="/blog/tags/Class/" style="font-size: 10px;">Class</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/人生/" style="font-size: 10px;">人生</a> <a href="/blog/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/blog/tags/Unity/" style="font-size: 16.67px;">Unity</a> <a href="/blog/tags/aws/" style="font-size: 11.67px;">aws</a> <a href="/blog/tags/CI-CD/" style="font-size: 11.67px;">CI/CD</a> <a href="/blog/tags/docker/" style="font-size: 11.67px;">docker</a> <a href="/blog/tags/继承/" style="font-size: 10px;">继承</a> <a href="/blog/tags/wordpress/" style="font-size: 10px;">wordpress</a> <a href="/blog/tags/类对象/" style="font-size: 10px;">类对象</a> <a href="/blog/tags/效率/" style="font-size: 10px;">效率</a> <a href="/blog/tags/Unity-Beginner-Guide/" style="font-size: 10px;">Unity Beginner Guide</a> <a href="/blog/tags/ECS-Samples/" style="font-size: 10px;">ECS Samples</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/blog/tags/大数据/" style="font-size: 18.33px;">大数据</a> <a href="/blog/tags/Unity-Asset-Bundle/" style="font-size: 10px;">Unity Asset Bundle</a> <a href="/blog/tags/ECS手册和脚本参考/" style="font-size: 15px;">ECS手册和脚本参考</a> <a href="/blog/tags/highlightjs/" style="font-size: 10px;">highlightjs</a> <a href="/blog/tags/EventSystem/" style="font-size: 10px;">EventSystem</a> <a href="/blog/tags/随机游戏元素/" style="font-size: 10px;">随机游戏元素</a> <a href="/blog/tags/Visual-Studio/" style="font-size: 10px;">Visual Studio</a> <a href="/blog/tags/aws-soa/" style="font-size: 10px;">aws-soa</a> <a href="/blog/tags/sysops/" style="font-size: 10px;">sysops</a> <a href="/blog/tags/Hadoop/" style="font-size: 18.33px;">Hadoop</a> <a href="/blog/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/blog/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/blog/tags/优秀文章/" style="font-size: 10px;">优秀文章</a> <a href="/blog/tags/markdown/" style="font-size: 11.67px;">markdown</a> <a href="/blog/tags/C＃-Job-System/" style="font-size: 20px;">C＃ Job System</a> <a href="/blog/tags/DokuWiki/" style="font-size: 10px;">DokuWiki</a> <a href="/blog/tags/memreduct/" style="font-size: 10px;">memreduct</a> <a href="/blog/tags/基因测序/" style="font-size: 18.33px;">基因测序</a> <a href="/blog/tags/Asset-DataBase/" style="font-size: 10px;">Asset DataBase</a> <a href="/blog/tags/JetBrains/" style="font-size: 10px;">JetBrains</a> <a href="/blog/tags/tower/" style="font-size: 10px;">tower</a> <a href="/blog/tags/毕业设计/" style="font-size: 18.33px;">毕业设计</a> <a href="/blog/tags/ET/" style="font-size: 10px;">ET</a> <a href="/blog/tags/异常/" style="font-size: 10px;">异常</a> <a href="/blog/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/blog/tags/迭代器/" style="font-size: 10px;">迭代器</a> <a href="/blog/tags/笔试/" style="font-size: 10px;">笔试</a> <a href="/blog/tags/UnityDoc/" style="font-size: 11.67px;">UnityDoc</a> <a href="/blog/tags/gitlab-pages/" style="font-size: 10px;">gitlab pages</a> <a href="/blog/tags/simiki/" style="font-size: 10px;">simiki</a>
+    </p>
+  </div>
+
+
+  
+  <div class="sidebar-module">
+    <h4>Archives</h4>
+    <ul class="sidebar-module-list"><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2020/04/">四月 2020</a><span class="sidebar-module-list-count">4</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2020/01/">一月 2020</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/10/">十月 2019</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/09/">九月 2019</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/08/">八月 2019</a><span class="sidebar-module-list-count">23</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/07/">七月 2019</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/05/">五月 2019</a><span class="sidebar-module-list-count">7</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/02/">二月 2019</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2019/01/">一月 2019</a><span class="sidebar-module-list-count">3</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/12/">十二月 2018</a><span class="sidebar-module-list-count">1</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/11/">十一月 2018</a><span class="sidebar-module-list-count">2</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/10/">十月 2018</a><span class="sidebar-module-list-count">11</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/09/">九月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2018/07/">七月 2018</a><span class="sidebar-module-list-count">9</span></li><li class="sidebar-module-list-item"><a class="sidebar-module-list-link" href="/blog/archives/2017/11/">十一月 2017</a><span class="sidebar-module-list-count">7</span></li></ul>
+  </div>
+
+
+
+  
+  <div class="sidebar-module sidebar-recents">
+    <h4>Recents</h4>
+    <ul class="sidebar-module-list">
+      
+        <li>
+          <a href="/blog/98217773.html">添加随机游戏元素</a>
+        </li>
+      
+        <li>
+          <a href="/blog/4063a140.html">Unity Asset Bundle Browser tool(中文翻译版)</a>
+        </li>
+      
+        <li>
+          <a href="/blog/e909ed70.html">Asset Bundle介绍</a>
+        </li>
+      
+        <li>
+          <a href="/blog/423a6a45.html">Unity Asset可视化工具</a>
+        </li>
+      
+        <li>
+          <a href="/blog/c13f7a8.html">JetBrains中添加模板代码块</a>
+        </li>
+      
+        <li>
+          <a href="/blog/8ee7eed0.html">Unity Asset DataBase Editor</a>
+        </li>
+      
+        <li>
+          <a href="/blog/f56fc823.html">日子很长，但几十年很短</a>
+        </li>
+      
+        <li>
+          <a href="/blog/b42dd2c7.html">GameFramework框架学习流程</a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+
+
+
+
+<!--
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({
+    google_ad_client: "ca-pub-9145047272014077",
+    enable_page_level_ads: true
+  });
+</script>
+
+
+<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!- blog-general-responsive-sidebar ->
+<ins class="adsbygoogle"
+     style="display:block"
+     data-ad-client="ca-pub-4721191851305300"
+     data-ad-slot="5846920073"
+     data-ad-format="auto"></ins>
+<script>
+  (adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+-->
+
+        </div>
+    </div>
+  </div>
+      <footer class="blog-footer">
+  <div class="container">
+    <div id="footer-info" class="inner">
+      <!-- Copyright &copy; 2014 - 2020 Shilin Long&nbsp;<br> -->
+      <!-- For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><br/> -->
+      <!-- Site Generated 2020-04-18 14:04:01&nbsp;&nbsp; -->
+      
+      <span>
+        <p>Copyright © 2018 - 2020 <a href="https://github.com/longshilin">Shilin Long.</a><br>
+        <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='https://s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
+        Site Generated 2020-04-18 &nbsp;|&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
+      </span>
+      
+      <!--  Create with <a href="https://hexo.io">Hexo</a>&nbsp; |&nbsp; -->
+      <!--  CI/CD by <a href="https://about.gitlab.com/2015/12/14/getting-started-with-gitlab-and-gitlab-ci/" target="_blank">Gitlab</a>&nbsp; |&nbsp; -->
+      <!--  Host on <a href="https://pages.github.com/"  target="_blank">Github</a>&nbsp; |&nbsp; -->
+      <!--  <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u> -->
+      <!-- <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"  target="_blank"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png" /></a><br> -->
+      <!-- <a href="http://www.miitbeian.gov.cn">湘ICP备18009099号</a>&nbsp; |&nbsp;<img src="/images/beian.png" /> <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=43060202000297">湘公网安备 43060202000297号</a> -->
+    </div>
+  </div>
+</footer>
+
+  
+<script>
+  var disqus_shortname = 'longshilin-com';
+  
+  var disqus_url = 'https://longshilin.com/blog/98217773.html';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<!-- changyan comment -->
+
+
+<!-- gitment comment -->
+
+
+<!-- Valine comment -->
+
+
+<script src="/assets/js/jquery.min.js" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+
+
+  <!-- 注释掉本地取js代码块
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.0.0/styles/github.min.css" integrity="sha384-WtUWHyk39lfUpZQVgokNfSKCJaKAeD6adgLduBLrKTMUuPzFhLtL23y1guFy6lZn" crossorigin="anonymous">-->
+  <script src="/blog/highlight/highlight.pack.js"></script>
+
+
+
+  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
+  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+
+
+
+
+<script src="/blog/js/script.js"></script>
+<script src="/blog/js/search.js"></script>
+
+  
+	<div id="totop">
+	<a title="totop">
+		<img src="/blog/images/scrollup.png" height="35px" width="35px">
+	</a>
+	</div>
+	<script src="/blog/js/totop.js"></script>
+
+
+  <div class="r-hide" id="r-hide">
+<span><i class="fa fa-bars"></i> <a href="javascript:pr()" onclick="javascript:this.innerHTML=(this.innerHTML=='显示边栏'?'隐藏边栏':'显示边栏');">显示边栏</a></span>
+</div>
+
+<!-- 自动隐藏侧边栏脚本 -->
+<script>
+function pr() {
+	var R=document.getElementById("sidebar");
+	var L=document.getElementById("main-body");
+	var Button=document.getElementById("r-hide");
+	if(document.body.clientWidth < 768) {
+			R.className="col-sm-3 col-sm-offset-1 sidebar";
+			L.className="col-sm-8 main-body";
+	} else {
+			Button.style.display="block";
+			if (R.className=="blog-sidebar") {
+					R.className="col-sm-3 col-sm-offset-1 sidebar";
+					L.className="col-sm-8 main-body";
+		  } else {
+					R.className="blog-sidebar";
+					L.className="blog-main";
+		  }
+	}
+}
+window.onload = pr;
+</script>
+
+  <script src="/blog/js/sidebar.js"></script>
+  <script src="/blog/js/baidu_js_push.js"></script>
+  <!-- <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
+  <script id="__bs_script__">
+    if(location.hostname == "localhost")
+        document.write("<script async src='http://HOST:3000/browser-sync/browser-sync-client.js?v=2.26.0'><\/script>".replace("HOST", location.hostname));
+  </script>
+</body>
+</html>
