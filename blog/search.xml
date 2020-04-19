@@ -3,6 +3,58 @@
   
     
     <entry>
+      <title>支持自定义菜单项和编辑器功能</title>
+      <link href="/blog/146377c6.html"/>
+      <url>/blog/146377c6.html</url>
+      
+        <content type="html"><![CDATA[<p>在编辑器脚本中，使用<a href="https://longshilin.com/UnityDoc2019.3/ScriptReference/ObjectFactory.html">ObjectFactory</a>类创建新的GameObject，组件和资产。创建这些项目时，<code>ObjectFactory</code>该类会自动使用默认预设。您的脚本不必搜索并应用默认的<a href="https://longshilin.com/UnityDoc2019.3/Manual/Presets.html">Presets</a>，因为<code>ObjectFactory</code>它可以为您处理。</p><a id="more"></a><h1>支持新类型</h1><p>要默认支持和启用预设，您的类必须继承以下内容之一：</p><ul><li><a href="https://longshilin.com/UnityDoc2019.3/ScriptReference/MonoBehaviour.html">UnityEngine.Monobehaviour</a></li><li><a href="https://longshilin.com/UnityDoc2019.3/ScriptReference/ScriptableObject.html">UnityEngine.ScriptableObject</a></li><li><a href="https://longshilin.com/UnityDoc2019.3/ScriptReference/Experimental.AssetImporters.ScriptedImporter.html">UnityEngine.ScriptedImporter</a></li></ul><p>预设检查器会创建您的类的临时实例，以便用户可以修改其值，因此请确保您的类不影响或依赖于其他对象，例如静态值，Project Assets或Scene实例。</p><p><strong>提示</strong>：使用<a href="https://longshilin.com/UnityDoc2019.3/ScriptReference/CustomEditor.html">CustomEditor</a>属性是可选的。</p><h1>用例示例：自定义“编辑器”窗口中的预设设置</h1><p>使用可以使用“预设”的设置设置自定义<a href="https://longshilin.com/UnityDoc2019.3/ScriptReference/EditorWindow.html">EditorWindow</a>类时：</p><ul><li>使用<a href="https://longshilin.com/UnityDoc2019.3/ScriptReference/ScriptableObject.html">ScriptableObject</a>存储设置的副本。它也可以具有<a href="https://longshilin.com/UnityDoc2019.3/ScriptReference/CustomEditor.html">CustomEditor</a>属性。预设系统处理此对象。</li><li>始终使用此临时<code>ScriptableObject</code>检查器在UI中显示“预设”设置。这样，您的用户<code>EditorWindow</code>和您在编辑已保存的预设时可以拥有相同的UI 。</li><li>当在“ **选择预设”<strong>窗口中</strong>选择“预设”**时，公开一个“预设”按钮，并使用自己的<a href="https://longshilin.com/UnityDoc2019.3/ScriptReference/Presets.PresetSelectorReceiver.html">PresetSelectorReceiver</a>实现使<code>EditorWindow</code>设置保持最新。</li></ul><p>以下脚本示例演示了如何将Preset设置添加到简单的<code>EditorWindow</code>。</p><p>此脚本示例演示了一个ScriptableObject，该脚本可保留并显示自定义窗口中的设置（保存到名为<em>Editor / MyWindowSettings.cs</em>的文件中）：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">using UnityEngine;</span><br><span class="line"></span><br><span class="line">// Temporary ScriptableObject used by the Preset system</span><br><span class="line"></span><br><span class="line">public class MyWindowSettings : ScriptableObject</span><br><span class="line">&#123;</span><br><span class="line">  [SerializeField]</span><br><span class="line">  string m_SomeSettings;</span><br><span class="line">  </span><br><span class="line">  public void Init(MyEditorWindow window)</span><br><span class="line">  &#123;</span><br><span class="line">      m_SomeSettings = window.someSettings;</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public void ApplySettings(MyEditorWindow window)</span><br><span class="line">  &#123;</span><br><span class="line">      window.someSettings = m_SomeSettings;</span><br><span class="line">      window.Repaint();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>脚本示例，<code>PresetSelectorReceiver</code>用于更新<code>ScriptableObject</code>自定义窗口中使用的脚本（保存到名为<em>Editor / MySettingsReceiver.cs</em>的文件中*）*：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">using UnityEditor.Presets;</span><br><span class="line"></span><br><span class="line">// PresetSelector receiver to update the EditorWindow with the selected values.</span><br><span class="line"></span><br><span class="line">public class MySettingsReceiver : PresetSelectorReceiver</span><br><span class="line">&#123;</span><br><span class="line">  Preset initialValues;</span><br><span class="line">  MyWindowSettings currentSettings;</span><br><span class="line">  MyEditorWindow currentWindow;</span><br><span class="line">  </span><br><span class="line">  public void Init(MyWindowSettings settings, MyEditorWindow window)</span><br><span class="line">  &#123;</span><br><span class="line">      currentWindow = window;</span><br><span class="line">      currentSettings = settings;</span><br><span class="line">      initialValues = new Preset(currentSettings);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public override void OnSelectionChanged(Preset selection)</span><br><span class="line">  &#123;</span><br><span class="line">      if (selection != null)</span><br><span class="line">      &#123;</span><br><span class="line">          // Apply the selection to the temporary settings</span><br><span class="line">          selection.ApplyTo(currentSettings);</span><br><span class="line">      &#125;</span><br><span class="line">      else</span><br><span class="line">      &#123;</span><br><span class="line">          // None have been selected. Apply the Initial values back to the temporary selection.</span><br><span class="line">          initialValues.ApplyTo(currentSettings);</span><br><span class="line">      &#125;</span><br><span class="line">      </span><br><span class="line">      // Apply the new temporary settings to our manager instance</span><br><span class="line">      currentSettings.ApplySettings(currentWindow);</span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  public override void OnSelectionClosed(Preset selection)</span><br><span class="line">  &#123;</span><br><span class="line">      // Call selection change one last time to make sure you have the last selection values.</span><br><span class="line">      OnSelectionChanged(selection);</span><br><span class="line">      // Destroy the receiver here, so you don&apos;t need to keep a reference to it.</span><br><span class="line">      DestroyImmediate(this);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><a href="https://longshilin.com/UnityDoc2019.3/ScriptReference/EditorWindow.html">EditorWindow的</a>脚本示例，该脚本使用临时的ScriptableObject Inspector及其“预设”按钮（保存到名为<em>Editor / MyEditorWindow.cs</em>的文件*）*显示自定义设置：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">using UnityEngine;</span><br><span class="line">using UnityEditor;</span><br><span class="line">using UnityEditor.Presets;</span><br><span class="line"></span><br><span class="line">public class MyEditorWindow : EditorWindow</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">  // get the Preset icon and a style to display it</span><br><span class="line">  private static class Styles</span><br><span class="line">  &#123;</span><br><span class="line">      public static GUIContent presetIcon = EditorGUIUtility.IconContent(&quot;Preset.Context&quot;);</span><br><span class="line">      public static GUIStyle iconButton = new GUIStyle(&quot;IconButton&quot;);</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  Editor m_SettingsEditor;</span><br><span class="line">  MyWindowSettings m_SerializedSettings;</span><br><span class="line">  </span><br><span class="line">  public string someSettings</span><br><span class="line">  &#123;</span><br><span class="line">      get &#123; return EditorPrefs.GetString(&quot;MyEditorWindow_SomeSettings&quot;); &#125;</span><br><span class="line">      set &#123; EditorPrefs.SetString(&quot;MyEditorWindow_SomeSettings&quot;, value); &#125;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  // Method to open the window</span><br><span class="line">  [MenuItem(&quot;Window/MyEditorWindow&quot;)]</span><br><span class="line">  static void OpenWindow()</span><br><span class="line">  &#123;</span><br><span class="line">      GetWindow&lt;MyEditorWindow&gt;();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  void OnEnable()</span><br><span class="line">  &#123;</span><br><span class="line">      // Create your settings now and its associated Inspector</span><br><span class="line">      // that allows to create only one custom Inspector for the settings in the window and the Preset.</span><br><span class="line">      m_SerializedSettings = ScriptableObject.CreateInstance&lt;MyWindowSettings&gt;();</span><br><span class="line">      m_SerializedSettings.Init(this);</span><br><span class="line">      m_SettingsEditor = Editor.CreateEditor(m_SerializedSettings);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  void OnDisable()</span><br><span class="line">  &#123;</span><br><span class="line">      Object.DestroyImmediate(m_SerializedSettings);</span><br><span class="line">      Object.DestroyImmediate(m_SettingsEditor);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  void OnGUI()</span><br><span class="line">  &#123;</span><br><span class="line">      EditorGUILayout.BeginHorizontal();</span><br><span class="line">      EditorGUILayout.LabelField(&quot;My custom settings&quot;, EditorStyles.boldLabel);</span><br><span class="line">      GUILayout.FlexibleSpace();</span><br><span class="line">      // create the Preset button at the end of the &quot;MyManager Settings&quot; line.</span><br><span class="line">      var buttonPosition = EditorGUILayout.GetControlRect(false, EditorGUIUtility.singleLineHeight, Styles.iconButton);</span><br><span class="line"></span><br><span class="line">      if (EditorGUI.DropdownButton(buttonPosition, Styles.presetIcon, FocusType.Passive, Styles.iconButton))</span><br><span class="line">      &#123;</span><br><span class="line">          // Create a receiver instance. This destroys itself when the window appears, so you don&apos;t need to keep a reference to it.</span><br><span class="line">          var presetReceiver = ScriptableObject.CreateInstance&lt;MySettingsReceiver&gt;();</span><br><span class="line">          presetReceiver.Init(m_SerializedSettings, this);</span><br><span class="line">          // Show the PresetSelector modal window. The presetReceiver updates your data.</span><br><span class="line">          PresetSelector.ShowSelector(m_SerializedSettings, null, true, presetReceiver);</span><br><span class="line">      &#125;</span><br><span class="line">      EditorGUILayout.EndHorizontal();</span><br><span class="line">      </span><br><span class="line">      // Draw the settings default Inspector and catch any change made to it.</span><br><span class="line">      EditorGUI.BeginChangeCheck();</span><br><span class="line">      m_SettingsEditor.OnInspectorGUI();</span><br><span class="line"></span><br><span class="line">      if (EditorGUI.EndChangeCheck())</span><br><span class="line">      &#123;</span><br><span class="line">          // Apply changes made in the settings editor to our instance.</span><br><span class="line">          m_SerializedSettings.ApplySettings(this);</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> Editor </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 自定义菜单项 </tag>
+            
+            <tag> 编辑器功能 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>减小构建的文件大小</title>
+      <link href="/blog/ea658644.html"/>
+      <url>/blog/ea658644.html</url>
+      
+        <content type="html"><![CDATA[<p>将构建的应用程序的文件大小保持为最小很重要，对于移动设备或施加大小限制的应用程序商店尤其如此。</p><a id="more"></a><h1>查看包体中哪些文件占比最大</h1><p>减小规模的第一步是确定哪些资产对其贡献最大，因为这些资产是最有可能进行优化的候选对象。完成构建后，此信息可在编辑器日志中找到。转到控制台窗口（菜单：窗口 &gt; 常规 &gt; 控制台），单击右上角的小下拉面板，然后选择打开编辑器日志。</p><p><img src="https://longshilin.com/images/20200419101416.png" alt="执行构建后打开的 Editor 日志或者项目目录下的Build.log文件"></p><p>Editor 日志提供按类型细分的资源摘要，然后按大小比例顺序列出所有各个资源。通常，纹理 (Textures)、声音 (Sounds) 和动画 (Animations) 等内容占用的空间最多，而脚本 (Scripts)、关卡 (Levels) 和着色器 (Shaders) 一般影响最小。列表中显示的__文件标头 (File headers)__ 不是资源，实际上是添加到“原始”资源文件的额外数据，用于存储引用和设置。这些标头通常与资源大小差别很小，但如果在 Resources 文件夹中有许多大型资源，则该值可能会很大。</p><p>Editor 日志有助于识别可能要删除或优化的资源，但在开始之前应考虑以下事项：</p><p>Unity 将导入的资源重新编码为其自己的内部格式，因此源资源类型的选择不是相关因素。例如，如果项目中有一个多层 Photoshop 纹理，在构建之前将其展平并压缩。将纹理导出为 .png 文件对构建大小没有任何影响，因此应该坚持使用在开发过程中最方便的格式。</p><p>Unity 在构建期间会剥离大多数未使用的资源，因此无法通过从项目中手动删除资源来获得任何优化效果。唯一不会删除的资源是脚本（但无论如何，这些脚本通常都非常小）和 Resources 文件夹中的资源（因为 Unity 无法确定哪些是需要的，而哪些不是）。考虑到这一点，应确保 Resources 文件夹中的所有资源都是游戏所必需的资源。也许可以使用 AssetBundle 替换 Resources 文件夹中的资源；这样一来，Unity 就会动态加载资源，从而减小播放器大小。</p><h1>关于减小构建大小的建议</h1><h2 id="纹理">纹理</h2><p>纹理通常在构建中占据最多空间。第一个解决方案是使用压缩的纹理格式。请参阅有关特定于平台的纹理压缩的文档以了解更多信息。</p><p>如果这样做不足以减小文件大小，请尝试减小纹理图像的物理大小（以像素为单位）。若要在不修改实际源内容的情况下执行此操作，请在 Project 视图中选择该纹理，然后在 Inspector 窗口中减小 Max Size。要查看纹理在游戏中的外观，请放大使用该纹理的游戏对象，然后调整 <strong>Max Size</strong>，直至该纹理在 Scene 视图中的外观开始变差。更改最大纹理大小不会影响纹理资源，只会影响纹理在游戏中的分辨率。</p><p><img src="https://longshilin.com/images/20200419155312.png" alt=""></p><p>默认情况下，Unity 在导入时会压缩所有纹理。要在 Editor 中加快工作流程，请选择 Unity &lt; Preferences 并取消选中 Compress Assets on Import 的复选框。无论此设置如何，所有纹理都会在构建中进行压缩。</p><h2 id="网格和动画">网格和动画</h2><p>可以压缩<a href="https://longshilin.com/UnityDoc2019.3/Manual/class-Mesh.html">网格</a>和导入的动画剪辑，使它们在游戏文件中占用较少的空间。要启用网格压缩，请选择网格，然后在 Inspector 窗口中将 <strong>Mesh Compression</strong> 设置为 <strong>Low</strong>、<strong>Medium</strong> 或 <strong>High</strong>。网格和动画压缩使用量化技术，这意味着占用更少的空间，但压缩可能会带来一定程度的不准确性。请针对具体模型尝试找到可接受的压缩程度。</p><p>请注意，网格压缩只是生成较小的数据文件，在运行时不会减少使用的内存。减少动画关键帧会生成较小的数据文件，并会在运行时减少使用的内存；通常应始终启用该功能。请参阅有关<a href="https://longshilin.com/UnityDoc2019.3/Manual/class-AnimationClip.html">动画剪辑</a>的文档以了解与此相关的更多信息。</p><h2 id="减少-net库的大小">减少.NET库的大小</h2><p><a href="http://xn--Unity-qm1hmbz593aqde.NET" target="_blank" rel="noopener">Unity支持两个.NET</a> API兼容性级别：.NET <a href="http://4.xn--x-se9a.NET" target="_blank" rel="noopener">4.x和.NET</a> Standard 2.0。.NET Standard <a href="http://2.xn--0-cr6a90kc9mpyf0o4g.NET" target="_blank" rel="noopener">2.0将您限制为.NET</a> API的较小子集，这有助于减小尺寸。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> 优化 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 打包 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>添加随机游戏元素</title>
       <link href="/blog/98217773.html"/>
       <url>/blog/98217773.html</url>
@@ -14,7 +66,7 @@
           
           <category> Unity </category>
           
-          <category> 工具集 </category>
+          <category> 游戏内工具集 </category>
           
       </categories>
       
@@ -105,25 +157,25 @@
     </entry>
     
     <entry>
-      <title>JetBrains中添加模板代码块</title>
-      <link href="/blog/c13f7a8.html"/>
-      <url>/blog/c13f7a8.html</url>
+      <title>Smart Merge</title>
+      <link href="/blog/f8ae384d.html"/>
+      <url>/blog/f8ae384d.html</url>
       
-        <content type="html"><![CDATA[<p>在项目中直接添加模板能节省每次新建文件时需要进行的重复工作，并且在任何时候想输入模板内容可以直接输入。</p><a id="more"></a><p>一张图搞定！<br><img src="https://longshilin.com/images/20200412132022.png" alt=""></p>]]></content>
+        <content type="html"><![CDATA[<p>Unity 包含一个名为 <strong>UnityYAMLMerge</strong> 的工具，能够以语义正确的方式合并场景和预制件文件。可从命令行中访问该工具，也可将其用于第三方版本控制软件。</p><a id="more"></a><h2 id="在-unity-中设置智能合并">在 Unity 中设置智能合并</h2><p>In the <a href="https://longshilin.com/UnityDoc2019.3/Manual/class-EditorManager.html">Editor</a> window (menu: <strong>Edit &gt; Project Settings</strong>, then select the <strong>Editor</strong> category), you have the option to select a third party version control tool (Perforce or PlasticSCM, for example). When one of these tools is enabled, you will see a <em>Smart Merge</em> menu under the <em>Version Control</em> heading. The menu has four options:</p><ul><li><strong>Off</strong>：仅使用偏好设置中设定的默认合并工具而不进行智能合并。</li><li><strong>Premerge</strong>：启用智能合并，接受纯净的合并。不纯净的合并将创建文件的预先合并基础版本、他们的版本和我的版本。然后，对这些版本使用默认合并工具。</li><li><strong>Ask</strong>：启用智能合并，但发生冲突时显示一个对话框让用户解决冲突（这是默认设置）。</li></ul><h2 id="设置-unityyamlmerge-与第三方工具结合使用">设置 UnityYAMLMerge 与第三方工具结合使用</h2><p>UnityYAMLMerge 工具随附于 Unity Editor；假设 Unity 安装在标准位置，则 UnityYAMLMerge 的路径将是：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">C:\Program Files\Unity\Editor\Data\Tools\UnityYAMLMerge.exe</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">C:\Program Files (x86)\Unity\Editor\Data\Tools\UnityYAMLMerge.exe</span><br></pre></td></tr></table></figure><ul><li>在 Windows 上；</li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/Applications/Unity/Unity.app/Contents/Tools/UnityYAMLMerge</span><br></pre></td></tr></table></figure><ul><li>在 Mac OSX 上（使用 Finder 中的 <em>Show Package Contents</em> 命令访问此文件夹）。</li></ul><p>UnityYAMLMerge 附带了一个默认的回退文件（称为 mergespecfile.txt，也在 Tools 文件夹中），用于指定如何处理未解决的冲突或未知文件。此外，还可将其用作不会根据文件扩展名自动选择合并工具的版本控制系统（例如 git）的主要合并工具。默认情况下，mergespecfile.txt 中已列出最常用的工具，但可以编辑此文件以添加新工具或更改选项。</p><p>可从命令行中将 UnityYAMLMerge 作为独立工具运行（若要查看该工具的完整使用说明，可在运行时不带任何参数）。下面给出了常见版本控制系统的设置说明。</p><h3 id="p4v">P4V</h3><ul><li>选择 Preferences &gt; Merge。</li><li>选择 <em>Other application</em>。</li><li>单击 <em>Add</em> 按钮。</li><li>在 Extension 字段中，输入 <code>.unity</code>。</li><li>在 Application 字段中，输入 UnityYAMLMerge 工具的路径（见下文）。</li><li>在 Arguments 字段中，输入 <code>merge -p %b %1 %2 %r</code></li><li>单击 Save。</li></ul><p>然后，按照相同的步骤添加 <code>.prefab</code> 扩展名。</p><h3 id="git">Git</h3><p>将以下文本添加到 <code>.git</code> 或 <code>.gitconfig</code> 文件中：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[merge]</span><br><span class="line">    tool = unityyamlmerge</span><br><span class="line"></span><br><span class="line">    [mergetool &quot;unityyamlmerge&quot;]</span><br><span class="line">    trustExitCode = false</span><br><span class="line">    cmd = &apos;&lt;path to UnityYAMLMerge&gt;&apos; merge -p &quot;$BASE&quot; &quot;$REMOTE&quot; &quot;$LOCAL&quot; &quot;$MERGED&quot;</span><br></pre></td></tr></table></figure><h3 id="mercurial">Mercurial</h3><p>将以下文本添加到 <code>.hgrc</code> 文件中：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[merge-patterns]</span><br><span class="line">    **.unity = unityyamlmerge</span><br><span class="line">    **.prefab = unityyamlmerge</span><br><span class="line"></span><br><span class="line">    [merge-tools]</span><br><span class="line">    unityyamlmerge.executable = &lt;path to UnityYAMLMerge&gt;</span><br><span class="line">    unityyamlmerge.args = merge -p --force $base $other $local $output</span><br><span class="line">    unityyamlmerge.checkprompt = True</span><br><span class="line">    unityyamlmerge.premerge = False</span><br><span class="line">    unityyamlmerge.binary = False</span><br></pre></td></tr></table></figure><h3 id="svn">SVN</h3><p>将以下文本添加到 <code>~/.subversion/config</code> 文件中：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[helpers]</span><br><span class="line">    merge-tool-cmd = &lt;path to UnityYAMLMerge&gt;</span><br></pre></td></tr></table></figure><h3 id="tortoisegit">TortoiseGit</h3><ul><li>选择 Preferences &gt; Diff Viewer &gt; Merge Tool，然后单击 <em>Advanced</em> 按钮。</li><li>在弹出框的 Extension 字段中，输入 <code>.unity</code>。</li><li>在 External Program 字段中，输入：</li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;path to UnityYAMLMerge&gt; merge -p %base %theirs %mine %merged</span><br></pre></td></tr></table></figure><p>然后，按照相同的步骤添加 <code>.prefab</code> 扩展名。</p><h3 id="plasticscm">PlasticSCM</h3><ul><li>选择 Preferences &gt; Merge Tools，然后单击 <em>Add</em> 按钮。</li><li>选择 <em>External</em> 合并工具。</li><li>选择 <em>Use with files that match the following pattern</em>。</li><li>添加 <code>.unity</code> 扩展名。</li><li>输入以下命令：</li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;path to UnityYAMLMerge&gt; merge -p &quot;@basefile&quot; &quot;@sourcefile&quot;  &quot;@destinationfile&quot; &quot;@output&quot;</span><br></pre></td></tr></table></figure><p>然后，按照相同的步骤添加 <code>.prefab</code> 扩展名。</p><h3 id="sourcetree">SourceTree</h3><ul><li>选择 Tools &gt; Options &gt; Diff。</li><li>在 Merge Tool 下拉选单中选择 <em>Custom</em>。</li><li>在 <em>Merge Command</em> 文本字段中，输入 UnityYAMLMerge 的路径。</li><li>在 <em>Arguments</em> 文本字段中，输入 <code>merge -p $BASE $REMOTE $LOCAL $MERGED</code>。</li></ul>]]></content>
       
       
       <categories>
           
-          <category> IDE </category>
+          <category> Unity </category>
           
-          <category> JetBrains </category>
+          <category> 工具集 </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> JetBrains </tag>
+            <tag> Smart Merge </tag>
             
         </tags>
       
@@ -151,6 +203,31 @@
             <tag> Asset DataBase </tag>
             
             <tag> Editor </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>JetBrains中添加模板代码块</title>
+      <link href="/blog/c13f7a8.html"/>
+      <url>/blog/c13f7a8.html</url>
+      
+        <content type="html"><![CDATA[<p>在项目中直接添加模板能节省每次新建文件时需要进行的重复工作，并且在任何时候想输入模板内容可以直接输入。</p><a id="more"></a><p>一张图搞定！<br><img src="https://longshilin.com/images/20200412132022.png" alt=""></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> IDE </category>
+          
+          <category> JetBrains </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> JetBrains </tag>
             
         </tags>
       
@@ -263,17 +340,6 @@
     </entry>
     
     <entry>
-      <title>折腾一天有一天，什么时候真正开始</title>
-      <link href="/blog/4e801c8b.html"/>
-      <url>/blog/4e801c8b.html</url>
-      
-        <content type="html"><![CDATA[<p>今天又折腾了一天文档，只学习了一点皮毛。。。</p><a id="more"></a><p>昨天看到一个Unity的官方wiki，然后今天想从头开始着手研究，可是研究到晚上，看完一部分教程后发现这是太基础的教程，而且太久了。。。我看的页面最后更新时间还是2012年，难以置信。</p><p>我现在算是明白了，官方文档才是重中之重，也是我现在需要学习的。熟悉官方文档中的方方面面，足矣！！！</p><p>好了，每一天都在踩坑，踩坑完又入坑。。。我太难了</p><p><img src="https://longshilin.com/images/20190914204641.png" alt=""></p>]]></content>
-      
-      
-      
-    </entry>
-    
-    <entry>
       <title>Unity完全新手指南</title>
       <link href="/blog/74df0377.html"/>
       <url>/blog/74df0377.html</url>
@@ -295,6 +361,17 @@
             <tag> Unity Beginner Guide </tag>
             
         </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>折腾一天有一天，什么时候真正开始</title>
+      <link href="/blog/4e801c8b.html"/>
+      <url>/blog/4e801c8b.html</url>
+      
+        <content type="html"><![CDATA[<p>今天又折腾了一天文档，只学习了一点皮毛。。。</p><a id="more"></a><p>昨天看到一个Unity的官方wiki，然后今天想从头开始着手研究，可是研究到晚上，看完一部分教程后发现这是太基础的教程，而且太久了。。。我看的页面最后更新时间还是2012年，难以置信。</p><p>我现在算是明白了，官方文档才是重中之重，也是我现在需要学习的。熟悉官方文档中的方方面面，足矣！！！</p><p>好了，每一天都在踩坑，踩坑完又入坑。。。我太难了</p><p><img src="https://longshilin.com/images/20190914204641.png" alt=""></p>]]></content>
+      
+      
       
     </entry>
     
@@ -335,36 +412,11 @@
     </entry>
     
     <entry>
-      <title>C＃作业系统中的安全系统</title>
-      <link href="/blog/70ae4a2e.html"/>
-      <url>/blog/70ae4a2e.html</url>
+      <title>NativeContainer</title>
+      <link href="/blog/ac3c63a9.html"/>
+      <url>/blog/ac3c63a9.html</url>
       
-        <content type="html"><![CDATA[<h4 id="比赛条件">比赛条件</h4><p>编写<a href="https://docs.unity3d.com/Manual/JobSystemMultithreading.html" target="_blank" rel="noopener">多线程代码时</a>，总是存在<a href="https://en.wikipedia.org/wiki/Race_condition" target="_blank" rel="noopener">竞争条件</a>的风险。当一个操作的输出取决于其控制之外的另一个过程的定时时，发生竞争条件。</p><p>竞争条件并不总是一个错误，但它是不确定行为的来源。当竞争条件确实导致错误时，可能很难找到问题的根源，因为它取决于时间，因此您只能在极少数情况下重新创建问题。调试它可能会导致问题消失，因为断点和日志记录可以改变单个线程的时间。竞争条件是编写多线程代码时最重大的挑战。</p><a id="more"></a><h4 id="安全系统">安全系统</h4><p>为了更容易编写多线程代码，Unity C＃作业系统可以检测所有潜在的竞争条件，并保护您免受可能导致的错误的影响。</p><p>例如：如果C＃作业系统将主线程中代码中的数据<a href="https://docs.microsoft.com/en-us/cpp/cpp/references-cpp" target="_blank" rel="noopener">引用</a>发送到作业，则无法验证主线程是否在作业写入数据的同时读取数据。此方案会创建竞争条件。</p><p>C＃作业系统通过向每个作业发送它需要操作的数据的副本来解决这个问题，而不是对主线程中的数据的引用。此副本隔离数据，从而消除竞争条件。</p><p>C＃作业系统复制数据的方式意味着作业只能访问<a href="https://en.wikipedia.org/wiki/Blittable_types" target="_blank" rel="noopener">blittable数据类型</a>。在<a href="https://en.wikipedia.org/wiki/Managed_code" target="_blank" rel="noopener">托管</a>代码和本机代码之间传递时，这些类型不需要转换。</p><p>C＃Job System可以使用<a href="http://www.cplusplus.com/reference/cstring/memcpy/" target="_blank" rel="noopener">memcpy</a>复制blittable类型，并在Unity的托管和本机部分之间传输数据。它用于<code>memcpy</code>在调度作业时将数据放入本机内存，并在执行作业时为受管方提供对该副本的访问权限。有关更多信息，请参阅<a href="https://docs.unity3d.com/Manual/JobSystemSchedulingJobs.html" target="_blank" rel="noopener">计划作业</a>。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Unity </category>
-          
-          <category> C＃ Job System </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> C＃ Job System </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>C＃作业系统提示和故障排除</title>
-      <link href="/blog/feab267f.html"/>
-      <url>/blog/feab267f.html</url>
-      
-        <content type="html"><![CDATA[<p>使用Unity C＃作业系统时，请确保遵守以下内容：</p><h4 id="不要从作业访问静态数据">不要从作业访问静态数据</h4><p>从作业访问静态数据会绕过所有安全系统。如果您访问错误的数据，您可能会以意想不到的方式崩溃Unity。例如，访问<a href="https://docs.unity3d.com/ScriptReference/MonoBehaviour.html" target="_blank" rel="noopener">MonoBehaviour</a>可能会导致域重新加载崩溃。</p><p><strong>注意</strong>：由于存在这种风险，Unity的未来版本将阻止使用<a href="https://www.youtube.com/watch?v=VxeC7WFfg3Q" target="_blank" rel="noopener">静态分析</a>从作业进行全局变量访问。如果您确实访问作业中的静态数据，则应该期望您的代码在Unity的未来版本中中断。</p><a id="more"></a><h4 id="刷新预定批次">刷新预定批次</h4><p>如果希望作业开始执行，则可以使用<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.ScheduleBatchedJobs.html" target="_blank" rel="noopener">JobHandle.ScheduleBatchedJobs</a>刷新计划批处理。请注意，调用此方法会对性能产生负面影响。不刷新批处理会延迟调度，直到主线程等待结果。在所有其他情况下，使用<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.Complete.html" target="_blank" rel="noopener">JobHandle.Complete</a>来启动执行过程。</p><p><strong>注意</strong>：在<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples" target="_blank" rel="noopener">实体组件系统</a>（ECS）中，将为您隐式刷新批处理，因此<code>JobHandle.ScheduleBatchedJobs</code>不需要调用。</p><h4 id="不要尝试更新nativecontainer内容">不要尝试更新NativeContainer内容</h4><p>由于缺少<a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/ref-returns" target="_blank" rel="noopener">ref返回</a>，因此无法直接更改<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.NativeContainerAttribute.html" target="_blank" rel="noopener">NativeContainer</a>的内容。例如，<code>nativeArray[0]++;</code>与<code>var temp = nativeArray[0]; temp++;</code>不更新值的<code>nativeArray</code>写入相同。</p><p>相反，您必须将索引中的数据复制到本地临时副本，修改该副本并将其保存回来，如下所示：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MyStruct temp = myNativeArray[i];</span><br><span class="line">temp.memberVariable = 0;</span><br><span class="line">myNativeArray[i] = temp;</span><br></pre></td></tr></table></figure><h4 id="致电jobhandle-complete以重新获得所有权">致电JobHandle.Complete以重新获得所有权</h4><p>跟踪数据所有权需要在主线程再次使用它们之前完成依赖项。检查<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.IsCompleted.html" target="_blank" rel="noopener">JobHandle.IsCompleted</a>是不够的。您必须调用该方法<code>JobHandle.Complete</code>以重新获得<code>NativeContainer</code>主线程的类型的所有权。调用<code>Complete</code>还可以清除安全系统中的状态。不这样做会引入内存泄漏。如果您在每个帧中安排新作业，并且依赖于前一帧的作业，则此过程也适用。</p><h4 id="在主线程中使用schedule和complete">在主线程中使用Schedule和Complete</h4><p>你只能调用<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobExtensions.Schedule.html" target="_blank" rel="noopener">Schedule</a>和<code>Complete</code>主线程。如果一个作业依赖于另一个作业，则使用<code>JobHandle</code>管理依赖关系而不是尝试在作业内安排作业。</p><h4 id="在合适的时间使用计划和完成">在合适的时间使用计划和完成</h4><p><code>Schedule</code>只要您拥有所需的数据就立即打电话给工作，并且<code>Complete</code>在您需要结果之前不要打电话给它。优秀的做法是安排一个您不需要等待的工作，而不是与正在运行的任何其他工作竞争。例如，如果在一帧结束和下一帧的开始之间没有作业正在运行，并且可以接受一帧延迟，则可以将作业调度到帧的末尾并使用其结果在以下框架中。或者，如果您的游戏与其他工作的转换期间相比，并且框架中的其他位置存在大量未充分利用的时间段，则更有效地安排您的工作。</p><h4 id="将nativecontainer类型标记为只读">将NativeContainer类型标记为只读</h4><p>请记住，作业<code>NativeContainer</code>默认情况下对类型具有读写访问权限。<code>[ReadOnly]</code>适当时使用该属性可提高性能。</p><h4 id="检查数据依赖性">检查数据依赖性</h4><p>在Unity Profiler 窗口，主线程上的标记“WaitForJobGroup”表示Unity正在等待工作线程上的作业完成。此标记可能意味着您已在某处应引入数据依赖关系。寻找<code>JobHandle.Complete</code>跟踪数据依赖关系的位置，这些数据依赖关系迫使主线程等待。</p><h4 id="调试作业">调试作业</h4><p>作业具有一个<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobExtensions.Run.html" target="_blank" rel="noopener">Run</a>函数，您可以使用它来代替<code>Schedule</code>在主线程上立即执行作业。您可以将其用于调试目的。</p><h4 id="不要在作业中分配托管内存">不要在作业中分配托管内存</h4><p>在作业中分配托管内存非常慢，并且该作业无法使用Unity <a href="https://www.youtube.com/watch?v=NF6kcNS6U80&amp;t=2s" target="_blank" rel="noopener">Burst编译器</a>来提高性能。Burst是一种新的基于<a href="https://en.wikipedia.org/wiki/LLVM" target="_blank" rel="noopener">LLVM</a>的后端编译器技术，可以让您更轻松。它需要C＃作业并利用您平台的特定功能生成高度优化的机器代码。</p><h4 id="更多的信息">更多的信息</h4><ul><li>观看<a href="https://www.youtube.com/playlist?list=PLX2vGYjWbI0RuXtGMYKqChoZC2b-H4tck" target="_blank" rel="noopener">Unity GDC 2018：</a>剪辑的<a href="https://www.youtube.com/playlist?list=PLX2vGYjWbI0RuXtGMYKqChoZC2b-H4tck" target="_blank" rel="noopener">C＃作业系统</a>播放列表。</li><li>有关C＃作业系统如何与ECS相关的更多高级信息，请参阅<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/Documentation~/index.md" target="_blank" rel="noopener">GitHub上</a>的<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/Documentation~/index.md" target="_blank" rel="noopener">ECS包文档</a>。</li></ul>]]></content>
+        <content type="html"><![CDATA[<p><a href="https://docs.unity3d.com/Manual/JobSystemSafetySystem.html" target="_blank" rel="noopener">安全系统</a>复制数据<a href="https://docs.unity3d.com/Manual/JobSystemSafetySystem.html" target="_blank" rel="noopener">的</a>过程的缺点是它还隔离了每个副本中作业的结果。要克服此限制，您需要将结果存储在一种名为<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.NativeContainerAttribute.html" target="_blank" rel="noopener">NativeContainer</a>的共享内存中。</p><a id="more"></a><h2 id="什么是nativecontainer？">什么是NativeContainer？</h2><p>A <code>NativeContainer</code>是托管值类型，为本机内存提供相对安全的C＃包装器。它包含指向非托管分配的指针。与Unity C＃作业系统一起使用时，a <code>NativeContainer</code>允许作业访问与主线程共享的数据，而不是使用副本。</p><h2 id="有哪些类型的nativecontainer？">有哪些类型的NativeContainer？</h2><p>Unity附带一个<code>NativeContainer</code>名为<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html" target="_blank" rel="noopener">NativeArray的程序</a>。您还可以<code>NativeArray</code>使用<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeSlice_1.html" target="_blank" rel="noopener">NativeSlice</a>操作a 以获取<code>NativeArray</code>从特定位置到特定长度的子集。</p><p>注意：<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples" target="_blank" rel="noopener">实体组件系统</a>（ECS）包扩展了<code>Unity.Collections</code>命名空间以包括其他类型<code>NativeContainer</code>：</p><ul><li><code>NativeList</code>- 可调整大小<code>NativeArray</code>。</li><li><code>NativeHashMap</code> - 键和值对。</li><li><code>NativeMultiHashMap</code> - 每个键有多个值。</li><li><code>NativeQueue</code>- <a href="https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)" target="_blank" rel="noopener">先进先出</a>（<a href="https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)" target="_blank" rel="noopener">FIFO</a>）队列。</li></ul><h2 id="nativecontainer和安全系统">NativeContainer和安全系统</h2><p>安全系统内置于所有<code>NativeContainer</code>类型。它跟踪什么是读写任何内容<code>NativeContainer</code>。</p><p>注意：所有<code>NativeContainer</code>类型的安全检查（例如越界检查，重新分配检查和竞争条件检查）仅在Unity 编辑器和播放模式下可用。</p><p>该安全系统的一部分是<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.DisposeSentinel.html" target="_blank" rel="noopener">DisposeSentinel</a>和<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.AtomicSafetyHandle.html" target="_blank" rel="noopener">AtomicSafetyHandle</a>。该<code>DisposeSentinel</code>检测内存泄漏，给你一个错误，如果你没有正确地释放你的记忆。泄漏发生后很久就会发生内存泄漏错误。</p><p>使用<code>AtomicSafetyHandle</code>转移<code>NativeContainer</code>代码的所有权。例如，如果两个预定作业写入相同<code>NativeArray</code>，则安全系统会抛出异常，并显示明确的错误消息，说明解决问题的原因和方法。安排违规工作时，安全系统会抛出此异常。</p><p>在这种情况下，您可以安排具有依赖关系的作业。第一个作业可以写入<code>NativeContainer</code>，一旦完成执行，下一个作业就可以安全地读取和写入相同的作业<code>NativeContainer</code>。从主线程访问数据时，读写限制也适用。安全系统允许多个作业并行读取相同的数据。</p><p>默认情况下，当作业有权访问a时<code>NativeContainer</code>，它具有读写访问权限。此配置可能会降低性能。C＃作业系统不允许您计划与写入其中的<code>NativeContainer</code>另一个作业同时具有写访问权限的作业。</p><p>如果作业不需要写入a <code>NativeContainer</code>，请<code>NativeContainer</code>使用<code>[ReadOnly]</code>属性标记，如下所示：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[ReadOnly]</span><br><span class="line">public NativeArray&lt;int&gt; input;</span><br></pre></td></tr></table></figure><p>在上面的示例中，您可以与其他对第一个也具有只读访问权限的作业同时执行作业<code>NativeArray</code>。</p><p>注意：无法防止从作业中访问静态数据。访问静态数据会绕过所有安全系统，并可能导致Unity崩溃。有关更多信息，请参阅<a href="https://docs.unity3d.com/Manual/JobSystemTroubleshooting.html" target="_blank" rel="noopener">C＃作业系统提示和故障排除</a>。</p><h2 id="nativecontainer分配器">NativeContainer分配器</h2><p>创建时<code>NativeContainer</code>，必须指定所需的内存分配类型。分配类型取决于作业运行的时间长度。通过这种方式，您可以定制分配以在每种情况下获得最佳性能。</p><p>内存分配和释放有三种<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.Allocator.html" target="_blank" rel="noopener">Allocator</a>类型<code>NativeContainer</code>。在实例化你的时候需要指定合适的一个<code>NativeContainer</code>。</p><ul><li>Allocator.Temp分配最快。它适用于寿命为一帧或更少的分配。您不应将<code>NativeContainer</code>分配<code>Temp</code>用于作业。您还需要<code>Dispose</code>在从方法调用返回之前调用该方法（例如<a href="https://docs.unity3d.com/ScriptReference/MonoBehaviour.Update.html" target="_blank" rel="noopener">MonoBehaviour.Update</a>，或从本机代码到托管代码的任何其他回调）。</li><li>Allocator.TempJob是一个比较慢的分配，<code>Temp</code>但速度比<code>Persistent</code>。它适用于四帧生命周期内的分配，并且是线程安全的。如果<code>Dispose</code>在四帧内没有，则控制台会打印一条警告，该警告是从本机代码生成的。大多数小型工作都使用此<code>NativeContainer</code>分配类型。</li><li>Allocator.Persistent是最慢的分配，但只要你需要它，并且如果有必要，可以持续整个应用程序的生命周期。它是直接调用<a href="http://www.cplusplus.com/reference/cstdlib/malloc/" target="_blank" rel="noopener">malloc</a>的包装器。较长的作业可以使用此<code>NativeContainer</code>分配类型。你不应该使用<code>Persistent</code>性能至关重要的地方。</li></ul><p>例如：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NativeArray&lt;float&gt; result = new NativeArray&lt;float&gt;(1, Allocator.TempJob);</span><br></pre></td></tr></table></figure><p>注意：上例中的数字1表示的大小<code>NativeArray</code>。在这种情况下，它只有一个数组元素（因为它只存储一个数据<code>result</code>）。</p>]]></content>
       
       
       <categories>
@@ -379,56 +431,6 @@
         <tags>
             
             <tag> C＃ Job System </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>JobHandle和依赖项</title>
-      <link href="/blog/9bdee974.html"/>
-      <url>/blog/9bdee974.html</url>
-      
-        <content type="html"><![CDATA[<h4 id="要当您调用作业的schedule方法时-它将返回jobhandle-您可以在代码中使用一个jobhandle作为其他作业的依赖项-如果作业取决于另一个作业的结果-您可以将第一个作业jobhandle作为参数传递给第二个作业的schedule方法-如下所示：">要当您调用作业的<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobExtensions.Schedule.html" target="_blank" rel="noopener">Schedule</a>方法时，它将返回<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html" target="_blank" rel="noopener">JobHandle</a>。您可以在代码中使用一个<code>JobHandle</code>作为其他作业的依赖项。如果作业取决于另一个作业的结果，您可以将第一个作业<code>JobHandle</code>作为参数传递给第二个作业的<code>Schedule</code>方法，如下所示：</h4><a id="more"></a><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">JobHandle firstJobHandle = firstJob.Schedule();</span><br><span class="line">secondJob.Schedule(firstJobHandle);</span><br></pre></td></tr></table></figure><h4 id="结合依赖关系">结合依赖关系</h4><p>如果作业具有许多依赖项，则可以使用<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.CombineDependencies.html" target="_blank" rel="noopener">JobHandle.CombineDependencies</a>方法合并它们。<code>CombineDependencies</code>允许您将它们传递给<code>Schedule</code>方法。</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">NativeArray&lt;JobHandle&gt; handles = <span class="keyword">new</span> NativeArray&lt;JobHandle&gt;(numJobs, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Populate `handles` with `JobHandles` from multiple scheduled jobs...</span></span><br><span class="line"></span><br><span class="line">JobHandle jh = JobHandle.CombineDependencies(handles);</span><br></pre></td></tr></table></figure><h4 id="在主线程中等待工作">在主线程中等待工作</h4><p>使用<code>JobHandle</code>强迫你的代码在主线程等待您的工作执行完毕。要做到这一点，调用<code>JobHandle的Complete方法</code>。此时，您知道主线程可以安全地访问作业正在使用的<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.NativeContainerAttribute.html" target="_blank" rel="noopener">NativeContainer</a>。</p><p><strong>注意</strong>：在计划作业时，作业不会开始执行。如果您正在等待主线程中的作业，并且您需要访问作业正在使用的NativeContainer数据，则可以调用该方法<code>JobHandle.Complete</code>。此方法从内存高速缓存中刷新作业并启动执行过程。在`JobHandle<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">否则，如果您不需要访问数据，则需要明确刷新批处理。为此，请调用静态方法[JobHandle.ScheduleBatchedJobs](https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.ScheduleBatchedJobs.html)。请注意，调用此方法会对性能产生负面影响。</span><br><span class="line"></span><br><span class="line">#### 多个作业和依赖项的示例</span><br><span class="line"></span><br><span class="line">**工作代码**：</span><br><span class="line"></span><br><span class="line">```csharp</span><br><span class="line">// Job adding two floating point values together</span><br><span class="line">public struct MyJob : IJob</span><br><span class="line">&#123;</span><br><span class="line">    public float a;</span><br><span class="line">    public float b;</span><br><span class="line">    public NativeArray&lt;float&gt; result;</span><br><span class="line"></span><br><span class="line">    public void Execute()</span><br><span class="line">    &#123;</span><br><span class="line">        result[0] = a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Job adding one to a value</span><br><span class="line">public struct AddOneJob : IJob</span><br><span class="line">&#123;</span><br><span class="line">    public NativeArray&lt;float&gt; result;</span><br><span class="line"></span><br><span class="line">    public void Execute()</span><br><span class="line">    &#123;</span><br><span class="line">        result[0] = result[0] + 1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p><strong>主线程代码</strong>：</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Create a native array of a single float to store the result in. This example waits for the job to complete</span></span><br><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; result = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">1</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Setup the data for job #1</span></span><br><span class="line">MyJob jobData = <span class="keyword">new</span> MyJob();</span><br><span class="line">jobData.a = <span class="number">10</span>;</span><br><span class="line">jobData.b = <span class="number">10</span>;</span><br><span class="line">jobData.result = result;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Schedule job #1</span></span><br><span class="line">JobHandle firstHandle = jobData.Schedule();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Setup the data for job #2</span></span><br><span class="line">AddOneJob incJobData = <span class="keyword">new</span> AddOneJob();</span><br><span class="line">incJobData.result = result;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Schedule job #2</span></span><br><span class="line">JobHandle secondHandle = incJobData.Schedule(firstHandle);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Wait for job #2 to complete</span></span><br><span class="line">secondHandle.Complete();</span><br><span class="line"></span><br><span class="line"><span class="comment">// All copies of the NativeArray point to the same memory, you can access the result in "your" copy of the NativeArray</span></span><br><span class="line"><span class="keyword">float</span> aPlusB = result[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// Free the memory allocated by the result array</span></span><br><span class="line">result.Dispose();</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> Unity </category>
-          
-          <category> C＃ Job System </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> C＃ Job System </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>实体组件系统</title>
-      <link href="/blog/68fc35ba.html"/>
-      <url>/blog/68fc35ba.html</url>
-      
-        <content type="html"><![CDATA[<p><strong>栏目概述</strong></p><a id="more"></a><ul><li>Core ECS<ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_entities.html" target="_blank" rel="noopener">Entities</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/world.html" target="_blank" rel="noopener">Worlds</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">Components</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/component_data.html" target="_blank" rel="noopener">General Purpose Components</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/shared_component_data.html" target="_blank" rel="noopener">Shared Components</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/system_state_components.html" target="_blank" rel="noopener">System State Components</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/dynamic_buffers.html" target="_blank" rel="noopener">Dynamic Buffer Components</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_systems.html" target="_blank" rel="noopener">System</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/component_system.html" target="_blank" rel="noopener">Component Systems</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/job_component_system.html" target="_blank" rel="noopener">Job Component Systems</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/entity_command_buffer.html" target="_blank" rel="noopener">Entity Command Buffers</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/system_update_order.html" target="_blank" rel="noopener">System Update Order</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/chunk_iteration.html" target="_blank" rel="noopener">Accessing Entity Data</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/entity_iteration_job.html" target="_blank" rel="noopener">Using IJobForEach</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/chunk_iteration_job.html" target="_blank" rel="noopener">Using IJobChunk</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/entity_iteration_foreach.html" target="_blank" rel="noopener">Using ComponentSystem and ForEach</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/manual_iteration.html" target="_blank" rel="noopener">Manual iteration</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/component_group.html" target="_blank" rel="noopener">Component Groups</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_write_groups.html" target="_blank" rel="noopener">Component WriteGroups</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/version_numbers.html" target="_blank" rel="noopener">Versions and Generations</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_job_overview.html" target="_blank" rel="noopener">Jobs in ECS</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_job_extensions.html" target="_blank" rel="noopener">ECS Job System extensions</a></li></ul></li></ul></li><li>Creating Gameplay<ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/transform_system.html" target="_blank" rel="noopener">Transforms</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/gp_rendering.html" target="_blank" rel="noopener">Rendering</a></li></ul></li></ul><p>实体组件系统（ECS）是Unity数据导向技术堆栈的核心。顾名思义，ECS有三个主要部分：</p><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_entities.html" target="_blank" rel="noopener">实体</a> - 填充您的游戏或程序的实体或事物</li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">组件</a> - 与您的实体关联的数据，但由数据本身而不是按实体组织。（这种组织差异是面向对象和面向数据的设计之间的关键差异之一。）</li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_systems.html" target="_blank" rel="noopener">系统</a> - 将组件数据从其当前状态转换到其下一状态的逻辑 - 例如，系统可以通过其速度乘以自前一帧以来的时间间隔来更新所有移动实体的位置。</li></ul>]]></content>
-      
-      
-      <categories>
-          
-          <category> Unity </category>
-          
-          <category> ECS手册和脚本参考 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> ECS手册和脚本参考 </tag>
             
         </tags>
       
@@ -785,25 +787,25 @@
     </entry>
     
     <entry>
-      <title>组件</title>
-      <link href="/blog/34778b46.html"/>
-      <url>/blog/34778b46.html</url>
+      <title>C＃作业系统中的安全系统</title>
+      <link href="/blog/70ae4a2e.html"/>
+      <url>/blog/70ae4a2e.html</url>
       
-        <content type="html"><![CDATA[<p>组件是实体组件系统体系结构的三个主要元素之一。它们代表您的游戏或程序的数据。实体本质上是标识符，用于索引组件集合。系统提供行为。</p><a id="more"></a><p>具体地说，ECS中的组件是具有以下“标记接口”之一的结构：</p><p>IComponentData<br>ISharedComponentData<br>ISystemStateComponentData<br>ISharedSystemStateComponentData<br>EntityManager将实体上出现的组件的唯一组合组织到Archetypes中。它将具有相同原型的所有实体的组件一起存储在名为Chunks的内存块中。给定Chunk中的实体都具有相同的组件原型。</p><p>共享组件是一种特殊的数据组件，您可以使用它来根据共享组件中的特定值（除了它们的原型之外）细分实体。将共享组件添加到实体时，EntityManager将具有相同共享数据值的所有实体放入同一块中。共享组件允许您的系统一起处理类似的实体。例如，共享组件Rendering.RenderMesh是Hybrid.rendering包的一部分，它定义了几个字段，包括mesh，material，receiveShadows等。渲染时，最有效的是处理所有具有相同值的3D对象。由于这些属性是在共享组件中指定的，因此EntityManager将匹配的实体放在内存中，以便呈现系统可以有效地迭代它们。</p><p>注意：过度使用共享组件会导致较差的块利用率，因为它涉及基于原型和每个共享组件字段的每个唯一值组合扩展所需的内存块数。避免向共享组件添加不必要的字段，使用Entity Debugger查看当前的Chunk利用率。</p><p>如果从实体添加或删除组件，或更改SharedComponent的值，EntityManager会将实体移动到其他Chunk，必要时创建新Chunk。</p><p>系统状态组件的行为类似于普通组件或共享组件，但在销毁实体时，EntityManager不会删除任何系统状态组件，也不会在删除实体ID之前回收它们。这种行为差异允许系统在销毁实体时清理其内部状态或释放资源。</p>]]></content>
+        <content type="html"><![CDATA[<h4 id="比赛条件">比赛条件</h4><p>编写<a href="https://docs.unity3d.com/Manual/JobSystemMultithreading.html" target="_blank" rel="noopener">多线程代码时</a>，总是存在<a href="https://en.wikipedia.org/wiki/Race_condition" target="_blank" rel="noopener">竞争条件</a>的风险。当一个操作的输出取决于其控制之外的另一个过程的定时时，发生竞争条件。</p><p>竞争条件并不总是一个错误，但它是不确定行为的来源。当竞争条件确实导致错误时，可能很难找到问题的根源，因为它取决于时间，因此您只能在极少数情况下重新创建问题。调试它可能会导致问题消失，因为断点和日志记录可以改变单个线程的时间。竞争条件是编写多线程代码时最重大的挑战。</p><a id="more"></a><h4 id="安全系统">安全系统</h4><p>为了更容易编写多线程代码，Unity C＃作业系统可以检测所有潜在的竞争条件，并保护您免受可能导致的错误的影响。</p><p>例如：如果C＃作业系统将主线程中代码中的数据<a href="https://docs.microsoft.com/en-us/cpp/cpp/references-cpp" target="_blank" rel="noopener">引用</a>发送到作业，则无法验证主线程是否在作业写入数据的同时读取数据。此方案会创建竞争条件。</p><p>C＃作业系统通过向每个作业发送它需要操作的数据的副本来解决这个问题，而不是对主线程中的数据的引用。此副本隔离数据，从而消除竞争条件。</p><p>C＃作业系统复制数据的方式意味着作业只能访问<a href="https://en.wikipedia.org/wiki/Blittable_types" target="_blank" rel="noopener">blittable数据类型</a>。在<a href="https://en.wikipedia.org/wiki/Managed_code" target="_blank" rel="noopener">托管</a>代码和本机代码之间传递时，这些类型不需要转换。</p><p>C＃Job System可以使用<a href="http://www.cplusplus.com/reference/cstring/memcpy/" target="_blank" rel="noopener">memcpy</a>复制blittable类型，并在Unity的托管和本机部分之间传输数据。它用于<code>memcpy</code>在调度作业时将数据放入本机内存，并在执行作业时为受管方提供对该副本的访问权限。有关更多信息，请参阅<a href="https://docs.unity3d.com/Manual/JobSystemSchedulingJobs.html" target="_blank" rel="noopener">计划作业</a>。</p>]]></content>
       
       
       <categories>
           
           <category> Unity </category>
           
-          <category> ECS手册和脚本参考 </category>
+          <category> C＃ Job System </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> ECS手册和脚本参考 </tag>
+            <tag> C＃ Job System </tag>
             
         </tags>
       
@@ -885,11 +887,86 @@
     </entry>
     
     <entry>
-      <title>NativeContainer</title>
-      <link href="/blog/ac3c63a9.html"/>
-      <url>/blog/ac3c63a9.html</url>
+      <title>实体组件系统</title>
+      <link href="/blog/68fc35ba.html"/>
+      <url>/blog/68fc35ba.html</url>
       
-        <content type="html"><![CDATA[<p><a href="https://docs.unity3d.com/Manual/JobSystemSafetySystem.html" target="_blank" rel="noopener">安全系统</a>复制数据<a href="https://docs.unity3d.com/Manual/JobSystemSafetySystem.html" target="_blank" rel="noopener">的</a>过程的缺点是它还隔离了每个副本中作业的结果。要克服此限制，您需要将结果存储在一种名为<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.NativeContainerAttribute.html" target="_blank" rel="noopener">NativeContainer</a>的共享内存中。</p><a id="more"></a><h2 id="什么是nativecontainer？">什么是NativeContainer？</h2><p>A <code>NativeContainer</code>是托管值类型，为本机内存提供相对安全的C＃包装器。它包含指向非托管分配的指针。与Unity C＃作业系统一起使用时，a <code>NativeContainer</code>允许作业访问与主线程共享的数据，而不是使用副本。</p><h2 id="有哪些类型的nativecontainer？">有哪些类型的NativeContainer？</h2><p>Unity附带一个<code>NativeContainer</code>名为<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html" target="_blank" rel="noopener">NativeArray的程序</a>。您还可以<code>NativeArray</code>使用<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeSlice_1.html" target="_blank" rel="noopener">NativeSlice</a>操作a 以获取<code>NativeArray</code>从特定位置到特定长度的子集。</p><p>注意：<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples" target="_blank" rel="noopener">实体组件系统</a>（ECS）包扩展了<code>Unity.Collections</code>命名空间以包括其他类型<code>NativeContainer</code>：</p><ul><li><code>NativeList</code>- 可调整大小<code>NativeArray</code>。</li><li><code>NativeHashMap</code> - 键和值对。</li><li><code>NativeMultiHashMap</code> - 每个键有多个值。</li><li><code>NativeQueue</code>- <a href="https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)" target="_blank" rel="noopener">先进先出</a>（<a href="https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)" target="_blank" rel="noopener">FIFO</a>）队列。</li></ul><h2 id="nativecontainer和安全系统">NativeContainer和安全系统</h2><p>安全系统内置于所有<code>NativeContainer</code>类型。它跟踪什么是读写任何内容<code>NativeContainer</code>。</p><p>注意：所有<code>NativeContainer</code>类型的安全检查（例如越界检查，重新分配检查和竞争条件检查）仅在Unity 编辑器和播放模式下可用。</p><p>该安全系统的一部分是<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.DisposeSentinel.html" target="_blank" rel="noopener">DisposeSentinel</a>和<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.AtomicSafetyHandle.html" target="_blank" rel="noopener">AtomicSafetyHandle</a>。该<code>DisposeSentinel</code>检测内存泄漏，给你一个错误，如果你没有正确地释放你的记忆。泄漏发生后很久就会发生内存泄漏错误。</p><p>使用<code>AtomicSafetyHandle</code>转移<code>NativeContainer</code>代码的所有权。例如，如果两个预定作业写入相同<code>NativeArray</code>，则安全系统会抛出异常，并显示明确的错误消息，说明解决问题的原因和方法。安排违规工作时，安全系统会抛出此异常。</p><p>在这种情况下，您可以安排具有依赖关系的作业。第一个作业可以写入<code>NativeContainer</code>，一旦完成执行，下一个作业就可以安全地读取和写入相同的作业<code>NativeContainer</code>。从主线程访问数据时，读写限制也适用。安全系统允许多个作业并行读取相同的数据。</p><p>默认情况下，当作业有权访问a时<code>NativeContainer</code>，它具有读写访问权限。此配置可能会降低性能。C＃作业系统不允许您计划与写入其中的<code>NativeContainer</code>另一个作业同时具有写访问权限的作业。</p><p>如果作业不需要写入a <code>NativeContainer</code>，请<code>NativeContainer</code>使用<code>[ReadOnly]</code>属性标记，如下所示：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[ReadOnly]</span><br><span class="line">public NativeArray&lt;int&gt; input;</span><br></pre></td></tr></table></figure><p>在上面的示例中，您可以与其他对第一个也具有只读访问权限的作业同时执行作业<code>NativeArray</code>。</p><p>注意：无法防止从作业中访问静态数据。访问静态数据会绕过所有安全系统，并可能导致Unity崩溃。有关更多信息，请参阅<a href="https://docs.unity3d.com/Manual/JobSystemTroubleshooting.html" target="_blank" rel="noopener">C＃作业系统提示和故障排除</a>。</p><h2 id="nativecontainer分配器">NativeContainer分配器</h2><p>创建时<code>NativeContainer</code>，必须指定所需的内存分配类型。分配类型取决于作业运行的时间长度。通过这种方式，您可以定制分配以在每种情况下获得最佳性能。</p><p>内存分配和释放有三种<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.Allocator.html" target="_blank" rel="noopener">Allocator</a>类型<code>NativeContainer</code>。在实例化你的时候需要指定合适的一个<code>NativeContainer</code>。</p><ul><li>Allocator.Temp分配最快。它适用于寿命为一帧或更少的分配。您不应将<code>NativeContainer</code>分配<code>Temp</code>用于作业。您还需要<code>Dispose</code>在从方法调用返回之前调用该方法（例如<a href="https://docs.unity3d.com/ScriptReference/MonoBehaviour.Update.html" target="_blank" rel="noopener">MonoBehaviour.Update</a>，或从本机代码到托管代码的任何其他回调）。</li><li>Allocator.TempJob是一个比较慢的分配，<code>Temp</code>但速度比<code>Persistent</code>。它适用于四帧生命周期内的分配，并且是线程安全的。如果<code>Dispose</code>在四帧内没有，则控制台会打印一条警告，该警告是从本机代码生成的。大多数小型工作都使用此<code>NativeContainer</code>分配类型。</li><li>Allocator.Persistent是最慢的分配，但只要你需要它，并且如果有必要，可以持续整个应用程序的生命周期。它是直接调用<a href="http://www.cplusplus.com/reference/cstdlib/malloc/" target="_blank" rel="noopener">malloc</a>的包装器。较长的作业可以使用此<code>NativeContainer</code>分配类型。你不应该使用<code>Persistent</code>性能至关重要的地方。</li></ul><p>例如：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NativeArray&lt;float&gt; result = new NativeArray&lt;float&gt;(1, Allocator.TempJob);</span><br></pre></td></tr></table></figure><p>注意：上例中的数字1表示的大小<code>NativeArray</code>。在这种情况下，它只有一个数组元素（因为它只存储一个数据<code>result</code>）。</p>]]></content>
+        <content type="html"><![CDATA[<p><strong>栏目概述</strong></p><a id="more"></a><ul><li>Core ECS<ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_entities.html" target="_blank" rel="noopener">Entities</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/world.html" target="_blank" rel="noopener">Worlds</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">Components</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/component_data.html" target="_blank" rel="noopener">General Purpose Components</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/shared_component_data.html" target="_blank" rel="noopener">Shared Components</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/system_state_components.html" target="_blank" rel="noopener">System State Components</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/dynamic_buffers.html" target="_blank" rel="noopener">Dynamic Buffer Components</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_systems.html" target="_blank" rel="noopener">System</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/component_system.html" target="_blank" rel="noopener">Component Systems</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/job_component_system.html" target="_blank" rel="noopener">Job Component Systems</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/entity_command_buffer.html" target="_blank" rel="noopener">Entity Command Buffers</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/system_update_order.html" target="_blank" rel="noopener">System Update Order</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/chunk_iteration.html" target="_blank" rel="noopener">Accessing Entity Data</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/entity_iteration_job.html" target="_blank" rel="noopener">Using IJobForEach</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/chunk_iteration_job.html" target="_blank" rel="noopener">Using IJobChunk</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/entity_iteration_foreach.html" target="_blank" rel="noopener">Using ComponentSystem and ForEach</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/manual_iteration.html" target="_blank" rel="noopener">Manual iteration</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/component_group.html" target="_blank" rel="noopener">Component Groups</a></li></ul></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_write_groups.html" target="_blank" rel="noopener">Component WriteGroups</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/version_numbers.html" target="_blank" rel="noopener">Versions and Generations</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_job_overview.html" target="_blank" rel="noopener">Jobs in ECS</a><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_job_extensions.html" target="_blank" rel="noopener">ECS Job System extensions</a></li></ul></li></ul></li><li>Creating Gameplay<ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/transform_system.html" target="_blank" rel="noopener">Transforms</a></li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/gp_rendering.html" target="_blank" rel="noopener">Rendering</a></li></ul></li></ul><p>实体组件系统（ECS）是Unity数据导向技术堆栈的核心。顾名思义，ECS有三个主要部分：</p><ul><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_entities.html" target="_blank" rel="noopener">实体</a> - 填充您的游戏或程序的实体或事物</li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_components.html" target="_blank" rel="noopener">组件</a> - 与您的实体关联的数据，但由数据本身而不是按实体组织。（这种组织差异是面向对象和面向数据的设计之间的关键差异之一。）</li><li><a href="https://docs.unity3d.com/Packages/com.unity.entities@0.0/manual/ecs_systems.html" target="_blank" rel="noopener">系统</a> - 将组件数据从其当前状态转换到其下一状态的逻辑 - 例如，系统可以通过其速度乘以自前一帧以来的时间间隔来更新所有移动实体的位置。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> ECS手册和脚本参考 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ECS手册和脚本参考 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>组件</title>
+      <link href="/blog/34778b46.html"/>
+      <url>/blog/34778b46.html</url>
+      
+        <content type="html"><![CDATA[<p>组件是实体组件系统体系结构的三个主要元素之一。它们代表您的游戏或程序的数据。实体本质上是标识符，用于索引组件集合。系统提供行为。</p><a id="more"></a><p>具体地说，ECS中的组件是具有以下“标记接口”之一的结构：</p><p>IComponentData<br>ISharedComponentData<br>ISystemStateComponentData<br>ISharedSystemStateComponentData<br>EntityManager将实体上出现的组件的唯一组合组织到Archetypes中。它将具有相同原型的所有实体的组件一起存储在名为Chunks的内存块中。给定Chunk中的实体都具有相同的组件原型。</p><p>共享组件是一种特殊的数据组件，您可以使用它来根据共享组件中的特定值（除了它们的原型之外）细分实体。将共享组件添加到实体时，EntityManager将具有相同共享数据值的所有实体放入同一块中。共享组件允许您的系统一起处理类似的实体。例如，共享组件Rendering.RenderMesh是Hybrid.rendering包的一部分，它定义了几个字段，包括mesh，material，receiveShadows等。渲染时，最有效的是处理所有具有相同值的3D对象。由于这些属性是在共享组件中指定的，因此EntityManager将匹配的实体放在内存中，以便呈现系统可以有效地迭代它们。</p><p>注意：过度使用共享组件会导致较差的块利用率，因为它涉及基于原型和每个共享组件字段的每个唯一值组合扩展所需的内存块数。避免向共享组件添加不必要的字段，使用Entity Debugger查看当前的Chunk利用率。</p><p>如果从实体添加或删除组件，或更改SharedComponent的值，EntityManager会将实体移动到其他Chunk，必要时创建新Chunk。</p><p>系统状态组件的行为类似于普通组件或共享组件，但在销毁实体时，EntityManager不会删除任何系统状态组件，也不会在删除实体ID之前回收它们。这种行为差异允许系统在销毁实体时清理其内部状态或释放资源。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> ECS手册和脚本参考 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> ECS手册和脚本参考 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>C＃作业系统提示和故障排除</title>
+      <link href="/blog/feab267f.html"/>
+      <url>/blog/feab267f.html</url>
+      
+        <content type="html"><![CDATA[<p>使用Unity C＃作业系统时，请确保遵守以下内容：</p><h4 id="不要从作业访问静态数据">不要从作业访问静态数据</h4><p>从作业访问静态数据会绕过所有安全系统。如果您访问错误的数据，您可能会以意想不到的方式崩溃Unity。例如，访问<a href="https://docs.unity3d.com/ScriptReference/MonoBehaviour.html" target="_blank" rel="noopener">MonoBehaviour</a>可能会导致域重新加载崩溃。</p><p><strong>注意</strong>：由于存在这种风险，Unity的未来版本将阻止使用<a href="https://www.youtube.com/watch?v=VxeC7WFfg3Q" target="_blank" rel="noopener">静态分析</a>从作业进行全局变量访问。如果您确实访问作业中的静态数据，则应该期望您的代码在Unity的未来版本中中断。</p><a id="more"></a><h4 id="刷新预定批次">刷新预定批次</h4><p>如果希望作业开始执行，则可以使用<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.ScheduleBatchedJobs.html" target="_blank" rel="noopener">JobHandle.ScheduleBatchedJobs</a>刷新计划批处理。请注意，调用此方法会对性能产生负面影响。不刷新批处理会延迟调度，直到主线程等待结果。在所有其他情况下，使用<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.Complete.html" target="_blank" rel="noopener">JobHandle.Complete</a>来启动执行过程。</p><p><strong>注意</strong>：在<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples" target="_blank" rel="noopener">实体组件系统</a>（ECS）中，将为您隐式刷新批处理，因此<code>JobHandle.ScheduleBatchedJobs</code>不需要调用。</p><h4 id="不要尝试更新nativecontainer内容">不要尝试更新NativeContainer内容</h4><p>由于缺少<a href="https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/classes-and-structs/ref-returns" target="_blank" rel="noopener">ref返回</a>，因此无法直接更改<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.NativeContainerAttribute.html" target="_blank" rel="noopener">NativeContainer</a>的内容。例如，<code>nativeArray[0]++;</code>与<code>var temp = nativeArray[0]; temp++;</code>不更新值的<code>nativeArray</code>写入相同。</p><p>相反，您必须将索引中的数据复制到本地临时副本，修改该副本并将其保存回来，如下所示：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">MyStruct temp = myNativeArray[i];</span><br><span class="line">temp.memberVariable = 0;</span><br><span class="line">myNativeArray[i] = temp;</span><br></pre></td></tr></table></figure><h4 id="致电jobhandle-complete以重新获得所有权">致电JobHandle.Complete以重新获得所有权</h4><p>跟踪数据所有权需要在主线程再次使用它们之前完成依赖项。检查<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.IsCompleted.html" target="_blank" rel="noopener">JobHandle.IsCompleted</a>是不够的。您必须调用该方法<code>JobHandle.Complete</code>以重新获得<code>NativeContainer</code>主线程的类型的所有权。调用<code>Complete</code>还可以清除安全系统中的状态。不这样做会引入内存泄漏。如果您在每个帧中安排新作业，并且依赖于前一帧的作业，则此过程也适用。</p><h4 id="在主线程中使用schedule和complete">在主线程中使用Schedule和Complete</h4><p>你只能调用<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobExtensions.Schedule.html" target="_blank" rel="noopener">Schedule</a>和<code>Complete</code>主线程。如果一个作业依赖于另一个作业，则使用<code>JobHandle</code>管理依赖关系而不是尝试在作业内安排作业。</p><h4 id="在合适的时间使用计划和完成">在合适的时间使用计划和完成</h4><p><code>Schedule</code>只要您拥有所需的数据就立即打电话给工作，并且<code>Complete</code>在您需要结果之前不要打电话给它。优秀的做法是安排一个您不需要等待的工作，而不是与正在运行的任何其他工作竞争。例如，如果在一帧结束和下一帧的开始之间没有作业正在运行，并且可以接受一帧延迟，则可以将作业调度到帧的末尾并使用其结果在以下框架中。或者，如果您的游戏与其他工作的转换期间相比，并且框架中的其他位置存在大量未充分利用的时间段，则更有效地安排您的工作。</p><h4 id="将nativecontainer类型标记为只读">将NativeContainer类型标记为只读</h4><p>请记住，作业<code>NativeContainer</code>默认情况下对类型具有读写访问权限。<code>[ReadOnly]</code>适当时使用该属性可提高性能。</p><h4 id="检查数据依赖性">检查数据依赖性</h4><p>在Unity Profiler 窗口，主线程上的标记“WaitForJobGroup”表示Unity正在等待工作线程上的作业完成。此标记可能意味着您已在某处应引入数据依赖关系。寻找<code>JobHandle.Complete</code>跟踪数据依赖关系的位置，这些数据依赖关系迫使主线程等待。</p><h4 id="调试作业">调试作业</h4><p>作业具有一个<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobExtensions.Run.html" target="_blank" rel="noopener">Run</a>函数，您可以使用它来代替<code>Schedule</code>在主线程上立即执行作业。您可以将其用于调试目的。</p><h4 id="不要在作业中分配托管内存">不要在作业中分配托管内存</h4><p>在作业中分配托管内存非常慢，并且该作业无法使用Unity <a href="https://www.youtube.com/watch?v=NF6kcNS6U80&amp;t=2s" target="_blank" rel="noopener">Burst编译器</a>来提高性能。Burst是一种新的基于<a href="https://en.wikipedia.org/wiki/LLVM" target="_blank" rel="noopener">LLVM</a>的后端编译器技术，可以让您更轻松。它需要C＃作业并利用您平台的特定功能生成高度优化的机器代码。</p><h4 id="更多的信息">更多的信息</h4><ul><li>观看<a href="https://www.youtube.com/playlist?list=PLX2vGYjWbI0RuXtGMYKqChoZC2b-H4tck" target="_blank" rel="noopener">Unity GDC 2018：</a>剪辑的<a href="https://www.youtube.com/playlist?list=PLX2vGYjWbI0RuXtGMYKqChoZC2b-H4tck" target="_blank" rel="noopener">C＃作业系统</a>播放列表。</li><li>有关C＃作业系统如何与ECS相关的更多高级信息，请参阅<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/Documentation~/index.md" target="_blank" rel="noopener">GitHub上</a>的<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples/blob/master/Documentation~/index.md" target="_blank" rel="noopener">ECS包文档</a>。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> C＃ Job System </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>JobHandle和依赖项</title>
+      <link href="/blog/9bdee974.html"/>
+      <url>/blog/9bdee974.html</url>
+      
+        <content type="html"><![CDATA[<h4 id="要当您调用作业的schedule方法时-它将返回jobhandle-您可以在代码中使用一个jobhandle作为其他作业的依赖项-如果作业取决于另一个作业的结果-您可以将第一个作业jobhandle作为参数传递给第二个作业的schedule方法-如下所示：">要当您调用作业的<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.IJobExtensions.Schedule.html" target="_blank" rel="noopener">Schedule</a>方法时，它将返回<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.html" target="_blank" rel="noopener">JobHandle</a>。您可以在代码中使用一个<code>JobHandle</code>作为其他作业的依赖项。如果作业取决于另一个作业的结果，您可以将第一个作业<code>JobHandle</code>作为参数传递给第二个作业的<code>Schedule</code>方法，如下所示：</h4><a id="more"></a><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">JobHandle firstJobHandle = firstJob.Schedule();</span><br><span class="line">secondJob.Schedule(firstJobHandle);</span><br></pre></td></tr></table></figure><h4 id="结合依赖关系">结合依赖关系</h4><p>如果作业具有许多依赖项，则可以使用<a href="https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.CombineDependencies.html" target="_blank" rel="noopener">JobHandle.CombineDependencies</a>方法合并它们。<code>CombineDependencies</code>允许您将它们传递给<code>Schedule</code>方法。</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line">NativeArray&lt;JobHandle&gt; handles = <span class="keyword">new</span> NativeArray&lt;JobHandle&gt;(numJobs, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Populate `handles` with `JobHandles` from multiple scheduled jobs...</span></span><br><span class="line"></span><br><span class="line">JobHandle jh = JobHandle.CombineDependencies(handles);</span><br></pre></td></tr></table></figure><h4 id="在主线程中等待工作">在主线程中等待工作</h4><p>使用<code>JobHandle</code>强迫你的代码在主线程等待您的工作执行完毕。要做到这一点，调用<code>JobHandle的Complete方法</code>。此时，您知道主线程可以安全地访问作业正在使用的<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.NativeContainerAttribute.html" target="_blank" rel="noopener">NativeContainer</a>。</p><p><strong>注意</strong>：在计划作业时，作业不会开始执行。如果您正在等待主线程中的作业，并且您需要访问作业正在使用的NativeContainer数据，则可以调用该方法<code>JobHandle.Complete</code>。此方法从内存高速缓存中刷新作业并启动执行过程。在`JobHandle<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">否则，如果您不需要访问数据，则需要明确刷新批处理。为此，请调用静态方法[JobHandle.ScheduleBatchedJobs](https://docs.unity3d.com/ScriptReference/Unity.Jobs.JobHandle.ScheduleBatchedJobs.html)。请注意，调用此方法会对性能产生负面影响。</span><br><span class="line"></span><br><span class="line">#### 多个作业和依赖项的示例</span><br><span class="line"></span><br><span class="line">**工作代码**：</span><br><span class="line"></span><br><span class="line">```csharp</span><br><span class="line">// Job adding two floating point values together</span><br><span class="line">public struct MyJob : IJob</span><br><span class="line">&#123;</span><br><span class="line">    public float a;</span><br><span class="line">    public float b;</span><br><span class="line">    public NativeArray&lt;float&gt; result;</span><br><span class="line"></span><br><span class="line">    public void Execute()</span><br><span class="line">    &#123;</span><br><span class="line">        result[0] = a + b;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Job adding one to a value</span><br><span class="line">public struct AddOneJob : IJob</span><br><span class="line">&#123;</span><br><span class="line">    public NativeArray&lt;float&gt; result;</span><br><span class="line"></span><br><span class="line">    public void Execute()</span><br><span class="line">    &#123;</span><br><span class="line">        result[0] = result[0] + 1;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p><p><strong>主线程代码</strong>：</p><figure class="highlight csharp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// Create a native array of a single float to store the result in. This example waits for the job to complete</span></span><br><span class="line">NativeArray&lt;<span class="keyword">float</span>&gt; result = <span class="keyword">new</span> NativeArray&lt;<span class="keyword">float</span>&gt;(<span class="number">1</span>, Allocator.TempJob);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Setup the data for job #1</span></span><br><span class="line">MyJob jobData = <span class="keyword">new</span> MyJob();</span><br><span class="line">jobData.a = <span class="number">10</span>;</span><br><span class="line">jobData.b = <span class="number">10</span>;</span><br><span class="line">jobData.result = result;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Schedule job #1</span></span><br><span class="line">JobHandle firstHandle = jobData.Schedule();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Setup the data for job #2</span></span><br><span class="line">AddOneJob incJobData = <span class="keyword">new</span> AddOneJob();</span><br><span class="line">incJobData.result = result;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Schedule job #2</span></span><br><span class="line">JobHandle secondHandle = incJobData.Schedule(firstHandle);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Wait for job #2 to complete</span></span><br><span class="line">secondHandle.Complete();</span><br><span class="line"></span><br><span class="line"><span class="comment">// All copies of the NativeArray point to the same memory, you can access the result in "your" copy of the NativeArray</span></span><br><span class="line"><span class="keyword">float</span> aPlusB = result[<span class="number">0</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// Free the memory allocated by the result array</span></span><br><span class="line">result.Dispose();</span><br></pre></td></tr></table></figure>]]></content>
       
       
       <categories>
@@ -1419,7 +1496,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX18sBLbvvzQWhf1/cUusy+f0S0ifI0CX0YhXRj8b+dbQRj8Wn0Dq6LO1qjbScvY8MgM04sMKB27qUx7kVKogvac4WZdAoGrmwxW02qkhAMg17Z9u3fFGFrsCpoful34pHfFs4v85cdl3bvNQZmyhDAmTACOxj1B2I01WIZnphSYgbVimKPxzRsA6JvPKtVhtvvpGbHs7EPil9XvqCC9FGuf4GTxDfb2IlBm2SfFWo49jrcgNkUqwOMjuETbQiNEuXJCNa0B51Xop/wyaJLtwxISFvxi8CRcmejNbu7o5nSXqTVmg1xkkQNsddUNFXq1duviWCPAnWPcwZmIeRN7fETIQqhXc9xRQQgW2vDRXRYe+m7V3lsgKs4pWIDzUytoJI+/k4lUPlDBd+QbPiZb51IQCuqCQjpMFyZUf/zq+Ex5quderdnwX53ZMKPdt2fSxnGfiKg9jez/R2BL+rKJ6+gEqpwa0w8D431H5j3CGBR2FPz79wu9ZjFEIzV5cVI2Vbp8Sz7Hdyg6Pj8royW5OYjnWqCftUb1ITgHsFNw/385apZpV6bsSmBqIVLmA+saPOD0a6DYVwgpV80XL7fHqeXa1x+Ku/KoM3IoRC9Dy/4nCo9V3HyTkOxKXBG2J9y4kcQREdlRe60Vz5bmkGqdC/RA9lTbFF3rUqefeyMnS34ysO8Ycll52wMzQZJp2vRYRRJgCU9rSrIAnKqyacVav2ZqAtMh5jkoUuKG6D1+zQC4fpB5OGlxD9Y6NSD/DzRg70JkIJNM/kSGzvQ==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX19pS1u1QNHOdL3BR56V8pPxuYgJI/BadHQHTO7yIPjyWlKQ7y8zBVeZseMJbddQeEDD3PjWS8hKppsP5i0hSFk+gTkTjyhadYy1pn6FhbevSJyCtAFSrxZIAEiyjKDaoj7GliPs39mvco6FTNGPUSuRqfcRKuTiYcBB7tiaSCC4R9uHFDQIBcGGg8O9F69SOQmLcxdYzZwLXPr/ELcwaaMDcg9s+1850tUAKQMhQYrl2hYjkALq5w7Miw/Ymdsbilqy6xrQT1nbHK3/3nbwlMC16aF/rCMtQtUbzsAdFGUjteYuI20nFWiOmhemTh42kkDBK5Xswz7v8DcA5DBdNB+pSqO7yTG0luPoAUxVNaHp/k4ymHx0vfH1HLHxkBWtVlyGcxa8O9HNLME+s6qPfKhF121obcIe5Iz7ke51hUOKMIap6sRmM0x3Yq1bsXvJz3uM+/y43O8j0LcWRBZ58iRYoz/PCMSlqxz412UNWw50SPupow2lDlHnnzyMMjdMuqIEUxn84d4b2mI27WHa6tI9K7U9f/E4hFkP1WsD5WgNN5AzePIsfAVYIyrfvcb85q9EswUWLxs60SzFu7Cnva+fPszJ68Kq9x82eSdlD4bqvQe5H7fJG6CPw3h5/yjSVFV8wN4Q7zyHCAPHoN0ZspPN3333OF4MffVtny1wIBl+8k7PkUKhOHMYaLWNYXd9RJD2b0tEfK7Oc2WmMoTh6IFoi3tlNCMK12uqRB/p/pus4FNj2wdvMoVSPk/WO54Xyt/X53UCiCGVxg==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -1625,6 +1702,31 @@
     </entry>
     
     <entry>
+      <title>GitLab CI/CD</title>
+      <link href="/blog/b4ccb03f.html"/>
+      <url>/blog/b4ccb03f.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/BrmSMBD.png" alt="GitLab CI/CD"></p><p>在之前的github上搭建静态资源网站的基础上有了新的提升。把原来在本地机器编译的工作，通过gitlab实现自动化编译部署及发布，我只用专注于写作及将写好的内容上传到gitlab上即可。这也是现在最流行的CI/CD理念（持续集成持续发布）。</p><a id="more"></a><blockquote><p>下面着重来说明下我在部署过程中主要过程及填的坑等等，主要是提供一个部署思路和学习路径。</p></blockquote><h2 id="注册gitlab账号">注册gitlab账号</h2><p>在进行此次迁移资源之前，我是没有接触过<a href="https://gitlab.com/" target="_blank" rel="noopener">gitlab</a>的，自己这一块也是现用现学，所以说都是自己需要才会真正去接触它和学习它，好了继续~</p><h2 id="官方pages">官方Pages</h2><p>在gitlab上，有专门的<a href="https://gitlab.com/pages" target="_blank" rel="noopener">pages页面</a>，这里目前总共有三十种不同的模板，种类还是一应俱全。下面是首页的内容<br><img src="https://i.imgur.com/pXS3DgP.png" alt="gitlab pages"></p><p>我们的目的是通过官方<a href="https://gitlab.com/pages/hexo" target="_blank" rel="noopener">hexo pages</a>来学习快速入门及部署我们自己的静态网页。</p><h2 id="学习yaml">学习YAML</h2><p>通过gitlab<a href="https://docs.gitlab.com/ce/ci/yaml/README.html" target="_blank" rel="noopener">YAML官方文档</a>来学习YAML格式，这里我展示下在我的项目中的YAML文件</p><pre><code>image: longsl/hexo2simikipages:  cache:    paths:    - blog/node_modules/  script:    - HOME=/builds/longshilin/longshilindotcom    - cd blog    - npm install    - hexo deploy    - cp -r blog $HOME/public    - cd $HOME/wiki    - simiki g    - cp -r wiki $HOME/public/  artifacts:    paths:    - public  only:  - master</code></pre><p>这里还是比较清晰，容易理解的。上面的YAML文件主要进行的操作时通过longsl/hexo2simiki镜像作为基础环境，并在上面进行项目构建，并将指定的文件目录public作为发布资源进行发布。详细说明：</p><ol><li>image是本次构建所使用的镜像，这里我使用的是包含hexo和simiki构建工具的自定义镜像，详见<a href="https://longshilin.com/blog/2018/09/22/hexo2simiki/">hexo2simiki</a></li><li>pages表示是一个默认的任务</li><li>cache表示在该任务下将指定的路径下的文件进项缓存（其实就是在构建开始的时候将上次打包并保存的文件再次拿来用），这样在每次构建并发布时，可以省去很多固定资源的构建开销。</li><li>script下面是编写shell脚本，这些脚本命令直接就是在docker容器中执行的，因此如果你的镜像时以linux为基础，可以直接执行。</li><li>artifacts是发布项，可以指定本次构建出的哪部分内容会被保留下来，并作为该pipline的发布源文件。</li><li>only指的是本次job任务只会涉及到master分支上的内容。</li></ol><p>更多信息详见 <a href="https://docs.gitlab.com/ce/ci/" target="_blank" rel="noopener">GitLab Continuous Integration</a></p><h2 id="部署及发布">部署及发布</h2><p>编写自己的.gitlab-ci.yml文件，并放在项目的根目录下，这样在每次有新的更新提交到gitlab上时，会自动触发进行项目构建。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 搭建个人博客 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> CI/CD </tag>
+            
+            <tag> gitlab </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>给自定义博客增加totop按钮</title>
       <link href="/blog/5b764c97.html"/>
       <url>/blog/5b764c97.html</url>
@@ -1667,31 +1769,6 @@
             <tag> hexo </tag>
             
             <tag> simiki </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>GitLab CI/CD</title>
-      <link href="/blog/b4ccb03f.html"/>
-      <url>/blog/b4ccb03f.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/BrmSMBD.png" alt="GitLab CI/CD"></p><p>在之前的github上搭建静态资源网站的基础上有了新的提升。把原来在本地机器编译的工作，通过gitlab实现自动化编译部署及发布，我只用专注于写作及将写好的内容上传到gitlab上即可。这也是现在最流行的CI/CD理念（持续集成持续发布）。</p><a id="more"></a><blockquote><p>下面着重来说明下我在部署过程中主要过程及填的坑等等，主要是提供一个部署思路和学习路径。</p></blockquote><h2 id="注册gitlab账号">注册gitlab账号</h2><p>在进行此次迁移资源之前，我是没有接触过<a href="https://gitlab.com/" target="_blank" rel="noopener">gitlab</a>的，自己这一块也是现用现学，所以说都是自己需要才会真正去接触它和学习它，好了继续~</p><h2 id="官方pages">官方Pages</h2><p>在gitlab上，有专门的<a href="https://gitlab.com/pages" target="_blank" rel="noopener">pages页面</a>，这里目前总共有三十种不同的模板，种类还是一应俱全。下面是首页的内容<br><img src="https://i.imgur.com/pXS3DgP.png" alt="gitlab pages"></p><p>我们的目的是通过官方<a href="https://gitlab.com/pages/hexo" target="_blank" rel="noopener">hexo pages</a>来学习快速入门及部署我们自己的静态网页。</p><h2 id="学习yaml">学习YAML</h2><p>通过gitlab<a href="https://docs.gitlab.com/ce/ci/yaml/README.html" target="_blank" rel="noopener">YAML官方文档</a>来学习YAML格式，这里我展示下在我的项目中的YAML文件</p><pre><code>image: longsl/hexo2simikipages:  cache:    paths:    - blog/node_modules/  script:    - HOME=/builds/longshilin/longshilindotcom    - cd blog    - npm install    - hexo deploy    - cp -r blog $HOME/public    - cd $HOME/wiki    - simiki g    - cp -r wiki $HOME/public/  artifacts:    paths:    - public  only:  - master</code></pre><p>这里还是比较清晰，容易理解的。上面的YAML文件主要进行的操作时通过longsl/hexo2simiki镜像作为基础环境，并在上面进行项目构建，并将指定的文件目录public作为发布资源进行发布。详细说明：</p><ol><li>image是本次构建所使用的镜像，这里我使用的是包含hexo和simiki构建工具的自定义镜像，详见<a href="https://longshilin.com/blog/2018/09/22/hexo2simiki/">hexo2simiki</a></li><li>pages表示是一个默认的任务</li><li>cache表示在该任务下将指定的路径下的文件进项缓存（其实就是在构建开始的时候将上次打包并保存的文件再次拿来用），这样在每次构建并发布时，可以省去很多固定资源的构建开销。</li><li>script下面是编写shell脚本，这些脚本命令直接就是在docker容器中执行的，因此如果你的镜像时以linux为基础，可以直接执行。</li><li>artifacts是发布项，可以指定本次构建出的哪部分内容会被保留下来，并作为该pipline的发布源文件。</li><li>only指的是本次job任务只会涉及到master分支上的内容。</li></ol><p>更多信息详见 <a href="https://docs.gitlab.com/ce/ci/" target="_blank" rel="noopener">GitLab Continuous Integration</a></p><h2 id="部署及发布">部署及发布</h2><p>编写自己的.gitlab-ci.yml文件，并放在项目的根目录下，这样在每次有新的更新提交到gitlab上时，会自动触发进行项目构建。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 搭建个人博客 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> CI/CD </tag>
-            
-            <tag> gitlab </tag>
             
         </tags>
       
