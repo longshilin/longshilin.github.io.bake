@@ -3,6 +3,31 @@
   
     
     <entry>
+      <title>default</title>
+      <link href="/blog/e35e00df.html"/>
+      <url>/blog/e35e00df.html</url>
+      
+        <content type="html"><![CDATA[<a id="more"></a><h3 id="名副其实">名副其实</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;int[]&gt; getThem() &#123;</span><br><span class="line">　List&lt;int[]&gt; list1 = new ArrayList&lt;int[]&gt;();</span><br><span class="line">　for (int[] x : theList) </span><br><span class="line">　　 if (x[0] == 4) </span><br><span class="line">　　　 list1.add(x);</span><br><span class="line">　return list1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>改良过后的</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;int[]&gt; getFlaggedCells()　&#123;</span><br><span class="line">　List&lt;int[]&gt; flaggedCells = new ArrayList&lt;int[]&gt;();</span><br><span class="line">　for (int[] cell : gameBoard)</span><br><span class="line">　　if (cell[STATUS_VALUE] == FLAGGED)</span><br><span class="line">　　　flaggedCells.add(cell);</span><br><span class="line">　return flaggedCells;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>知道自己在写什么很重要，命名·要有意义</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Coding </category>
+          
+          <category> 代码整洁之道 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Coding </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Smart Merge</title>
       <link href="/blog/f8ae384d.html"/>
       <url>/blog/f8ae384d.html</url>
@@ -49,6 +74,31 @@
             <tag> 自定义菜单项 </tag>
             
             <tag> 编辑器功能 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>使用Rider构建和集成简单的DLL示例</title>
+      <link href="/blog/1dbc6beb.html"/>
+      <url>/blog/1dbc6beb.html</url>
+      
+        <content type="html"><![CDATA[<p>Reference: <a href="https://docs.unity3d.com/Manual/UsingDLL.html" target="_blank" rel="noopener">https://docs.unity3d.com/Manual/UsingDLL.html</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> Toolset </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Unity DLL </tag>
             
         </tags>
       
@@ -317,6 +367,17 @@
     </entry>
     
     <entry>
+      <title>折腾一天有一天，什么时候真正开始</title>
+      <link href="/blog/4e801c8b.html"/>
+      <url>/blog/4e801c8b.html</url>
+      
+        <content type="html"><![CDATA[<p>今天又折腾了一天文档，只学习了一点皮毛。。。</p><a id="more"></a><p>昨天看到一个Unity的官方wiki，然后今天想从头开始着手研究，可是研究到晚上，看完一部分教程后发现这是太基础的教程，而且太久了。。。我看的页面最后更新时间还是2012年，难以置信。</p><p>我现在算是明白了，官方文档才是重中之重，也是我现在需要学习的。熟悉官方文档中的方方面面，足矣！！！</p><p>好了，每一天都在踩坑，踩坑完又入坑。。。我太难了</p><p><img src="https://longshilin.com/images/20190914204641.png" alt=""></p>]]></content>
+      
+      
+      
+    </entry>
+    
+    <entry>
       <title>提问的智慧</title>
       <link href="/blog/fb3832f5.html"/>
       <url>/blog/fb3832f5.html</url>
@@ -365,17 +426,6 @@
     </entry>
     
     <entry>
-      <title>折腾一天有一天，什么时候真正开始</title>
-      <link href="/blog/4e801c8b.html"/>
-      <url>/blog/4e801c8b.html</url>
-      
-        <content type="html"><![CDATA[<p>今天又折腾了一天文档，只学习了一点皮毛。。。</p><a id="more"></a><p>昨天看到一个Unity的官方wiki，然后今天想从头开始着手研究，可是研究到晚上，看完一部分教程后发现这是太基础的教程，而且太久了。。。我看的页面最后更新时间还是2012年，难以置信。</p><p>我现在算是明白了，官方文档才是重中之重，也是我现在需要学习的。熟悉官方文档中的方方面面，足矣！！！</p><p>好了，每一天都在踩坑，踩坑完又入坑。。。我太难了</p><p><img src="https://longshilin.com/images/20190914204641.png" alt=""></p>]]></content>
-      
-      
-      
-    </entry>
-    
-    <entry>
       <title>该想想奋斗的方向啦</title>
       <link href="/blog/493fd4d4.html"/>
       <url>/blog/493fd4d4.html</url>
@@ -406,31 +456,6 @@
         <tags>
             
             <tag> Unity </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>NativeContainer</title>
-      <link href="/blog/ac3c63a9.html"/>
-      <url>/blog/ac3c63a9.html</url>
-      
-        <content type="html"><![CDATA[<p><a href="https://docs.unity3d.com/Manual/JobSystemSafetySystem.html" target="_blank" rel="noopener">安全系统</a>复制数据<a href="https://docs.unity3d.com/Manual/JobSystemSafetySystem.html" target="_blank" rel="noopener">的</a>过程的缺点是它还隔离了每个副本中作业的结果。要克服此限制，您需要将结果存储在一种名为<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.NativeContainerAttribute.html" target="_blank" rel="noopener">NativeContainer</a>的共享内存中。</p><a id="more"></a><h2 id="什么是nativecontainer？">什么是NativeContainer？</h2><p>A <code>NativeContainer</code>是托管值类型，为本机内存提供相对安全的C＃包装器。它包含指向非托管分配的指针。与Unity C＃作业系统一起使用时，a <code>NativeContainer</code>允许作业访问与主线程共享的数据，而不是使用副本。</p><h2 id="有哪些类型的nativecontainer？">有哪些类型的NativeContainer？</h2><p>Unity附带一个<code>NativeContainer</code>名为<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html" target="_blank" rel="noopener">NativeArray的程序</a>。您还可以<code>NativeArray</code>使用<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeSlice_1.html" target="_blank" rel="noopener">NativeSlice</a>操作a 以获取<code>NativeArray</code>从特定位置到特定长度的子集。</p><p>注意：<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples" target="_blank" rel="noopener">实体组件系统</a>（ECS）包扩展了<code>Unity.Collections</code>命名空间以包括其他类型<code>NativeContainer</code>：</p><ul><li><code>NativeList</code>- 可调整大小<code>NativeArray</code>。</li><li><code>NativeHashMap</code> - 键和值对。</li><li><code>NativeMultiHashMap</code> - 每个键有多个值。</li><li><code>NativeQueue</code>- <a href="https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)" target="_blank" rel="noopener">先进先出</a>（<a href="https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)" target="_blank" rel="noopener">FIFO</a>）队列。</li></ul><h2 id="nativecontainer和安全系统">NativeContainer和安全系统</h2><p>安全系统内置于所有<code>NativeContainer</code>类型。它跟踪什么是读写任何内容<code>NativeContainer</code>。</p><p>注意：所有<code>NativeContainer</code>类型的安全检查（例如越界检查，重新分配检查和竞争条件检查）仅在Unity 编辑器和播放模式下可用。</p><p>该安全系统的一部分是<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.DisposeSentinel.html" target="_blank" rel="noopener">DisposeSentinel</a>和<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.AtomicSafetyHandle.html" target="_blank" rel="noopener">AtomicSafetyHandle</a>。该<code>DisposeSentinel</code>检测内存泄漏，给你一个错误，如果你没有正确地释放你的记忆。泄漏发生后很久就会发生内存泄漏错误。</p><p>使用<code>AtomicSafetyHandle</code>转移<code>NativeContainer</code>代码的所有权。例如，如果两个预定作业写入相同<code>NativeArray</code>，则安全系统会抛出异常，并显示明确的错误消息，说明解决问题的原因和方法。安排违规工作时，安全系统会抛出此异常。</p><p>在这种情况下，您可以安排具有依赖关系的作业。第一个作业可以写入<code>NativeContainer</code>，一旦完成执行，下一个作业就可以安全地读取和写入相同的作业<code>NativeContainer</code>。从主线程访问数据时，读写限制也适用。安全系统允许多个作业并行读取相同的数据。</p><p>默认情况下，当作业有权访问a时<code>NativeContainer</code>，它具有读写访问权限。此配置可能会降低性能。C＃作业系统不允许您计划与写入其中的<code>NativeContainer</code>另一个作业同时具有写访问权限的作业。</p><p>如果作业不需要写入a <code>NativeContainer</code>，请<code>NativeContainer</code>使用<code>[ReadOnly]</code>属性标记，如下所示：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[ReadOnly]</span><br><span class="line">public NativeArray&lt;int&gt; input;</span><br></pre></td></tr></table></figure><p>在上面的示例中，您可以与其他对第一个也具有只读访问权限的作业同时执行作业<code>NativeArray</code>。</p><p>注意：无法防止从作业中访问静态数据。访问静态数据会绕过所有安全系统，并可能导致Unity崩溃。有关更多信息，请参阅<a href="https://docs.unity3d.com/Manual/JobSystemTroubleshooting.html" target="_blank" rel="noopener">C＃作业系统提示和故障排除</a>。</p><h2 id="nativecontainer分配器">NativeContainer分配器</h2><p>创建时<code>NativeContainer</code>，必须指定所需的内存分配类型。分配类型取决于作业运行的时间长度。通过这种方式，您可以定制分配以在每种情况下获得最佳性能。</p><p>内存分配和释放有三种<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.Allocator.html" target="_blank" rel="noopener">Allocator</a>类型<code>NativeContainer</code>。在实例化你的时候需要指定合适的一个<code>NativeContainer</code>。</p><ul><li>Allocator.Temp分配最快。它适用于寿命为一帧或更少的分配。您不应将<code>NativeContainer</code>分配<code>Temp</code>用于作业。您还需要<code>Dispose</code>在从方法调用返回之前调用该方法（例如<a href="https://docs.unity3d.com/ScriptReference/MonoBehaviour.Update.html" target="_blank" rel="noopener">MonoBehaviour.Update</a>，或从本机代码到托管代码的任何其他回调）。</li><li>Allocator.TempJob是一个比较慢的分配，<code>Temp</code>但速度比<code>Persistent</code>。它适用于四帧生命周期内的分配，并且是线程安全的。如果<code>Dispose</code>在四帧内没有，则控制台会打印一条警告，该警告是从本机代码生成的。大多数小型工作都使用此<code>NativeContainer</code>分配类型。</li><li>Allocator.Persistent是最慢的分配，但只要你需要它，并且如果有必要，可以持续整个应用程序的生命周期。它是直接调用<a href="http://www.cplusplus.com/reference/cstdlib/malloc/" target="_blank" rel="noopener">malloc</a>的包装器。较长的作业可以使用此<code>NativeContainer</code>分配类型。你不应该使用<code>Persistent</code>性能至关重要的地方。</li></ul><p>例如：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NativeArray&lt;float&gt; result = new NativeArray&lt;float&gt;(1, Allocator.TempJob);</span><br></pre></td></tr></table></figure><p>注意：上例中的数字1表示的大小<code>NativeArray</code>。在这种情况下，它只有一个数组元素（因为它只存储一个数据<code>result</code>）。</p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Unity </category>
-          
-          <category> C＃ Job System </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> C＃ Job System </tag>
             
         </tags>
       
@@ -987,6 +1012,31 @@
     </entry>
     
     <entry>
+      <title>NativeContainer</title>
+      <link href="/blog/ac3c63a9.html"/>
+      <url>/blog/ac3c63a9.html</url>
+      
+        <content type="html"><![CDATA[<p><a href="https://docs.unity3d.com/Manual/JobSystemSafetySystem.html" target="_blank" rel="noopener">安全系统</a>复制数据<a href="https://docs.unity3d.com/Manual/JobSystemSafetySystem.html" target="_blank" rel="noopener">的</a>过程的缺点是它还隔离了每个副本中作业的结果。要克服此限制，您需要将结果存储在一种名为<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.NativeContainerAttribute.html" target="_blank" rel="noopener">NativeContainer</a>的共享内存中。</p><a id="more"></a><h2 id="什么是nativecontainer？">什么是NativeContainer？</h2><p>A <code>NativeContainer</code>是托管值类型，为本机内存提供相对安全的C＃包装器。它包含指向非托管分配的指针。与Unity C＃作业系统一起使用时，a <code>NativeContainer</code>允许作业访问与主线程共享的数据，而不是使用副本。</p><h2 id="有哪些类型的nativecontainer？">有哪些类型的NativeContainer？</h2><p>Unity附带一个<code>NativeContainer</code>名为<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeArray_1.html" target="_blank" rel="noopener">NativeArray的程序</a>。您还可以<code>NativeArray</code>使用<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.NativeSlice_1.html" target="_blank" rel="noopener">NativeSlice</a>操作a 以获取<code>NativeArray</code>从特定位置到特定长度的子集。</p><p>注意：<a href="https://github.com/Unity-Technologies/EntityComponentSystemSamples" target="_blank" rel="noopener">实体组件系统</a>（ECS）包扩展了<code>Unity.Collections</code>命名空间以包括其他类型<code>NativeContainer</code>：</p><ul><li><code>NativeList</code>- 可调整大小<code>NativeArray</code>。</li><li><code>NativeHashMap</code> - 键和值对。</li><li><code>NativeMultiHashMap</code> - 每个键有多个值。</li><li><code>NativeQueue</code>- <a href="https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)" target="_blank" rel="noopener">先进先出</a>（<a href="https://en.wikipedia.org/wiki/FIFO_(computing_and_electronics)" target="_blank" rel="noopener">FIFO</a>）队列。</li></ul><h2 id="nativecontainer和安全系统">NativeContainer和安全系统</h2><p>安全系统内置于所有<code>NativeContainer</code>类型。它跟踪什么是读写任何内容<code>NativeContainer</code>。</p><p>注意：所有<code>NativeContainer</code>类型的安全检查（例如越界检查，重新分配检查和竞争条件检查）仅在Unity 编辑器和播放模式下可用。</p><p>该安全系统的一部分是<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.DisposeSentinel.html" target="_blank" rel="noopener">DisposeSentinel</a>和<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.LowLevel.Unsafe.AtomicSafetyHandle.html" target="_blank" rel="noopener">AtomicSafetyHandle</a>。该<code>DisposeSentinel</code>检测内存泄漏，给你一个错误，如果你没有正确地释放你的记忆。泄漏发生后很久就会发生内存泄漏错误。</p><p>使用<code>AtomicSafetyHandle</code>转移<code>NativeContainer</code>代码的所有权。例如，如果两个预定作业写入相同<code>NativeArray</code>，则安全系统会抛出异常，并显示明确的错误消息，说明解决问题的原因和方法。安排违规工作时，安全系统会抛出此异常。</p><p>在这种情况下，您可以安排具有依赖关系的作业。第一个作业可以写入<code>NativeContainer</code>，一旦完成执行，下一个作业就可以安全地读取和写入相同的作业<code>NativeContainer</code>。从主线程访问数据时，读写限制也适用。安全系统允许多个作业并行读取相同的数据。</p><p>默认情况下，当作业有权访问a时<code>NativeContainer</code>，它具有读写访问权限。此配置可能会降低性能。C＃作业系统不允许您计划与写入其中的<code>NativeContainer</code>另一个作业同时具有写访问权限的作业。</p><p>如果作业不需要写入a <code>NativeContainer</code>，请<code>NativeContainer</code>使用<code>[ReadOnly]</code>属性标记，如下所示：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[ReadOnly]</span><br><span class="line">public NativeArray&lt;int&gt; input;</span><br></pre></td></tr></table></figure><p>在上面的示例中，您可以与其他对第一个也具有只读访问权限的作业同时执行作业<code>NativeArray</code>。</p><p>注意：无法防止从作业中访问静态数据。访问静态数据会绕过所有安全系统，并可能导致Unity崩溃。有关更多信息，请参阅<a href="https://docs.unity3d.com/Manual/JobSystemTroubleshooting.html" target="_blank" rel="noopener">C＃作业系统提示和故障排除</a>。</p><h2 id="nativecontainer分配器">NativeContainer分配器</h2><p>创建时<code>NativeContainer</code>，必须指定所需的内存分配类型。分配类型取决于作业运行的时间长度。通过这种方式，您可以定制分配以在每种情况下获得最佳性能。</p><p>内存分配和释放有三种<a href="https://docs.unity3d.com/ScriptReference/Unity.Collections.Allocator.html" target="_blank" rel="noopener">Allocator</a>类型<code>NativeContainer</code>。在实例化你的时候需要指定合适的一个<code>NativeContainer</code>。</p><ul><li>Allocator.Temp分配最快。它适用于寿命为一帧或更少的分配。您不应将<code>NativeContainer</code>分配<code>Temp</code>用于作业。您还需要<code>Dispose</code>在从方法调用返回之前调用该方法（例如<a href="https://docs.unity3d.com/ScriptReference/MonoBehaviour.Update.html" target="_blank" rel="noopener">MonoBehaviour.Update</a>，或从本机代码到托管代码的任何其他回调）。</li><li>Allocator.TempJob是一个比较慢的分配，<code>Temp</code>但速度比<code>Persistent</code>。它适用于四帧生命周期内的分配，并且是线程安全的。如果<code>Dispose</code>在四帧内没有，则控制台会打印一条警告，该警告是从本机代码生成的。大多数小型工作都使用此<code>NativeContainer</code>分配类型。</li><li>Allocator.Persistent是最慢的分配，但只要你需要它，并且如果有必要，可以持续整个应用程序的生命周期。它是直接调用<a href="http://www.cplusplus.com/reference/cstdlib/malloc/" target="_blank" rel="noopener">malloc</a>的包装器。较长的作业可以使用此<code>NativeContainer</code>分配类型。你不应该使用<code>Persistent</code>性能至关重要的地方。</li></ul><p>例如：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">NativeArray&lt;float&gt; result = new NativeArray&lt;float&gt;(1, Allocator.TempJob);</span><br></pre></td></tr></table></figure><p>注意：上例中的数字1表示的大小<code>NativeArray</code>。在这种情况下，它只有一个数组元素（因为它只存储一个数据<code>result</code>）。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> C＃ Job System </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Unity双击脚本不会自动跳转到vs中的解决方案</title>
       <link href="/blog/f243dbe9.html"/>
       <url>/blog/f243dbe9.html</url>
@@ -1496,7 +1546,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1/QUME9sMTu3Ygdnzp+/Xj9gCgIsrXxPgGxLLfBr3PYh/id9ngZBYvcBQvVZD5VBIczf/6SPGzunL+stLMX9S1P088nkl9n+RNdJr1at+NPQWygy2Wz1GKJznmYdKZUc7HFSSmrmogrOlxeq7IjAV9/JqwR3+kaK6TG+qvNaMm8MhGJ/1fzu56p8u7Q9vneIPQdAgiI6jkNk95waG7p18b2I6e4IkuulTmKli1QcbDl4RNd9sIAOLYaZ9ihjBVOGfGNfDlKUWT3fweDZgogRGvD4nsxKsr8AmO/I8CCW3gJyyGon8Ksqwhfod5w6VtVMNf+DoPsWeZi4x4EpOdJmvEVtBxZdeZTU3g+5Oc/49mIWhxohxXozz9ONgzzmO3EDC0EwJTanQpeNVHknAzW/KIH864Y4MlKP5t/KxJslms9UMTKstpAc8pVt+j34ZGKKV3ooWZDV1B6pOgiq9z7OsuLfP2dCF45W7NOAm4jgM/bdVfBj20xfNSpYm4g/VKr97PdgqI/i25Zzd1ocAGoaZNMyQLhVu7vgaK/BqCl7U20DtsKaMnHNwh4rBn8k94QYNmuBBEp12OjRlyjxEw+Ryaj2CpK82Z71zEQ9ZrLgmUF6VJpTg9XPfG7N5Gg2aN3dU0L5357uWC5hAjgZvXgIokW0vEbVECHuMK0L2CZotCoyVRnqQxRyVUYjvtyPTZo5ci4ZFMJRA0qK0cIc64ab7QeDZLq6UPTTq+cViHmvLgTAZlk0aYUP+wuDVLTKm55UE+sjnzKN8tYaQ==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX1+j7siSxBaAasmnImnzWrWHR/fQSKvXpSO/XqO86MToiYcRn5b5aspftwUW344njGZB32E8DoVqzbmnGh+x2izuTzo1Tekr6NFqRTrBNWbwsBu4FR0uHNMX2ro8EJwgQnnG7r/OIMr73v/h6pKUUgWKDAbFW2C+nFuO8nnAjTkiF0T7mTkXeHODym3FnaUEe5WuEbbX23XrStcohxQlXtXBojJW5K9v07u8xi82E2el6G+A8rmIUjIRdW2YdqcYlybcifLKL5AenGVeSSY3kH85ZSAOMM2KmRwyMUuqetcQ+60KXkMZdfNsZ8D7RlJspHNF7F7d0PET4Gcs3XWVrdL8CocTfbC+aczzymrYdFUVfBpebCDka60YYOz4o6jtGMwIYszTNBhC/qFPD1N50LYTrF9Jm1LsJ4326Wje0ibaV+hhCElMCpXVVWl1aJ/nL6dgkO0g7YuOnnRwwGvvC1bg52D+wdLFzGje3QVEnowwWKF7iJ7zBx6UnoXI4Lkbop0OhjOd2VTA/IJ16t22yC6d04Jb8mpfHMWTCMwCrJEHNZhGPpu7KyxhF6QROf7CVG6Ztr0HlVNUXbsk4JjEp7frlYLAxc6XLHTSwJq197OWZsuYlPVO5Jhg5L59abQcPhI3YZ17y/I8rYKyLi+jaPMCEk8AQWaM3HTgO4Jt8L2ldj4rTbpCAabiGaOl7DNVSkQG6Z6e3AnuLX3IIYJLeLDLaX1/rB8E8JfuiJHgNLV7sPpy/QhbN5lES+XC/nywATFAfFm7CZ83NA==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -1679,29 +1729,6 @@
     </entry>
     
     <entry>
-      <title>gitlab绑定域名</title>
-      <link href="/blog/57c188a8.html"/>
-      <url>/blog/57c188a8.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/rQfzXnn.png" alt=""></p><p>通过gitlab部署并发布静态网站，通过绑定自己的域名来实现自定义访问。</p><a id="more"></a><p>在项目的设置中，选择pages项，里面配置你的域名证书，这里可以使用域名的注册商提供给你的证书，或者是通过<a href="https://freessl.org/" target="_blank" rel="noopener">FreeSSL</a>提供免费证书申请，将得到的证书文件依次拷贝到Pages中，创建 <strong>New Pages Domain</strong></p><p><img src="https://i.imgur.com/vO69TtL.png" alt=""></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> 搭建个人博客 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> gitlab pages </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>GitLab CI/CD</title>
       <link href="/blog/b4ccb03f.html"/>
       <url>/blog/b4ccb03f.html</url>
@@ -1727,11 +1754,11 @@
     </entry>
     
     <entry>
-      <title>给自定义博客增加totop按钮</title>
-      <link href="/blog/5b764c97.html"/>
-      <url>/blog/5b764c97.html</url>
+      <title>gitlab绑定域名</title>
+      <link href="/blog/57c188a8.html"/>
+      <url>/blog/57c188a8.html</url>
       
-        <content type="html"><![CDATA[<p><img src="https://longshilin.com/images/20190507102321.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+        <content type="html"><![CDATA[<p><img src="https://i.imgur.com/rQfzXnn.png" alt=""></p><p>通过gitlab部署并发布静态网站，通过绑定自己的域名来实现自定义访问。</p><a id="more"></a><p>在项目的设置中，选择pages项，里面配置你的域名证书，这里可以使用域名的注册商提供给你的证书，或者是通过<a href="https://freessl.org/" target="_blank" rel="noopener">FreeSSL</a>提供免费证书申请，将得到的证书文件依次拷贝到Pages中，创建 <strong>New Pages Domain</strong></p><p><img src="https://i.imgur.com/vO69TtL.png" alt=""></p>]]></content>
       
       
       <categories>
@@ -1743,7 +1770,7 @@
       
         <tags>
             
-            <tag> hexo </tag>
+            <tag> gitlab pages </tag>
             
         </tags>
       
@@ -1769,6 +1796,29 @@
             <tag> hexo </tag>
             
             <tag> simiki </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>给自定义博客增加totop按钮</title>
+      <link href="/blog/5b764c97.html"/>
+      <url>/blog/5b764c97.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://longshilin.com/images/20190507102321.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 搭建个人博客 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
             
         </tags>
       
