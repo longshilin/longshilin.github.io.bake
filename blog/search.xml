@@ -3,9 +3,34 @@
   
     
     <entry>
-      <title>default</title>
-      <link href="/blog/e35e00df.html"/>
-      <url>/blog/e35e00df.html</url>
+      <title>UnityTips</title>
+      <link href="/blog/84a8576b.html"/>
+      <url>/blog/84a8576b.html</url>
+      
+        <content type="html"><![CDATA[<p>本文收集一些实用的Unity Tips</p><a id="more"></a><h1>设置在非播放情况下编译脚本</h1><p>可以在Preferences-&gt;General中设置<br><img src="https://longshilin.com/images/20200530181748.png" alt=""></p><hr><h1>OnDrawGizmosSelected</h1><p>您可以使用OnDrawGizmosSelected()来对所选GameObject进行调试。<br><img src="https://longshilin.com/images/20200530182658.gif" alt=""></p><hr><h1>Debug.Log的第二个参数可以用来定位是哪个GameObject调用的该方法</h1><p><img src="https://longshilin.com/images/20200530183354.png" alt=""></p><hr><h1>Debug.Break()可以暂停编辑器</h1><p><img src="https://longshilin.com/images/20200530183659.png" alt=""></p><hr><h1>Inspector中的变量标签 Header, Tooltip and Space</h1><p><img src="https://longshilin.com/images/20200530184758.png" alt=""></p><hr><h1>对任意类扩展方法</h1><p>可以对任意类进行扩展方法</p><pre><code class="language-c#">using System.Collections;using System.Collections.Generic;using UnityEngine;public class test : MonoBehaviour{    public SpriteRenderer sr;    public Material mat;    void Start()    {        sr.transform.ResetTransform();        sr.color = sr.color.ChangeAlpha(.3f);        mat.color = mat.color.ChangeAlpha(.4f);    }}public static class Extension{    public static void ResetTransform(this Transform transform)    {        transform.localPosition = Vector3.zero;        transform.localScale = Vector3.one;        transform.localRotation = Quaternion.identity;    }    public static Color ChangeAlpha(this Color color, float alpha)    {        color.a = alpha;        return color;    }}</code></pre><hr><h1>Built-in shaders</h1><p>下载 Unity’s built-in shaders (including all CGinc files)  <a href="https://unity3d.com/get-unity/download/archive/" target="_blank" rel="noopener">Unity’s Archive download page</a></p><hr><h1>MinMax Attribute</h1><p>最小值和最大值属性，可以用来选取一段中间值<br><img src="https://longshilin.com/images/MinMax%20Attribute.gif" alt=""></p><hr><h1>OnValidate</h1><p>变量的合法性检测与修改<br><img src="https://longshilin.com/images/OnValidate.gif" alt=""></p><hr><h1>Rich Text</h1><p>You can use rich text in Unity’s console.<br>Read more about <a href="https://docs.unity3d.com/Packages/com.unity.ugui@1.0/manual/StyledText.html" target="_blank" rel="noopener">Rich Text</a>.</p><hr><h1>ContextMenu</h1><p>使用ContextMenu属性从Inspector调用方法。可以在Inspector中的组件菜单中直接调用方法。</p><h1>SerializeField &amp; HideInInspector</h1><p>通过使用属性SerializeField和HideInInspector选择要显示和序列化的变量。</p><h1>FormerlySerializedAs</h1><p>在修改一个Inspector面板上的变量名时，使用FormerlySerializedAs标签定义之前的名称，可以防止修改时的赋值丢失问题。<br>Read more about <a href="https://docs.unity3d.com/ScriptReference/Serialization.FormerlySerializedAsAttribute.html" target="_blank" rel="noopener">FormerlySerializedAs attribute</a>.</p><h1>AddComponentMenu</h1><p>使用AddComponentMenu属性在检查器的“ AddComponent”菜单中组织脚本。<br>Read more about <a href="">AddComponent</a>.</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> UnityTips </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> UnityTips </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>好代码的示例和不好的示例比较</title>
+      <link href="/blog/7cddb564.html"/>
+      <url>/blog/7cddb564.html</url>
       
         <content type="html"><![CDATA[<a id="more"></a><h3 id="名副其实">名副其实</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;int[]&gt; getThem() &#123;</span><br><span class="line">　List&lt;int[]&gt; list1 = new ArrayList&lt;int[]&gt;();</span><br><span class="line">　for (int[] x : theList) </span><br><span class="line">　　 if (x[0] == 4) </span><br><span class="line">　　　 list1.add(x);</span><br><span class="line">　return list1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>改良过后的</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">public List&lt;int[]&gt; getFlaggedCells()　&#123;</span><br><span class="line">　List&lt;int[]&gt; flaggedCells = new ArrayList&lt;int[]&gt;();</span><br><span class="line">　for (int[] cell : gameBoard)</span><br><span class="line">　　if (cell[STATUS_VALUE] == FLAGGED)</span><br><span class="line">　　　flaggedCells.add(cell);</span><br><span class="line">　return flaggedCells;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>知道自己在写什么很重要，命名·要有意义</p>]]></content>
       
@@ -28,25 +53,25 @@
     </entry>
     
     <entry>
-      <title>Smart Merge</title>
-      <link href="/blog/f8ae384d.html"/>
-      <url>/blog/f8ae384d.html</url>
+      <title>使用Rider构建和集成简单的DLL示例</title>
+      <link href="/blog/1dbc6beb.html"/>
+      <url>/blog/1dbc6beb.html</url>
       
-        <content type="html"><![CDATA[<p>Unity 包含一个名为 <strong>UnityYAMLMerge</strong> 的工具，能够以语义正确的方式合并场景和预制件文件。可从命令行中访问该工具，也可将其用于第三方版本控制软件。</p><a id="more"></a><h2 id="在-unity-中设置智能合并">在 Unity 中设置智能合并</h2><p>In the <a href="https://longshilin.com/UnityDoc2019.3/Manual/class-EditorManager.html">Editor</a> window (menu: <strong>Edit &gt; Project Settings</strong>, then select the <strong>Editor</strong> category), you have the option to select a third party version control tool (Perforce or PlasticSCM, for example). When one of these tools is enabled, you will see a <em>Smart Merge</em> menu under the <em>Version Control</em> heading. The menu has four options:</p><ul><li><strong>Off</strong>：仅使用偏好设置中设定的默认合并工具而不进行智能合并。</li><li><strong>Premerge</strong>：启用智能合并，接受纯净的合并。不纯净的合并将创建文件的预先合并基础版本、他们的版本和我的版本。然后，对这些版本使用默认合并工具。</li><li><strong>Ask</strong>：启用智能合并，但发生冲突时显示一个对话框让用户解决冲突（这是默认设置）。</li></ul><h2 id="设置-unityyamlmerge-与第三方工具结合使用">设置 UnityYAMLMerge 与第三方工具结合使用</h2><p>UnityYAMLMerge 工具随附于 Unity Editor；假设 Unity 安装在标准位置，则 UnityYAMLMerge 的路径将是：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">C:\Program Files\Unity\Editor\Data\Tools\UnityYAMLMerge.exe</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">C:\Program Files (x86)\Unity\Editor\Data\Tools\UnityYAMLMerge.exe</span><br></pre></td></tr></table></figure><ul><li>在 Windows 上；</li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/Applications/Unity/Unity.app/Contents/Tools/UnityYAMLMerge</span><br></pre></td></tr></table></figure><ul><li>在 Mac OSX 上（使用 Finder 中的 <em>Show Package Contents</em> 命令访问此文件夹）。</li></ul><p>UnityYAMLMerge 附带了一个默认的回退文件（称为 mergespecfile.txt，也在 Tools 文件夹中），用于指定如何处理未解决的冲突或未知文件。此外，还可将其用作不会根据文件扩展名自动选择合并工具的版本控制系统（例如 git）的主要合并工具。默认情况下，mergespecfile.txt 中已列出最常用的工具，但可以编辑此文件以添加新工具或更改选项。</p><p>可从命令行中将 UnityYAMLMerge 作为独立工具运行（若要查看该工具的完整使用说明，可在运行时不带任何参数）。下面给出了常见版本控制系统的设置说明。</p><h3 id="p4v">P4V</h3><ul><li>选择 Preferences &gt; Merge。</li><li>选择 <em>Other application</em>。</li><li>单击 <em>Add</em> 按钮。</li><li>在 Extension 字段中，输入 <code>.unity</code>。</li><li>在 Application 字段中，输入 UnityYAMLMerge 工具的路径（见下文）。</li><li>在 Arguments 字段中，输入 <code>merge -p %b %1 %2 %r</code></li><li>单击 Save。</li></ul><p>然后，按照相同的步骤添加 <code>.prefab</code> 扩展名。</p><h3 id="git">Git</h3><p>将以下文本添加到 <code>.git</code> 或 <code>.gitconfig</code> 文件中：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[merge]</span><br><span class="line">    tool = unityyamlmerge</span><br><span class="line"></span><br><span class="line">    [mergetool &quot;unityyamlmerge&quot;]</span><br><span class="line">    trustExitCode = false</span><br><span class="line">    cmd = &apos;&lt;path to UnityYAMLMerge&gt;&apos; merge -p &quot;$BASE&quot; &quot;$REMOTE&quot; &quot;$LOCAL&quot; &quot;$MERGED&quot;</span><br></pre></td></tr></table></figure><h3 id="mercurial">Mercurial</h3><p>将以下文本添加到 <code>.hgrc</code> 文件中：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[merge-patterns]</span><br><span class="line">    **.unity = unityyamlmerge</span><br><span class="line">    **.prefab = unityyamlmerge</span><br><span class="line"></span><br><span class="line">    [merge-tools]</span><br><span class="line">    unityyamlmerge.executable = &lt;path to UnityYAMLMerge&gt;</span><br><span class="line">    unityyamlmerge.args = merge -p --force $base $other $local $output</span><br><span class="line">    unityyamlmerge.checkprompt = True</span><br><span class="line">    unityyamlmerge.premerge = False</span><br><span class="line">    unityyamlmerge.binary = False</span><br></pre></td></tr></table></figure><h3 id="svn">SVN</h3><p>将以下文本添加到 <code>~/.subversion/config</code> 文件中：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[helpers]</span><br><span class="line">    merge-tool-cmd = &lt;path to UnityYAMLMerge&gt;</span><br></pre></td></tr></table></figure><h3 id="tortoisegit">TortoiseGit</h3><ul><li>选择 Preferences &gt; Diff Viewer &gt; Merge Tool，然后单击 <em>Advanced</em> 按钮。</li><li>在弹出框的 Extension 字段中，输入 <code>.unity</code>。</li><li>在 External Program 字段中，输入：</li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;path to UnityYAMLMerge&gt; merge -p %base %theirs %mine %merged</span><br></pre></td></tr></table></figure><p>然后，按照相同的步骤添加 <code>.prefab</code> 扩展名。</p><h3 id="plasticscm">PlasticSCM</h3><ul><li>选择 Preferences &gt; Merge Tools，然后单击 <em>Add</em> 按钮。</li><li>选择 <em>External</em> 合并工具。</li><li>选择 <em>Use with files that match the following pattern</em>。</li><li>添加 <code>.unity</code> 扩展名。</li><li>输入以下命令：</li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;path to UnityYAMLMerge&gt; merge -p &quot;@basefile&quot; &quot;@sourcefile&quot;  &quot;@destinationfile&quot; &quot;@output&quot;</span><br></pre></td></tr></table></figure><p>然后，按照相同的步骤添加 <code>.prefab</code> 扩展名。</p><h3 id="sourcetree">SourceTree</h3><ul><li>选择 Tools &gt; Options &gt; Diff。</li><li>在 Merge Tool 下拉选单中选择 <em>Custom</em>。</li><li>在 <em>Merge Command</em> 文本字段中，输入 UnityYAMLMerge 的路径。</li><li>在 <em>Arguments</em> 文本字段中，输入 <code>merge -p $BASE $REMOTE $LOCAL $MERGED</code>。</li></ul>]]></content>
+        <content type="html"><![CDATA[<p>Reference: <a href="https://docs.unity3d.com/Manual/UsingDLL.html" target="_blank" rel="noopener">https://docs.unity3d.com/Manual/UsingDLL.html</a></p>]]></content>
       
       
       <categories>
           
           <category> Unity </category>
           
-          <category> 工具集 </category>
+          <category> Toolset </category>
           
       </categories>
       
       
         <tags>
             
-            <tag> Smart Merge </tag>
+            <tag> Unity DLL </tag>
             
         </tags>
       
@@ -80,31 +105,6 @@
     </entry>
     
     <entry>
-      <title>使用Rider构建和集成简单的DLL示例</title>
-      <link href="/blog/1dbc6beb.html"/>
-      <url>/blog/1dbc6beb.html</url>
-      
-        <content type="html"><![CDATA[<p>Reference: <a href="https://docs.unity3d.com/Manual/UsingDLL.html" target="_blank" rel="noopener">https://docs.unity3d.com/Manual/UsingDLL.html</a></p>]]></content>
-      
-      
-      <categories>
-          
-          <category> Unity </category>
-          
-          <category> Toolset </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> Unity DLL </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
       <title>减小构建的文件大小</title>
       <link href="/blog/ea658644.html"/>
       <url>/blog/ea658644.html</url>
@@ -124,6 +124,31 @@
         <tags>
             
             <tag> 打包 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
+      <title>Smart Merge</title>
+      <link href="/blog/f8ae384d.html"/>
+      <url>/blog/f8ae384d.html</url>
+      
+        <content type="html"><![CDATA[<p>Unity 包含一个名为 <strong>UnityYAMLMerge</strong> 的工具，能够以语义正确的方式合并场景和预制件文件。可从命令行中访问该工具，也可将其用于第三方版本控制软件。</p><a id="more"></a><h2 id="在-unity-中设置智能合并">在 Unity 中设置智能合并</h2><p>In the <a href="https://longshilin.com/UnityDoc2019.3/Manual/class-EditorManager.html">Editor</a> window (menu: <strong>Edit &gt; Project Settings</strong>, then select the <strong>Editor</strong> category), you have the option to select a third party version control tool (Perforce or PlasticSCM, for example). When one of these tools is enabled, you will see a <em>Smart Merge</em> menu under the <em>Version Control</em> heading. The menu has four options:</p><ul><li><strong>Off</strong>：仅使用偏好设置中设定的默认合并工具而不进行智能合并。</li><li><strong>Premerge</strong>：启用智能合并，接受纯净的合并。不纯净的合并将创建文件的预先合并基础版本、他们的版本和我的版本。然后，对这些版本使用默认合并工具。</li><li><strong>Ask</strong>：启用智能合并，但发生冲突时显示一个对话框让用户解决冲突（这是默认设置）。</li></ul><h2 id="设置-unityyamlmerge-与第三方工具结合使用">设置 UnityYAMLMerge 与第三方工具结合使用</h2><p>UnityYAMLMerge 工具随附于 Unity Editor；假设 Unity 安装在标准位置，则 UnityYAMLMerge 的路径将是：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">C:\Program Files\Unity\Editor\Data\Tools\UnityYAMLMerge.exe</span><br><span class="line"></span><br><span class="line">or</span><br><span class="line"></span><br><span class="line">C:\Program Files (x86)\Unity\Editor\Data\Tools\UnityYAMLMerge.exe</span><br></pre></td></tr></table></figure><ul><li>在 Windows 上；</li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">/Applications/Unity/Unity.app/Contents/Tools/UnityYAMLMerge</span><br></pre></td></tr></table></figure><ul><li>在 Mac OSX 上（使用 Finder 中的 <em>Show Package Contents</em> 命令访问此文件夹）。</li></ul><p>UnityYAMLMerge 附带了一个默认的回退文件（称为 mergespecfile.txt，也在 Tools 文件夹中），用于指定如何处理未解决的冲突或未知文件。此外，还可将其用作不会根据文件扩展名自动选择合并工具的版本控制系统（例如 git）的主要合并工具。默认情况下，mergespecfile.txt 中已列出最常用的工具，但可以编辑此文件以添加新工具或更改选项。</p><p>可从命令行中将 UnityYAMLMerge 作为独立工具运行（若要查看该工具的完整使用说明，可在运行时不带任何参数）。下面给出了常见版本控制系统的设置说明。</p><h3 id="p4v">P4V</h3><ul><li>选择 Preferences &gt; Merge。</li><li>选择 <em>Other application</em>。</li><li>单击 <em>Add</em> 按钮。</li><li>在 Extension 字段中，输入 <code>.unity</code>。</li><li>在 Application 字段中，输入 UnityYAMLMerge 工具的路径（见下文）。</li><li>在 Arguments 字段中，输入 <code>merge -p %b %1 %2 %r</code></li><li>单击 Save。</li></ul><p>然后，按照相同的步骤添加 <code>.prefab</code> 扩展名。</p><h3 id="git">Git</h3><p>将以下文本添加到 <code>.git</code> 或 <code>.gitconfig</code> 文件中：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[merge]</span><br><span class="line">    tool = unityyamlmerge</span><br><span class="line"></span><br><span class="line">    [mergetool &quot;unityyamlmerge&quot;]</span><br><span class="line">    trustExitCode = false</span><br><span class="line">    cmd = &apos;&lt;path to UnityYAMLMerge&gt;&apos; merge -p &quot;$BASE&quot; &quot;$REMOTE&quot; &quot;$LOCAL&quot; &quot;$MERGED&quot;</span><br></pre></td></tr></table></figure><h3 id="mercurial">Mercurial</h3><p>将以下文本添加到 <code>.hgrc</code> 文件中：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[merge-patterns]</span><br><span class="line">    **.unity = unityyamlmerge</span><br><span class="line">    **.prefab = unityyamlmerge</span><br><span class="line"></span><br><span class="line">    [merge-tools]</span><br><span class="line">    unityyamlmerge.executable = &lt;path to UnityYAMLMerge&gt;</span><br><span class="line">    unityyamlmerge.args = merge -p --force $base $other $local $output</span><br><span class="line">    unityyamlmerge.checkprompt = True</span><br><span class="line">    unityyamlmerge.premerge = False</span><br><span class="line">    unityyamlmerge.binary = False</span><br></pre></td></tr></table></figure><h3 id="svn">SVN</h3><p>将以下文本添加到 <code>~/.subversion/config</code> 文件中：</p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">[helpers]</span><br><span class="line">    merge-tool-cmd = &lt;path to UnityYAMLMerge&gt;</span><br></pre></td></tr></table></figure><h3 id="tortoisegit">TortoiseGit</h3><ul><li>选择 Preferences &gt; Diff Viewer &gt; Merge Tool，然后单击 <em>Advanced</em> 按钮。</li><li>在弹出框的 Extension 字段中，输入 <code>.unity</code>。</li><li>在 External Program 字段中，输入：</li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;path to UnityYAMLMerge&gt; merge -p %base %theirs %mine %merged</span><br></pre></td></tr></table></figure><p>然后，按照相同的步骤添加 <code>.prefab</code> 扩展名。</p><h3 id="plasticscm">PlasticSCM</h3><ul><li>选择 Preferences &gt; Merge Tools，然后单击 <em>Add</em> 按钮。</li><li>选择 <em>External</em> 合并工具。</li><li>选择 <em>Use with files that match the following pattern</em>。</li><li>添加 <code>.unity</code> 扩展名。</li><li>输入以下命令：</li></ul><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;path to UnityYAMLMerge&gt; merge -p &quot;@basefile&quot; &quot;@sourcefile&quot;  &quot;@destinationfile&quot; &quot;@output&quot;</span><br></pre></td></tr></table></figure><p>然后，按照相同的步骤添加 <code>.prefab</code> 扩展名。</p><h3 id="sourcetree">SourceTree</h3><ul><li>选择 Tools &gt; Options &gt; Diff。</li><li>在 Merge Tool 下拉选单中选择 <em>Custom</em>。</li><li>在 <em>Merge Command</em> 文本字段中，输入 UnityYAMLMerge 的路径。</li><li>在 <em>Arguments</em> 文本字段中，输入 <code>merge -p $BASE $REMOTE $LOCAL $MERGED</code>。</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> 工具集 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Smart Merge </tag>
             
         </tags>
       
@@ -456,31 +481,6 @@
         <tags>
             
             <tag> Unity </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>ParallelForTransform作业</title>
-      <link href="/blog/894c6889.html"/>
-      <url>/blog/894c6889.html</url>
-      
-        <content type="html"><![CDATA[<p>ParallelForTransform作业是另一种<a href="https://docs.unity3d.com/Manual/JobSystemParallelForJobs.html" target="_blank" rel="noopener">ParallelFor作业</a> ; 专为在<a href="https://docs.unity3d.com/Manual/Transforms.html" target="_blank" rel="noopener">变形上</a>操作而设计。</p><p><strong>注意</strong>：ParallelForTransform作业是Unity中用于实现<a href="https://docs.unity3d.com/ScriptReference/Jobs.IJobParallelForTransform.html" target="_blank" rel="noopener">IJobParallelForTransform</a>接口的任何作业的集合术语。</p><a id="more"></a>]]></content>
-      
-      
-      <categories>
-          
-          <category> Unity </category>
-          
-          <category> C＃ Job System </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> C＃ Job System </tag>
             
         </tags>
       
@@ -1037,6 +1037,31 @@
     </entry>
     
     <entry>
+      <title>ParallelForTransform作业</title>
+      <link href="/blog/894c6889.html"/>
+      <url>/blog/894c6889.html</url>
+      
+        <content type="html"><![CDATA[<p>ParallelForTransform作业是另一种<a href="https://docs.unity3d.com/Manual/JobSystemParallelForJobs.html" target="_blank" rel="noopener">ParallelFor作业</a> ; 专为在<a href="https://docs.unity3d.com/Manual/Transforms.html" target="_blank" rel="noopener">变形上</a>操作而设计。</p><p><strong>注意</strong>：ParallelForTransform作业是Unity中用于实现<a href="https://docs.unity3d.com/ScriptReference/Jobs.IJobParallelForTransform.html" target="_blank" rel="noopener">IJobParallelForTransform</a>接口的任何作业的集合术语。</p><a id="more"></a>]]></content>
+      
+      
+      <categories>
+          
+          <category> Unity </category>
+          
+          <category> C＃ Job System </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> C＃ Job System </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>Unity双击脚本不会自动跳转到vs中的解决方案</title>
       <link href="/blog/f243dbe9.html"/>
       <url>/blog/f243dbe9.html</url>
@@ -1546,7 +1571,7 @@
       <link href="/blog/157464b7.html"/>
       <url>/blog/157464b7.html</url>
       
-        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX19r7H9LpjEgSXk94p6bbqcvJdXUlkykUuGPghDExkXiI/nBN1wKCiF1ykUX1Eap1Enhblli6QAeP64CYPubb9Q4zcuahjQ27CDMlUC23UNN83d69VPjgYGGriSCe+JiCkAordpVJxYRga8jrzQGtMPDIYKmZIP9qbsnR6ek1FR5KmSFBbN6XoYYWwJIfNMj/I3ye9xUUa07NSKrQItTWYGUtTCUr84pO0zeFGGFZuelU+WNtm1tOQiws5xzONs3ON1n4eIAjY6bpKdE3zd4vS3zXz9P141ihwIxuKwGF9mdIFv3wDfucdqQQWHnFTibx9ozn+HITvxv365VfJ6QYcBDP0iZ51W03gUMdHLrGbUwiNcQJFPfD2yf+BukqRPqXIx13aeR/7qgfv2teONkS7OjEBrAUq9Lb4rgXrgsJG/6oHgTOPhzoopzb9SGmmvpcePjQgvr6/RTQg/x/OztzfIXSO453tTLGIVZ5LECTPNxv/S8E+jmAM1jcJCBjq83+uaW/e9ZE5l41GQuFBq6TFS2RAgYlpmPDBOWRXOJkvesJ+WFiCt4AzqqveuZJiqrVMXVn3p201kbXu+qPx5oLNZZE0WxGy0YEHqWnSDssgQzvsyimezYk+9KuPP5xoZ1nWy1W9bd7b1abMJwie3GDVpwd3tLKsmVNA6dlu03+xaZLi3i7dDeAX8jrOv4VG7Yj6dcA779vdjb1S6LYy213EjQkbF5qKKkphyI9y5XcfwXupm8fdA+ujpk58NS6xR09nGcoEjGq9tLXw==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
+        <content type="html"><![CDATA[<script src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script><div id="hbe-security">  <div class="hbe-input-container">  <input type="password" class="hbe-form-control" id="pass" placeholder="Welcome to my blog, enter password to read." />    <label for="pass">Welcome to my blog, enter password to read.</label>    <div class="bottom-line"></div>  </div></div><div id="decryptionError" style="display: none;">Incorrect Password!</div><div id="noContentError" style="display: none;">No content to display!</div><div id="encrypt-blog" style="display:none">U2FsdGVkX19ahEP6x1NLri6kb7QpKnEx9VzuRmma4bMSJCCoCjfoJQGU2D3Cx0rCwCln06akdxMixxgZd2C7zzrhUAvSijkt4tJd4BvKB/LB8fxNOQ3o1PbibEAGnz8tdsEPfopcXfHXyH5Vy4SfzH4+CFY1/Dk7zNgV67vFMMquqjbnYHCU/g86+M0XpxkciZFYRIdsLdFnwmBstI4Wr8RzNlb+fYDFm+aqZED5Ib8zp2WppuImr3gpglyDFWK4nBU4fj7Hc7E/Rww9SWbC/IPMxT+zUFS0UiyCAEV2wcTTR7AJcdiOy94wGm/scp73Hd+Kk1wrTHWdRnDau67e8VhACHOXmlISDOwgS+b7sLFCaZ536N9vjTIITuUZAkBP1LEHDkNYJhP4rOdisgn0RrCwSUMxn+j6i0duI3wzJDf1MWJqve0gYHAF4FIHz4VRMw6vhcUC0wtG9746Qpum4n64l0qCCOc7AJrdNDAVf3S1BQbMn5IMpf5qnF+uDaPSkG7wBXR5bb6eUhK4NiGAlOk7oKpYpSy7DEN0ufyb+vv8pKkP7ZJigE1/dT19FuNiWHoKzXaj3PYkjHCXNEO+sRrNcEmhdt+Pfel8uj0G1NCFP5yi8oTV+B09cSEAbUG1FXMaLH9dybrSKSe4LeWusECu10qJm/iiF/rzRhAbKAFHbr2rjnFoWoTUudByqu0trx0BYj2Km0eslGCNe/H6DpDXLrf07E1q6l0Fzf0+z3GIgKgUX6nQaGFaHQOIkKSTbCMgUpoFEulvvych1SpYnQ==</div><script src="/blog/lib/crypto-js.js"></script><script src="/blog/lib/blog-encrypt.js"></script><link href="/blog/css/blog-encrypt.css" rel="stylesheet" type="text/css">]]></content>
       
       
       
@@ -1754,6 +1779,29 @@
     </entry>
     
     <entry>
+      <title>给自定义博客增加totop按钮</title>
+      <link href="/blog/5b764c97.html"/>
+      <url>/blog/5b764c97.html</url>
+      
+        <content type="html"><![CDATA[<p><img src="https://longshilin.com/images/20190507102321.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 搭建个人博客 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> hexo </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    <entry>
       <title>gitlab绑定域名</title>
       <link href="/blog/57c188a8.html"/>
       <url>/blog/57c188a8.html</url>
@@ -1796,29 +1844,6 @@
             <tag> hexo </tag>
             
             <tag> simiki </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    <entry>
-      <title>给自定义博客增加totop按钮</title>
-      <link href="/blog/5b764c97.html"/>
-      <url>/blog/5b764c97.html</url>
-      
-        <content type="html"><![CDATA[<p><img src="https://longshilin.com/images/20190507102321.png" alt=""><br>新增图片右下角的totop按钮</p><a id="more"></a><h3 id="新增totop-ejs文件">新增totop.ejs文件</h3><p>在文件目录<code>blog/themes/hexo-theme-bootstrap-blog/layout/_partial</code>中新增 <a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/layout/_partial/totop.ejs" target="_blank" rel="noopener">totop.ejs</a></p><h3 id="修改layout-ejs">修改layout.ejs</h3><p>layout.ejs表示的是blog页面的主页面样式排版，将上一步中的文件纳入到最终的页面样式中。</p><pre><code>&lt;%- partial('_partial/totop') %&gt;</code></pre><h3 id="js文件">js文件</h3><p><a href="https://gitlab.com/longshilin/longshilindotcom/blob/master/blog/themes/hexo-theme-bootstrap-blog/source/js/totop.js" target="_blank" rel="noopener">totop.js</a></p><h3 id="css格式">css格式</h3><figure class="highlight css"><table><tr><td class="code"><pre><span class="line"><span class="selector-id">#totop</span> &#123;</span><br><span class="line">  <span class="attribute">position</span>: fixed;</span><br><span class="line">  <span class="attribute">bottom</span>: <span class="number">4em</span>;</span><br><span class="line">  <span class="attribute">right</span>: <span class="number">2em</span>;</span><br><span class="line">  <span class="attribute">cursor</span>: pointer;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      
-      
-      <categories>
-          
-          <category> 搭建个人博客 </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> hexo </tag>
             
         </tags>
       
