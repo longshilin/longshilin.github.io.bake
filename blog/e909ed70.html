@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://longshilin.com/images/20200412002438.png">
 <meta property="og:image" content="https://longshilin.com/images/20200412010248.png">
 <meta property="og:image" content="https://longshilin.com/images/20200412010533.png">
-<meta property="og:updated_time" content="2020-07-19T17:23:39.000Z">
+<meta property="og:updated_time" content="2020-07-20T15:33:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Asset Bundle介绍">
 <meta name="twitter:description" content="AssetBundle是与主游戏或应用程序分开存储并在运行时加载（或下载的，对于移动和在线应用程序而言）的内容。 通过允许客户仅下载和安装所需的部件，这有助于最大程度地减少对网络和系统资源的影响。 例如，一家汽车制造商拥有一个VR应用程序，该应用程序允许客户“试驾”车辆，而不希望将所有车辆都包含在应用程序中， 这会导致下载和安装的体积过大。 资产捆绑包允许客户仅下载他想测试驾驶的车辆，并且其平台可">
@@ -34,8 +34,6 @@
     <link rel="icon" href="/images/favicon.png">
   
   
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -43,19 +41,6 @@
 
   <link rel="stylesheet" href="/blog/css/styles.css">
   
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-125053144-2', 'auto');
-ga('send', 'pageview');
-
-</script>
-<!-- End Google Analytics -->
-
 
   
     <!-- Baidu Analytics -->
@@ -98,7 +83,7 @@ ga('send', 'pageview');
         
           <li><a class="" href="/blog/archives/">Archives</a></li>
         
-          <li><a class="" href="/blog/diary">日记</a></li>
+          <li><a class="" href="/blog/diary">Diary</a></li>
         
       </ul>
 
@@ -120,16 +105,6 @@ ga('send', 'pageview');
         
       </ul>
         
-    
-    <!-- add google translate -->
-      <div id="google_translate_element" style="position:absolute; right:0; margin-top: 8px; margin-right: 1px;"></div>
-
-      <script type="text/javascript">
-        function googleTranslateElementInit() {
-          new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
-        }
-      </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <!-- /add google translate -->
     
 
     </div><!-- /.navbar-collapse -->
@@ -232,7 +207,25 @@ BuildAssetBundles有三个参数：应在其中创建AssetBundles的目录，<br
 在编辑器中，创建一个名为CreateAssetBundles的新C＃脚本。<br>
 双击CreateAssetBundles在Visual Studio中将其打开，然后删除所有内容。<br>
 输入以下内容：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">using UnityEditor;</span><br><span class="line">using System.IO;</span><br><span class="line">using UnityEngine;</span><br><span class="line"></span><br><span class="line">public class CreateAssetBundles</span><br><span class="line">&#123;</span><br><span class="line">    [MenuItem(&quot;Assets/Build AssetBundles&quot;)]</span><br><span class="line">    static void BuildAllAssetBundles()</span><br><span class="line">    &#123;</span><br><span class="line">        string assetBundleDirectory = &quot;Assets/StreamingAssets&quot;;</span><br><span class="line">        if (!Directory.Exists(Application.streamingAssetsPath))</span><br><span class="line">        &#123;</span><br><span class="line">            Directory.CreateDirectory(assetBundleDirectory);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        BuildPipeline.BuildAssetBundles(assetBundleDirectory, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-c#">using UnityEditor;
+using System.IO;
+using UnityEngine;
+
+public class CreateAssetBundles
+{
+    [MenuItem(&quot;Assets/Build AssetBundles&quot;)]
+    static void BuildAllAssetBundles()
+    {
+        string assetBundleDirectory = &quot;Assets/StreamingAssets&quot;;
+        if (!Directory.Exists(Application.streamingAssetsPath))
+        {
+            Directory.CreateDirectory(assetBundleDirectory);
+        }
+
+        BuildPipeline.BuildAssetBundles(assetBundleDirectory, BuildAssetBundleOptions.None, EditorUserBuildSettings.activeBuildTarget);
+    }
+}
+</code></pre>
 <p>CreateAssetBundles已完成。<br>
 保存更改并关闭Visual Studio。<br>
 在Unity编辑器中，您可以在Asset下拉列表的底部找到一个新选项：Build AssetBundles。</p>
@@ -266,7 +259,32 @@ BuildAssetBundleOptions参数是可选的，如果未指定任何内容，则默
 在X和Y中将主摄像机的变换位置设置为0。*创建一个名为Loader的新GameObject。<br>
 创建一个名为BundledObjectLoader的新C＃脚本，并将其附加到Loader。<br>
 双击BundledObjectLoader在Visual Studio中将其打开。使用下面的代码：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">using System;</span><br><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line">using System.IO;</span><br><span class="line"></span><br><span class="line">public class BundleObjectLoader : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    public string assetName = &quot;BundledSpriteObject&quot;;</span><br><span class="line">    public string bundleName = &quot;testbundle&quot;;</span><br><span class="line"></span><br><span class="line">    private void Start()</span><br><span class="line">    &#123;</span><br><span class="line">        AssetBundle localAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, bundleName));</span><br><span class="line">        if (localAssetBundle == null)</span><br><span class="line">        &#123;</span><br><span class="line">            Debug.LogError(&quot;Failed to load AssetBundle!&quot;);</span><br><span class="line">            return;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        GameObject asset = localAssetBundle.LoadAsset&lt;GameObject&gt;(assetName);</span><br><span class="line">        Instantiate(asset);</span><br><span class="line">        localAssetBundle.Unload(false);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-c#">using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using System.IO;
+
+public class BundleObjectLoader : MonoBehaviour
+{
+    public string assetName = &quot;BundledSpriteObject&quot;;
+    public string bundleName = &quot;testbundle&quot;;
+
+    private void Start()
+    {
+        AssetBundle localAssetBundle = AssetBundle.LoadFromFile(Path.Combine(Application.streamingAssetsPath, bundleName));
+        if (localAssetBundle == null)
+        {
+            Debug.LogError(&quot;Failed to load AssetBundle!&quot;);
+            return;
+        }
+
+        GameObject asset = localAssetBundle.LoadAsset&lt;GameObject&gt;(assetName);
+        Instantiate(asset);
+        localAssetBundle.Unload(false);
+    }
+}
+</code></pre>
 <p>运行当前场景，会看到之前生成的Bundle文件被实例化到场景中。<br>
 <img src="https://longshilin.com/images/20200412010533.png" alt=""></p>
 <p>退出播放模式。<br>
@@ -276,7 +294,35 @@ BuildAssetBundleOptions参数是可选的，如果未指定任何内容，则默
 对于像我们的示例这样的小捆绑包来说，这很好，但对于更大的东西（如我们在汽车或建筑预可视化程序或AAA视频游戏中可能看到的），<br>
 这可能会导致帧速率或响应速度下降到不可接受的程度。<br>
 更好的选择是LoadFromFileAsync，它可以作为协程运行，以使项目在加载AssetBundle时继续运行。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using System.IO;</span><br><span class="line">using UnityEngine;</span><br><span class="line"></span><br><span class="line">public class BundleLoaderAsync : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    public string bundleName = &quot;testbundle&quot;;</span><br><span class="line">    public string assetName = &quot;BundledSpriteObject&quot;;</span><br><span class="line"></span><br><span class="line">    IEnumerator Start()</span><br><span class="line">    &#123;</span><br><span class="line">        AssetBundleCreateRequest asyncBundleRequest = AssetBundle.LoadFromFileAsync(Path.Combine(Application.streamingAssetsPath, bundleName));</span><br><span class="line">        yield return asyncBundleRequest;</span><br><span class="line">        AssetBundle localAssetBundle = asyncBundleRequest.assetBundle;</span><br><span class="line">        if (localAssetBundle == null)</span><br><span class="line">        &#123;</span><br><span class="line">            Debug.LogError(&quot;Failed to load AssetBundle!&quot;);</span><br><span class="line">            yield break;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        AssetBundleRequest assetRequest = localAssetBundle.LoadAssetAsync&lt;GameObject&gt;(assetName);</span><br><span class="line">        yield return assetRequest;</span><br><span class="line">        GameObject prefab = assetRequest.asset as GameObject;</span><br><span class="line">        Instantiate(prefab);</span><br><span class="line">        localAssetBundle.Unload(false);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-c#">using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using UnityEngine;
+
+public class BundleLoaderAsync : MonoBehaviour
+{
+    public string bundleName = &quot;testbundle&quot;;
+    public string assetName = &quot;BundledSpriteObject&quot;;
+
+    IEnumerator Start()
+    {
+        AssetBundleCreateRequest asyncBundleRequest = AssetBundle.LoadFromFileAsync(Path.Combine(Application.streamingAssetsPath, bundleName));
+        yield return asyncBundleRequest;
+        AssetBundle localAssetBundle = asyncBundleRequest.assetBundle;
+        if (localAssetBundle == null)
+        {
+            Debug.LogError(&quot;Failed to load AssetBundle!&quot;);
+            yield break;
+        }
+
+        AssetBundleRequest assetRequest = localAssetBundle.LoadAssetAsync&lt;GameObject&gt;(assetName);
+        yield return assetRequest;
+        GameObject prefab = assetRequest.asset as GameObject;
+        Instantiate(prefab);
+        localAssetBundle.Unload(false);
+    }
+}
+</code></pre>
 <p>BundleLoaderAsync已完成。<br>
 保存更改并返回到Unity Editor。<br>
 按播放。<br>
@@ -286,7 +332,33 @@ BuildAssetBundleOptions参数是可选的，如果未指定任何内容，则默
 出于我们的目的，该文件托管在本地Web服务器上的根目录中。<br>
 创建一个名为BundleWebLoader的C＃脚本，并将其附加到Loader。<br>
 双击BundleWebLoader在Visual Studio中打开。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">using System.Collections;</span><br><span class="line">using System.Collections.Generic;</span><br><span class="line">using UnityEngine;</span><br><span class="line"></span><br><span class="line">public class BundleWebLoader : MonoBehaviour</span><br><span class="line">&#123;</span><br><span class="line">    public string bundleUrl = &quot;http://127.0.0.1:8887/testbundle&quot;;</span><br><span class="line">    public string assetName = &quot;BundledSpriteObject&quot;;</span><br><span class="line"></span><br><span class="line">    IEnumerator Start()</span><br><span class="line">    &#123;</span><br><span class="line">        using (WWW web = new WWW(bundleUrl))</span><br><span class="line">        &#123;</span><br><span class="line">            yield return web;</span><br><span class="line">            AssetBundle remoteAssetBundle = web.assetBundle;</span><br><span class="line">            if (remoteAssetBundle == null)</span><br><span class="line">            &#123;</span><br><span class="line">                Debug.LogError(&quot;Failed to download AssetBundle!&quot;);</span><br><span class="line">                yield break;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            Instantiate(remoteAssetBundle.LoadAsset(assetName));</span><br><span class="line">            remoteAssetBundle.Unload(false);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-c#">using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class BundleWebLoader : MonoBehaviour
+{
+    public string bundleUrl = &quot;http://127.0.0.1:8887/testbundle&quot;;
+    public string assetName = &quot;BundledSpriteObject&quot;;
+
+    IEnumerator Start()
+    {
+        using (WWW web = new WWW(bundleUrl))
+        {
+            yield return web;
+            AssetBundle remoteAssetBundle = web.assetBundle;
+            if (remoteAssetBundle == null)
+            {
+                Debug.LogError(&quot;Failed to download AssetBundle!&quot;);
+                yield break;
+            }
+
+            Instantiate(remoteAssetBundle.LoadAsset(assetName));
+            remoteAssetBundle.Unload(false);
+        }
+    }
+}
+</code></pre>
 <p>有一个简单的Chrome扩展名<a href="https://chrome.google.com/webstore/detail/web-server-for-chrome/ofhbbkphhbklhfoeikjpcbhemlocgigb/related?hl=en" target="_blank" rel="noopener">&quot;200 OK&quot;</a>。<br>
 它在本地主机上运行Web服务器。</p>
 <p>BundleWebLoader完成。<br>
@@ -307,7 +379,7 @@ BuildAssetBundleOptions参数是可选的，如果未指定任何内容，则默
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/e909ed70.html" data-id="ckctcnh10003e0mu1gh8sbkzt" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/e909ed70.html" data-id="ckcuo65qy003e0m2olg7nmtz8" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -393,7 +465,7 @@ BuildAssetBundleOptions参数是可选的，如果未指定任何内容，则默
   <div class="sidebar-module">
     <h4>Tag Cloud</h4>
     <p class="tagcloud">
-      <a href="/blog/tags/Atom-Snippets/" style="font-size: 10px;">Atom Snippets</a> <a href="/blog/tags/C＃-Job-System/" style="font-size: 20px;">C＃ Job System</a> <a href="/blog/tags/Unity-Asset/" style="font-size: 10px;">Unity Asset</a> <a href="/blog/tags/集合/" style="font-size: 10px;">集合</a> <a href="/blog/tags/提问的智慧/" style="font-size: 10px;">提问的智慧</a> <a href="/blog/tags/Unity/" style="font-size: 16.67px;">Unity</a> <a href="/blog/tags/ECS手册和脚本参考/" style="font-size: 15px;">ECS手册和脚本参考</a> <a href="/blog/tags/ET/" style="font-size: 10px;">ET</a> <a href="/blog/tags/Coding/" style="font-size: 10px;">Coding</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/UnityTips/" style="font-size: 10px;">UnityTips</a> <a href="/blog/tags/90km/" style="font-size: 10px;">90km</a> <a href="/blog/tags/sysops/" style="font-size: 10px;">sysops</a> <a href="/blog/tags/aws/" style="font-size: 11.67px;">aws</a> <a href="/blog/tags/Asset-DataBase/" style="font-size: 10px;">Asset DataBase</a> <a href="/blog/tags/类对象/" style="font-size: 10px;">类对象</a> <a href="/blog/tags/优秀文章/" style="font-size: 10px;">优秀文章</a> <a href="/blog/tags/CI-CD/" style="font-size: 11.67px;">CI/CD</a> <a href="/blog/tags/wordpress/" style="font-size: 10px;">wordpress</a> <a href="/blog/tags/Editor/" style="font-size: 10px;">Editor</a> <a href="/blog/tags/笔试/" style="font-size: 10px;">笔试</a> <a href="/blog/tags/Unity-DLL/" style="font-size: 10px;">Unity DLL</a> <a href="/blog/tags/aws-soa/" style="font-size: 10px;">aws-soa</a> <a href="/blog/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/blog/tags/基因测序/" style="font-size: 18.33px;">基因测序</a> <a href="/blog/tags/代理/" style="font-size: 10px;">代理</a> <a href="/blog/tags/markdown/" style="font-size: 11.67px;">markdown</a> <a href="/blog/tags/docker/" style="font-size: 11.67px;">docker</a> <a href="/blog/tags/效率/" style="font-size: 10px;">效率</a> <a href="/blog/tags/gitlab-pages/" style="font-size: 10px;">gitlab pages</a> <a href="/blog/tags/GameFramework/" style="font-size: 10px;">GameFramework</a> <a href="/blog/tags/迭代器/" style="font-size: 10px;">迭代器</a> <a href="/blog/tags/ECS-Samples/" style="font-size: 10px;">ECS Samples</a> <a href="/blog/tags/Unity-Beginner-Guide/" style="font-size: 10px;">Unity Beginner Guide</a> <a href="/blog/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/blog/tags/tower/" style="font-size: 10px;">tower</a> <a href="/blog/tags/Visual-Studio/" style="font-size: 10px;">Visual Studio</a> <a href="/blog/tags/继承/" style="font-size: 10px;">继承</a> <a href="/blog/tags/人生/" style="font-size: 10px;">人生</a> <a href="/blog/tags/memreduct/" style="font-size: 10px;">memreduct</a> <a href="/blog/tags/Smart-Merge/" style="font-size: 10px;">Smart Merge</a> <a href="/blog/tags/自定义菜单项/" style="font-size: 10px;">自定义菜单项</a> <a href="/blog/tags/JetBrains/" style="font-size: 10px;">JetBrains</a> <a href="/blog/tags/Hadoop/" style="font-size: 18.33px;">Hadoop</a> <a href="/blog/tags/Class/" style="font-size: 10px;">Class</a> <a href="/blog/tags/随机游戏元素/" style="font-size: 10px;">随机游戏元素</a> <a href="/blog/tags/毕业设计/" style="font-size: 18.33px;">毕业设计</a> <a href="/blog/tags/longshilindotcom/" style="font-size: 10px;">longshilindotcom</a> <a href="/blog/tags/打包/" style="font-size: 10px;">打包</a> <a href="/blog/tags/EventSystem/" style="font-size: 10px;">EventSystem</a> <a href="/blog/tags/tools/" style="font-size: 13.33px;">tools</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/blog/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/blog/tags/Project/" style="font-size: 10px;">Project</a> <a href="/blog/tags/Unity-Asset-Bundle/" style="font-size: 10px;">Unity Asset Bundle</a> <a href="/blog/tags/SEO/" style="font-size: 10px;">SEO</a> <a href="/blog/tags/线程/" style="font-size: 10px;">线程</a> <a href="/blog/tags/highlightjs/" style="font-size: 10px;">highlightjs</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/极客时间/" style="font-size: 10px;">极客时间</a> <a href="/blog/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/blog/tags/DokuWiki/" style="font-size: 10px;">DokuWiki</a> <a href="/blog/tags/write/" style="font-size: 11.67px;">write</a> <a href="/blog/tags/simiki/" style="font-size: 10px;">simiki</a> <a href="/blog/tags/java/" style="font-size: 11.67px;">java</a> <a href="/blog/tags/大数据/" style="font-size: 18.33px;">大数据</a> <a href="/blog/tags/UnityDoc/" style="font-size: 11.67px;">UnityDoc</a> <a href="/blog/tags/异常/" style="font-size: 10px;">异常</a> <a href="/blog/tags/编辑器功能/" style="font-size: 10px;">编辑器功能</a>
+      <a href="/blog/tags/ECS手册和脚本参考/" style="font-size: 15px;">ECS手册和脚本参考</a> <a href="/blog/tags/markdown/" style="font-size: 11.67px;">markdown</a> <a href="/blog/tags/Unity-Beginner-Guide/" style="font-size: 10px;">Unity Beginner Guide</a> <a href="/blog/tags/Unity-Asset-Bundle/" style="font-size: 10px;">Unity Asset Bundle</a> <a href="/blog/tags/JetBrains/" style="font-size: 10px;">JetBrains</a> <a href="/blog/tags/Atom-Snippets/" style="font-size: 10px;">Atom Snippets</a> <a href="/blog/tags/longshilindotcom/" style="font-size: 10px;">longshilindotcom</a> <a href="/blog/tags/simiki/" style="font-size: 10px;">simiki</a> <a href="/blog/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/blog/tags/笔试/" style="font-size: 10px;">笔试</a> <a href="/blog/tags/Project/" style="font-size: 10px;">Project</a> <a href="/blog/tags/Class/" style="font-size: 10px;">Class</a> <a href="/blog/tags/EventSystem/" style="font-size: 10px;">EventSystem</a> <a href="/blog/tags/sysops/" style="font-size: 10px;">sysops</a> <a href="/blog/tags/ECS-Samples/" style="font-size: 10px;">ECS Samples</a> <a href="/blog/tags/java/" style="font-size: 11.67px;">java</a> <a href="/blog/tags/UnityTips/" style="font-size: 10px;">UnityTips</a> <a href="/blog/tags/ET/" style="font-size: 10px;">ET</a> <a href="/blog/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/blog/tags/highlightjs/" style="font-size: 10px;">highlightjs</a> <a href="/blog/tags/Editor/" style="font-size: 10px;">Editor</a> <a href="/blog/tags/继承/" style="font-size: 10px;">继承</a> <a href="/blog/tags/Asset-DataBase/" style="font-size: 10px;">Asset DataBase</a> <a href="/blog/tags/docker/" style="font-size: 11.67px;">docker</a> <a href="/blog/tags/打包/" style="font-size: 10px;">打包</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/Hadoop/" style="font-size: 18.33px;">Hadoop</a> <a href="/blog/tags/自定义菜单项/" style="font-size: 10px;">自定义菜单项</a> <a href="/blog/tags/代理/" style="font-size: 10px;">代理</a> <a href="/blog/tags/编辑器功能/" style="font-size: 10px;">编辑器功能</a> <a href="/blog/tags/aws-soa/" style="font-size: 10px;">aws-soa</a> <a href="/blog/tags/效率/" style="font-size: 10px;">效率</a> <a href="/blog/tags/write/" style="font-size: 11.67px;">write</a> <a href="/blog/tags/极客时间/" style="font-size: 10px;">极客时间</a> <a href="/blog/tags/DokuWiki/" style="font-size: 10px;">DokuWiki</a> <a href="/blog/tags/优秀文章/" style="font-size: 10px;">优秀文章</a> <a href="/blog/tags/集合/" style="font-size: 10px;">集合</a> <a href="/blog/tags/aws/" style="font-size: 11.67px;">aws</a> <a href="/blog/tags/大数据/" style="font-size: 18.33px;">大数据</a> <a href="/blog/tags/Unity-Asset/" style="font-size: 10px;">Unity Asset</a> <a href="/blog/tags/C＃-Job-System/" style="font-size: 20px;">C＃ Job System</a> <a href="/blog/tags/提问的智慧/" style="font-size: 10px;">提问的智慧</a> <a href="/blog/tags/迭代器/" style="font-size: 10px;">迭代器</a> <a href="/blog/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/blog/tags/gitlab-pages/" style="font-size: 10px;">gitlab pages</a> <a href="/blog/tags/SEO/" style="font-size: 10px;">SEO</a> <a href="/blog/tags/毕业设计/" style="font-size: 18.33px;">毕业设计</a> <a href="/blog/tags/Unity-DLL/" style="font-size: 10px;">Unity DLL</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/Coding/" style="font-size: 10px;">Coding</a> <a href="/blog/tags/Unity/" style="font-size: 16.67px;">Unity</a> <a href="/blog/tags/Smart-Merge/" style="font-size: 10px;">Smart Merge</a> <a href="/blog/tags/90km/" style="font-size: 10px;">90km</a> <a href="/blog/tags/异常/" style="font-size: 10px;">异常</a> <a href="/blog/tags/随机游戏元素/" style="font-size: 10px;">随机游戏元素</a> <a href="/blog/tags/wordpress/" style="font-size: 10px;">wordpress</a> <a href="/blog/tags/CI-CD/" style="font-size: 11.67px;">CI/CD</a> <a href="/blog/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/blog/tags/tower/" style="font-size: 10px;">tower</a> <a href="/blog/tags/类对象/" style="font-size: 10px;">类对象</a> <a href="/blog/tags/memreduct/" style="font-size: 10px;">memreduct</a> <a href="/blog/tags/GameFramework/" style="font-size: 10px;">GameFramework</a> <a href="/blog/tags/线程/" style="font-size: 10px;">线程</a> <a href="/blog/tags/UnityDoc/" style="font-size: 11.67px;">UnityDoc</a> <a href="/blog/tags/Visual-Studio/" style="font-size: 10px;">Visual Studio</a> <a href="/blog/tags/tools/" style="font-size: 13.33px;">tools</a> <a href="/blog/tags/基因测序/" style="font-size: 18.33px;">基因测序</a> <a href="/blog/tags/人生/" style="font-size: 10px;">人生</a>
     </p>
   </div>
 
@@ -501,12 +573,12 @@ BuildAssetBundleOptions参数是可选的，如果未指定任何内容，则默
     <div id="footer-info" class="inner">
       <!-- Copyright &copy; 2014 - 2020 Shilin Long&nbsp;<br> -->
       <!-- For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><br/> -->
-      <!-- Site Generated 2020-07-19 17:07:64&nbsp;&nbsp; -->
+      <!-- Site Generated 2020-07-20 15:07:45&nbsp;&nbsp; -->
       
       <span>
         <p>Copyright © 2018 - 2020 <a href="https://github.com/longshilin">Shilin Long.</a><br>
         <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='https://s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-        Site Generated 2020-07-19 &nbsp;|&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
+        Site Generated 2020-07-20 &nbsp;|&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
       </span>
       
       <!--  Create with <a href="https://hexo.io">Hexo</a>&nbsp; |&nbsp; -->

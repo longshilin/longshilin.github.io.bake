@@ -21,7 +21,7 @@
 <meta property="og:image" content="https://i.imgur.com/zW7EDJ1.png">
 <meta property="og:image" content="https://i.imgur.com/Z0oBb5w.png">
 <meta property="og:image" content="https://i.imgur.com/5uuMmgE.png">
-<meta property="og:updated_time" content="2020-07-19T17:23:39.000Z">
+<meta property="og:updated_time" content="2020-07-20T15:33:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2 相关技术及原理">
 <meta name="twitter:description" content="2.1 Hadoop相关技术和原理 本节主要对基于Hadoop平台的相关技术，如：HDFS、YARN和MapReduce三大模块进行原理介绍	，为后续基因测序在Hadoop平台上的搭建作相应的准备。 2.1.1 HDFS分布式存储系统 Hadoop分布式存储系统，即Hadoop Dirstributed FileSystem，简称HDFS[1]。由于Hadoop集群的基础架构设施，使得HDFS是一">
@@ -35,8 +35,6 @@
     <link rel="icon" href="/images/favicon.png">
   
   
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -44,19 +42,6 @@
 
   <link rel="stylesheet" href="/blog/css/styles.css">
   
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-125053144-2', 'auto');
-ga('send', 'pageview');
-
-</script>
-<!-- End Google Analytics -->
-
 
   
     <!-- Baidu Analytics -->
@@ -99,7 +84,7 @@ ga('send', 'pageview');
         
           <li><a class="" href="/blog/archives/">Archives</a></li>
         
-          <li><a class="" href="/blog/diary">日记</a></li>
+          <li><a class="" href="/blog/diary">Diary</a></li>
         
       </ul>
 
@@ -121,16 +106,6 @@ ga('send', 'pageview');
         
       </ul>
         
-    
-    <!-- add google translate -->
-      <div id="google_translate_element" style="position:absolute; right:0; margin-top: 8px; margin-right: 1px;"></div>
-
-      <script type="text/javascript">
-        function googleTranslateElementInit() {
-          new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
-        }
-      </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <!-- /add google translate -->
     
 
     </div><!-- /.navbar-collapse -->
@@ -213,7 +188,8 @@ ga('send', 'pageview');
 <p>在Unix系统架构中，每次磁盘都有默认的数据块，文件都以块的形式存储的，同样，在HDFS也有块（block）的概念，但是比Unix的文件系统块大得多，默认为128MB。HDFS的架构图如图2-1所示：</p>
 <p><img src="https://i.imgur.com/ta21xdv.png" alt="图2-1 HDFS架构图"></p>
 <p>对分布式文件系统中的块进行HDFS抽象可以使得一个文件的大小可以大于网络中任意一个磁盘的容量。从本地文件系统将一个文件复制到HDFS，该命令调度Hadoop文件系统的fs命令，并提供一系列子命令，包括-copyFromLocal。在下面的命令中，本地文件local.txt会被上传到HDFS中，路径为<code>/user/elon/remote.txt</code>。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">%</span><span class="bash"> hadoop fs -copyFromLocal local.txt hdfs://localhost/user/elon/remote.txt</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-shell">% hadoop fs -copyFromLocal local.txt hdfs://localhost/user/elon/remote.txt
+</code></pre>
 <h3 id="2-1-2-mapreduce并行计算框架与yarn资源调度器">2.1.2 MapReduce并行计算框架与Yarn资源调度器</h3>
 <p>Hadoop MapReduce<sup class="footnote-ref"><a href="#fn2" id="fnref2">[2]</a></sup>是一个计算框架，在进行MapReduce编程时，要编写用于数据处理的map函数和reduce函数，并以可靠并容错的方式在数千个节点的大型群集的大型商业硬件上并行处理大量数据。</p>
 <p>通常，计算节点和存储节点是相同的，允许框架在数据已经存在的节点上有效地调度任务，达到数据本地化的效果，从而在整个集群中具有非常高的执行效率。<br>
@@ -251,7 +227,16 @@ ga('send', 'pageview');
 <p>这里，我们将会用到另外一款流行的基因测序的软件Samtools 。这里通过其官方API文档对Samtools的一个简单介绍。samtools一共有五个模块的功能，其中包括indexing（建立索引）、editing（对读长序列进行处理，包括替换BAM头、去除重复以及修复元数据信息等）、file operations（对测序样本文件操作，包括切分、合并、排序以及转换文件格式等）、stats（读取文件的状态信息等，包括BAM索引信息、计算测序深度以及生成状态信息等）和viewing（对BAM标记进行解释，以及将SAM、BAM和CRAM三种格式进行转换）。在本次测序流程中，主要使用这款软件完成排序和建立索引的操作，因此还会再后面的建立索引的流程中使用到它。在Samtools[19]官方文档中，比对命令如下：<br>
 <code>Usage: samtools sort [options...] [in.bam]</code></p>
 <p>其中第一个参数[options…]是可选参数，在本次排序处理中，会用到的有-@ 整数，设置用于排序和压缩的线程数；-m 整数，设置分配给每个线程的最大内存资源；-O 格式类型，指定输出的格式类型，这里包括sam、bam和cram三种格式，我们需要的是bam格式，用于下一步的标记重复操作；-o 文件，指定最终输出到一个文件中保存，而不是将其直接输出到屏幕上的这种标准输出形式；以及-T PREFIX，指定临时文件的文件命名中的首字母，最后这些临时文件会在排序结束后删除。第二个参数[in.bam]指代的就是已包含各个测序序列的参考位点信息的比对文件。具体的示例如下：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash">SAMTOOLS/samtools sort \</span></span><br><span class="line">-@ 4 \</span><br><span class="line">-m 4G \</span><br><span class="line">-O bam \</span><br><span class="line">-o SRR3226036.sorted.bam \</span><br><span class="line">SRR3226036.bam \</span><br><span class="line">-T PREFIX.bam \</span><br><span class="line">&amp;&amp; echo "*** BAM文件排序完成"</span><br></pre></td></tr></table></figure>
+<pre><code class="language-shell">$SAMTOOLS/samtools sort \
+-@ 4 \
+-m 4G \
+-O bam \
+-o SRR3226036.sorted.bam \
+SRR3226036.bam \
+-T PREFIX.bam \
+&amp;&amp; echo &quot;*** BAM文件排序完成&quot;
+
+</code></pre>
 <p>(3) 第三步：标记重复序列<br>
 在基因测序的处理流程中，我们通过化学反应得到DNA液，并放到测序仪中将其测序并切分为每个短读长序列，分离成每个碱基对的形式，得到我们所需的原始基因组数据。这样一系列操作需要通过物理（超声）打断或者化学试剂（酶切）的方式来打断原始的DNA序列，其中就存在DNA的降解的问题，再加上有些基因数据在原本的基因组中含量就相对稀少，会存在局部DNA浓度过低的问题，因此需保证每种DNA片段在原来的基因组中的相对含量。</p>
 <p>因此，我们需要选择适合实验的特定长度范围的序列来进行PCR扩增，并加入到测序仪中测序保证数据的完整性问题。而基因组中重复序列的来源，实际上就是PCR扩增过程所导致的。PCR扩增本质上就是通过化学反应的方式将原始的某一段DNA序列复制多次。</p>
@@ -261,7 +246,13 @@ ga('send', 'pageview');
 <code>Usage: samtools rmdup [-sS] &lt;input.srt.bam&gt; &lt;output.bam&gt;</code></p>
 <p>在这个API中，可选参数-s指代的是仅对SE读长序列去除重复序列，-S指代的是对待PE读长和SE读长一样，都进行去除重复序列操作；第二个参数&lt;input.srt.bam&gt;指代的是输入数据源，第三个参数&lt;output.bam&gt;指代的是输出数据源，注意这两个数据源都是bam格式的文件。</p>
 <p>第二种，Picard的方式，下面给出了我的测序流程中的处理命令：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">java -jar picard.jar MarkDuplicates \</span><br><span class="line">I= SRR3226036.sorted.bam \</span><br><span class="line">O= SRR3226036.sorted.markdup.bam \</span><br><span class="line">M= SRR3226036.sorted.markup_metrics.txt \</span><br><span class="line">&amp;&amp; echo "*** 对BAM文件进行重复标记"</span><br></pre></td></tr></table></figure>
+<pre><code class="language-shell">java -jar picard.jar MarkDuplicates \
+I= SRR3226036.sorted.bam \
+O= SRR3226036.sorted.markdup.bam \
+M= SRR3226036.sorted.markup_metrics.txt \
+&amp;&amp; echo &quot;*** 对BAM文件进行重复标记&quot;
+
+</code></pre>
 <p>这里总共需要三个参数，第一个是输入上一步已排序好的数据源BAM文件，第二个是输出的带有重复序列位点信息标记的BAM文件，第三个是对重复序列的位点信息进行标记的文件。这里还可以在第一个参数前使用REMOVE_DUPLICATE=true或REMOVE_SEQUENCING_DUPLICATES=true选项，表示在此操作中重复序列片段会从原BAM文件中直接删除掉。</p>
 <p>这一步完成之后，我们需要为重复序列比对阶段得到的文件创建索引。创建索引的好处是它能够让我们可以随机访问这个文件中的任意位置并提供灵活性。通过在前面提及的Samtools软件来建立索引，命令如下：<br>
 <code>Usage: samtools index [-bc] [-m INT] &lt;in.bam&gt; [out.index]</code></p>
@@ -271,12 +262,30 @@ ga('send', 'pageview');
 <p>变异检测的内容一般会包括：SNPs、indels、CNV和SV等。在这次的基因变异检测流程搭建中，主要涉及的是前两个SNPs和indels的变异检测。我们采用的生物信息学的分析工具The Genome Analysis Toolkit ，简称GATK。它是由The Broad Institute公司开发的用于二代重测序数据分析的一款软件。GATK是鉴定种系DNA和RNAseq数据中SNP和indels的行业标准，也是目前行业使用率最高的基因数据变异检测工具。GATK4.0的范围现在扩大到包括体细胞短变异调用，并且能够处理拷贝数（CNV）和结构变异（SV）。除了不同的调用者本身之外，GATK还包括许多实用工具，用于执行相关任务，如高通量测序数据的处理和质量控制，并捆绑了流行的Picard工具包。</p>
 <p>通过GATK的官方API文档[20]中查看，可以得知和变异检测有关的方法有两个，它们分别是UnifiedGenotyper 和HaplotypeCaller 。<br>
 UnifiedGenotyper是根据每个基因组来调用SNPs[21]和indels[22]。该工具使用贝叶斯基因型似然性模型来同时估计N个样品群体中最可能的基因型和等位基因频率，为每个样品产生一种基因型。其输入数据可以是产生多种不同调用的read数据，输出则是一行未筛选高敏感性的VCF格式的文件。对于大量的样本组文件SNP调用，其分析示例如下：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">java -jar GenomeAnalysisTK.jar \</span><br><span class="line">   	 -T UnifiedGenotyper \</span><br><span class="line">   	 -R reference.fasta \</span><br><span class="line">   	 -I sample1.bam [-I sample2.bam ...] \</span><br><span class="line">   	 --dbsnp dbSNP.vcf \</span><br><span class="line">   	 -o snps.raw.vcf \</span><br><span class="line">   	 -stand_call_conf [50.0] \</span><br><span class="line">	[-L targets.interval_list]</span><br></pre></td></tr></table></figure>
+<pre><code class="language-shell">java -jar GenomeAnalysisTK.jar \
+   	 -T UnifiedGenotyper \
+   	 -R reference.fasta \
+   	 -I sample1.bam [-I sample2.bam ...] \
+   	 --dbsnp dbSNP.vcf \
+   	 -o snps.raw.vcf \
+   	 -stand_call_conf [50.0] \
+	[-L targets.interval_list]
+</code></pre>
 <p>其中，-T指代的是调用的方法类型；-R指代的是参考基因组；-I指代的是输入的样本数据，如果有多个则输入多个样本名；–dbsnp表示目前已知的某物种基因变异位点文件，一般会由大型的研究机构发布出来；-o是指代vcf格式的输出文件；-stand_call_conf 指代应该调用变体的最小phred-scaled置信度阈值，默认值是50.0；可选参数-L指代的是一个或多个要运行的基因组区间。</p>
 <p>而对于另外一种基因变异检测的方法是通过HaplotypeCaller来实现，除了可以像UnifiedGenotyper一样，对变体的数据进行整体调用，得到变异检测的VCF文件，它和上一种方式的不同之处在于，它还可以通过局部重新组装haplotypes来调用SNPs和indels，侧重点在于对局部的样本文件进行变异检测，换句话说，只要程序遇到显示变化迹象的区域，它就会丢弃现有的映射信息，并完全重新组合该区域中的读取。</p>
 <p>这一特性对于多样本数据的基因检测尤为有效，因为在对多样本进行变异检测时，可能刚开始的数据并不多，在测序流程进行到一部分的时候，该项目研究中需要再新增一部分新的样本数据，当使用原来UnifiedGenotyper的方式来进行变异检测生成VCF数据时，需要对全量数据重新进行分析计算。但是在这里，有了HaplotypeCaller的分析方式，就不存在全量数据的概念了。因为每个样本数据都视为整体的一部分，而对于每部分的样本变异检测都会生成gVCF文件，每个gVCF文件之间是隔离的，在有新的样本数据加入时，只需生成增量样本数据的gVCF文件即可。在我的测序处理流程中就是采用的这种先生成gVCF文件的方式。在我实际的测序流程中，具体的示例如下：</p>
 <p>同样，这个HaplotypeCaller相关的分析命令和第一种UnifiedGenotyper方法的分析命令相似，唯一的不同之处在于新增了一项参数–emitRefConfidence GVCF，这项参数是固定的，指明本次命令变异检测的是单样本数据，产生的是gVCF文件格式。最后对于该样本组下的所有gVCF文件，通过GATK的另一个方法GenotypeGVCFs来进行合并处理，具体的使用示例如下。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">java -jar GenomeAnalysisTK.jar \</span><br><span class="line">   -T GenotypeGVCFs \</span><br><span class="line">   -nt <span class="number">4</span></span><br><span class="line">   -R reference.fasta \</span><br><span class="line">   --variant SRR3226034.g.vcf \</span><br><span class="line">   --variant SRR3226035.g.vcf \</span><br><span class="line">	…</span><br><span class="line">   --variant SRR3226042.g.vcf \</span><br><span class="line">   -o E_coli_K12.vcf \</span><br><span class="line">&amp;&amp; echo <span class="string">"*** 合并所有的gVCF文件为VCF文件"</span></span><br></pre></td></tr></table></figure>
+<pre><code class="language-java">java -jar GenomeAnalysisTK.jar \
+   -T GenotypeGVCFs \
+   -nt 4
+   -R reference.fasta \
+   --variant SRR3226034.g.vcf \
+   --variant SRR3226035.g.vcf \
+	…
+   --variant SRR3226042.g.vcf \
+   -o E_coli_K12.vcf \
+&amp;&amp; echo &quot;*** 合并所有的gVCF文件为VCF文件&quot;
+</code></pre>
 <p>该方法是专门对HaplotypeCaller生成的gVCF文件进行genotyping联合，输入参数是一个或多个HaplotypeCaller gVCF进行genotype，输出参数是一个已经组合的genotyped的VCF。最终生成的E_coli_K12.vcf文件，即是E_coli_K12物种来自样本组中的全基因组变异检测结果。</p>
 <h3 id="2-2-4-相关文件格式概述">2.2.4 相关文件格式概述</h3>
 <p><strong>(1) FASTA文件格式</strong><br>
@@ -501,7 +510,7 @@ NC_000913.3	46	.	T	TA,TAA	398.53	.	AC=2,1;AF=0.143,0.071;AN=14;BaseQRankSum=0.56
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/5290c12.html" data-id="ckctcnh1s004t0mu11mwvi4to" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/5290c12.html" data-id="ckcuo65rs004t0m2ougfv9b1o" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -587,7 +596,7 @@ NC_000913.3	46	.	T	TA,TAA	398.53	.	AC=2,1;AF=0.143,0.071;AN=14;BaseQRankSum=0.56
   <div class="sidebar-module">
     <h4>Tag Cloud</h4>
     <p class="tagcloud">
-      <a href="/blog/tags/基因测序/" style="font-size: 18.33px;">基因测序</a> <a href="/blog/tags/ECS-Samples/" style="font-size: 10px;">ECS Samples</a> <a href="/blog/tags/大数据/" style="font-size: 18.33px;">大数据</a> <a href="/blog/tags/集合/" style="font-size: 10px;">集合</a> <a href="/blog/tags/GameFramework/" style="font-size: 10px;">GameFramework</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/ECS手册和脚本参考/" style="font-size: 15px;">ECS手册和脚本参考</a> <a href="/blog/tags/Unity-Beginner-Guide/" style="font-size: 10px;">Unity Beginner Guide</a> <a href="/blog/tags/JetBrains/" style="font-size: 10px;">JetBrains</a> <a href="/blog/tags/UnityTips/" style="font-size: 10px;">UnityTips</a> <a href="/blog/tags/ET/" style="font-size: 10px;">ET</a> <a href="/blog/tags/继承/" style="font-size: 10px;">继承</a> <a href="/blog/tags/Atom-Snippets/" style="font-size: 10px;">Atom Snippets</a> <a href="/blog/tags/极客时间/" style="font-size: 10px;">极客时间</a> <a href="/blog/tags/随机游戏元素/" style="font-size: 10px;">随机游戏元素</a> <a href="/blog/tags/aws/" style="font-size: 11.67px;">aws</a> <a href="/blog/tags/优秀文章/" style="font-size: 10px;">优秀文章</a> <a href="/blog/tags/C＃-Job-System/" style="font-size: 20px;">C＃ Job System</a> <a href="/blog/tags/Unity/" style="font-size: 16.67px;">Unity</a> <a href="/blog/tags/Coding/" style="font-size: 10px;">Coding</a> <a href="/blog/tags/sysops/" style="font-size: 10px;">sysops</a> <a href="/blog/tags/Hadoop/" style="font-size: 18.33px;">Hadoop</a> <a href="/blog/tags/java/" style="font-size: 11.67px;">java</a> <a href="/blog/tags/Unity-Asset/" style="font-size: 10px;">Unity Asset</a> <a href="/blog/tags/tower/" style="font-size: 10px;">tower</a> <a href="/blog/tags/毕业设计/" style="font-size: 18.33px;">毕业设计</a> <a href="/blog/tags/打包/" style="font-size: 10px;">打包</a> <a href="/blog/tags/人生/" style="font-size: 10px;">人生</a> <a href="/blog/tags/Editor/" style="font-size: 10px;">Editor</a> <a href="/blog/tags/tools/" style="font-size: 13.33px;">tools</a> <a href="/blog/tags/Unity-Asset-Bundle/" style="font-size: 10px;">Unity Asset Bundle</a> <a href="/blog/tags/Unity-DLL/" style="font-size: 10px;">Unity DLL</a> <a href="/blog/tags/代理/" style="font-size: 10px;">代理</a> <a href="/blog/tags/Project/" style="font-size: 10px;">Project</a> <a href="/blog/tags/SEO/" style="font-size: 10px;">SEO</a> <a href="/blog/tags/Visual-Studio/" style="font-size: 10px;">Visual Studio</a> <a href="/blog/tags/编辑器功能/" style="font-size: 10px;">编辑器功能</a> <a href="/blog/tags/类对象/" style="font-size: 10px;">类对象</a> <a href="/blog/tags/笔试/" style="font-size: 10px;">笔试</a> <a href="/blog/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/blog/tags/UnityDoc/" style="font-size: 11.67px;">UnityDoc</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/Smart-Merge/" style="font-size: 10px;">Smart Merge</a> <a href="/blog/tags/write/" style="font-size: 11.67px;">write</a> <a href="/blog/tags/highlightjs/" style="font-size: 10px;">highlightjs</a> <a href="/blog/tags/效率/" style="font-size: 10px;">效率</a> <a href="/blog/tags/markdown/" style="font-size: 11.67px;">markdown</a> <a href="/blog/tags/线程/" style="font-size: 10px;">线程</a> <a href="/blog/tags/异常/" style="font-size: 10px;">异常</a> <a href="/blog/tags/longshilindotcom/" style="font-size: 10px;">longshilindotcom</a> <a href="/blog/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/blog/tags/提问的智慧/" style="font-size: 10px;">提问的智慧</a> <a href="/blog/tags/迭代器/" style="font-size: 10px;">迭代器</a> <a href="/blog/tags/自定义菜单项/" style="font-size: 10px;">自定义菜单项</a> <a href="/blog/tags/gitlab-pages/" style="font-size: 10px;">gitlab pages</a> <a href="/blog/tags/docker/" style="font-size: 11.67px;">docker</a> <a href="/blog/tags/aws-soa/" style="font-size: 10px;">aws-soa</a> <a href="/blog/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/blog/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/blog/tags/Class/" style="font-size: 10px;">Class</a> <a href="/blog/tags/CI-CD/" style="font-size: 11.67px;">CI/CD</a> <a href="/blog/tags/DokuWiki/" style="font-size: 10px;">DokuWiki</a> <a href="/blog/tags/wordpress/" style="font-size: 10px;">wordpress</a> <a href="/blog/tags/simiki/" style="font-size: 10px;">simiki</a> <a href="/blog/tags/memreduct/" style="font-size: 10px;">memreduct</a> <a href="/blog/tags/Asset-DataBase/" style="font-size: 10px;">Asset DataBase</a> <a href="/blog/tags/EventSystem/" style="font-size: 10px;">EventSystem</a> <a href="/blog/tags/90km/" style="font-size: 10px;">90km</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">gitlab</a>
+      <a href="/blog/tags/longshilindotcom/" style="font-size: 10px;">longshilindotcom</a> <a href="/blog/tags/write/" style="font-size: 11.67px;">write</a> <a href="/blog/tags/毕业设计/" style="font-size: 18.33px;">毕业设计</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/blog/tags/Class/" style="font-size: 10px;">Class</a> <a href="/blog/tags/sysops/" style="font-size: 10px;">sysops</a> <a href="/blog/tags/Project/" style="font-size: 10px;">Project</a> <a href="/blog/tags/UnityTips/" style="font-size: 10px;">UnityTips</a> <a href="/blog/tags/UnityDoc/" style="font-size: 11.67px;">UnityDoc</a> <a href="/blog/tags/gitlab-pages/" style="font-size: 10px;">gitlab pages</a> <a href="/blog/tags/java/" style="font-size: 11.67px;">java</a> <a href="/blog/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/blog/tags/tower/" style="font-size: 10px;">tower</a> <a href="/blog/tags/highlightjs/" style="font-size: 10px;">highlightjs</a> <a href="/blog/tags/效率/" style="font-size: 10px;">效率</a> <a href="/blog/tags/迭代器/" style="font-size: 10px;">迭代器</a> <a href="/blog/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/blog/tags/CI-CD/" style="font-size: 11.67px;">CI/CD</a> <a href="/blog/tags/继承/" style="font-size: 10px;">继承</a> <a href="/blog/tags/C＃-Job-System/" style="font-size: 20px;">C＃ Job System</a> <a href="/blog/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/blog/tags/Hadoop/" style="font-size: 18.33px;">Hadoop</a> <a href="/blog/tags/人生/" style="font-size: 10px;">人生</a> <a href="/blog/tags/集合/" style="font-size: 10px;">集合</a> <a href="/blog/tags/ECS-Samples/" style="font-size: 10px;">ECS Samples</a> <a href="/blog/tags/Unity-DLL/" style="font-size: 10px;">Unity DLL</a> <a href="/blog/tags/ECS手册和脚本参考/" style="font-size: 15px;">ECS手册和脚本参考</a> <a href="/blog/tags/DokuWiki/" style="font-size: 10px;">DokuWiki</a> <a href="/blog/tags/GameFramework/" style="font-size: 10px;">GameFramework</a> <a href="/blog/tags/Asset-DataBase/" style="font-size: 10px;">Asset DataBase</a> <a href="/blog/tags/Coding/" style="font-size: 10px;">Coding</a> <a href="/blog/tags/Unity-Asset/" style="font-size: 10px;">Unity Asset</a> <a href="/blog/tags/Editor/" style="font-size: 10px;">Editor</a> <a href="/blog/tags/90km/" style="font-size: 10px;">90km</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/Unity-Beginner-Guide/" style="font-size: 10px;">Unity Beginner Guide</a> <a href="/blog/tags/笔试/" style="font-size: 10px;">笔试</a> <a href="/blog/tags/优秀文章/" style="font-size: 10px;">优秀文章</a> <a href="/blog/tags/JetBrains/" style="font-size: 10px;">JetBrains</a> <a href="/blog/tags/simiki/" style="font-size: 10px;">simiki</a> <a href="/blog/tags/Smart-Merge/" style="font-size: 10px;">Smart Merge</a> <a href="/blog/tags/大数据/" style="font-size: 18.33px;">大数据</a> <a href="/blog/tags/wordpress/" style="font-size: 10px;">wordpress</a> <a href="/blog/tags/ET/" style="font-size: 10px;">ET</a> <a href="/blog/tags/aws/" style="font-size: 11.67px;">aws</a> <a href="/blog/tags/Visual-Studio/" style="font-size: 10px;">Visual Studio</a> <a href="/blog/tags/Unity-Asset-Bundle/" style="font-size: 10px;">Unity Asset Bundle</a> <a href="/blog/tags/极客时间/" style="font-size: 10px;">极客时间</a> <a href="/blog/tags/docker/" style="font-size: 11.67px;">docker</a> <a href="/blog/tags/代理/" style="font-size: 10px;">代理</a> <a href="/blog/tags/markdown/" style="font-size: 11.67px;">markdown</a> <a href="/blog/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/blog/tags/基因测序/" style="font-size: 18.33px;">基因测序</a> <a href="/blog/tags/打包/" style="font-size: 10px;">打包</a> <a href="/blog/tags/tools/" style="font-size: 13.33px;">tools</a> <a href="/blog/tags/随机游戏元素/" style="font-size: 10px;">随机游戏元素</a> <a href="/blog/tags/Atom-Snippets/" style="font-size: 10px;">Atom Snippets</a> <a href="/blog/tags/线程/" style="font-size: 10px;">线程</a> <a href="/blog/tags/提问的智慧/" style="font-size: 10px;">提问的智慧</a> <a href="/blog/tags/异常/" style="font-size: 10px;">异常</a> <a href="/blog/tags/aws-soa/" style="font-size: 10px;">aws-soa</a> <a href="/blog/tags/memreduct/" style="font-size: 10px;">memreduct</a> <a href="/blog/tags/SEO/" style="font-size: 10px;">SEO</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/EventSystem/" style="font-size: 10px;">EventSystem</a> <a href="/blog/tags/自定义菜单项/" style="font-size: 10px;">自定义菜单项</a> <a href="/blog/tags/类对象/" style="font-size: 10px;">类对象</a> <a href="/blog/tags/Unity/" style="font-size: 16.67px;">Unity</a> <a href="/blog/tags/编辑器功能/" style="font-size: 10px;">编辑器功能</a>
     </p>
   </div>
 
@@ -695,12 +704,12 @@ NC_000913.3	46	.	T	TA,TAA	398.53	.	AC=2,1;AF=0.143,0.071;AN=14;BaseQRankSum=0.56
     <div id="footer-info" class="inner">
       <!-- Copyright &copy; 2014 - 2020 Shilin Long&nbsp;<br> -->
       <!-- For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><br/> -->
-      <!-- Site Generated 2020-07-19 17:07:64&nbsp;&nbsp; -->
+      <!-- Site Generated 2020-07-20 15:07:45&nbsp;&nbsp; -->
       
       <span>
         <p>Copyright © 2018 - 2020 <a href="https://github.com/longshilin">Shilin Long.</a><br>
         <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='https://s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-        Site Generated 2020-07-19 &nbsp;|&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
+        Site Generated 2020-07-20 &nbsp;|&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
       </span>
       
       <!--  Create with <a href="https://hexo.io">Hexo</a>&nbsp; |&nbsp; -->

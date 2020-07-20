@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://i.imgur.com/p3Ki9jT.png">
 <meta property="og:image" content="https://i.imgur.com/Am9wU9Z.png">
-<meta property="og:updated_time" content="2020-07-19T17:23:39.000Z">
+<meta property="og:updated_time" content="2020-07-20T15:33:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="3 基于Hadoop基因测序数据处理关键技术的研究">
 <meta name="twitter:description" content="3.1 测序处理流程与MapReduce结合 基因测序处理流程中有gVCF和VCF文件生成两个阶段，而MapReduce恰好是一种分阶段处理的编程模型，它拥有Mapper和Reducer两个处理阶段，因此将MapReduce框架和测序流程结合在一起，既能保证测序流程的有序进行，又能在MapReduce框架中进行并行调度，提升测序数据处理的效率。 3.1.1 测序流程与MapReduce结合的可行性">
@@ -31,8 +31,6 @@
     <link rel="icon" href="/images/favicon.png">
   
   
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
@@ -40,19 +38,6 @@
 
   <link rel="stylesheet" href="/blog/css/styles.css">
   
-<!-- Google Analytics -->
-<script type="text/javascript">
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-125053144-2', 'auto');
-ga('send', 'pageview');
-
-</script>
-<!-- End Google Analytics -->
-
 
   
     <!-- Baidu Analytics -->
@@ -95,7 +80,7 @@ ga('send', 'pageview');
         
           <li><a class="" href="/blog/archives/">Archives</a></li>
         
-          <li><a class="" href="/blog/diary">日记</a></li>
+          <li><a class="" href="/blog/diary">Diary</a></li>
         
       </ul>
 
@@ -117,16 +102,6 @@ ga('send', 'pageview');
         
       </ul>
         
-    
-    <!-- add google translate -->
-      <div id="google_translate_element" style="position:absolute; right:0; margin-top: 8px; margin-right: 1px;"></div>
-
-      <script type="text/javascript">
-        function googleTranslateElementInit() {
-          new google.translate.TranslateElement({pageLanguage: 'zh-CN', layout: google.translate.TranslateElement.FloatPosition.TOP_RIGHT, multilanguagePage: true, gaTrack: true, gaId: 'UA-125053144-2'}, 'google_translate_element');
-        }
-      </script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-    <!-- /add google translate -->
     
 
     </div><!-- /.navbar-collapse -->
@@ -226,12 +201,242 @@ ga('send', 'pageview');
 <h3 id="3-4-1-构建freemarker模版引擎">3.4.1 构建FreeMarker模版引擎</h3>
 <p>在我们最终的处理流程中，通过FreeMarker模版引擎类把脚本模版转换为可执行的shell脚本后，最终通过调用shell脚本工具类执行该脚本<sup class="footnote-ref"><a href="#fn3" id="fnref3">[3]</a></sup>。在本节中，会分别对这两个工具类作出说明。</p>
 <p>其中模版引擎类需要引入org.freemarker包来调用FreeMarker API方法，其中最主要的方法是createDynamicContentAsFile，它需要传入一个模版文件、一个存储着键值对的map对象和最终生成的shell脚本文件路径，通过map传入的对象信息映射到模版中，生成最终的WGS测序流程的分析脚本。下面是具体的模版引擎类方法：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 这个类使用FreeMarker(http://freemarker.apache.org) FreeMarker是一个模板引擎，这是一个根据模板生成文本输出的通用工具</span></span><br><span class="line"><span class="comment"> * (从shell脚本到自动生成的源代码都是文本输出)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TemplateEngine</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 日志记录</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Logger theLogger = Logger.getLogger(TemplateEngine.class.getName());</span><br><span class="line">    <span class="comment">// 通常在整个应用生命周期中只执行一次</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Configuration TEMPLATE_CONFIGURATION = <span class="keyword">null</span>;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> AtomicBoolean initialized = <span class="keyword">new</span> AtomicBoolean(<span class="keyword">false</span>);</span><br><span class="line">    <span class="comment">// freemarker templates 存放目录</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">static</span> String TEMPLATE_DIRECTORY = <span class="string">"./wgs-templates"</span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (initialized.get()) &#123;</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        initConfiguration();</span><br><span class="line">        initialized.compareAndSet(<span class="keyword">false</span>, <span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (!initialized.get()) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                init();</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                theLogger.error(<span class="string">"在初始化阶段，模版引擎初始化错误..."</span>, e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 初始化配置</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">initConfiguration</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        TEMPLATE_CONFIGURATION = <span class="keyword">new</span> Configuration();</span><br><span class="line">        TEMPLATE_CONFIGURATION.setDirectoryForTemplateLoading(<span class="keyword">new</span> File(TEMPLATE_DIRECTORY));</span><br><span class="line">        TEMPLATE_CONFIGURATION.setObjectWrapper(<span class="keyword">new</span> DefaultObjectWrapper());</span><br><span class="line">        TEMPLATE_CONFIGURATION.setWhitespaceStripping(<span class="keyword">true</span>);</span><br><span class="line">        TEMPLATE_CONFIGURATION.setClassicCompatible(<span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 通过模板和keyValuePairs动态创建shell脚本</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> templateFileName 一个模板文件名，如：script.sh.template，其模板目录已在configuration中指定</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> keyValuePairs 存储数据模型的&lt;K,V&gt;Map</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> outputScriptFilePath 生成的脚本文件路径</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 一个可执行的Shell脚本文件</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> File <span class="title">createDynamicContentAsFile</span><span class="params">(String templateFileName,</span></span></span><br><span class="line"><span class="function"><span class="params">        Map&lt;String, String&gt; keyValuePairs, String outputScriptFilePath)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> ((templateFileName == <span class="keyword">null</span>) || (templateFileName.length() == <span class="number">0</span>)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        Writer writer = <span class="keyword">null</span>;</span><br><span class="line">        File outputFile = <span class="keyword">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Template template = TEMPLATE_CONFIGURATION.getTemplate(templateFileName);</span><br><span class="line">            <span class="comment">// 合并数据模型和模板，生成shell脚本</span></span><br><span class="line">            outputFile = <span class="keyword">new</span> File(outputScriptFilePath);</span><br><span class="line">            writer = <span class="keyword">new</span> BufferedWriter(<span class="keyword">new</span> FileWriter(outputFile));</span><br><span class="line">            template.process(keyValuePairs, writer);</span><br><span class="line">            writer.flush();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">            theLogger.error(<span class="string">"创建文件失败..."</span>, e);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (TemplateException e) &#123;</span><br><span class="line">            theLogger.error(<span class="string">"freeMarker动态创建shell脚本失败..."</span>, e);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            <span class="keyword">if</span> (writer != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    writer.close();</span><br><span class="line">                &#125; <span class="keyword">catch</span> (IOException e) &#123;</span><br><span class="line">                    theLogger.error(<span class="string">"创建shell脚本，写入文件时出现IO异常..."</span>);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> outputFile;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="language-java">/**
+ * 这个类使用FreeMarker(http://freemarker.apache.org) FreeMarker是一个模板引擎，这是一个根据模板生成文本输出的通用工具
+ * (从shell脚本到自动生成的源代码都是文本输出)
+ */
+public class TemplateEngine {
+    // 日志记录
+    private static Logger theLogger = Logger.getLogger(TemplateEngine.class.getName());
+    // 通常在整个应用生命周期中只执行一次
+    private static Configuration TEMPLATE_CONFIGURATION = null;
+    private static AtomicBoolean initialized = new AtomicBoolean(false);
+    // freemarker templates 存放目录
+    protected static String TEMPLATE_DIRECTORY = &quot;./wgs-templates&quot;;
+    public static void init() throws Exception {
+        if (initialized.get()) {
+            return;
+        }
+        initConfiguration();
+        initialized.compareAndSet(false, true);
+    }
+    static {
+        if (!initialized.get()) {
+            try {
+                init();
+            } catch (Exception e) {
+                theLogger.error(&quot;在初始化阶段，模版引擎初始化错误...&quot;, e);
+            }
+        }
+    }
+    // 初始化配置
+    private static void initConfiguration() throws Exception {
+        TEMPLATE_CONFIGURATION = new Configuration();
+        TEMPLATE_CONFIGURATION.setDirectoryForTemplateLoading(new File(TEMPLATE_DIRECTORY));
+        TEMPLATE_CONFIGURATION.setObjectWrapper(new DefaultObjectWrapper());
+        TEMPLATE_CONFIGURATION.setWhitespaceStripping(true);
+        TEMPLATE_CONFIGURATION.setClassicCompatible(true);
+    }
+    /**
+     * 通过模板和keyValuePairs动态创建shell脚本
+     *
+     * @param templateFileName 一个模板文件名，如：script.sh.template，其模板目录已在configuration中指定
+     * @param keyValuePairs 存储数据模型的&lt;K,V&gt;Map
+     * @param outputScriptFilePath 生成的脚本文件路径
+     * @return 一个可执行的Shell脚本文件
+     */
+    public static File createDynamicContentAsFile(String templateFileName,
+        Map&lt;String, String&gt; keyValuePairs, String outputScriptFilePath) {
+        if ((templateFileName == null) || (templateFileName.length() == 0)) {
+            return null;
+        }
+        Writer writer = null;
+        File outputFile = null;
+        try {
+            Template template = TEMPLATE_CONFIGURATION.getTemplate(templateFileName);
+            // 合并数据模型和模板，生成shell脚本
+            outputFile = new File(outputScriptFilePath);
+            writer = new BufferedWriter(new FileWriter(outputFile));
+            template.process(keyValuePairs, writer);
+            writer.flush();
+        } catch (IOException e) {
+            theLogger.error(&quot;创建文件失败...&quot;, e);
+        } catch (TemplateException e) {
+            theLogger.error(&quot;freeMarker动态创建shell脚本失败...&quot;, e);
+        } finally {
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (IOException e) {
+                    theLogger.error(&quot;创建shell脚本，写入文件时出现IO异常...&quot;);
+                }
+            }
+        }
+        return outputFile;
+    }
+}
+</code></pre>
 <h3 id="3-4-2-基因测序分析流程模版设计">3.4.2 基因测序分析流程模版设计</h3>
 <p>用模版化的思想来构建全基因组分析流程，对要分析的样本对象用参数来代替，将整个分析流程分为Mapper阶段和Reduce阶段两个模版，在Mapper阶段模版主要完成基因测序的样本下载到本地机器、以及测序阶段中的比对、排序、标记重复、创建比对索引文件和对单个样本的变异检测生成中间阶段的变异检测gVCF文件，最后，将每个脚本生成的gVCF文件上传到上传到HDFS上，供Reduce阶段的分析流程使用。下面是Mapper阶段的分析模版：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 脚本所需的环境变量定义</span></span><br><span class="line">export BWA=~/biosoft/bwa/0.7.12</span><br><span class="line">export SAMTOOLS=~/biosoft/samtools/1.0/bin</span><br><span class="line">export GATK=~/biosoft/gatk/3.6/GenomeAnalysisTK.jar</span><br><span class="line">export PICARD=~/biosoft/picard/2.18.2/picard.jar</span><br><span class="line">export HADOOP=~/hadoop/bin</span><br><span class="line"><span class="meta">#</span><span class="bash"> 定义参考序列</span></span><br><span class="line">export REF=~/wgs/input/fasta/E.coli_K12_MG1655.fa</span><br><span class="line"><span class="meta">#</span><span class="bash"> 定义单个节点可利用的线程数</span></span><br><span class="line">THREAD=4</span><br><span class="line"><span class="meta">#</span><span class="bash"> 定义单个节点可利用的内存资源</span></span><br><span class="line">MEMORY=4G</span><br><span class="line"><span class="meta">#</span><span class="bash"> 定义RG INFO</span></span><br><span class="line">INFO_RG='@RG\tID:$&#123;sample_name&#125;\tPL:illumina\tSM:E.coli_K12_$&#123;sample_name&#125;'</span><br><span class="line"></span><br><span class="line">echo "############" `date "+%Y-%m-%d %H:%M:%S"` "############"</span><br><span class="line">echo "--- 开始处理样本 $&#123;sample_name&#125; ---"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 定义模板变量</span></span><br><span class="line">INPUT_FILE_R1=$&#123;sample_name&#125;_1.fastq.gz</span><br><span class="line">INPUT_FILE_R2=$&#123;sample_name&#125;_2.fastq.gz</span><br><span class="line"></span><br><span class="line">cd /tmp</span><br><span class="line"><span class="meta">#</span><span class="bash"> 从HDFS上下载测序样本Block块</span></span><br><span class="line">echo "###COMMAND LINE###：" &gt;&amp;2</span><br><span class="line">echo "$HADOOP/hadoop fs -get /wgsv2/input/fastq/$INPUT_FILE_R1" &gt;&amp;2</span><br><span class="line"></span><br><span class="line">time $HADOOP/hadoop fs -get /wgsv2/input/fastq/$INPUT_FILE_R1 &amp;&amp; echo "" &gt;&amp;2</span><br><span class="line"></span><br><span class="line">echo "###COMMAND LINE###：" &gt;&amp;2</span><br><span class="line">echo "$HADOOP/hadoop fs -get /wgsv2/input/fastq/$INPUT_FILE_R2" &gt;&amp;2</span><br><span class="line"></span><br><span class="line">time $HADOOP/hadoop fs -get /wgsv2/input/fastq/$INPUT_FILE_R2</span><br><span class="line">echo "*** 从HDFS上下载样本数据块" &amp;&amp; echo "" &gt;&amp;2</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> ××××××  基因测序 ×××××××</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 步骤一 比对</span></span><br><span class="line">echo "###COMMAND LINE###：" &gt;&amp;2</span><br><span class="line">echo "$BWA/bwa mem -t $THREAD -R $INFO_RG $REF $INPUT_FILE_R1 $INPUT_FILE_R2 | $SAMTOOLS/samtools view -Sb - &gt; $&#123;sample_name&#125;.bam" &gt;&amp;2</span><br><span class="line"></span><br><span class="line">time $BWA/bwa mem -t $THREAD -R $INFO_RG $REF $INPUT_FILE_R1 $INPUT_FILE_R2 | $SAMTOOLS/samtools view -Sb - &gt; $&#123;sample_name&#125;.bam &amp;&amp; echo "*** 基因比对操作完成" &amp;&amp; echo "" &gt;&amp;2</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 步骤二 排序</span></span><br><span class="line">echo "###COMMAND LINE###：" &gt;&amp;2</span><br><span class="line">echo "$SAMTOOLS/samtools sort -@ $THREAD -m $MEMORY -O bam -o $&#123;sample_name&#125;.sorted.bam $&#123;sample_name&#125;.bam -T PREFIX.bam" &gt;&amp;2</span><br><span class="line"></span><br><span class="line">time $SAMTOOLS/samtools sort -@ $THREAD -m $MEMORY -O bam -o $&#123;sample_name&#125;.sorted.bam $&#123;sample_name&#125;.bam -T PREFIX.bam &amp;&amp; echo "*** 基因数据排序完成" &amp;&amp; echo "" &gt;&amp;2</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">rm -f <span class="variable">$&#123;sample_name&#125;</span>.bam</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 步骤三 标记重复</span></span><br><span class="line">echo "###COMMAND LINE###：" &gt;&amp;2</span><br><span class="line">echo "java -jar $PICARD MarkDuplicates I=$&#123;sample_name&#125;.sorted.bam O=$&#123;sample_name&#125;.sorted.markdup.bam M=$&#123;sample_name&#125;.sorted.markdup_metrics.txt" &gt;&amp;2</span><br><span class="line"></span><br><span class="line">time java -jar $PICARD MarkDuplicates I=$&#123;sample_name&#125;.sorted.bam O=$&#123;sample_name&#125;.sorted.markdup.bam M=$&#123;sample_name&#125;.sorted.markdup_metrics.txt 1&gt;&amp;2 &amp;&amp; echo "*** 对BAM文件进行重复标记" &amp;&amp; echo "" &gt;&amp;2</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 步骤四 创建比对索引文件</span></span><br><span class="line">echo "###COMMAND LINE###：" &gt;&amp;2</span><br><span class="line">echo "time $SAMTOOLS/samtools index $&#123;sample_name&#125;.sorted.markdup.bam" &gt;&amp;2</span><br><span class="line"></span><br><span class="line">time $SAMTOOLS/samtools index $&#123;sample_name&#125;.sorted.markdup.bam &amp;&amp; echo "*** 对BAM文件创建比对索引" &amp;&amp; echo "" &gt;&amp;2</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 步骤五 变异检测 | 生成各个样本的中间变异检测文件gvcf</span></span><br><span class="line">echo "###COMMAND LINE###：" &gt;&amp;2</span><br><span class="line">echo "java -jar $GATK -T HaplotypeCaller -R $REF --emitRefConfidence GVCF -I $&#123;sample_name&#125;.sorted.markdup.bam -o $&#123;sample_name&#125;.g.vcf" &gt;&amp;2</span><br><span class="line"></span><br><span class="line">time java -jar $GATK -T HaplotypeCaller -R $REF --emitRefConfidence GVCF -I $&#123;sample_name&#125;.sorted.markdup.bam -o $&#123;sample_name&#125;.g.vcf 1&gt;&amp;2 &amp;&amp; echo "*** 生成样本$&#123;sample_name&#125;的中间变异检测文件gvcf" &amp;&amp; echo "" &gt;&amp;2</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 将各个样本分区的变异检测gvcf文件上传到HDFS上</span></span><br><span class="line">echo "###COMMAND LINE###：" &gt;&amp;2</span><br><span class="line">echo "$HADOOP/hadoop fs -put -f $&#123;sample_name&#125;.g.vcf /wgsv2/output/gvcf" &gt;&amp;2</span><br><span class="line"></span><br><span class="line">time $HADOOP/hadoop fs -put -f $&#123;sample_name&#125;.g.vcf /wgsv2/output/gvcf &amp;&amp; echo "*** 变异检测结果gvcf文件上传到HDFS上" &amp;&amp; echo ""&gt;&amp;2</span><br><span class="line"></span><br><span class="line">rm -f rm -f $INPUT_FILE_R1 $INPUT_FILE_R2 $&#123;sample_name&#125;*</span><br><span class="line"></span><br><span class="line">echo "--- 结束处理样本 $&#123;sample_name&#125; ---"</span><br><span class="line">echo "############" `date "+%Y-%m-%d %H:%M:%S"` "############" &amp;&amp; echo ""</span><br></pre></td></tr></table></figure>
+<pre><code class="language-shell">#!/bin/bash
+# 脚本所需的环境变量定义
+export BWA=~/biosoft/bwa/0.7.12
+export SAMTOOLS=~/biosoft/samtools/1.0/bin
+export GATK=~/biosoft/gatk/3.6/GenomeAnalysisTK.jar
+export PICARD=~/biosoft/picard/2.18.2/picard.jar
+export HADOOP=~/hadoop/bin
+# 定义参考序列
+export REF=~/wgs/input/fasta/E.coli_K12_MG1655.fa
+# 定义单个节点可利用的线程数
+THREAD=4
+# 定义单个节点可利用的内存资源
+MEMORY=4G
+# 定义RG INFO
+INFO_RG='@RG\tID:${sample_name}\tPL:illumina\tSM:E.coli_K12_${sample_name}'
+
+echo &quot;############&quot; `date &quot;+%Y-%m-%d %H:%M:%S&quot;` &quot;############&quot;
+echo &quot;--- 开始处理样本 ${sample_name} ---&quot;
+
+# 定义模板变量
+INPUT_FILE_R1=${sample_name}_1.fastq.gz
+INPUT_FILE_R2=${sample_name}_2.fastq.gz
+
+cd /tmp
+# 从HDFS上下载测序样本Block块
+echo &quot;###COMMAND LINE###：&quot; &gt;&amp;2
+echo &quot;$HADOOP/hadoop fs -get /wgsv2/input/fastq/$INPUT_FILE_R1&quot; &gt;&amp;2
+
+time $HADOOP/hadoop fs -get /wgsv2/input/fastq/$INPUT_FILE_R1 &amp;&amp; echo &quot;&quot; &gt;&amp;2
+
+echo &quot;###COMMAND LINE###：&quot; &gt;&amp;2
+echo &quot;$HADOOP/hadoop fs -get /wgsv2/input/fastq/$INPUT_FILE_R2&quot; &gt;&amp;2
+
+time $HADOOP/hadoop fs -get /wgsv2/input/fastq/$INPUT_FILE_R2
+echo &quot;*** 从HDFS上下载样本数据块&quot; &amp;&amp; echo &quot;&quot; &gt;&amp;2
+
+# ××××××  基因测序 ×××××××
+# 步骤一 比对
+echo &quot;###COMMAND LINE###：&quot; &gt;&amp;2
+echo &quot;$BWA/bwa mem -t $THREAD -R $INFO_RG $REF $INPUT_FILE_R1 $INPUT_FILE_R2 | $SAMTOOLS/samtools view -Sb - &gt; ${sample_name}.bam&quot; &gt;&amp;2
+
+time $BWA/bwa mem -t $THREAD -R $INFO_RG $REF $INPUT_FILE_R1 $INPUT_FILE_R2 | $SAMTOOLS/samtools view -Sb - &gt; ${sample_name}.bam &amp;&amp; echo &quot;*** 基因比对操作完成&quot; &amp;&amp; echo &quot;&quot; &gt;&amp;2
+
+# 步骤二 排序
+echo &quot;###COMMAND LINE###：&quot; &gt;&amp;2
+echo &quot;$SAMTOOLS/samtools sort -@ $THREAD -m $MEMORY -O bam -o ${sample_name}.sorted.bam ${sample_name}.bam -T PREFIX.bam&quot; &gt;&amp;2
+
+time $SAMTOOLS/samtools sort -@ $THREAD -m $MEMORY -O bam -o ${sample_name}.sorted.bam ${sample_name}.bam -T PREFIX.bam &amp;&amp; echo &quot;*** 基因数据排序完成&quot; &amp;&amp; echo &quot;&quot; &gt;&amp;2
+
+#rm -f ${sample_name}.bam
+
+# 步骤三 标记重复
+echo &quot;###COMMAND LINE###：&quot; &gt;&amp;2
+echo &quot;java -jar $PICARD MarkDuplicates I=${sample_name}.sorted.bam O=${sample_name}.sorted.markdup.bam M=${sample_name}.sorted.markdup_metrics.txt&quot; &gt;&amp;2
+
+time java -jar $PICARD MarkDuplicates I=${sample_name}.sorted.bam O=${sample_name}.sorted.markdup.bam M=${sample_name}.sorted.markdup_metrics.txt 1&gt;&amp;2 &amp;&amp; echo &quot;*** 对BAM文件进行重复标记&quot; &amp;&amp; echo &quot;&quot; &gt;&amp;2
+
+# 步骤四 创建比对索引文件
+echo &quot;###COMMAND LINE###：&quot; &gt;&amp;2
+echo &quot;time $SAMTOOLS/samtools index ${sample_name}.sorted.markdup.bam&quot; &gt;&amp;2
+
+time $SAMTOOLS/samtools index ${sample_name}.sorted.markdup.bam &amp;&amp; echo &quot;*** 对BAM文件创建比对索引&quot; &amp;&amp; echo &quot;&quot; &gt;&amp;2
+
+# 步骤五 变异检测 | 生成各个样本的中间变异检测文件gvcf
+echo &quot;###COMMAND LINE###：&quot; &gt;&amp;2
+echo &quot;java -jar $GATK -T HaplotypeCaller -R $REF --emitRefConfidence GVCF -I ${sample_name}.sorted.markdup.bam -o ${sample_name}.g.vcf&quot; &gt;&amp;2
+
+time java -jar $GATK -T HaplotypeCaller -R $REF --emitRefConfidence GVCF -I ${sample_name}.sorted.markdup.bam -o ${sample_name}.g.vcf 1&gt;&amp;2 &amp;&amp; echo &quot;*** 生成样本${sample_name}的中间变异检测文件gvcf&quot; &amp;&amp; echo &quot;&quot; &gt;&amp;2
+
+# 将各个样本分区的变异检测gvcf文件上传到HDFS上
+echo &quot;###COMMAND LINE###：&quot; &gt;&amp;2
+echo &quot;$HADOOP/hadoop fs -put -f ${sample_name}.g.vcf /wgsv2/output/gvcf&quot; &gt;&amp;2
+
+time $HADOOP/hadoop fs -put -f ${sample_name}.g.vcf /wgsv2/output/gvcf &amp;&amp; echo &quot;*** 变异检测结果gvcf文件上传到HDFS上&quot; &amp;&amp; echo &quot;&quot;&gt;&amp;2
+
+rm -f rm -f $INPUT_FILE_R1 $INPUT_FILE_R2 ${sample_name}*
+
+echo &quot;--- 结束处理样本 ${sample_name} ---&quot;
+echo &quot;############&quot; `date &quot;+%Y-%m-%d %H:%M:%S&quot;` &quot;############&quot; &amp;&amp; echo &quot;&quot;
+</code></pre>
 <p>对于Reduce阶段的分析模版，主要是对各个Mapper阶段产生的gVCF变异文件的合并，得到最终总的VCF文件，并将其创建tabix索引后上传至HDFS上存储。下面是具体的Reduce阶段分析模版：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> Author: elon</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Description: 合并所有样本的GVCF文件的模板</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> Time: 2018-4-5</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 该脚本需要完成的是对各个样本分区的VCGF文件做一个merge操作</span></span><br><span class="line">export SAMTOOLS=~/biosoft/samtools/1.0/bin</span><br><span class="line">export GATK=~/biosoft/gatk/3.6/GenomeAnalysisTK.jar</span><br><span class="line">export HADOOP=~/hadoop/bin</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 定义参考序列</span></span><br><span class="line">export REF=~/wgs/input/fasta/E.coli_K12_MG1655.fa</span><br><span class="line"></span><br><span class="line">echo "############" `date "+%Y-%m-%d %H:%M:%S"` "############"</span><br><span class="line">echo "--- 开始合并处理样本 $&#123;sample_name1&#125; $&#123;sample_name2&#125; $&#123;sample_name3&#125; $&#123;sample_name4&#125; $&#123;sample_name4&#125; $&#123;sample_name5&#125; $&#123;sample_name6&#125; $&#123;sample_name7&#125; $&#123;sample_name8&#125; $&#123;sample_name9&#125; ---"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 定义模板变量</span></span><br><span class="line">INPUT_FILE1=$&#123;sample_name1&#125;.g.vcf</span><br><span class="line">INPUT_FILE2=$&#123;sample_name2&#125;.g.vcf</span><br><span class="line">INPUT_FILE3=$&#123;sample_name3&#125;.g.vcf</span><br><span class="line">INPUT_FILE4=$&#123;sample_name4&#125;.g.vcf</span><br><span class="line">INPUT_FILE5=$&#123;sample_name5&#125;.g.vcf</span><br><span class="line">INPUT_FILE6=$&#123;sample_name6&#125;.g.vcf</span><br><span class="line">INPUT_FILE7=$&#123;sample_name7&#125;.g.vcf</span><br><span class="line">INPUT_FILE8=$&#123;sample_name8&#125;.g.vcf</span><br><span class="line">INPUT_FILE9=$&#123;sample_name9&#125;.g.vcf</span><br><span class="line"></span><br><span class="line">cd /tmp</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 从HDFS上download所有的GVCF文件</span></span><br><span class="line"><span class="meta">$</span><span class="bash">HADOOP/hadoop fs -get /wgsv2/output/gvcf/<span class="variable">$INPUT_FILE1</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash">HADOOP/hadoop fs -get /wgsv2/output/gvcf/<span class="variable">$INPUT_FILE2</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash">HADOOP/hadoop fs -get /wgsv2/output/gvcf/<span class="variable">$INPUT_FILE3</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash">HADOOP/hadoop fs -get /wgsv2/output/gvcf/<span class="variable">$INPUT_FILE4</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash">HADOOP/hadoop fs -get /wgsv2/output/gvcf/<span class="variable">$INPUT_FILE5</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash">HADOOP/hadoop fs -get /wgsv2/output/gvcf/<span class="variable">$INPUT_FILE6</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash">HADOOP/hadoop fs -get /wgsv2/output/gvcf/<span class="variable">$INPUT_FILE7</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash">HADOOP/hadoop fs -get /wgsv2/output/gvcf/<span class="variable">$INPUT_FILE8</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash">HADOOP/hadoop fs -get /wgsv2/output/gvcf/<span class="variable">$INPUT_FILE9</span></span></span><br><span class="line">echo "*** 从HDFS上获取所有相关的gVCF文件"</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 合并所有的gVCF文件为VCF文件 -- E_coli_K12.vcf</span></span><br><span class="line">echo "###COMMAND LINE###：" &gt;&amp;2</span><br><span class="line">echo "java -jar $GATK -T GenotypeGVCFs -nt 4 -R $REF --variant $INPUT_FILE1 --variant $INPUT_FILE2 \</span><br><span class="line">--variant $INPUT_FILE3 --variant $INPUT_FILE4 --variant $INPUT_FILE5 --variant $INPUT_FILE6 \</span><br><span class="line">--variant $INPUT_FILE7 --variant $INPUT_FILE8 --variant $INPUT_FILE9 \</span><br><span class="line">-o E_coli_K12.vcf" &gt;&amp;2</span><br><span class="line"></span><br><span class="line">time java -jar $GATK -T GenotypeGVCFs -nt 4 -R $REF --variant $INPUT_FILE1 --variant $INPUT_FILE2 \</span><br><span class="line">--variant $INPUT_FILE3 --variant $INPUT_FILE4 --variant $INPUT_FILE5 --variant $INPUT_FILE6 \</span><br><span class="line">--variant $INPUT_FILE7 --variant $INPUT_FILE8 --variant $INPUT_FILE9 \</span><br><span class="line">-o E_coli_K12.vcf 1&gt;&amp;2 &amp;&amp; echo "*** 合并所有的gVCF文件为VCF文件" &amp;&amp; echo ""&gt;&amp;2</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 1.将vcf文件压缩</span></span></span><br><span class="line">echo "###COMMAND LINE###：" &gt;&amp;2</span><br><span class="line">echo "bgzip -f E_coli_K12.vcf" &gt;&amp;2</span><br><span class="line"></span><br><span class="line">time bgzip -f E_coli_K12.vcf &amp;&amp; echo "*** 将vcf文件进行压缩" &amp;&amp; echo ""&gt;&amp;2</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 2.构建tabix索引</span></span></span><br><span class="line">echo "###COMMAND LINE###：" &gt;&amp;2</span><br><span class="line">echo "$SAMTOOLS/tabix -p vcf E_coli_K12.vcf.gz" &gt;&amp;2</span><br><span class="line">time $SAMTOOLS/tabix -p vcf E_coli_K12.vcf.gz \</span><br><span class="line">&amp;&amp; echo "*** 给压缩文件构建tabix索引" &amp;&amp; echo ""&gt;&amp;2</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"><span class="comment"># 3. 上传最终的VCF文件以及索引文件到HDFS上</span></span></span><br><span class="line">echo "###COMMAND LINE###：" &gt;&amp;2</span><br><span class="line">echo "$HADOOP/hadoop fs -f -put E_coli_K12.vcf.gz* /wgsv2/output/vcf" &gt;&amp;2</span><br><span class="line"></span><br><span class="line">time $HADOOP/hadoop fs -f -put E_coli_K12.vcf.gz* /wgsv2/output/vcf \</span><br><span class="line">&amp;&amp; echo "*** 变异检测结果vcf文件上传到HDFS上" &amp;&amp; echo ""&gt;&amp;2</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash">rm -f E_coli_K12.vcf* *g.vcf*</span></span><br><span class="line"></span><br><span class="line">echo "--- 结束合并处理样本 $&#123;sample_name1&#125; $&#123;sample_name2&#125; $&#123;sample_name3&#125; $&#123;sample_name4&#125; $&#123;sample_name4&#125; $&#123;sample_name5&#125; $&#123;sample_name6&#125; $&#123;sample_name7&#125; $&#123;sample_name8&#125; $&#123;sample_name9&#125; ---"</span><br><span class="line">echo "############" `date "+%Y-%m-%d %H:%M:%S"` "############" &amp;&amp; echo ""</span><br></pre></td></tr></table></figure>
+<pre><code class="language-shell">#!/bin/bash
+
+# Author: elon
+# Description: 合并所有样本的GVCF文件的模板
+# Time: 2018-4-5
+
+# 该脚本需要完成的是对各个样本分区的VCGF文件做一个merge操作
+export SAMTOOLS=~/biosoft/samtools/1.0/bin
+export GATK=~/biosoft/gatk/3.6/GenomeAnalysisTK.jar
+export HADOOP=~/hadoop/bin
+
+# 定义参考序列
+export REF=~/wgs/input/fasta/E.coli_K12_MG1655.fa
+
+echo &quot;############&quot; `date &quot;+%Y-%m-%d %H:%M:%S&quot;` &quot;############&quot;
+echo &quot;--- 开始合并处理样本 ${sample_name1} ${sample_name2} ${sample_name3} ${sample_name4} ${sample_name4} ${sample_name5} ${sample_name6} ${sample_name7} ${sample_name8} ${sample_name9} ---&quot;
+
+# 定义模板变量
+INPUT_FILE1=${sample_name1}.g.vcf
+INPUT_FILE2=${sample_name2}.g.vcf
+INPUT_FILE3=${sample_name3}.g.vcf
+INPUT_FILE4=${sample_name4}.g.vcf
+INPUT_FILE5=${sample_name5}.g.vcf
+INPUT_FILE6=${sample_name6}.g.vcf
+INPUT_FILE7=${sample_name7}.g.vcf
+INPUT_FILE8=${sample_name8}.g.vcf
+INPUT_FILE9=${sample_name9}.g.vcf
+
+cd /tmp
+
+# 从HDFS上download所有的GVCF文件
+$HADOOP/hadoop fs -get /wgsv2/output/gvcf/$INPUT_FILE1
+$HADOOP/hadoop fs -get /wgsv2/output/gvcf/$INPUT_FILE2
+$HADOOP/hadoop fs -get /wgsv2/output/gvcf/$INPUT_FILE3
+$HADOOP/hadoop fs -get /wgsv2/output/gvcf/$INPUT_FILE4
+$HADOOP/hadoop fs -get /wgsv2/output/gvcf/$INPUT_FILE5
+$HADOOP/hadoop fs -get /wgsv2/output/gvcf/$INPUT_FILE6
+$HADOOP/hadoop fs -get /wgsv2/output/gvcf/$INPUT_FILE7
+$HADOOP/hadoop fs -get /wgsv2/output/gvcf/$INPUT_FILE8
+$HADOOP/hadoop fs -get /wgsv2/output/gvcf/$INPUT_FILE9
+echo &quot;*** 从HDFS上获取所有相关的gVCF文件&quot;
+
+# 合并所有的gVCF文件为VCF文件 -- E_coli_K12.vcf
+echo &quot;###COMMAND LINE###：&quot; &gt;&amp;2
+echo &quot;java -jar $GATK -T GenotypeGVCFs -nt 4 -R $REF --variant $INPUT_FILE1 --variant $INPUT_FILE2 \
+--variant $INPUT_FILE3 --variant $INPUT_FILE4 --variant $INPUT_FILE5 --variant $INPUT_FILE6 \
+--variant $INPUT_FILE7 --variant $INPUT_FILE8 --variant $INPUT_FILE9 \
+-o E_coli_K12.vcf&quot; &gt;&amp;2
+
+time java -jar $GATK -T GenotypeGVCFs -nt 4 -R $REF --variant $INPUT_FILE1 --variant $INPUT_FILE2 \
+--variant $INPUT_FILE3 --variant $INPUT_FILE4 --variant $INPUT_FILE5 --variant $INPUT_FILE6 \
+--variant $INPUT_FILE7 --variant $INPUT_FILE8 --variant $INPUT_FILE9 \
+-o E_coli_K12.vcf 1&gt;&amp;2 &amp;&amp; echo &quot;*** 合并所有的gVCF文件为VCF文件&quot; &amp;&amp; echo &quot;&quot;&gt;&amp;2
+
+## 1.将vcf文件压缩
+echo &quot;###COMMAND LINE###：&quot; &gt;&amp;2
+echo &quot;bgzip -f E_coli_K12.vcf&quot; &gt;&amp;2
+
+time bgzip -f E_coli_K12.vcf &amp;&amp; echo &quot;*** 将vcf文件进行压缩&quot; &amp;&amp; echo &quot;&quot;&gt;&amp;2
+
+## 2.构建tabix索引
+echo &quot;###COMMAND LINE###：&quot; &gt;&amp;2
+echo &quot;$SAMTOOLS/tabix -p vcf E_coli_K12.vcf.gz&quot; &gt;&amp;2
+time $SAMTOOLS/tabix -p vcf E_coli_K12.vcf.gz \
+&amp;&amp; echo &quot;*** 给压缩文件构建tabix索引&quot; &amp;&amp; echo &quot;&quot;&gt;&amp;2
+
+## 3. 上传最终的VCF文件以及索引文件到HDFS上
+echo &quot;###COMMAND LINE###：&quot; &gt;&amp;2
+echo &quot;$HADOOP/hadoop fs -f -put E_coli_K12.vcf.gz* /wgsv2/output/vcf&quot; &gt;&amp;2
+
+time $HADOOP/hadoop fs -f -put E_coli_K12.vcf.gz* /wgsv2/output/vcf \
+&amp;&amp; echo &quot;*** 变异检测结果vcf文件上传到HDFS上&quot; &amp;&amp; echo &quot;&quot;&gt;&amp;2
+
+#rm -f E_coli_K12.vcf* *g.vcf*
+
+echo &quot;--- 结束合并处理样本 ${sample_name1} ${sample_name2} ${sample_name3} ${sample_name4} ${sample_name4} ${sample_name5} ${sample_name6} ${sample_name7} ${sample_name8} ${sample_name9} ---&quot;
+echo &quot;############&quot; `date &quot;+%Y-%m-%d %H:%M:%S&quot;` &quot;############&quot; &amp;&amp; echo &quot;&quot;
+</code></pre>
 <h3 id="3-4-3-基因测序与模板引擎的结合">3.4.3 基因测序与模板引擎的结合</h3>
 <p>在我的项目框架中，对于不同的样本文件，都是采用同一套基因测序分析流程，而测序流程都是通过Linux命令行界面，因此需要通过一定的转换，将这一套分析流程提炼成一个Shell模版，对于不同的样本文件生成和它相应的分析脚本文件，这样就能达到不同的样本使用这同一套分析流程的目的，最后在不同的map任务中分别执行每个样本的分析脚本。测序流程与分析脚本的模版化如图3-2所示。</p>
 <p><img src="https://i.imgur.com/Am9wU9Z.png" alt="图3-2 测序流程与分析脚本的模版化"></p>
@@ -259,7 +464,7 @@ ga('send', 'pageview');
     
 
     <footer class="article-footer">
-      <a data-url="https://longshilin.com/blog/34f6c0b5.html" data-id="ckctcnh1y004w0mu11a2j37nb" class="article-share-link">
+      <a data-url="https://longshilin.com/blog/34f6c0b5.html" data-id="ckcuo65rz004w0m2oprkeshww" class="article-share-link">
         <i class="fa fa-share"></i> 分享
       </a>
 
@@ -345,7 +550,7 @@ ga('send', 'pageview');
   <div class="sidebar-module">
     <h4>Tag Cloud</h4>
     <p class="tagcloud">
-      <a href="/blog/tags/提问的智慧/" style="font-size: 10px;">提问的智慧</a> <a href="/blog/tags/迭代器/" style="font-size: 10px;">迭代器</a> <a href="/blog/tags/Visual-Studio/" style="font-size: 10px;">Visual Studio</a> <a href="/blog/tags/Coding/" style="font-size: 10px;">Coding</a> <a href="/blog/tags/Asset-DataBase/" style="font-size: 10px;">Asset DataBase</a> <a href="/blog/tags/C＃-Job-System/" style="font-size: 20px;">C＃ Job System</a> <a href="/blog/tags/simiki/" style="font-size: 10px;">simiki</a> <a href="/blog/tags/Class/" style="font-size: 10px;">Class</a> <a href="/blog/tags/Unity-Asset-Bundle/" style="font-size: 10px;">Unity Asset Bundle</a> <a href="/blog/tags/笔试/" style="font-size: 10px;">笔试</a> <a href="/blog/tags/Editor/" style="font-size: 10px;">Editor</a> <a href="/blog/tags/继承/" style="font-size: 10px;">继承</a> <a href="/blog/tags/编辑器功能/" style="font-size: 10px;">编辑器功能</a> <a href="/blog/tags/ECS手册和脚本参考/" style="font-size: 15px;">ECS手册和脚本参考</a> <a href="/blog/tags/wordpress/" style="font-size: 10px;">wordpress</a> <a href="/blog/tags/gitlab-pages/" style="font-size: 10px;">gitlab pages</a> <a href="/blog/tags/tools/" style="font-size: 13.33px;">tools</a> <a href="/blog/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/blog/tags/效率/" style="font-size: 10px;">效率</a> <a href="/blog/tags/Unity-Beginner-Guide/" style="font-size: 10px;">Unity Beginner Guide</a> <a href="/blog/tags/docker/" style="font-size: 11.67px;">docker</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/Unity-DLL/" style="font-size: 10px;">Unity DLL</a> <a href="/blog/tags/Atom-Snippets/" style="font-size: 10px;">Atom Snippets</a> <a href="/blog/tags/毕业设计/" style="font-size: 18.33px;">毕业设计</a> <a href="/blog/tags/Project/" style="font-size: 10px;">Project</a> <a href="/blog/tags/write/" style="font-size: 11.67px;">write</a> <a href="/blog/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/blog/tags/随机游戏元素/" style="font-size: 10px;">随机游戏元素</a> <a href="/blog/tags/打包/" style="font-size: 10px;">打包</a> <a href="/blog/tags/基因测序/" style="font-size: 18.33px;">基因测序</a> <a href="/blog/tags/集合/" style="font-size: 10px;">集合</a> <a href="/blog/tags/人生/" style="font-size: 10px;">人生</a> <a href="/blog/tags/markdown/" style="font-size: 11.67px;">markdown</a> <a href="/blog/tags/highlightjs/" style="font-size: 10px;">highlightjs</a> <a href="/blog/tags/UnityTips/" style="font-size: 10px;">UnityTips</a> <a href="/blog/tags/Smart-Merge/" style="font-size: 10px;">Smart Merge</a> <a href="/blog/tags/Unity/" style="font-size: 16.67px;">Unity</a> <a href="/blog/tags/JetBrains/" style="font-size: 10px;">JetBrains</a> <a href="/blog/tags/90km/" style="font-size: 10px;">90km</a> <a href="/blog/tags/aws-soa/" style="font-size: 10px;">aws-soa</a> <a href="/blog/tags/代理/" style="font-size: 10px;">代理</a> <a href="/blog/tags/类对象/" style="font-size: 10px;">类对象</a> <a href="/blog/tags/CI-CD/" style="font-size: 11.67px;">CI/CD</a> <a href="/blog/tags/线程/" style="font-size: 10px;">线程</a> <a href="/blog/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/blog/tags/aws/" style="font-size: 11.67px;">aws</a> <a href="/blog/tags/EventSystem/" style="font-size: 10px;">EventSystem</a> <a href="/blog/tags/极客时间/" style="font-size: 10px;">极客时间</a> <a href="/blog/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/大数据/" style="font-size: 18.33px;">大数据</a> <a href="/blog/tags/GameFramework/" style="font-size: 10px;">GameFramework</a> <a href="/blog/tags/ET/" style="font-size: 10px;">ET</a> <a href="/blog/tags/SEO/" style="font-size: 10px;">SEO</a> <a href="/blog/tags/java/" style="font-size: 11.67px;">java</a> <a href="/blog/tags/sysops/" style="font-size: 10px;">sysops</a> <a href="/blog/tags/Hadoop/" style="font-size: 18.33px;">Hadoop</a> <a href="/blog/tags/UnityDoc/" style="font-size: 11.67px;">UnityDoc</a> <a href="/blog/tags/tower/" style="font-size: 10px;">tower</a> <a href="/blog/tags/优秀文章/" style="font-size: 10px;">优秀文章</a> <a href="/blog/tags/ECS-Samples/" style="font-size: 10px;">ECS Samples</a> <a href="/blog/tags/memreduct/" style="font-size: 10px;">memreduct</a> <a href="/blog/tags/Unity-Asset/" style="font-size: 10px;">Unity Asset</a> <a href="/blog/tags/异常/" style="font-size: 10px;">异常</a> <a href="/blog/tags/DokuWiki/" style="font-size: 10px;">DokuWiki</a> <a href="/blog/tags/自定义菜单项/" style="font-size: 10px;">自定义菜单项</a> <a href="/blog/tags/longshilindotcom/" style="font-size: 10px;">longshilindotcom</a>
+      <a href="/blog/tags/继承/" style="font-size: 10px;">继承</a> <a href="/blog/tags/docker/" style="font-size: 11.67px;">docker</a> <a href="/blog/tags/异常/" style="font-size: 10px;">异常</a> <a href="/blog/tags/极客时间/" style="font-size: 10px;">极客时间</a> <a href="/blog/tags/JetBrains/" style="font-size: 10px;">JetBrains</a> <a href="/blog/tags/线程/" style="font-size: 10px;">线程</a> <a href="/blog/tags/优秀文章/" style="font-size: 10px;">优秀文章</a> <a href="/blog/tags/gitlab/" style="font-size: 10px;">gitlab</a> <a href="/blog/tags/wordpress/" style="font-size: 10px;">wordpress</a> <a href="/blog/tags/效率/" style="font-size: 10px;">效率</a> <a href="/blog/tags/随机游戏元素/" style="font-size: 10px;">随机游戏元素</a> <a href="/blog/tags/tools/" style="font-size: 13.33px;">tools</a> <a href="/blog/tags/UnityTips/" style="font-size: 10px;">UnityTips</a> <a href="/blog/tags/markdown/" style="font-size: 11.67px;">markdown</a> <a href="/blog/tags/longshilindotcom/" style="font-size: 10px;">longshilindotcom</a> <a href="/blog/tags/Unity-Beginner-Guide/" style="font-size: 10px;">Unity Beginner Guide</a> <a href="/blog/tags/SEO/" style="font-size: 10px;">SEO</a> <a href="/blog/tags/提问的智慧/" style="font-size: 10px;">提问的智慧</a> <a href="/blog/tags/Visual-Studio/" style="font-size: 10px;">Visual Studio</a> <a href="/blog/tags/Project/" style="font-size: 10px;">Project</a> <a href="/blog/tags/Unity/" style="font-size: 16.67px;">Unity</a> <a href="/blog/tags/write/" style="font-size: 11.67px;">write</a> <a href="/blog/tags/Class/" style="font-size: 10px;">Class</a> <a href="/blog/tags/Unity-DLL/" style="font-size: 10px;">Unity DLL</a> <a href="/blog/tags/编辑器功能/" style="font-size: 10px;">编辑器功能</a> <a href="/blog/tags/毕业设计/" style="font-size: 18.33px;">毕业设计</a> <a href="/blog/tags/迭代器/" style="font-size: 10px;">迭代器</a> <a href="/blog/tags/Atom-Snippets/" style="font-size: 10px;">Atom Snippets</a> <a href="/blog/tags/反射机制/" style="font-size: 10px;">反射机制</a> <a href="/blog/tags/EventSystem/" style="font-size: 10px;">EventSystem</a> <a href="/blog/tags/CI-CD/" style="font-size: 11.67px;">CI/CD</a> <a href="/blog/tags/集合/" style="font-size: 10px;">集合</a> <a href="/blog/tags/Asset-DataBase/" style="font-size: 10px;">Asset DataBase</a> <a href="/blog/tags/sysops/" style="font-size: 10px;">sysops</a> <a href="/blog/tags/memreduct/" style="font-size: 10px;">memreduct</a> <a href="/blog/tags/mybatis/" style="font-size: 10px;">mybatis</a> <a href="/blog/tags/泛型/" style="font-size: 10px;">泛型</a> <a href="/blog/tags/aws-soa/" style="font-size: 10px;">aws-soa</a> <a href="/blog/tags/hexo/" style="font-size: 11.67px;">hexo</a> <a href="/blog/tags/UnityDoc/" style="font-size: 11.67px;">UnityDoc</a> <a href="/blog/tags/C＃-Job-System/" style="font-size: 20px;">C＃ Job System</a> <a href="/blog/tags/人生/" style="font-size: 10px;">人生</a> <a href="/blog/tags/gitlab-pages/" style="font-size: 10px;">gitlab pages</a> <a href="/blog/tags/tower/" style="font-size: 10px;">tower</a> <a href="/blog/tags/自定义菜单项/" style="font-size: 10px;">自定义菜单项</a> <a href="/blog/tags/GameFramework/" style="font-size: 10px;">GameFramework</a> <a href="/blog/tags/打包/" style="font-size: 10px;">打包</a> <a href="/blog/tags/git/" style="font-size: 10px;">git</a> <a href="/blog/tags/Hadoop/" style="font-size: 18.33px;">Hadoop</a> <a href="/blog/tags/基因测序/" style="font-size: 18.33px;">基因测序</a> <a href="/blog/tags/java/" style="font-size: 11.67px;">java</a> <a href="/blog/tags/Editor/" style="font-size: 10px;">Editor</a> <a href="/blog/tags/ET/" style="font-size: 10px;">ET</a> <a href="/blog/tags/笔试/" style="font-size: 10px;">笔试</a> <a href="/blog/tags/代理/" style="font-size: 10px;">代理</a> <a href="/blog/tags/DokuWiki/" style="font-size: 10px;">DokuWiki</a> <a href="/blog/tags/ECS-Samples/" style="font-size: 10px;">ECS Samples</a> <a href="/blog/tags/aws/" style="font-size: 11.67px;">aws</a> <a href="/blog/tags/类对象/" style="font-size: 10px;">类对象</a> <a href="/blog/tags/大数据/" style="font-size: 18.33px;">大数据</a> <a href="/blog/tags/Unity-Asset/" style="font-size: 10px;">Unity Asset</a> <a href="/blog/tags/Unity-Asset-Bundle/" style="font-size: 10px;">Unity Asset Bundle</a> <a href="/blog/tags/90km/" style="font-size: 10px;">90km</a> <a href="/blog/tags/Coding/" style="font-size: 10px;">Coding</a> <a href="/blog/tags/Smart-Merge/" style="font-size: 10px;">Smart Merge</a> <a href="/blog/tags/Java/" style="font-size: 10px;">Java</a> <a href="/blog/tags/simiki/" style="font-size: 10px;">simiki</a> <a href="/blog/tags/ECS手册和脚本参考/" style="font-size: 15px;">ECS手册和脚本参考</a> <a href="/blog/tags/highlightjs/" style="font-size: 10px;">highlightjs</a>
     </p>
   </div>
 
@@ -453,12 +658,12 @@ ga('send', 'pageview');
     <div id="footer-info" class="inner">
       <!-- Copyright &copy; 2014 - 2020 Shilin Long&nbsp;<br> -->
       <!-- For support, please email <a href="mailto:583297550@qq.com">583297550@qq.com</a><br/> -->
-      <!-- Site Generated 2020-07-19 17:07:64&nbsp;&nbsp; -->
+      <!-- Site Generated 2020-07-20 15:07:45&nbsp;&nbsp; -->
       
       <span>
         <p>Copyright © 2018 - 2020 <a href="https://github.com/longshilin">Shilin Long.</a><br>
         <script type="text/javascript">document.write(unescape("%3Cspan id='cnzz_stat_icon_1274850654'%3E%3C/span%3E%3Cscript src='https://s19.cnzz.com/z_stat.php%3Fid%3D1274850654%26show%3Dpic' type='text/javascript'%3E%3C/script%3E"));</script>
-        Site Generated 2020-07-19 &nbsp;|&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
+        Site Generated 2020-07-20 &nbsp;|&nbsp; <u><a href="https://longsl.mit-license.org/" target="_blank">MIT License</a></u></p>
       </span>
       
       <!--  Create with <a href="https://hexo.io">Hexo</a>&nbsp; |&nbsp; -->
